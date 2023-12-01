@@ -12,7 +12,12 @@
 
 #include "../includes/minishell.h"
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
+	char *input;
+	char **cmds;
 	
+	input = readline();
+	cmds = ft_split(input);
 }
+
