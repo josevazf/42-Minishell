@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/07 11:14:48 by tiaferna         ###   ########.fr        #
+#    Updated: 2023/12/08 08:44:06 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ RM = rm -rf
 
 SRCDIR = src/mandatory
 
-LIBFT_DIR =  src/libft
+LIBFT_DIR =  ./libs/libft
 
 SRCS = 	src/mandatory/lexer.c src/mandatory/lexer_split.c
 
