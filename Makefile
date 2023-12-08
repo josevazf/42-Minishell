@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/08 10:28:45 by tiaferna         ###   ########.fr        #
+#    Updated: 2023/12/08 15:05:45 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,45 +31,55 @@ PURPLE  = \033[1;35m
 CYAN    = \033[1;36m
 WHITE   = \033[1;37m
 
-CC = cc
+SRCS_DIR		= src
 
-CFLAGS = -Wall -Wextra -Werror -g
+OBJS_DIR		= objs
 
-LFLAGS = -L$(LIBFT_DIR) -lft -lreadline
+INCLUDES		= includes
+LIBFT			= ./libs/libft/libft.a
+LIBFT_DIR		= ./libs/libft
 
-RM = rm -rf
+CC				= cc
+CFLAGS			= -Wall -Wextra -Werror -g 
+RM				= rm -rf
 
-SRCDIR = src/mandatory
+SRCS			= lexer.c \
+					lexer_split.c \
+					error.c
 
-LIBFT_DIR =  ./libs/libft
+# Substitute .c with .o 
+OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-SRCS = 	src/mandatory/lexer.c src/mandatory/lexer_split.c src/mandatory/error.c
-
-OBJS = $(SRCS:.c=.o)
-
+#default target
 all: $(NAME)
-
-$(NAME): $(OBJS)
-	$(MAKE) -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) -o $(NAME)
-	clear
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
 	@echo "$(GREEN)./minishell executable is ready!$(RESET)"
 
-%.o: %.c *.h
-	$(CC) $(CFLAGS) -c $< -I . -o $@
+#create .o fies
+# $< first prerequisite aka .c; $@ output/target file aka .o
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+	mkdir -p $(@D)
+	$(CC) -I $(INCLUDES) $(CFLAGS) -c $< -o $@
 
-clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	$(RM) $(OBJS)
+$(LIBFT):
 	clear
+	@echo "$(YELLOW)Compiling necessary libs...$(RESET)"
+	$(MAKE) -C $(LIBFT_DIR)
+
+#remove .o files
+clean:
+	$(RM) $(OBJS_DIR)
+	$(MAKE) clean -C $(LIBFT_DIR)
 	@echo "$(RED)Object files have been deleted!$(RESET)"
 
 fclean: clean
-	$(MAKE) -s -C $(LIBFT_DIR) fclean
-	$(RM) $(NAME)
-	clear
-	@echo "$(RED)Object files and executable have been deleted!$(RESET)"
+	$(RM) $(NAME) $(LIBFT)
 
-re: fclean all
+#reset environment - remove everything and recompile
+re: fclean
+	$(MAKE) all
 
+#targets declared as .PHONY will force the command even if there is a subdirectory or file with it's name
 .PHONY: all clean fclean re
+.SILENT:
