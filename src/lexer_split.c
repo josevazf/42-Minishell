@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 12:11:57 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../includes/lexer.h"
 
 int	is_white_space(char c)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/08 10:26:31 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 /* Deal with malloc failure */
 int	malloc_error(void *input)

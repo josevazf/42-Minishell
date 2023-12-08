@@ -6,12 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/08 10:08:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
-#include "../../includes/minishell.h"
+#include "../includes/lexer.h"
 
 // Find 'PATH=' in envp file and return the paths delimited by ':'
 char	**parse_path(char **envp)

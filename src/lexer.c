@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 12:00:46 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:46:27 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lexer.h"
+#include "../includes/lexer.h"
 
 t_lexer	*lexer_list(char **args)
 {
