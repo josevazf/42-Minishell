@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 09:31:47 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:00:46 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_lexer	*lexer_list(char **args)
 	
 int main(void)
 {
-	// t_lexer 	*lexer;
+	t_lexer 	*lexer;
 	char		*line;
 	char		**args;
 	int			i;
@@ -51,13 +51,13 @@ int main(void)
 	i = 0;
 	line = readline("Minishell$: ");
 	args = lexer_split(line);
-	// lexer = lexer_list(args);
+	lexer = lexer_list(args);
 	// TEST START
-	// while (lexer)
-	// {
-	// 	printf("%s\n", lexer->input);
-	// 	lexer = lexer->next;
-	// }
+	while (lexer)
+	{
+		printf("%s\n", lexer->input);
+		lexer = lexer->next;
+	}
 	// TEST END
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 11:15:13 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:11:57 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ static int	lexer_elements(char const *s)
 	elements = 0;
 	while (s[i])
 	{
-		while ((s[i] == '\"' && s[i + 1] == '\"') || (s[i] == 39 && s[i + 1] == 39))
+		while ((s[i] == '\"' && s[i + 1] == '\"') || (s[i] == '\'' && s[i + 1] == '\''))
 			i += 2;
 		if (!is_white_space(s[i]) && s[i])
 			elements++;
 		while (!is_white_space(s[i]) && s[i])
 		{
-			if (s[i] == '\"' || s[i] == 39)
+			if (s[i] == '\"' || s[i] == '\'')
 			{
 				i++;
-				while (s[i] != '\"' && s[i] != 39 && s[i])
+				while (s[i] != '\"' && s[i] != '\'' && s[i])
 					i++;
-				if (s[i] == '\"' || s[i] == 39)
+				if (s[i] == '\"' || s[i] == '\'')
 					continue ;
 			}
 			i++;
@@ -55,7 +55,7 @@ static int	lexer_size_of_word(char const *s, int i)
 	size_t	len;
 
 	len = 0;
-	while (s[i + len] && !is_white_space(s[i + len]) && s[i + len] != '\"' && s[i + len] != 39)
+	while (s[i + len] && !is_white_space(s[i + len]) && s[i + len] != '\"' && s[i + len] != '\'')
 		len++;
 	return (len);
 }
@@ -84,6 +84,35 @@ static int	lexer_quoted_size_of_word(char const *s, int i, char **arr)
 	return (len);
 }
 
+void	create_token(char const *s, char	**arr, size_t *i, size_t *j)
+{
+	while (s[*i])
+	{
+		while (is_white_space(s[*i]))
+			*i += 1;
+		if (s[*i] == '\0')
+			break ;
+		if ((s[*i] == '\"' && s[*i + 1] == '\"') || (s[*i] == '\'' && s[*i + 1] == '\''))
+		{
+			*i += 2;
+			continue ;
+		}
+		if ((s[*i] == '\"' || s[*i] == '\'') && s[*i])
+		{
+			arr[*j] = ft_substr(s, ++*i, lexer_quoted_size_of_word(s, *i, arr));
+			arr[*j][lexer_quoted_size_of_word(s, *i, arr)] = '\0';
+			*i += lexer_quoted_size_of_word(s, *i, arr) + 1;
+		}
+		else if (s[*i])
+		{
+			arr[*j] = ft_substr(s, *i, lexer_size_of_word(s, *i));
+			arr[*j][lexer_size_of_word(s, *i)] = '\0';
+			*i += lexer_size_of_word(s, *i);
+		}
+		*j += 1;
+	}
+}
+
 char	**lexer_split(char const *s)
 {
 	size_t	i;
@@ -98,33 +127,7 @@ char	**lexer_split(char const *s)
 	if (!arr)
 		return (NULL);
 	while (s[i])
-	{
-		while (is_white_space(s[i]))
-			i++;
-		if (s[i] == '\0')
-			break ;
-		else if ((s[i] == '\"' && s[i + 1] == '\"') || (s[i] == 39 && s[i + 1] == 39))
-		{
-			i +=2;
-			if (!s[i])
-				break ;
-			continue ;
-		}
-		else if (s[i] == '\"' || s[i] == '\'')
-		{
-			i++;
-			arr[j] = ft_substr(s, i, lexer_quoted_size_of_word(s, i, arr));
-			arr[j][lexer_quoted_size_of_word(s, i, arr)] = '\0';
-			i += lexer_quoted_size_of_word(s, i, arr) + 1;
-		}
-		else
-		{
-			arr[j] = ft_substr(s, i, lexer_size_of_word(s, i));
-			arr[j][lexer_size_of_word(s, i)] = '\0';
-			i += lexer_size_of_word(s, i);
-		}
-		j++;
-	}
+		create_token(s, arr, &i, &j);
 	arr[j] = NULL;
 	return (arr);
 }
