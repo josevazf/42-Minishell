@@ -6,18 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 14:46:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:27:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
-
-int	is_white_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
 
 static int	lexer_elements(char const *s)
 {
@@ -30,9 +23,9 @@ static int	lexer_elements(char const *s)
 	{
 		while ((s[i] == '\"' && s[i + 1] == '\"') || (s[i] == '\'' && s[i + 1] == '\''))
 			i += 2;
-		if (!is_white_space(s[i]) && s[i])
+		if (!ft_iswhitespace(s[i]) && s[i])
 			elements++;
-		while (!is_white_space(s[i]) && s[i])
+		while (!ft_iswhitespace(s[i]) && s[i])
 		{
 			if (s[i] == '\"' || s[i] == '\'')
 			{
@@ -44,7 +37,7 @@ static int	lexer_elements(char const *s)
 			}
 			i++;
 		}
-		while (is_white_space(s[i]) && s[i])
+		while (ft_iswhitespace(s[i]) && s[i])
 			i++;
 	}
 	return (elements);
@@ -55,7 +48,7 @@ static int	lexer_size_of_word(char const *s, int i)
 	size_t	len;
 
 	len = 0;
-	while (s[i + len] && !is_white_space(s[i + len]) && s[i + len] != '\"' && s[i + len] != '\'')
+	while (s[i + len] && !ft_iswhitespace(s[i + len]) && s[i + len] != '\"' && s[i + len] != '\'')
 		len++;
 	return (len);
 }
@@ -88,7 +81,7 @@ void	create_token(char const *s, char	**arr, size_t *i, size_t *j)
 {
 	while (s[*i])
 	{
-		while (is_white_space(s[*i]))
+		while (ft_iswhitespace(s[*i]))
 			*i += 1;
 		if (s[*i] == '\0')
 			break ;

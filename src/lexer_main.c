@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 14:46:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:29:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,14 @@ t_lexer	*lexer_list(char **args)
 	return (head);
 }
 	
-int main(void)
+int lexer_main(char *input)
 {
 	t_lexer 	*lexer;
-	char		*line;
 	char		**args;
 	int			i;
 
 	i = 0;
-	line = readline("Minishell$: ");
-	args = lexer_split(line);
+	args = lexer_split(input);
 	lexer = lexer_list(args);
 	// TEST START
 	while (lexer)

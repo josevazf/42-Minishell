@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/08 14:46:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:34:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,21 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 }
 
 // TO UPDATEEEEE
-char	find_cmd(char *argv, char **envp)
+char	find_cmd(char *cmd, char **envp)
 {
-	char	**cmd;
 	char	**paths;
 	char	*cmd_path;
 
-	cmd = ft_split(argv, ' ');
 	paths = parse_path(envp);
-	cmd_path = get_cmd_path(paths, cmd[0]);
+	cmd_path = get_cmd_path(paths, cmd);
 	if (cmd_path == NULL)
 	{
 		ft_free_smatrix(cmd);
 		ft_free_smatrix(paths);
 		free(cmd_path);
-		ft_error(ft_strjoin("minishell: ", argv), CMD_NOT_FOUND);
+		ft_error(ft_strjoin("minishell: ", cmd), CMD_NOT_FOUND);
 	}
 	ft_free_smatrix(cmd);
 	ft_free_smatrix(paths);
 	free(cmd_path);
-	
 }

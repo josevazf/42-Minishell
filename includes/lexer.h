@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 10:55:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:27:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ typedef struct s_lexer
 	char	*type;
 	char	*input;
 	struct s_lexer *next;
-} t_lexer;
+}	t_lexer;
 
 // lexer.c
 t_lexer	*lexer_list(char **args);
+int		lexer_main(char *input);
 
 // lexer_split.c
 char	**lexer_split(char const *s);
