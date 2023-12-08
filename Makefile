@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/08 08:44:06 by jrocha-v         ###   ########.fr        #
+#    Updated: 2023/12/08 10:28:45 by tiaferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRCDIR = src/mandatory
 
 LIBFT_DIR =  ./libs/libft
 
-SRCS = 	src/mandatory/lexer.c src/mandatory/lexer_split.c
+SRCS = 	src/mandatory/lexer.c src/mandatory/lexer_split.c src/mandatory/error.c
 
 OBJS = $(SRCS:.c=.o)
 
