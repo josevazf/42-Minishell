@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/12 15:51:44 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:39:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,34 @@ char	**parse_path(char **envp)
 	char	**paths;
 	int		i;
 
-	printf("test parse path: 1");
 	i = 0;
+	printf("test 0:%d\n", ft_strncmp(envp[0], "PATH=", 5));
+	//printf("test 1:%d\n", ft_strncmp(envp[1], "PATH=", 5));
+	printf("test 2:%d\n", ft_strncmp(envp[2], "PATH=", 5));
+	printf("test 3:%d\n", ft_strncmp(envp[3], "PATH=", 5));
+	printf("test 8:%d\n", ft_strncmp(envp[8], "PATH=", 5));
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+		if (ft_strncmp(envp[i], "PATH=", 5))
 			break ;
 		i++;
 	}
+	printf("%d", i);
+	printf("test parse path: %s\n", envp[i]);
 	if (envp[i] == NULL)
 		return (NULL);
-	printf("test parse path: 2");
 	envp_dup = ft_strdup(envp[i] + 5);
+	printf("env_dup: %s\n", envp_dup);
 	if (envp_dup == NULL)
 		return (NULL);
 	paths = ft_split(envp_dup, ':');
-	printf("test parse path: 3");
+	printf("test parse path: 3\n");
 	free(envp_dup);
 	if (paths == NULL)
 		return (NULL);
-	printf("test parse path: ok");
+	i = -1;
+	while (paths[++i])
+		printf("test parse path: %s\n", paths[i]);
 	return (paths);
 }
 
@@ -95,7 +103,6 @@ void	find_cmd(t_lexer *tokens, char **envp)
 	printf("%s", envp[2]);
 	printf("test token: %s\n", tokens->input);
 	paths = parse_path(envp);
-	printf("test path: 1");
 	cmd_path = get_cmd_path(paths, tokens->input);
 	printf("test path: %s\n", cmd_path);
 	if (cmd_path == NULL)
@@ -103,10 +110,11 @@ void	find_cmd(t_lexer *tokens, char **envp)
 		free(tokens->input);
 		ft_free_smatrix(paths);
 		free(cmd_path);
-		ft_error(ft_strjoin("minishell: ", tokens->input), CMD_NOT_FOUND);
+		ft_error(ft_strjoin("minisheeeeell: ", tokens->input), CMD_NOT_FOUND);
 	}
+	tokens->type = TYPE_CMD;
+	tokens->path = cmd_path;
 	cmd_router(tokens->input);
-	free(tokens->input);
 	ft_free_smatrix(paths);
 	free(cmd_path);
 }
