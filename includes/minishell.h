@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/08 15:43:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/12 10:01:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@
 # define IN_FILE 0
 # define OUT_FILE 1
 
-typedef struct s_data
-{
-	
-}	t_data;
-
 // minishell.c
+/*---- main ----*/
 
 // error.c
 int		args_error(void);
