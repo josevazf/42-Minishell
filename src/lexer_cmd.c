@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/12 18:39:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:59:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,22 @@ char	**parse_path(char **envp)
 	int		i;
 
 	i = 0;
-	printf("test 0:%d\n", ft_strncmp(envp[0], "PATH=", 5));
-	//printf("test 1:%d\n", ft_strncmp(envp[1], "PATH=", 5));
-	printf("test 2:%d\n", ft_strncmp(envp[2], "PATH=", 5));
-	printf("test 3:%d\n", ft_strncmp(envp[3], "PATH=", 5));
-	printf("test 8:%d\n", ft_strncmp(envp[8], "PATH=", 5));
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5))
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 			break ;
 		i++;
 	}
-	printf("%d", i);
-	printf("test parse path: %s\n", envp[i]);
 	if (envp[i] == NULL)
 		return (NULL);
 	envp_dup = ft_strdup(envp[i] + 5);
-	printf("env_dup: %s\n", envp_dup);
 	if (envp_dup == NULL)
 		return (NULL);
 	paths = ft_split(envp_dup, ':');
-	printf("test parse path: 3\n");
 	free(envp_dup);
 	if (paths == NULL)
 		return (NULL);
 	i = -1;
-	while (paths[++i])
-		printf("test parse path: %s\n", paths[i]);
 	return (paths);
 }
 
@@ -76,22 +65,22 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 
 void	cmd_router(char *cmd)
 {
-	if (ft_strcmp(cmd, "echo"))
-		ft_printf("test: echo->%s", cmd);
-	else if (ft_strcmp(cmd, "cd"))
-		ft_printf("test: cd->%s", cmd);
-	else if (ft_strcmp(cmd, "pwd"))
-		ft_printf("test: pwd->%s", cmd);
-	else if (ft_strcmp(cmd, "export"))
-		ft_printf("test: export->%s", cmd);
-	else if (ft_strcmp(cmd, "unset"))
-		ft_printf("test: unset->%s", cmd);
-	else if (ft_strcmp(cmd, "env"))
-		ft_printf("test: env->%s", cmd);
-	else if (ft_strcmp(cmd, "exit"))
-		ft_printf("test: exit->%s", cmd);
+	if (ft_strcmp(cmd, "echo") == 0)
+		ft_printf("builtin: echo-> %s\n", cmd);
+	else if (ft_strcmp(cmd, "cd") == 0)
+		ft_printf("builtin: cd-> %s\n", cmd);
+	else if (ft_strcmp(cmd, "pwd") == 0)
+		ft_printf("builtin: pwd-> %s\n", cmd);
+	else if (ft_strcmp(cmd, "export") == 0)
+		ft_printf("builtin: export-> %s\n", cmd);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		ft_printf("builtin: unset-> %s\n", cmd);
+	else if (ft_strcmp(cmd, "env") == 0)
+		ft_printf("builtin: env-> %s\n", cmd);
+	else if (ft_strcmp(cmd, "exit") == 0)
+		ft_printf("builtin: exit-> %s\n", cmd);
 	else
-		ft_printf("test: shell cmd");
+		ft_printf("shell cmd (%s)\n", cmd);
 }
 
 // TO UPDATEEEEE
@@ -100,17 +89,14 @@ void	find_cmd(t_lexer *tokens, char **envp)
 	char	**paths;
 	char	*cmd_path;
 
-	printf("%s", envp[2]);
-	printf("test token: %s\n", tokens->input);
 	paths = parse_path(envp);
 	cmd_path = get_cmd_path(paths, tokens->input);
-	printf("test path: %s\n", cmd_path);
 	if (cmd_path == NULL)
 	{
 		free(tokens->input);
 		ft_free_smatrix(paths);
 		free(cmd_path);
-		ft_error(ft_strjoin("minisheeeeell: ", tokens->input), CMD_NOT_FOUND);
+		ft_error(ft_strjoin("minishell: ", tokens->input), CMD_NOT_FOUND);
 	}
 	tokens->type = TYPE_CMD;
 	tokens->path = cmd_path;
@@ -118,4 +104,3 @@ void	find_cmd(t_lexer *tokens, char **envp)
 	ft_free_smatrix(paths);
 	free(cmd_path);
 }
-

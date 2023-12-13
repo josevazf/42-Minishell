@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/12 14:40:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/13 11:56:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,13 @@ int lexer_main(char *input, char **envp)
 {
 	t_lexer 	*tokens;
 	char		**args;
-	int			i;
 
-	i = 0;
 	args = lexer_split(input);
 	tokens = lexer_list(args);
 	// TEST START
 	while (tokens)
 	{
 		find_cmd(tokens, envp);
-		printf("token: %s\n", tokens->input);
 		tokens = tokens->next;
 	}
 	// TEST END

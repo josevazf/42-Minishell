@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/08 15:27:26 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/12 19:58:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	create_token(char const *s, char	**arr, size_t *i, size_t *j)
 		}
 		if ((s[*i] == '\"' || s[*i] == '\'') && s[*i])
 		{
-			arr[*j] = ft_substr(s, ++*i, lexer_quoted_size_of_word(s, *i, arr));
+			arr[*j] = ft_substr(s, *i + 1, lexer_quoted_size_of_word(s, *i, arr));
 			arr[*j][lexer_quoted_size_of_word(s, *i, arr)] = '\0';
 			*i += lexer_quoted_size_of_word(s, *i, arr) + 1;
 		}
