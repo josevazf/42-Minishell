@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/12 19:58:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/18 10:05:28 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
+
+void	lexer_elements_aid(char const *s, size_t *i)
+{
+	while (!ft_iswhitespace(s[*i]) && s[*i])
+	{
+		if (s[*i] == '\"' || s[*i] == '\'')
+		{
+			(*i)++;
+			while (s[*i] != '\"' && s[*i] != '\'' && s[*i])
+				(*i)++;
+			if (s[*i] == '\"' || s[*i] == '\'')
+				continue ;
+		}
+		(*i)++;
+	}
+}
 
 static int	lexer_elements(char const *s)
 {
@@ -25,18 +41,7 @@ static int	lexer_elements(char const *s)
 			i += 2;
 		if (!ft_iswhitespace(s[i]) && s[i])
 			elements++;
-		while (!ft_iswhitespace(s[i]) && s[i])
-		{
-			if (s[i] == '\"' || s[i] == '\'')
-			{
-				i++;
-				while (s[i] != '\"' && s[i] != '\'' && s[i])
-					i++;
-				if (s[i] == '\"' || s[i] == '\'')
-					continue ;
-			}
-			i++;
-		}
+		lexer_elements_aid(s, &i);
 		while (ft_iswhitespace(s[i]) && s[i])
 			i++;
 	}
