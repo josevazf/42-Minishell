@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/18 09:56:31 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/18 11:10:14 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int lexer_main(char *input, char **envp)
 	char		**args;
 
 	args = lexer_split(input);
+	int i = 0;
+	while (args[i])
+	{
+		ft_printf("%s\n", args[i++]);
+	}
 	tokens = lexer_list(args);
 	(void)envp;
 	// TEST START
