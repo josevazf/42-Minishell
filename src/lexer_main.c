@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/13 11:56:48 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/18 09:56:31 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_lexer	*lexer_list(char **args)
 		j = 0;
 		while (args[i][j])
 			j++;
-		lexer_list->input = (char *)malloc(sizeof(char) * j + 1);
-		lexer_list->input[j] = '\0';
+		lexer_list->str = (char *)malloc(sizeof(char) * j + 1);
+		lexer_list->str[j] = '\0';
 		while (--j >= 0)
-			lexer_list->input[j] = args[i][j];
+			lexer_list->str[j] = args[i][j];
 		lexer_list->next = NULL;
 		if (args[++i])
 		{
@@ -48,10 +48,12 @@ int lexer_main(char *input, char **envp)
 
 	args = lexer_split(input);
 	tokens = lexer_list(args);
+	(void)envp;
 	// TEST START
 	while (tokens)
 	{
-		find_cmd(tokens, envp);
+		// find_cmd(tokens, envp);
+		ft_printf("%s\n", tokens->str);
 		tokens = tokens->next;
 	}
 	// TEST END

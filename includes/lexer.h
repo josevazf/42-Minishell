@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/13 12:10:25 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/18 09:55:12 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 
 # include "minishell.h"
 
-# define TYPE_S_CMD 1
-# define TYPE_B_CMD 2
-# define TYPE_ARG 3
-# define TYPE_TEXT 4
-# define TYPE_PIPE 5
-# define TYPE_REDIR 6
+# define TYPE_CMD 1
+# define TYPE_PIPE 2
+# define TYPE_GREAT 3
+# define TYPE_DOU_GREAT 4
+# define TYPE_LESS 5
+# define TYPE_DOU_LESS 6
 
 typedef struct s_lexer
 {
-	int		type;
-	char	*input;
-	char	*path;
-	struct s_lexer *next;
+	char	*str;
+	int		operator;
+	int		i;
+	struct	s_lexer	*next;
+	struct s_lexer	*prev;
 }	t_lexer;
 
 // lexer.c
@@ -38,9 +39,9 @@ int		lexer_main(char *input, char **envp);
 char	**lexer_split(char const *s);
 
 // lexer_cmd.c
-char	**parse_path(char **envp);
-char	*get_cmd_path(char **envp_paths, char *cmd);
-void	find_cmd(t_lexer *tokens, char **envp);
-int		cmd_router(char *cmd);
+// char	**parse_path(char **envp);
+// char	*get_cmd_path(char **envp_paths, char *cmd);
+// void	find_cmd(t_lexer *tokens, char **envp);
+// int		cmd_router(char *cmd);
 
 #endif
