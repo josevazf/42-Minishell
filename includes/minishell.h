@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/12 10:01:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:44:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@
 # define CMD_NOT_FOUND 127
 # define IN_FILE 0
 # define OUT_FILE 1
+
+typedef struct s_mshell
+{
+	char	***env_table;
+	int		nbr_pipes;
+	int		nbr_cmds;
+	//lexer
+	//parser
+}	t_mshell;
+
 
 // minishell.c
 /*---- main ----*/
