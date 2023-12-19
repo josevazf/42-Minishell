@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/18 18:44:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:21:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,30 @@
 # define IN_FILE 0
 # define OUT_FILE 1
 
+typedef struct s_env
+{
+	char			*var;
+	char			*content;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_mshell
 {
-	char	***env_table;
-	int		nbr_pipes;
-	int		nbr_cmds;
+	int				nbr_pipes;
+	int				nbr_cmds;
+	struct s_env	*env_table;
 	//lexer
 	//parser
 }	t_mshell;
 
-
 // minishell.c
 /*---- main ----*/
+
+// env_main.c
+t_env	*create_envll(char **envp);
+t_env	*create_node(char *var, char *content);
+void	node_push_back(t_env **begin_ll, char *var, char *content);
+void	free_envll(t_env **envll);
 
 // error.c
 int		args_error(void);
