@@ -6,7 +6,7 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/19 18:27:16 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:11:24 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	quotes_checker(char const *s)
 		{
 			d_quote++;
 			i++;
-			while (s[i] != '\"' &&s[i])
+			while (s[i] != '\"' && s[i])
 				i++;
 			if (s[i] && s[i] == '\"')
 				d_quote++;
@@ -87,31 +87,53 @@ static int	lexer_elements(char const *s)
 
 static int	lexer_size_of_word(char const *s, size_t *i)
 {
-	int	len;
+	int		len;
 	char	quote;
-	
+
 	len = 0;
 	while (!ft_iswhitespace(s[*i]) && s[*i])
 	{
 		if (s && (s[*i] == '\'' || s[*i] == '\"'))
 		{
 			quote = s[*i];
-			while (s[*i] && s[++(*i)] != quote)
+			len++;
+			(*i)++;
+			while (s[*i] && s[*i] != quote)
+			{
+				(*i)++;
 				len++;
+			}
+			len++;
 			(*i)++;
 		}
 		else
 		{
-			while (s[*i] && !ft_iswhitespace(s[*i]))
-			{
-				len++;
-				(*i)++;
-			}
+			len++;
+			(*i)++;
 		}
 	}
-	if (quote == '\'' || quote == '\"')
-		return (len + 1);
 	return (len);
+}
+size_t	len_update(char const *s, unsigned int start, size_t len)
+{
+	size_t	updated_len;
+	char	quote;
+	
+	updated_len = len;
+	len += start;
+	while (start < len)
+	{
+		if (s[start] == '\'' || s[start] == '\"')
+		{
+			quote = s[start];
+			start++;
+			while (s[start] != quote && start < len)
+				start++;
+			updated_len -= 2;
+		}
+		start++;
+	}
+	return (updated_len);
 }
 
 char	*ft_lexer_substr(char const *s, unsigned int start, size_t len)
@@ -122,6 +144,7 @@ char	*ft_lexer_substr(char const *s, unsigned int start, size_t len)
 
 	i = 0;
 	j = 0;
+	len = len_update(s, start, len);
 	if (ft_strlen(s) - start < len)
 		len = ft_strlen(s) - start;
 	if (ft_strlen(s) < start)
@@ -129,10 +152,10 @@ char	*ft_lexer_substr(char const *s, unsigned int start, size_t len)
 	substr = malloc(sizeof(char) * (len + 1));
 	if (!substr)
 		return (NULL);
-	if (s[start] == '\'' || s[start] == '\"')
-		j++;
 	while (i < len)
 	{
+		if (s[start + j] == '\'' || s[start + j] == '\"')
+			j++;
 		if (s[start + j] != '\'' && s[start + j] != '\"')
 		{
 			substr[i] = s[start + j];
@@ -151,24 +174,19 @@ void	create_token(char const *s, char **arr, size_t *i, size_t *j)
 	len = 0;
 	while (s[*i])
 	{
-		while (ft_iswhitespace(s[*i]))
+		while (ft_iswhitespace(s[*i]) && s[*i])
 			(*i)++;
-		if (s[*i] == '\0')
-			break ;
-		if ((s[*i] == '\"' && s[*i + 1] == '\"') || (s[*i] == '\'' && s[*i + 1] == '\''))
-		{
+		while ((s[*i] == '\"' && s[*i + 1] == '\"') || (s[*i] == '\'' && s[*i + 1] == '\''))
 			*i += 2;
-			continue ;
-		}
-		if (s[*i])
+		if (s[*i] && !ft_iswhitespace(s[*i]))
 		{
 			len = lexer_size_of_word(s, i);
 			arr[*j] = ft_lexer_substr(s, *i - len, len);
 			arr[*j][len] = '\0';
 			if (s[*i] == '\"' || s[*i] == '\'')
 				(*i)++;
+			*j += 1;
 		}
-		*j += 1;
 	}
 }
 
