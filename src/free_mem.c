@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/12 22:37:22 by patatoss         ###   ########.fr       */
+/*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
+/*   Updated: 2023/12/21 11:40:47 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 
-void	echo(t_lexer lexer)
+void	delete_list_lexer(t_mshell *init)
 {
-	while (lexer.next)
+	t_lexer	*temp;
+
+	while (init->lexer)
 	{
-		lexer = lexer->next;
-		ft_printf("%s", lexer.input);
-		if (lexer.next)
-			ft_printf(" ");
+		temp = init->lexer;
+		free(init->lexer->str);
+		init->lexer->operator = 0;
+		init->lexer->i = 0;
+		init->lexer->prev = NULL;
+		init->lexer = init->lexer->next;
+		free(temp);
 	}
-	return ;
 }

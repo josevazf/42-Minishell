@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/18 09:55:12 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:41:37 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,27 @@
 
 typedef struct s_lexer
 {
-	char	*str;
-	int		operator;
-	int		i;
-	struct	s_lexer	*next;
+	char			*str;
+	int				operator;
+	int				i;
+	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }	t_lexer;
 
 // lexer.c
 t_lexer	*lexer_list(char **args);
-int		lexer_main(char *input, char **envp);
+int lexer_main(t_mshell *init, char *input, char **envp);
 
 // lexer_split.c
 char	**lexer_split(char const *s);
+
+// lexer_elements.c
+int	lexer_elements(char const *s);
+
+// lexer_quotes_checker.c
+void	quotes_checker(char const *s);
+
+
 
 // lexer_cmd.c
 // char	**parse_path(char **envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/19 12:21:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/21 11:41:43 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_mshell
 	int				nbr_pipes;
 	int				nbr_cmds;
 	struct s_env	*env_table;
-	//lexer
+	struct s_lexer	*lexer;
 	//parser
 }	t_mshell;
 
@@ -57,5 +57,8 @@ int		args_error(void);
 int		fd_error(int fd);
 int		malloc_error(void *input);
 int		quotes_error(void);
+
+// free_mem.c
+void	delete_list_lexer(t_mshell *init);
 
 #endif

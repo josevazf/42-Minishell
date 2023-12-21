@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/19 10:15:44 by jrocha-v         ###   ########.fr        #
+#    Updated: 2023/12/21 11:44:04 by patatoss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,9 @@ SRCS			= 	minishell.c \
 					lexer_main.c \
 					lexer_split.c \
 					lexer_cmd.c \
+					lexer_elements.c \
+					lexer_quotes_checker.c \
+					free_mem.c \
 					error.c
 
 # Substitute .c with .o 
