@@ -6,7 +6,7 @@
 #    By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/21 11:44:04 by patatoss         ###   ########.fr        #
+#    Updated: 2023/12/21 22:45:58 by patatoss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,8 @@ SRCS			= 	minishell.c \
 					lexer_cmd.c \
 					lexer_elements.c \
 					lexer_quotes_checker.c \
+					expander.c \
+					ft_strndup.c \
 					free_mem.c \
 					error.c
 

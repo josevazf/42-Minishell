@@ -6,7 +6,7 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/21 11:41:37 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/21 22:24:43 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LEXER_H
 
 # include "minishell.h"
+# include "expander.h"
+
 
 # define TYPE_CMD 1
 # define TYPE_PIPE 2

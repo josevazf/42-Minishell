@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_router.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 08:41:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/18 09:40:16 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:45:58 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ void	lexer_router(t_lexer *tokens)
 			tokens->operator = TYPE_CMD;
 	}
 }
-

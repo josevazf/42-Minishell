@@ -6,7 +6,7 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/21 11:41:43 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/21 22:23:36 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-# include "lexer.h"
+// # include "lexer.h"
+// # include "expander.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
