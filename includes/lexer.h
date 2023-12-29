@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/29 10:12:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/29 12:04:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ typedef struct s_lexer
 
 // lexer.c
 t_lexer	*lexer_list(char **args);
-int lexer_main(t_mshell *init, char *input);
+int 	lexer_main(t_mshell *init, char *input);
 
 // lexer_split.c
 char	**lexer_split(char const *s);
 
 // lexer_elements.c
-int	lexer_elements(char const *s);
+int		lexer_elements(char const *s);
 
 // lexer_quotes_checker.c
 void	quotes_checker(char const *s);

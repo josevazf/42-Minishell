@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/29 10:13:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/29 11:53:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		main(int argc, char **argv, char **envp)
 	init = (t_mshell *)malloc(sizeof(t_mshell));
 	init->env_table = create_envll(envp, 0);
 	lexer_main(init, input);
+	parser_main(init);
 /* 	while (init->env_table)
 	{
 		printf("%s\t", init->env_table->var);
