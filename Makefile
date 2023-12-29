@@ -6,7 +6,7 @@
 #    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/29 09:40:39 by tiaferna         ###   ########.fr        #
+#    Updated: 2023/12/29 12:20:56 by tiaferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRCS			= 	minishell.c \
 					ft_strndup.c \
 					free_mem.c \
 					error.c \
+					cd.c \
 					pwd.c
 
 # Substitute .c with .o 

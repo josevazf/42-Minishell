@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by patatoss          #+#    #+#             */
-/*   Updated: 2023/12/29 08:50:17 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/29 09:31:56 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	expander(t_mshell *init)
 	{
 		if (init->lexer->str[0] == '$')
 		{
-			init->env_table = env_head;
 			while (init->env_table)
 			{
 				if (ft_strncmp(init->lexer->str + 1, init->env_table->var, \
@@ -34,6 +33,7 @@ void	expander(t_mshell *init)
 				}
 				init->env_table = init->env_table->next;
 			}
+			init->env_table = env_head;
 		}
 		init->lexer = init->lexer->next;
 	}
