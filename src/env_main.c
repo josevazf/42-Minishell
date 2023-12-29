@@ -6,26 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/19 12:15:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2023/12/29 08:52:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	free_envll(t_env **envll)
-{
-	t_env	*tmp;
-
-	if (!envll || !(*envll))
-		return ;
-	while (*envll)
-	{
-		tmp = (*envll)->next;
-		free(*envll);
-		*envll = tmp;
-	}
-	*envll = NULL;
-}
 
 t_env	*create_node(char *var, char *content)
 {
@@ -56,16 +41,14 @@ void	node_push_back(t_env **begin_ll, char *var, char *content)
 }
 
 // Creates linked list with values from envp
-t_env	*create_envll(char **envp)
+t_env	*create_envll(char **envp, int i)
 {
-	int		i;
 	int		nb_lines;
 	char 	*var;
 	char	*content;
 	char	**temp;
 	t_env	*envll;
 
-	i = 0;
 	nb_lines = 0;
 	while (envp[++i])
 		nb_lines++;

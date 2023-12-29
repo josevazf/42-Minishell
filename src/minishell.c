@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/21 13:05:23 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/29 09:07:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		main(int argc, char **argv, char **envp)
 	
 	if (argc != 1)
 		args_error();
-	// init->env_table = create_envll(envp);
 	input = readline("minishell$> ");
 	if (ft_strlen(input) == 0)
 	{
@@ -29,17 +28,17 @@ int		main(int argc, char **argv, char **envp)
 	}
 	quotes_checker(input); // coloquei esta verificacao logo apos a funcao readline para evitar avancar no programa caso o input tenha falta de quote(s) - Tiago
 	init = (t_mshell *)malloc(sizeof(t_mshell));
+	init->env_table = create_envll(envp, 0);
 	lexer_main(init, input, envp);
-	free(input);
-	delete_list_lexer(init);
-	free(init);
 /* 	while (init->env_table)
 	{
 		printf("%s\t", init->env_table->var);
 		printf("%s\n", init->env_table->content);
 		init->env_table = init->env_table->next;
 	} */
+	free(input);
+	delete_lists(init);
+	free(init);
 	(void)argv;
-	(void)envp;
 	return (0);
 }

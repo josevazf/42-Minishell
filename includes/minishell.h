@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/21 22:23:36 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/29 09:06:05 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ typedef struct s_mshell
 /*---- main ----*/
 
 // env_main.c
-t_env	*create_envll(char **envp);
+t_env	*create_envll(char **envp, int i);
 t_env	*create_node(char *var, char *content);
 void	node_push_back(t_env **begin_ll, char *var, char *content);
-void	free_envll(t_env **envll);
 
 // error.c
 int		args_error(void);
@@ -60,6 +59,6 @@ int		malloc_error(void *input);
 int		quotes_error(void);
 
 // free_mem.c
-void	delete_list_lexer(t_mshell *init);
+void	delete_lists(t_mshell *init);
 
 #endif
