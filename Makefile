@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+         #
+#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/21 22:45:58 by patatoss         ###   ########.fr        #
+#    Updated: 2023/12/29 09:40:39 by tiaferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ SRCS			= 	minishell.c \
 					expander.c \
 					ft_strndup.c \
 					free_mem.c \
-					error.c
+					error.c \
+					pwd.c
 
 # Substitute .c with .o 
 OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
