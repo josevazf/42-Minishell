@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/21 22:24:43 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/29 10:12:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minishell.h"
 # include "expander.h"
-
 
 # define TYPE_CMD 1
 # define TYPE_PIPE 2
@@ -35,7 +34,7 @@ typedef struct s_lexer
 
 // lexer.c
 t_lexer	*lexer_list(char **args);
-int lexer_main(t_mshell *init, char *input, char **envp);
+int lexer_main(t_mshell *init, char *input);
 
 // lexer_split.c
 char	**lexer_split(char const *s);
@@ -45,8 +44,6 @@ int	lexer_elements(char const *s);
 
 // lexer_quotes_checker.c
 void	quotes_checker(char const *s);
-
-
 
 // lexer_cmd.c
 // char	**parse_path(char **envp);

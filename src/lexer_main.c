@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/29 09:29:39 by tiaferna         ###   ########.fr       */
+/*   Updated: 2023/12/29 10:12:20 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_lexer	*lexer_list(char **args)
 	return (head);
 }
 	
-int lexer_main(t_mshell *init, char *input, char **envp)
+int lexer_main(t_mshell *init, char *input)
 {
 	char		**args;
 
@@ -49,7 +49,6 @@ int lexer_main(t_mshell *init, char *input, char **envp)
 	init->lexer = lexer_list(args);
 	expander(init);
 	ft_free_smatrix(args);
-	(void)envp;
 	// TEST START
 	// while (init->lexer)
 	// {
