@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/21 19:21:26 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/29 09:29:39 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ int lexer_main(t_mshell *init, char *input, char **envp)
 
 	args = lexer_split(input);
 	init->lexer = lexer_list(args);
-	expander(init, envp);
+	expander(init);
 	ft_free_smatrix(args);
 	(void)envp;
 	// TEST START
-	while (init->lexer)
-	{
-		// find_cmd(init->lexer, envp);
-		ft_printf("%s\n", init->lexer->str);
-		init->lexer = init->lexer->next;
-	}
+	// while (init->lexer)
+	// {
+	// 	// find_cmd(init->lexer, envp);
+	// 	ft_printf("%s\n", init->lexer->str);
+	// 	init->lexer = init->lexer->next;
+	// }
 	// TEST END
 	return (0);
 }
