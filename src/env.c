@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/02 22:32:55 by patatoss         ###   ########.fr       */
+/*   Created: 2024/01/02 18:21:20 by patatoss          #+#    #+#             */
+/*   Updated: 2024/01/02 18:29:02 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 
-void	echo(t_mshell *init)
+void	env(t_mshell *init)
 {
-	t_lexer	*node;
-	int		flag;
-	
-	flag = 0;
-	node = init->lexer;
-	node = node->next;
+	t_env	*env_head;
 
-	if (ft_strcmp(node->str, "-n") == 0)
+	env_head = init->env_table;
+	while (init->env_table)
 	{
-		flag = 1;
-		node = node->next;
+		ft_printf("%s=%s\n", init->env_table->var, init->env_table->content);
+		init->env_table = init->env_table->next;
 	}
-	while (node)
-	{
-		ft_printf("%s", node->str);
-		if (node->next)
-			ft_printf(" ");
-		node = node->next;
-	}
-	if (flag == 0)
-		ft_printf("\n");
-	return ;
+	init->env_table = env_head;
 }

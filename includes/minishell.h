@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/29 13:06:31 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/02 22:30:18 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ void	delete_lists(t_mshell *init);
 void	pwd(t_mshell *init);
 
 // cd.c
-void	cd(t_mshell *init, char	**envp);
+void	cd(t_mshell *init);
+
+// env.c
+void	env(t_mshell *init);
+
+// echo.c
+void	echo(t_mshell *init);
 
 #endif

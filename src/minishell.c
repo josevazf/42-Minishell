@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/29 13:05:19 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/02 22:31:40 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		main(int argc, char **argv, char **envp)
 	init = (t_mshell *)malloc(sizeof(t_mshell));
 	init->env_table = create_envll(envp, 0);
 	lexer_main(init, input);
-	parser_main(init);
+	echo(init);
+	// parser_main(init);
 /* 	while (init->env_table)
 	{
 		printf("%s\t", init->env_table->var);

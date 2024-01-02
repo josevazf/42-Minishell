@@ -3,43 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/29 12:42:30 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/02 19:49:24 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 
-void	cd(t_mshell *init, char	**envp)
+void	cd(t_mshell *init)
 {
-	t_env	*env_head;
+	t_env	*node;
 	char	*old_dir;
-	int		i;
-	
-	env_head = init->env_table;
-	while(ft_strcmp("PWD", init->env_table->var) != 0)
-		init->env_table = init->env_table->next;
-	old_dir = ft_strdup(init->env_table->content);
-	free(init->env_table->content);
-	chdir(init->lexer->next->str); // Tratar em caso de erro
-	i = 0;
-	while (envp[i])
+	char	*new_dir;
+
+	new_dir = NULL;
+	node = init->env_table;
+	while(node && ft_strcmp("PWD", node->var) != 0)
+		node = node->next;
+	old_dir = ft_strdup(node->content);
+	free(node->content);
+	chdir(init->lexer->next->str);
+	new_dir = getcwd(NULL, 0);
+	node->content = ft_strdup(new_dir);
+	while(ft_strcmp("OLDPWD", node->var) != 0)
 	{
-		if (!ft_strncmp(envp[i], "PWD=", 4))
+		if (!node->next)
 		{
-			ft_printf("%s\n", envp[i]);
-			init->env_table->content = ft_strdup(envp[i] + 4);
+			node->next = (t_env *)malloc(sizeof(t_env));
+			node->next->var = ft_strdup("OLDPWD");
 		}
-		i++;
+		node = node->next;
 	}
-	ft_printf("PWD = %s\n", init->env_table->content);
-	while(ft_strcmp("OLDPWD", init->env_table->var) == 6)
-		init->env_table = init->env_table->next;
-	free(init->env_table->content);
-	init->env_table->content = ft_strdup(old_dir);
+	free(node->content);
+	node->content = ft_strdup(old_dir);
 	free(old_dir);
-	ft_printf("OLDPWD = %s\n", init->env_table->content);
-	init->env_table = env_head;
 }
