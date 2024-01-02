@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/29 10:11:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/02 20:55:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ typedef struct s_mshell
 /*---- main ----*/
 
 // env_main.c
-t_env	*create_envll(char **envp, int i);
-t_env	*create_node(char *var, char *content);
-void	node_push_back(t_env **begin_ll, char *var, char *content);
+t_env	*create_env_list(char **envp, int i);
+t_env	*create_env_node(char *var, char *content);
+void	env_node_push_back(t_env **begin_ll, char *var, char *content);
 
 // error.c
 int		args_error(void);
