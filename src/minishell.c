@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/29 11:53:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/02 23:29:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		main(int argc, char **argv, char **envp)
 	}
 	quotes_checker(input); // coloquei esta verificacao logo apos a funcao readline para evitar avancar no programa caso o input tenha falta de quote(s) - Tiago
 	init = (t_mshell *)malloc(sizeof(t_mshell));
-	init->env_table = create_envll(envp, 0);
+	init->env_table = create_env_list(envp, 0);
 	lexer_main(init, input);
-	parser_main(init);
+	//parser_main(init);  // WIPPPP
 /* 	while (init->env_table)
 	{
 		printf("%s\t", init->env_table->var);

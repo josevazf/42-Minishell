@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/02 12:01:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/02 23:29:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,21 @@
 
 void	lexer_router(t_lexer *tokens)
 {
-	t_lexer	*head;
-
-	head = tokens;
 	while (tokens)
 	{
-		if (tokens->str == "|")
+		if (!ft_strcmp(tokens->str, "|"))
 			tokens->operator = PIPE;
-		else if (tokens->str = ">")
+		else if (!ft_strcmp(tokens->str, ">"))
 			tokens->operator = GREAT;
-		else if (tokens->str = ">>")
+		else if (!ft_strcmp(tokens->str, ">>"))
 			tokens->operator = DOU_GREAT;
-		else if (tokens->str = "<")
+		else if (!ft_strcmp(tokens->str, "<"))
 			tokens->operator = LESS;
-		else if (tokens->str = "<<")
+		else if (!ft_strcmp(tokens->str, "<<"))
 			tokens->operator = DOU_LESS;
 		else
 			tokens->operator = CMD;
+		tokens = tokens->next;
 	}
 }
 
@@ -70,14 +68,16 @@ int lexer_main(t_mshell *init, char *input)
 	args = lexer_split(input);
 	init->lexer = lexer_list(args);
 	expander(init);
+	lexer_router(init->lexer);
 	ft_free_smatrix(args);
 	// TEST START
-	// while (init->lexer)
-	// {
-	// 	// find_cmd(init->lexer, envp);
-	// 	ft_printf("%s\n", init->lexer->str);
-	// 	init->lexer = init->lexer->next;
-	// }
+/* 	while (init->lexer)
+	{
+		// find_cmd(init->lexer, envp);
+		ft_printf("%s\n", init->lexer->str);
+		ft_printf("%d\n", init->lexer->operator);	
+		init->lexer = init->lexer->next;
+	} */
 	// TEST END
 	return (0);
 }
