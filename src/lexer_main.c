@@ -6,11 +6,33 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/29 10:12:20 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/02 12:01:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
+
+void	lexer_router(t_lexer *tokens)
+{
+	t_lexer	*head;
+
+	head = tokens;
+	while (tokens)
+	{
+		if (tokens->str == "|")
+			tokens->operator = PIPE;
+		else if (tokens->str = ">")
+			tokens->operator = GREAT;
+		else if (tokens->str = ">>")
+			tokens->operator = DOU_GREAT;
+		else if (tokens->str = "<")
+			tokens->operator = LESS;
+		else if (tokens->str = "<<")
+			tokens->operator = DOU_LESS;
+		else
+			tokens->operator = CMD;
+	}
+}
 
 t_lexer	*lexer_list(char **args)
 {
