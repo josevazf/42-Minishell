@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2023/12/29 12:04:37 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/02 11:28:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "minishell.h"
 # include "expander.h"
 
-# define TYPE_CMD 1
-# define TYPE_PIPE 2
-# define TYPE_GREAT 3
-# define TYPE_DOU_GREAT 4
-# define TYPE_LESS 5
-# define TYPE_DOU_LESS 6
+# define CMD 1
+# define PIPE 2
+# define GREAT 3
+# define DOU_GREAT 4
+# define LESS 5
+# define DOU_LESS 6
 
 typedef struct s_lexer
 {
