@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2023/12/29 09:40:39 by tiaferna         ###   ########.fr        #
+#    Updated: 2024/01/02 19:18:09 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ SRCS			= 	minishell.c \
 					env_main.c \
 					lexer_main.c \
 					lexer_split.c \
-					lexer_cmd.c \
 					lexer_elements.c \
 					lexer_quotes_checker.c \
 					expander.c \
