@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by patatoss          #+#    #+#             */
-/*   Updated: 2023/12/29 08:50:17 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/02 22:09:58 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/expander.h"
+
+/**** 
+	Também temos de expandir o caso: echo blablabla$USER 
+
+****/
 
 void	expander(t_mshell *init)
 {
