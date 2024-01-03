@@ -6,17 +6,51 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2023/12/29 09:05:51 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:07:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
+#include "../includes/parser.h"
 
-void	delete_lists(t_mshell *init)
+/* Free Parser nodes */
+void	free_parser(t_mshell *init)
 {
-	t_lexer	*temp_lex;
+	t_parser	*temp_parser;
+	
+	while (init->parser)
+	{
+		temp_parser = init->parser;
+		ft_free_smatrix(init->parser->cmd_exec);
+		free(init->parser->path_exec);
+		init->parser->cmd_type = 0;
+		init->parser->input = 0;
+		init->parser->output = 0;
+		init->parser = init->parser->next;
+		free(temp_parser);
+	}
+}
+
+/* Free Env table */
+void	free_env(t_mshell *init)
+{
 	t_env	*temp_env;
 
+	while (init->env_table)
+	{
+		temp_env = init->env_table;
+		free(init->env_table->var);
+		free(init->env_table->content);
+		init->env_table = init->env_table->next;
+		free(temp_env);
+	}
+}
+
+/* Free Lexer tokens */
+void	free_lexer(t_mshell *init)
+{
+	t_lexer	*temp_lex;
+	
 	while (init->lexer)
 	{
 		temp_lex = init->lexer;
@@ -26,13 +60,12 @@ void	delete_lists(t_mshell *init)
 		init->lexer->prev = NULL;
 		init->lexer = init->lexer->next;
 		free(temp_lex);
-	}
-	while (init->env_table)
-	{
-		temp_env = init->env_table;
-		free(init->env_table->var);
-		free(init->env_table->content);
-		init->env_table = init->env_table->next;
-		free(temp_env);
-	}
+	}	
+}
+
+void	delete_lists(t_mshell *init)
+{
+	free_lexer(init);
+	free_env(init);
+	free_parser(init);
 }
