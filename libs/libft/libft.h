@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 09:26:26 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/12 11:06:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 11:03:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		ft_int_max(int x, int y);
 int		ft_checkext(char *str, char *ext);
 int		ft_nbrlen(long n);
 int		ft_strcmp(char *s1, char *s2);
+char 	*ft_strpbrk(const char *s1, const char *s2);
 
 // List manipulation
 t_list	*ft_lstnew(void *content);
