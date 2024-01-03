@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/02 23:20:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 11:43:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ t_env	*create_env_list(char **envp, int i)
 	while (envp[++i])
 		nb_lines++;
 	i = -1;
-	while (++i < nb_lines) 
+	while (++i <= nb_lines) 
 	{
 		temp = ft_split(envp[i], '=');
 		var = ft_strdup(temp[0]);
-		content = ft_strdup(temp[1]);
+		content = ft_strdup(ft_strpbrk(envp[i], "=") + 1);
 		if (i == 0)
 			env_list = create_env_node(var, content);
 		else
 			env_node_push_back(&env_list, var, content);
-		ft_free_smatix(temp);
+		ft_free_smatrix(temp);
 		free(var);
 		free(content);
 	}
