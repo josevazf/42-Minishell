@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/02 23:29:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:29:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,5 @@ int lexer_main(t_mshell *init, char *input)
 	expander(init);
 	lexer_router(init->lexer);
 	ft_free_smatrix(args);
-	// TEST START
-/* 	while (init->lexer)
-	{
-		// find_cmd(init->lexer, envp);
-		ft_printf("%s\n", init->lexer->str);
-		ft_printf("%d\n", init->lexer->operator);	
-		init->lexer = init->lexer->next;
-	} */
-	// TEST END
 	return (0);
 }

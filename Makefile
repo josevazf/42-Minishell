@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/02 19:18:09 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/01/03 14:43:28 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,12 @@ SRCS			= 	minishell.c \
 					lexer_elements.c \
 					lexer_quotes_checker.c \
 					expander.c \
+					parser_main.c \
+					parser_cmd.c \
 					ft_strndup.c \
 					free_mem.c \
 					error.c \
+					print_utils.c \
 					pwd.c
 
 # Substitute .c with .o 

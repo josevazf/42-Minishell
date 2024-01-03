@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/02 23:36:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 19:46:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ typedef struct s_parser
 }	t_parser;
 
 // parser_main.c
+void		print_node(t_parser *parser);
 t_parser	*create_parser_node(int cmd_type, char *cmd_temp, char *cmd_path);
 void		parser_node_push_back(t_parser **begin_list, int cmd_type, char *cmd_temp, char *cmd_path);
-void		parser_main(t_mshell *init);
+void		parser_main(t_mshell *init, int i);
 
 // parser_cmd.c
 //char	**parse_path(char **envp);
+int		cmd_router(char *cmd);
 char	**parse_path(char *env_path);
 char	*get_cmd_path(char **envp_paths, char *cmd);
 char	*find_cmd(char *cmd);

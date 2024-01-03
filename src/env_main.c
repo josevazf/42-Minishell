@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 11:43:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:08:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_env	*create_env_node(char *var, char *content)
 {
 	t_env	*node;
 
-	node = malloc(sizeof(t_env));
+	node = (t_env *)malloc(sizeof(t_env));
 	if (!node)
 		return (NULL);
 	node->var = ft_strdup(var);
@@ -43,7 +43,7 @@ void	env_node_push_back(t_env **begin_list, char *var, char *content)
 }
 
 /* Creates linked list with values from envp */
-t_env	*create_env_list(char **envp, int i)
+int		*create_env_list(t_mshell *init, char **envp, int i)
 {
 	int		nb_lines;
 	char 	*var;
@@ -68,5 +68,6 @@ t_env	*create_env_list(char **envp, int i)
 		free(var);
 		free(content);
 	}
-	return (env_list);
+	init->env_table = env_list;
+	return (0);
 }

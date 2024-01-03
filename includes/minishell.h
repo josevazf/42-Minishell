@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/02 20:55:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 19:47:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-// # include "lexer.h"
-// # include "expander.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -48,9 +46,9 @@ typedef struct s_mshell
 /*---- main ----*/
 
 // env_main.c
-t_env	*create_env_list(char **envp, int i);
-t_env	*create_env_node(char *var, char *content);
 void	env_node_push_back(t_env **begin_ll, char *var, char *content);
+t_env	*create_env_node(char *var, char *content);
+int		*create_env_list(t_mshell *init, char **envp, int i);
 
 // error.c
 int		args_error(void);
@@ -59,9 +57,17 @@ int		malloc_error(void *input);
 int		quotes_error(void);
 
 // free_mem.c
+void	free_parser(t_mshell *init);
+void	free_env(t_mshell *init);
+void	free_lexer(t_mshell *init);
 void	delete_lists(t_mshell *init);
 
 // pwd.c
 void	pwd(t_mshell *init);
+
+// print_utils.c
+void	print_parser(t_mshell *init);
+void	print_lexer(t_mshell *init);
+void	print_env(t_mshell *init);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/02 22:59:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 19:02:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,6 @@ char	*find_cmd(char *cmd)
 		free(cmd_path);
 		ft_error(ft_strjoin("minishell: ", cmd), CMD_NOT_FOUND);
 	}
-	//tokens->type = cmd_router(tokens->input);
-	//tokens->path = cmd_path;
 	ft_free_smatrix(paths);
-	//free(cmd_path);
 	return (cmd_path);
 }
