@@ -6,7 +6,7 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/02 22:30:18 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/03 11:47:34 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ void	env(t_mshell *init);
 
 // echo.c
 void	echo(t_mshell *init);
+
+// export.c
+void	export(t_mshell *init);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/02 22:30:38 by patatoss         ###   ########.fr        #
+#    Updated: 2024/01/03 11:47:40 by patatoss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS			= 	minishell.c \
 					cd.c \
 					env.c \
 					echo.c \
+					export.c \
 					pwd.c
 
 # Substitute .c with .o 

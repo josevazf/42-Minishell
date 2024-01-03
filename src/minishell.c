@@ -6,7 +6,7 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/02 22:31:40 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/03 11:48:13 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		main(int argc, char **argv, char **envp)
 	init = (t_mshell *)malloc(sizeof(t_mshell));
 	init->env_table = create_envll(envp, 0);
 	lexer_main(init, input);
-	echo(init);
+	export(init);
 	// parser_main(init);
 /* 	while (init->env_table)
 	{
