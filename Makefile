@@ -47,10 +47,11 @@ SRCS			= 	minishell.c \
 					env_main.c \
 					lexer_main.c \
 					lexer_split.c \
-					lexer_cmd.c \
 					lexer_elements.c \
 					lexer_quotes_checker.c \
 					expander.c \
+					parser_main.c \
+					parser_cmd.c \
 					ft_strndup.c \
 					ft_strldup.c \
 					free_mem.c \
@@ -59,6 +60,8 @@ SRCS			= 	minishell.c \
 					env.c \
 					echo.c \
 					export.c \
+					print_utils.c \
+
 					pwd.c
 
 # Substitute .c with .o 

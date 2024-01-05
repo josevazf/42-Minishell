@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/29 12:46:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 19:46:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,30 @@
 # include "minishell.h"
 # include "lexer.h"
 
+# define BUILTIN_CMD 11
+# define SHELL_CMD 12
+
 typedef struct s_parser
 {
-	int				type;
-	char			**execute;
-	t_lexer			in_red;
-	t_lexer			out_red;
-	struct t_tnode	*left;
-	struct t_tnode	*right;
+	char			**cmd_exec;
+	char			*path_exec;
+	int				cmd_type;
+	int				input;
+	int				output;
+	struct s_parser	*next;
 }	t_parser;
 
 // parser_main.c
-int		parser_main(t_mshell *init);
+void		print_node(t_parser *parser);
+t_parser	*create_parser_node(int cmd_type, char *cmd_temp, char *cmd_path);
+void		parser_node_push_back(t_parser **begin_list, int cmd_type, char *cmd_temp, char *cmd_path);
+void		parser_main(t_mshell *init, int i);
+
+// parser_cmd.c
+//char	**parse_path(char **envp);
+int		cmd_router(char *cmd);
+char	**parse_path(char *env_path);
+char	*get_cmd_path(char **envp_paths, char *cmd);
+char	*find_cmd(char *cmd);
 
 #endif

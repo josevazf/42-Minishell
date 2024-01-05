@@ -12,6 +12,26 @@
 
 #include "../includes/lexer.h"
 
+void	lexer_router(t_lexer *tokens)
+{
+	while (tokens)
+	{
+		if (!ft_strcmp(tokens->str, "|"))
+			tokens->operator = PIPE;
+		else if (!ft_strcmp(tokens->str, ">"))
+			tokens->operator = GREAT;
+		else if (!ft_strcmp(tokens->str, ">>"))
+			tokens->operator = DOU_GREAT;
+		else if (!ft_strcmp(tokens->str, "<"))
+			tokens->operator = LESS;
+		else if (!ft_strcmp(tokens->str, "<<"))
+			tokens->operator = DOU_LESS;
+		else
+			tokens->operator = CMD;
+		tokens = tokens->next;
+	}
+}
+
 t_lexer	*lexer_list(char **args)
 {
 	int		i;
@@ -48,14 +68,7 @@ int lexer_main(t_mshell *init, char *input)
 	args = lexer_split(input);
 	init->lexer = lexer_list(args);
 	expander(init);
+	lexer_router(init->lexer);
 	ft_free_smatrix(args);
-	// TEST START
-	// while (init->lexer)
-	// {
-	// 	// find_cmd(init->lexer, envp);
-	// 	ft_printf("%s\n", init->lexer->str);
-	// 	init->lexer = init->lexer->next;
-	// }
-	// TEST END
 	return (0);
 }

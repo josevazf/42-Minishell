@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
+#include "../includes/parser.h"
 
 int		main(int argc, char **argv, char **envp)
 {
@@ -28,19 +29,17 @@ int		main(int argc, char **argv, char **envp)
 	}
 	quotes_checker(input); // coloquei esta verificacao logo apos a funcao readline para evitar avancar no programa caso o input tenha falta de quote(s) - Tiago
 	init = (t_mshell *)malloc(sizeof(t_mshell));
-	init->env_table = create_envll(envp, 0);
+	create_env_list(init, envp, 0);
+	//print_env(init); // PRINT ENV TABLE
 	lexer_main(init, input);
 	env(init);
 	export(init);
 	ft_printf("\n\n\n");
 	env(init);
 	// parser_main(init);
-/* 	while (init->env_table)
-	{
-		printf("%s\t", init->env_table->var);
-		printf("%s\n", init->env_table->content);
-		init->env_table = init->env_table->next;
-	} */
+	//print_lexer(init); // PRINT LEXER TOKENS
+	parser_main(init, 0);
+	//print_parser(init); // PRINT PARSER NODES
 	free(input);
 	delete_lists(init);
 	free(init);
