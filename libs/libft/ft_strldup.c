@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   ft_strldup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 22:39:47 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/04 15:52:43 by patatoss         ###   ########.fr       */
+/*   Created: 2024/01/04 15:44:37 by patatoss          #+#    #+#             */
+/*   Updated: 2024/01/05 10:37:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/expander.h"
+#include "libft.h"
 
-/* Duplicates the string starting from the 'n' value. */
-char	*ft_strndup(const char *s, size_t n)
+/* Duplicates the string up to 'l' characters. */
+char	*ft_strldup(const char *s, size_t l)
 {
 	size_t	i;
 	char	*s_dup;
 
 	i = 0;
-	s_dup = malloc(sizeof(char) * (ft_strlen(s) - n + 1) + 1);
+	s_dup = malloc(sizeof(char) * (l + 1));
 	if (!s_dup)
 		return (NULL);
-	while (s[n])
+	while (i < l)
 	{
-		s_dup[i++] = s[n++];
+		s_dup[i] = s[i];
+		i++;
 	}
 	s_dup[i] = '\0';
 	return (s_dup);

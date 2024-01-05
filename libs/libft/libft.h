@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 09:26:26 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 11:03:56 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:36:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int		ft_checkext(char *str, char *ext);
 int		ft_nbrlen(long n);
 int		ft_strcmp(char *s1, char *s2);
 char 	*ft_strpbrk(const char *s1, const char *s2);
+char	*ft_strldup(const char *s, size_t l);
+char	*ft_strndup(const char *s, size_t n);
 
 // List manipulation
 t_list	*ft_lstnew(void *content);
