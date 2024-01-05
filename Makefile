@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/03 14:43:28 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/01/04 15:49:25 by patatoss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,9 +53,15 @@ SRCS			= 	minishell.c \
 					parser_main.c \
 					parser_cmd.c \
 					ft_strndup.c \
+					ft_strldup.c \
 					free_mem.c \
 					error.c \
+					cd.c \
+					env.c \
+					echo.c \
+					export.c \
 					print_utils.c \
+
 					pwd.c
 
 # Substitute .c with .o 

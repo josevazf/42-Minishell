@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 19:47:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/03 11:47:34 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,17 @@ void	delete_lists(t_mshell *init);
 // pwd.c
 void	pwd(t_mshell *init);
 
+// cd.c
+void	cd(t_mshell *init);
+
+// env.c
+void	env(t_mshell *init);
+
+// echo.c
+void	echo(t_mshell *init);
+
+// export.c
+void	export(t_mshell *init);
 // print_utils.c
 void	print_parser(t_mshell *init);
 void	print_lexer(t_mshell *init);

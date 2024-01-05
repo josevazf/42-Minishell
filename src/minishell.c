@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 21:06:01 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:19:49 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int		main(int argc, char **argv, char **envp)
 	create_env_list(init, envp, 0);
 	//print_env(init); // PRINT ENV TABLE
 	lexer_main(init, input);
+	env(init);
+	export(init);
+	ft_printf("\n\n\n");
+	env(init);
+	// parser_main(init);
 	//print_lexer(init); // PRINT LEXER TOKENS
 	parser_main(init, 0);
 	//print_parser(init); // PRINT PARSER NODES
