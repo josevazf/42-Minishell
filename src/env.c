@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strndup.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 22:39:47 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/04 15:52:43 by patatoss         ###   ########.fr       */
+/*   Created: 2024/01/02 18:21:20 by patatoss          #+#    #+#             */
+/*   Updated: 2024/01/04 18:59:11 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/expander.h"
+#include "../includes/lexer.h"
 
-/* Duplicates the string starting from the 'n' value. */
-char	*ft_strndup(const char *s, size_t n)
+void	env(t_mshell *init)
 {
-	size_t	i;
-	char	*s_dup;
+	t_env	*env_head;
 
-	i = 0;
-	s_dup = malloc(sizeof(char) * (ft_strlen(s) - n + 1) + 1);
-	if (!s_dup)
-		return (NULL);
-	while (s[n])
+	env_head = init->env_table;
+	while (init->env_table)
 	{
-		s_dup[i++] = s[n++];
+		ft_printf("%s", init->env_table->var);
+		if (init->env_table->content)
+			ft_printf("=%s", init->env_table->content);
+		ft_printf("\n");
+		init->env_table = init->env_table->next;
 	}
-	s_dup[i] = '\0';
-	return (s_dup);
+	init->env_table = env_head;
 }
