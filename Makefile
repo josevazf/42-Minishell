@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/05 10:32:16 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/01/05 10:39:14 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,6 @@ SRCS			= 	minishell.c \
 					expander.c \
 					parser_main.c \
 					parser_cmd.c \
-					ft_strndup.c \
-					ft_strldup.c \
 					free_mem.c \
 					error.c \
 					cd.c \
