@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 17:41:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:32:47 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	print_parser(t_mshell *init)
 {
 	int i;
 	
-	i = -1;
 	while (init->parser)
 	{
+		i = -1;
 		ft_printf("cmd->");
 		while (init->parser->cmd_exec[++i])
 			ft_printf("%s ", init->parser->cmd_exec[i]);
@@ -29,7 +29,7 @@ void	print_parser(t_mshell *init)
 		ft_printf("type->%d\n", init->parser->cmd_type);
 		ft_printf("input->%d\n", init->parser->input);
 		ft_printf("output->%d\n\n", init->parser->output);
-		init->env_table = init->env_table->next;
+		init->parser = init->parser->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 21:05:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:29:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_parser	*create_parser_node(int cmd_type, char *cmd_temp, char *cmd_path)
 	node->input = STDIN_FILENO;
 	node->output = STDOUT_FILENO;
 	node->next = NULL;
-	print_node(node);
+	//print_node(node);
 	return (node);
 }
 
@@ -66,30 +66,37 @@ void	parser_main(t_mshell *init, int i)
 {
 	int			cmd_type;
 	char		*cmd_temp;
+	char		*cmd_temp2;
 	char		*cmd_path;
 	t_parser	*parser;
+	t_lexer		*lexer;
 
-	while (init->lexer && ++i)
+	parser = NULL;
+	lexer = init->lexer;
+	while (lexer && ++i)
 	{
 		i = 1;
-		if (init->lexer->operator == PIPE)
-			init->lexer = init->lexer->next;
-		cmd_type = cmd_router(init->lexer->str);
-		cmd_path = find_cmd(init->lexer->str);
-		cmd_temp = ft_strdup(init->lexer->str);
-		init->lexer = init->lexer->next;
-		while (init->lexer && init->lexer->operator != PIPE)
+		if (lexer->operator == PIPE)
+			lexer = lexer->next;
+		cmd_type = cmd_router(lexer->str);
+		cmd_path = find_cmd(lexer->str);
+		cmd_temp = ft_strdup(lexer->str);
+		lexer = lexer->next;
+		while (lexer && lexer->operator != PIPE)
 		{
-			cmd_temp = ft_strjoin(cmd_temp, "\n");
-			cmd_temp = ft_strjoin(cmd_temp, init->lexer->str);
-			init->lexer = init->lexer->next;
+			cmd_temp2 = ft_strjoin(cmd_temp, "\n");
+			free(cmd_temp);
+			cmd_temp = ft_strjoin(cmd_temp2, lexer->str);
+			free(cmd_temp2);
+			lexer = lexer->next;
 		}
 		if (i == 1)
 			parser = create_parser_node(cmd_type, cmd_temp, cmd_path);
-		else if (init->lexer && init->lexer->operator != PIPE)
+		else if (lexer && lexer->operator != PIPE)
 			parser_node_push_back(&parser, cmd_type, cmd_temp, cmd_path);
 		free(cmd_path);
 		free(cmd_temp);
 	}
 	init->parser = parser;
+	free (lexer);
 }
