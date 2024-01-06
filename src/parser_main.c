@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/05 18:29:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:06:51 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,41 @@ void	parser_node_push_back(t_parser **begin_list, int cmd_type,
 		*begin_list = create_parser_node(cmd_type, cmd_temp, cmd_path);
 }
 
+/* void	parser_main(t_mshell *init, int i)
+{
+	int			cmd_type;
+	char		*cmd_temp;
+	char		*cmd_temp2;
+	char		*cmd_path;
+	t_parser	*parser;
+
+	parser = NULL;
+	while (init->lexer && ++i)
+	{
+		if (init->lexer->operator == PIPE)
+			init->lexer = init->lexer->next;
+		cmd_type = cmd_router(init->lexer->str);
+		cmd_path = find_cmd(init->lexer->str);
+		cmd_temp = ft_strdup(init->lexer->str);
+		init->lexer = init->lexer->next;
+		while (init->lexer && init->lexer->operator != PIPE)
+		{
+			cmd_temp2 = ft_strjoin(cmd_temp, "\n");
+			free(cmd_temp);
+			cmd_temp = ft_strjoin(cmd_temp2, init->lexer->str);
+			free(cmd_temp2);
+			init->lexer = init->lexer->next;
+		}
+		if (!parser)
+			parser = create_parser_node(cmd_type, cmd_temp, cmd_path);
+		else if (init->lexer && init->lexer->operator != PIPE)
+			parser_node_push_back(&parser, cmd_type, cmd_temp, cmd_path);
+		free(cmd_path);
+		free(cmd_temp);
+	}
+	init->parser = parser;
+} */
+
 void	parser_main(t_mshell *init, int i)
 {
 	int			cmd_type;
@@ -70,14 +105,18 @@ void	parser_main(t_mshell *init, int i)
 	char		*cmd_path;
 	t_parser	*parser;
 	t_lexer		*lexer;
-
-	parser = NULL;
+	
 	lexer = init->lexer;
 	while (lexer && ++i)
 	{
-		i = 1;
+		//ft_printf("i---->%d.\n", i);
+		//ft_printf("operator---->%d\n", lexer->operator);
 		if (lexer->operator == PIPE)
+		{
+			//ft_printf("ok\n");
 			lexer = lexer->next;
+			//ft_printf("operator---->%d\n", lexer->operator);
+		}
 		cmd_type = cmd_router(lexer->str);
 		cmd_path = find_cmd(lexer->str);
 		cmd_temp = ft_strdup(lexer->str);
@@ -92,11 +131,11 @@ void	parser_main(t_mshell *init, int i)
 		}
 		if (i == 1)
 			parser = create_parser_node(cmd_type, cmd_temp, cmd_path);
-		else if (lexer && lexer->operator != PIPE)
+		else
 			parser_node_push_back(&parser, cmd_type, cmd_temp, cmd_path);
 		free(cmd_path);
 		free(cmd_temp);
 	}
 	init->parser = parser;
-	free (lexer);
+	free(lexer);
 }
