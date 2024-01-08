@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/06 18:45:23 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:26:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	print_env(t_mshell *init)
 		ft_printf("%s\n", env_table->content);
 		env_table = env_table->next;
 	}
+	free(env_table);
 }
