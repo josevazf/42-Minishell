@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/06 19:06:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:02:51 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		main(int argc, char **argv, char **envp)
 		//export(init);
 		//ft_printf("\n\n\n");
 		//env(init);
-		parser_main(init, 0);
+		parser_main(init, init->lexer, NULL, 0);
 		print_parser(init); // PRINT PARSER NODES
 		free(input);
 		delete_lists(init);
