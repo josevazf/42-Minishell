@@ -6,12 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/08 19:02:51 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:55:36 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 #include "../includes/parser.h"
+#include "../includes/executer.h"
 
 int		main(int argc, char **argv, char **envp)
 {
@@ -44,8 +45,9 @@ int		main(int argc, char **argv, char **envp)
 		//ft_printf("\n\n\n");
 		//env(init);
 		parser_main(init, init->lexer, NULL, 0);
-		print_parser(init); // PRINT PARSER NODES
+		//print_parser(init); // PRINT PARSER NODES
 		free(input);
+		executer_main(init, envp);
 		delete_lists(init);
 		free(init);
 	}
