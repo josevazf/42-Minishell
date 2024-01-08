@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/08 19:03:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:20:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_parser
 }	t_parser;
 
 // parser_main.c
-void		print_node(t_parser *parser);
+void		print_node(t_parser *parser); // TO DELETE EVENTUALLY
 t_parser	*create_parser_node(int cmd_type, char *cmd_temp, char *cmd_path);
 void		parser_node_push_back(t_parser **begin_list, int cmd_type, char *cmd_temp, char *cmd_path);
 void		parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type);
