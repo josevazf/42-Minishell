@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/05 17:37:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:05:09 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*find_cmd(char *cmd)
 	{
 		ft_free_smatrix(paths);
 		free(cmd_path);
-		ft_printf(ft_strjoin(cmd, ": command not found"));
+		ft_printf(ft_strjoin(cmd, ": command not found\n"));
 		return ("hello");
 	}
 	ft_free_smatrix(paths);
