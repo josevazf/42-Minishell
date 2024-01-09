@@ -6,13 +6,16 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/08 19:55:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:23:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/executer.h"
+#include "../includes/parser.h"
 
+/* Convert Env linked list to original format `**char` 
+	TO FIXXX */
 char	**convert_env(t_mshell *init)
 {
 	char	**strings_env;
@@ -42,18 +45,30 @@ char	**convert_env(t_mshell *init)
 	return (strings_env);
 }
 
+void simple_fork(t_mshell *init, char **envp)
+{
+	pid_t		pid;
+	t_parser	*parser;
+	
+	parser = init->parser;
+	pid = fork();
+	if (pid == -1)
+		ft_error("minishell: failed creating fork", ERROR);
+	if (pid == 0)
+		execve(parser->path_exec, parser->cmd_exec, envp);
+	else
+		waitpid(pid, NULL, 0);
+}
+
 void	executer_main(t_mshell *init, char **envp)
 {
 	//int			i;
 	char		**strings_env;
-	t_parser	*parser;
 	
 	//i = -1;
-	parser = init->parser;
 	strings_env = convert_env(init);
-	execve(parser->path_exec, parser->cmd_exec, envp);
+	simple_fork(init, envp);
 /* 	while (strings_env[++i])
 		ft_printf("%s", strings_env[i]); */
 	ft_free_smatrix(strings_env);
-	free(parser);
 }
