@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/10 09:09:18 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:38:14 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 
 # include "minishell.h"
 # include "lexer.h"
-
-typedef struct s_expand
-{
-	int		i;
-	int		macro_len;
-	int		s_quote;
-	char	*new_input;
-}	t_expand;
 
 void	expander(t_mshell *init);
 
