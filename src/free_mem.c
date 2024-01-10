@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/03 20:07:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:43:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	free_lexer(t_mshell *init)
 
 void	delete_lists(t_mshell *init)
 {
-	free_lexer(init);
-	free_env(init);
-	free_parser(init);
+	if (init->lexer)
+		free_lexer(init);
+	if (init->env_table)
+		free_env(init);
+	if (init->parser)
+		free_parser(init);
 }
