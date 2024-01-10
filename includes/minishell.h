@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/09 11:49:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:41:15 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
@@ -39,6 +40,7 @@ typedef struct s_mshell
 {
 	int				nbr_pipes;
 	int				nbr_cmds;
+	bool			cmd_not_found;
 	struct s_env	*env_table;
 	struct s_lexer	*lexer;
 	struct s_parser	*parser;
@@ -78,6 +80,7 @@ void	echo(t_mshell *init);
 
 // export.c
 void	export(t_mshell *init);
+
 // print_utils.c
 void	print_parser(t_mshell *init);
 void	print_lexer(t_mshell *init);
