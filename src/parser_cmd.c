@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 19:02:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:05:09 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,6 @@ int		cmd_router(char *cmd)
 	else
 		return (SHELL_CMD);
 }
-
-/* Find 'PATH=' in envp file and return the paths delimited by ':' */
-/* char	**parse_path(char **envp)
-{
-	char	*envp_dup;
-	char	**paths;
-	int		i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			break ;
-		i++;
-	}
-	if (envp[i] == NULL)
-		return (NULL);
-	envp_dup = ft_strdup(envp[i] + 5);
-	if (envp_dup == NULL)
-		return (NULL);
-	paths = ft_split(envp_dup, ':');
-	free(envp_dup);
-	if (paths == NULL)
-		return (NULL);
-	i = -1;
-	return (paths);
-} */
 
 char	**parse_path(char *env_path)
 {
@@ -96,7 +69,8 @@ char	*find_cmd(char *cmd)
 	{
 		ft_free_smatrix(paths);
 		free(cmd_path);
-		ft_error(ft_strjoin("minishell: ", cmd), CMD_NOT_FOUND);
+		ft_printf(ft_strjoin(cmd, ": command not found\n"));
+		return ("hello");
 	}
 	ft_free_smatrix(paths);
 	return (cmd_path);

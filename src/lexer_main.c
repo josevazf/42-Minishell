@@ -6,7 +6,7 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/10 10:03:41 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:08:45 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,14 @@ t_lexer	*lexer_list(char **args)
 	return (head);
 }
 	
-int lexer_main(t_mshell *init)
+int lexer_main(t_mshell *init, char *input)
 {
-	lexer_split(init);
+	char		**args;
+
+	args = lexer_split(input);
+	init->lexer = lexer_list(args);
 	expander(init);
-	// TESTE
-	// while (init->lexer)
-	// {
-	// 	ft_printf("%s\n", init->lexer->str);
-	// 	init->lexer = init->lexer->next;
-	// }
-	// TESTE
 	lexer_router(init->lexer);
+	ft_free_smatrix(args);
 	return (0);
 }
