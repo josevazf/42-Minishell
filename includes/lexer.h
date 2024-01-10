@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/02 22:16:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/06 16:55:54 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_lexer
 	char			*str;
 	int				operator;
 	int				i;
+	int				d_quote_expand;
 	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }	t_lexer;
@@ -35,14 +36,14 @@ typedef struct s_lexer
 // lexer_main.c
 void	lexer_router(t_lexer *tokens);
 t_lexer	*lexer_list(char **args);
-int 	lexer_main(t_mshell *init, char *input);
+int lexer_main(t_mshell *init);
 
 // lexer_split.c
-int		lexer_size_of_word(char const *s, size_t *i);
-size_t	len_update(char const *s, unsigned int start, size_t len);
-char	*ft_lexer_substr(char const *s, unsigned int start, size_t len);
-void	create_token(char const *s, char **arr, size_t *i, size_t *j);
-char	**lexer_split(char const *s);
+int		lexer_size_of_word(char *s, size_t *i, t_mshell *init);
+size_t	len_update(char *s, unsigned int start, size_t len);
+char	*ft_lexer_substr(char *s, unsigned int start, size_t len);
+void	create_token(t_mshell *init, size_t *i);
+void	lexer_split(t_mshell *init);
 
 // lexer_elements.c
 void	lexer_elements_aid(char const *s, size_t *i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/08 19:26:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/07 17:08:34 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,52 +16,41 @@
 
 void	print_parser(t_mshell *init)
 {
-	int 		i;
-	t_parser	*parser;
+	int i;
 	
-	parser = init->parser;
-	while (parser != NULL)
+	i = -1;
+	while (init->parser)
 	{
-		i = -1;
 		ft_printf("cmd->");
-		while (parser->cmd_exec[++i])
-			ft_printf("%s ", parser->cmd_exec[i]);
+		while (init->parser->cmd_exec[++i])
+			ft_printf("%s ", init->parser->cmd_exec[i]);
 		ft_printf("\n");
-		ft_printf("path->%s\n", parser->path_exec);
-		ft_printf("type->%d\n", parser->cmd_type);
-		ft_printf("input->%d\n", parser->input);
-		ft_printf("output->%d\n\n", parser->output);
-		parser = parser->next;
+		ft_printf("path->%s\n", init->parser->path_exec);
+		ft_printf("type->%d\n", init->parser->cmd_type);
+		ft_printf("input->%d\n", init->parser->input);
+		ft_printf("output->%d\n\n", init->parser->output);
+		init->env_table = init->env_table->next;
 	}
-	free(parser);
 }
 
 /* Prints Lexer tokens */
 void	print_lexer(t_mshell *init)
 {
-	t_lexer		*lexer;
-	
-	lexer = init->lexer;
-	while (lexer)
+	while (init->lexer)
 	{
-		ft_printf("str:%s\n", lexer->str);
-		ft_printf("op:%d\n\n", lexer->operator);	
-		lexer = lexer->next;
+		ft_printf("str:%s\n", init->lexer->str);
+		// ft_printf("op:%d\n\n", init->lexer->operator);
+		init->lexer = init->lexer->next;
 	}
-	free(lexer);
 }
 
 /* Prints Env table */
 void	print_env(t_mshell *init)
 {
-	t_env	*env_table;
-
-	env_table = init->env_table;
-	while (env_table)
+	while (init->env_table)
 	{
-		ft_printf("%s->", env_table->var);
-		ft_printf("%s\n", env_table->content);
-		env_table = env_table->next;
+		ft_printf("%s->", init->env_table->var);
+		ft_printf("%s\n", init->env_table->content);
+		init->env_table = init->env_table->next;
 	}
-	free(env_table);
 }
