@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 15:41:15 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:50:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ typedef struct s_env
 
 typedef struct s_mshell
 {
+	char			*input;
 	int				nbr_pipes;
 	int				nbr_cmds;
 	bool			cmd_not_found;
 	struct s_env	*env_table;
+	struct s_expand	*expander;
 	struct s_lexer	*lexer;
 	struct s_parser	*parser;
 }	t_mshell;
