@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 12:00:01 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:33:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,11 @@ void		parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type
 int		cmd_router(char *cmd);
 char	**parse_path(char *env_path);
 char	*get_cmd_path(char **envp_paths, char *cmd);
-char	*find_cmd(char *cmd);
+char	*find_cmd(char *cmd, t_mshell *init);
 
 // parser_utils.c
 char	*get_cmd_temp(char *cmd_temp, char *cmd_temp2, char *str);
 char	*get_cmd_temp2(char *cmd_temp, char *cmd_temp2);
-
-// structs_init.c
-void	parser_init(t_parser *parser);
+void	free_parser_temps(char *cmd_path, char *cmd_temp);
 
 #endif

@@ -6,20 +6,18 @@
 /*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/10 12:47:17 by patatoss         ###   ########.fr       */
+/*   Updated: 2023/12/21 13:27:46 by patatoss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 
-int	lexer_size_of_word(char *s, size_t *i, t_mshell *init)
+int	lexer_size_of_word(char const *s, size_t *i)
 {
 	int		len;
 	char	quote;
 
 	len = 0;
-	init->lexer->d_quote_expand = 0;
-	quote = '\"';
 	while (!ft_iswhitespace(s[*i]) && s[*i])
 	{
 		if (s && (s[*i] == '\'' || s[*i] == '\"'))
@@ -29,8 +27,6 @@ int	lexer_size_of_word(char *s, size_t *i, t_mshell *init)
 			(*i)++;
 			while (s[*i] && s[*i] != quote)
 			{
-				if (s[*i] == '$' && quote == '\'')
-					init->lexer->d_quote_expand = 1;
 				(*i)++;
 				len++;
 			}
@@ -41,7 +37,7 @@ int	lexer_size_of_word(char *s, size_t *i, t_mshell *init)
 	return (len);
 }
 
-size_t	len_update(char *s, unsigned int start, size_t len)
+size_t	len_update(char const *s, unsigned int start, size_t len)
 {
 	size_t	updated_len;
 	char	quote;
@@ -63,7 +59,7 @@ size_t	len_update(char *s, unsigned int start, size_t len)
 	return (updated_len);
 }
 
-char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
+char	*ft_lexer_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
 	size_t	i;
@@ -90,47 +86,45 @@ char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-void	create_token(t_mshell *init, size_t *i)
+void	create_token(char const *s, char **arr, size_t *i, size_t *j)
 {
 	size_t	len;
-	t_lexer	*lexer_head;
-	
+
 	len = 0;
-	lexer_head = NULL;
-	while (init->input[*i])
+	while (s[*i])
 	{
-		if (!init->lexer)
-			init->lexer = (t_lexer *)malloc(sizeof(t_lexer));
-		lexer_init(init->lexer);
-		if (!lexer_head)
-			lexer_head = init->lexer;
-		while (ft_iswhitespace(init->input[*i]) && init->input[*i])
+		while (ft_iswhitespace(s[*i]) && s[*i])
 			(*i)++;
-		while (init->input[*i] && ((init->input[*i] == '\"' && init->input[*i + 1] == '\"') || \
-		(init->input[*i] == '\'' && init->input[*i + 1] == '\'')))
+		while (s[*i] && ((s[*i] == '\"' && s[*i + 1] == '\"') || \
+		(s[*i] == '\'' && s[*i + 1] == '\'')))
 			*i += 2;
-		if (init->input[*i] && !ft_iswhitespace(init->input[*i]))
+		if (s[*i] && !ft_iswhitespace(s[*i]))
 		{
-			len = lexer_size_of_word(init->input, i, init);
-			init->lexer->str = ft_lexer_substr(init->input, *i - len, len);
-			if (init->input[*i] && (init->input[*i] == '\"' || init->input[*i] == '\''))
+			len = lexer_size_of_word(s, i);
+			arr[*j] = ft_lexer_substr(s, *i - len, len);
+			if (s[*i] && (s[*i] == '\"' || s[*i] == '\''))
 				(*i)++;
+			*j += 1;
 		}
-		if (init->input[*i])
-			init->lexer->next = (t_lexer *)malloc(sizeof(t_lexer));
-		init->lexer = init->lexer->next;
 	}
-	init->lexer = lexer_head;
 }
 
-void	lexer_split(t_mshell *init)
+char	**lexer_split(char const *s)
 {
 	size_t	i;
-	
+	size_t	j;
+	char	**arr;
+
 	i = 0;
-	if (lexer_elements(init->input) == 0)
-		return ; // falta adicionar tratamento de erro
-	init->lexer = NULL;
-	create_token(init, &i);
-	return ;
+	j = 0;
+	quotes_checker(s);
+	if (lexer_elements(s) == 0)
+		return (NULL);
+	arr = malloc(sizeof(char *) * (lexer_elements(s) + 1));
+	if (!arr)
+		return (NULL);
+	while (s[i])
+		create_token(s, arr, &i, &j);
+	arr[j] = NULL;
+	return (arr);
 }

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/09 12:23:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:43:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ void	executer_main(t_mshell *init, char **envp)
 	char		**strings_env;
 	
 	//i = -1;
+	if (init->cmd_not_found)
+	{
+		init->parser = NULL;
+		return ;
+	}
 	strings_env = convert_env(init);
 	simple_fork(init, envp);
 /* 	while (strings_env[++i])

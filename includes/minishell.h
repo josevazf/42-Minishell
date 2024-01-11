@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 13:28:42 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:50:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
@@ -40,6 +41,7 @@ typedef struct s_mshell
 	char			*input;
 	int				nbr_pipes;
 	int				nbr_cmds;
+	bool			cmd_not_found;
 	struct s_env	*env_table;
 	struct s_expand	*expander;
 	struct s_lexer	*lexer;
@@ -48,10 +50,6 @@ typedef struct s_mshell
 
 // minishell.c
 /*---- main ----*/
-
-// structs_init.c
-void	env_table_init(t_env *env_table);
-void	mshell_init(t_mshell *init);
 
 // env_main.c
 void	env_node_push_back(t_env **begin_ll, char *var, char *content);
