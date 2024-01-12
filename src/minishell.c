@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 11:15:59 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:34:44 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		main(int argc, char **argv, char **envp)
 			free(input);
 			continue;	
 		}
-		quotes_checker(input); // coloquei esta verificacao logo apos a funcao readline para evitar avancar no programa caso o input tenha falta de quote(s) - Tiago
+		quotes_checker(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));
 		mshell_init(init);
 		init->input = ft_strdup(input);
@@ -46,7 +46,7 @@ int		main(int argc, char **argv, char **envp)
 		parser_main(init, init->lexer, NULL, 0);
 		//print_parser(init); // PRINT PARSER NODES
 		executer_main(init, envp);
-		// delete_lists(init);
+		delete_lists(init);
 	}
 	(void)argv;
 	return (0);

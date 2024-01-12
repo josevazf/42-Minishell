@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 17:57:05 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/12 12:18:29 by tiaferna         ###   ########.fr       */
+/*   Created: 2023/12/21 17:57:05 by tiaferna          #+#    #+#             */
+/*   Updated: 2024/01/12 18:19:04 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 t_env	*fetch_macro(t_mshell *init, t_env *env_node)
 {
-	init->expander->macro_len = 0;
+	init->expander->macro_len = 1;
 	while (init->input[init->expander->i + init->expander->macro_len] && \
 	!ft_iswhitespace(init->input[init->expander->i + \
 	init->expander->macro_len]) && init->input[init->expander->i + \
-	init->expander->macro_len] != '\"')
+	init->expander->macro_len] != '\"' && init->input[init->expander->i + \
+	init->expander->macro_len] != '\'' && init->input[init->expander->i + \
+	init->expander->macro_len] != '$')
 		init->expander->macro_len++;
 	while (env_node && (strncmp(init->input + init->expander->i + 1, \
 	env_node->var, init->expander->macro_len - 1) != 0 || \
@@ -64,7 +66,11 @@ void	expander(t_mshell *init)
 			init->expander->s_quote = 0;
 		else if (init->input[init->expander->i] == '\'' && init->expander->s_quote == 0)
 			init->expander->s_quote = 1;
-		if (init->input[init->expander->i] == '$' && init->expander->s_quote == 1)
+		// if (init->input[init->expander->i] == '$' && init->input[init->expander->i + 1] == '?'  && init->expander->s_quote == 1)  // A ATUALIZAR
+		// {
+			
+		// }
+		else if (init->input[init->expander->i] == '$' && init->expander->s_quote == 1)
 		{
 			env_node = fetch_macro(init, env_node);
 			if (env_node == NULL)

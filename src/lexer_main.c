@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/12 10:45:10 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:51:57 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,9 @@ t_lexer	*lexer_list(char **args)
 	
 int lexer_main(t_mshell *init)
 {
-	// ft_printf("Entrou 1\n");
 	expander(init);
+	free_expander(init);
 	lexer_split(init);
-	// TESTE
-	// while (init->lexer)
-	// {
-	// 	ft_printf("%s\n", init->lexer->str);
-	// 	init->lexer = init->lexer->next;
-	// }
-	// TESTE
-	// lexer_router(init->lexer);
+	lexer_router(init->lexer);
 	return (0);
 }

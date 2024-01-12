@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 13:28:42 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:12:59 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_mshell
 	char			*input;
 	int				nbr_pipes;
 	int				nbr_cmds;
+	int				exit_code;
 	struct s_env	*env_table;
 	struct s_expand	*expander;
 	struct s_lexer	*lexer;
@@ -65,6 +66,7 @@ int		malloc_error(void *input);
 int		quotes_error(void);
 
 // free_mem.c
+void	free_expander(t_mshell *init);
 void	free_parser(t_mshell *init);
 void	free_env(t_mshell *init);
 void	free_lexer(t_mshell *init);
