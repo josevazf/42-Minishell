@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/12 12:05:20 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/12 12:18:29 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	update_input(t_mshell *init)
 void	clear_macro(t_mshell *init)
 {
 	init->expander->new_input = ft_strldup(init->input, init->expander->i);
-	init->expander->new_input = ft_strjoin(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
+	init->expander->new_input = ft_strupdate(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
 	update_input(init);
 }
 
 void	expand(t_mshell *init, t_env *env_node)
 {
 	init->expander->new_input = ft_strldup(init->input, init->expander->i);
-	init->expander->new_input = ft_strjoin(init->expander->new_input, env_node->content);
-	init->expander->new_input = ft_strjoin(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
+	init->expander->new_input = ft_strupdate(init->expander->new_input, env_node->content);
+	init->expander->new_input = ft_strupdate(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
 	update_input(init);
 	init->expander->i = 0;
 }

@@ -6,7 +6,7 @@
 #    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/11 12:38:54 by tiaferna         ###   ########.fr        #
+#    Updated: 2024/01/12 12:19:01 by tiaferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS			= 	minishell.c \
 					lexer_elements.c \
 					lexer_quotes_checker.c \
 					expander.c \
+					ft_strupdate.c \
 					parser_main.c \
 					parser_cmd.c \
 					parser_utils.c \
