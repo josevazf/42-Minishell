@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 17:41:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:05:09 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,19 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 	return (NULL);
 }
 
-/* Finds and returns the exec path for the given `cmd` */
-char	*find_cmd(char *cmd, t_mshell *init)
+char	*find_cmd(char *cmd)
 {
 	char	**paths;
 	char	*cmd_path;
-	char	*error_msg;
 	
-	init->cmd_not_found = false;
 	paths = parse_path(getenv("PATH"));
 	cmd_path = get_cmd_path(paths, cmd);
 	if (cmd_path == NULL)
 	{
 		ft_free_smatrix(paths);
-		error_msg = ft_strjoin(cmd, ": command not found\n");
-		ft_printf(error_msg);
-		free(error_msg);
-		init->cmd_not_found = true;
-		return (NULL);
+		free(cmd_path);
+		ft_printf(ft_strjoin(cmd, ": command not found\n"));
+		return ("hello");
 	}
 	ft_free_smatrix(paths);
 	return (cmd_path);
