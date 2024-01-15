@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 18:12:59 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:07:15 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ void	echo(t_mshell *init);
 
 // export.c
 void	export(t_mshell *init);
+
+// unset.c
+void	unset(t_mshell *init);
 
 // print_utils.c
 void	print_parser(t_mshell *init);
