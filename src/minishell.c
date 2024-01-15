@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 17:34:44 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:33:33 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = readline("minishell$> ");
-		if (input == NULL) // Resolve o CTLR+D
+		if (input == NULL || ft_strcmp(input, "exit") == 0) // Resolve o CTLR+D
 		{
+			free(input);
 			ft_printf("Exiting...\n");
 			break;
 		}
@@ -44,6 +45,7 @@ int		main(int argc, char **argv, char **envp)
 		lexer_main(init);
 		//print_lexer(init); // PRINT LEXER TOKENS
 		parser_main(init, init->lexer, NULL, 0);
+		// exit_built_in(init);
 		//print_parser(init); // PRINT PARSER NODES
 		executer_main(init, envp);
 		delete_lists(init);
