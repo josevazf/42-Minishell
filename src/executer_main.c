@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/13 19:20:43 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:15:50 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,37 +57,24 @@ void simple_fork(t_mshell *init, char **envp)
 	if (pid == 0)
 		execve(parser->path_exec, parser->cmd_exec, envp);
 	else
-	/* Mudei daqui, ate.... */
-		// waitpid(pid, NULL, 0);
 	{
 		int status;
         if (waitpid(pid, &status, 0) != -1 )
 		{
             if (WIFEXITED(status) )
-			{
                 init->exit_code = WEXITSTATUS(status);
-                printf("Exited normally with status %d\n", init->exit_code);
-            }
-            else if (WIFSIGNALED(status) ) {
+            else if (WIFSIGNALED(status) )
                 init->exit_code = WTERMSIG(status);
-                printf("Exited due to receiving signal %d\n", init->exit_code);
-            }
             else if (WIFSTOPPED(status) )
-			{
                 init->exit_code = WSTOPSIG(status);
-                printf("Stopped due to receiving signal %d\n", init->exit_code);
-            }
             else
-			{
                 printf("Something strange just happened.\n");
-            }
         }
         else
 		{
             perror("waitpid() failed");
             exit(EXIT_FAILURE);
         }
-		/* ...aqui */
 	}
 }
 
