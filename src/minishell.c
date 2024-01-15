@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/15 16:33:33 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/15 17:47:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ int		main(int argc, char **argv, char **envp)
 		create_env_list(init, envp, 0);
 		// print_env(init); // PRINT ENV TABLE
 		lexer_main(init);
-		//print_lexer(init); // PRINT LEXER TOKENS
+		// print_lexer(init); // PRINT LEXER TOKENS
 		parser_main(init, init->lexer, NULL, 0);
-		// exit_built_in(init);
-		//print_parser(init); // PRINT PARSER NODES
+		// print_parser(init); // PRINT PARSER NODES
 		executer_main(init, envp);
 		delete_lists(init);
 	}
