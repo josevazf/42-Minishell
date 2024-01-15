@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/04 16:08:45 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:54:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int lexer_main(t_mshell *init, char *input)
 
 	args = lexer_split(input);
 	init->lexer = lexer_list(args);
-	expander(init);
+	//expander(init);
 	lexer_router(init->lexer);
 	ft_free_smatrix(args);
 	return (0);
