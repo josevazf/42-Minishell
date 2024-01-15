@@ -55,6 +55,7 @@ SRCS			= 	minishell.c \
 					parser_utils.c \
 					executer_main.c \
 					structs_init.c \
+					executer_utils.c \
 					free_mem.c \
 					error.c \
 					cd.c \
