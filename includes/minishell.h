@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 17:50:48 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:07:15 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <stdbool.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
@@ -41,7 +40,7 @@ typedef struct s_mshell
 	char			*input;
 	int				nbr_pipes;
 	int				nbr_cmds;
-	bool			cmd_not_found;
+	int				exit_code;
 	struct s_env	*env_table;
 	struct s_expand	*expander;
 	struct s_lexer	*lexer;
@@ -50,6 +49,10 @@ typedef struct s_mshell
 
 // minishell.c
 /*---- main ----*/
+
+// structs_init.c
+void	env_table_init(t_env *env_table);
+void	mshell_init(t_mshell *init);
 
 // env_main.c
 void	env_node_push_back(t_env **begin_ll, char *var, char *content);
@@ -63,6 +66,7 @@ int		malloc_error(void *input);
 int		quotes_error(void);
 
 // free_mem.c
+void	free_expander(t_mshell *init);
 void	free_parser(t_mshell *init);
 void	free_env(t_mshell *init);
 void	free_lexer(t_mshell *init);
@@ -82,6 +86,9 @@ void	echo(t_mshell *init);
 
 // export.c
 void	export(t_mshell *init);
+
+// unset.c
+void	unset(t_mshell *init);
 
 // print_utils.c
 void	print_parser(t_mshell *init);

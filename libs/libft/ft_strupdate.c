@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strupdate.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/13 16:50:10 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 10:44:45 by tiaferna         ###   ########.fr       */
+/*   Created: 2024/01/12 12:15:31 by tiaferna          #+#    #+#             */
+/*   Updated: 2024/01/12 13:24:46 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*ft_strcpy(char *dest, const char *src)
+/* Updates ’s1’, the result of the concatenation of ’s1’ and ’s2’. */
+char	*ft_strupdate(char *s1, char const *s2)
 {
-	int	i;
+	char	*join;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-/* Returns a pointer to 'dest', which is a duplicate of the string 'src'. */
-char	*ft_strdup(const char *str)
-{
-	char	*temp;
-	
-	temp = malloc(ft_strlen(str) + 1);
-	if (temp != NULL)
-	{
-		ft_strcpy(temp, str);
-		return (temp);
-	}
-	else
+	i = -1;
+	j = -1;
+	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!join)
 		return (NULL);
+	while (s1[++i])
+		join[i] = s1[i];
+	while (s2[++j])
+		join[j + i] = s2[j];
+	join[i + j] = '\0';
+	free(s1);
+	return (join);
 }

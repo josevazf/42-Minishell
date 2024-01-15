@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/11 15:12:44 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:33:33 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int		main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = readline("minishell$> ");
-		if (input == NULL) // Resolve o CTLR+D
+		if (input == NULL || ft_strcmp(input, "exit") == 0) // Resolve o CTLR+D
 		{
+			free(input);
 			ft_printf("Exiting...\n");
 			break;
 		}
@@ -34,22 +35,20 @@ int		main(int argc, char **argv, char **envp)
 			free(input);
 			continue;	
 		}
-		quotes_checker(input); // coloquei esta verificacao logo apos a funcao readline para evitar avancar no programa caso o input tenha falta de quote(s) - Tiago
+		quotes_checker(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));
-		create_env_list(init, envp, 0);
-		//print_env(init); // PRINT ENV TABLE
-		lexer_main(init, input);
-		//print_lexer(init); // PRINT LEXER TOKENS
-		//env(init);
-		//export(init);
-		//ft_printf("\n\n\n");
-		//env(init);
-		parser_main(init, init->lexer, NULL, 0);
-		//print_parser(init); // PRINT PARSER NODES
+		mshell_init(init);
+		init->input = ft_strdup(input);
 		free(input);
+		create_env_list(init, envp, 0);
+		// print_env(init); // PRINT ENV TABLE
+		lexer_main(init);
+		//print_lexer(init); // PRINT LEXER TOKENS
+		parser_main(init, init->lexer, NULL, 0);
+		// exit_built_in(init);
+		//print_parser(init); // PRINT PARSER NODES
 		executer_main(init, envp);
 		delete_lists(init);
-		free(init);
 	}
 	(void)argv;
 	return (0);

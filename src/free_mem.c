@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/10 17:43:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:30:29 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 #include "../includes/parser.h"
+
+/* Free Expander nodes */
+
+void	free_expander(t_mshell *init)
+{
+	init->expander->i = 0;
+	init->expander->macro_len = 0;
+	init->expander->s_quote = 0;
+	free(init->expander);
+}
 
 /* Free Parser nodes */
 void	free_parser(t_mshell *init)
@@ -71,4 +81,8 @@ void	delete_lists(t_mshell *init)
 		free_env(init);
 	if (init->parser)
 		free_parser(init);
+	free(init->input);
+	init->nbr_cmds = 0;
+	init->nbr_pipes = 0;
+	free(init);
 }

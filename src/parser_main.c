@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/10 17:42:01 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/08 19:02:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type)
 		if (lexer->operator == PIPE)
 			lexer = lexer->next;
 		cmd_type = cmd_router(lexer->str);
-		if ((cmd_path = find_cmd(lexer->str, init)) == NULL)
-			return ;			
+		cmd_path = find_cmd(lexer->str);
 		cmd_temp = ft_strdup(lexer->str);
 		while ((lexer = lexer->next) && lexer->operator != PIPE)
 		{
@@ -85,7 +84,8 @@ void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type)
 			parser = create_parser_node(cmd_type, cmd_temp, cmd_path);
 		else
 			parser_node_push_back(&parser, cmd_type, cmd_temp, cmd_path);
-		free_parser_temps(cmd_path, cmd_temp);
+		free(cmd_path);
+		free(cmd_temp);
 	}
 	init->parser = parser;
 	free(lexer);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 17:44:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:15:50 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,25 @@ void 	fork_simple(t_mshell *init, char **envp)
 	if (pid == 0)
 		execve(parser->path_exec, parser->cmd_exec, envp);
 	else
-		waitpid(pid, NULL, 0);
+	{
+		int status;
+        if (waitpid(pid, &status, 0) != -1 )
+		{
+            if (WIFEXITED(status) )
+                init->exit_code = WEXITSTATUS(status);
+            else if (WIFSIGNALED(status) )
+                init->exit_code = WTERMSIG(status);
+            else if (WIFSTOPPED(status) )
+                init->exit_code = WSTOPSIG(status);
+            else
+                printf("Something strange just happened.\n");
+        }
+        else
+		{
+            perror("waitpid() failed");
+            exit(EXIT_FAILURE);
+        }
+	}
 }
 
 void	fork_router(t_mshell *init, char **envp)
@@ -78,6 +96,7 @@ void	executer_main(t_mshell *init, char **envp)
 {
 	char		**strings_env;
 	
+	//i = -1;
 	if (init->cmd_not_found)
 	{
 		init->parser = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/10 17:54:10 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/13 20:03:04 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,11 @@ t_lexer	*lexer_list(char **args)
 	return (head);
 }
 	
-int lexer_main(t_mshell *init, char *input)
+int lexer_main(t_mshell *init)
 {
-	char		**args;
-
-	args = lexer_split(input);
-	init->lexer = lexer_list(args);
-	//expander(init);
+	expander(init);
+	free_expander(init);
+	lexer_split(init);
 	lexer_router(init->lexer);
-	ft_free_smatrix(args);
 	return (0);
 }
