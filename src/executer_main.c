@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/16 11:00:42 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/16 14:34:17 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,23 @@
 #include "../includes/parser.h"
 #include "../includes/minishell.h"
 
+void	get_exit_code(int status)
+{
+	if (WIFEXITED(status))
+		exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		exit_code = WTERMSIG(status);
+	else if (WIFSTOPPED(status))
+		exit_code = WSTOPSIG(status);
+	else
+		printf("Something strange just happened.\n");
+}
+
 void	fork_pipe(t_parser *parser_node, char **envp)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
+	int		status;
 
 	if (pipe(pipe_fd) == -1)
 		ft_error("minishell: failed creating pipe", ERROR); /* FIXXXXX */
@@ -34,7 +47,13 @@ void	fork_pipe(t_parser *parser_node, char **envp)
 	else
 	{
 		close(pipe_fd[1]);
-		waitpid(pid, NULL, 0);
+		if (waitpid(pid, &status, 0) != -1 )
+			get_exit_code(status);
+        else
+		{
+            perror("waitpid() failed"); //corrigir
+            exit(EXIT_FAILURE);
+        }
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 	}
@@ -44,6 +63,7 @@ void 	fork_simple(t_mshell *init, char **envp)
 {
 	pid_t		pid;
 	t_parser	*parser;
+	int			status;
 	
 	parser = init->parser;
 	pid = fork();
@@ -53,31 +73,11 @@ void 	fork_simple(t_mshell *init, char **envp)
 		execve(parser->path_exec, parser->cmd_exec, envp);
 	else
 	{
-		int status;
         if (waitpid(pid, &status, 0) != -1 )
-		{
-            if (WIFEXITED(status) )
-			{
-				ft_printf("entrou 1\n");
-                exit_code = WEXITSTATUS(status);
-				printf("exit code = %d\n", exit_code);
-			}
-            else if (WIFSIGNALED(status) )
-			{
-				ft_printf("entrou 2\n");
-                exit_code = WTERMSIG(status);
-			}
-            else if (WIFSTOPPED(status) )
-			{
-				ft_printf("entrou 3\n");
-                exit_code = WSTOPSIG(status);
-			}
-            else
-                printf("Something strange just happened.\n");
-        }
+			get_exit_code(status);
         else
 		{
-            perror("waitpid() failed");
+            perror("waitpid() failed"); //corrigir
             exit(EXIT_FAILURE);
         }
 	}
