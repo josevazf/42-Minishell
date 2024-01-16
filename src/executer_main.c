@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/15 17:47:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/16 11:00:42 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/executer.h"
 #include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 void	fork_pipe(t_parser *parser_node, char **envp)
 {
@@ -56,11 +57,21 @@ void 	fork_simple(t_mshell *init, char **envp)
         if (waitpid(pid, &status, 0) != -1 )
 		{
             if (WIFEXITED(status) )
-                init->exit_code = WEXITSTATUS(status);
+			{
+				ft_printf("entrou 1\n");
+                exit_code = WEXITSTATUS(status);
+				printf("exit code = %d\n", exit_code);
+			}
             else if (WIFSIGNALED(status) )
-                init->exit_code = WTERMSIG(status);
+			{
+				ft_printf("entrou 2\n");
+                exit_code = WTERMSIG(status);
+			}
             else if (WIFSTOPPED(status) )
-                init->exit_code = WSTOPSIG(status);
+			{
+				ft_printf("entrou 3\n");
+                exit_code = WSTOPSIG(status);
+			}
             else
                 printf("Something strange just happened.\n");
         }
@@ -99,6 +110,7 @@ void	executer_main(t_mshell *init, char **envp)
 	//i = -1;
 	if (init->cmd_not_found)
 	{
+		exit_code = 127;
 		init->parser = NULL;
 		return ;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/13 20:03:14 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:08:27 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,4 @@ void	mshell_init(t_mshell *init)
 	init->input = NULL;
 	init->nbr_pipes = 0;
 	init->nbr_cmds = 0;
-	init->exit_code = 0;
 }

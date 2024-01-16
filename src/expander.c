@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/13 19:50:58 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/01/16 10:24:27 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	expand(t_mshell *init, t_env *env_node)
 	{
 		init->expander->new_input = ft_strldup(init->input, init->expander->i);
 		if (init->input[init->expander->i] == '$' && init->input[init->expander->i + 1] == '?'  && init->expander->s_quote == 1)
-			init->expander->new_input = ft_strupdate(init->expander->new_input, ft_itoa(init->exit_code));
+			init->expander->new_input = ft_strupdate(init->expander->new_input, ft_itoa(exit_code));
 		else
 			init->expander->new_input = ft_strupdate(init->expander->new_input, env_node->content);
 		init->expander->new_input = ft_strupdate(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
