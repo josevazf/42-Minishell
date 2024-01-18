@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/15 17:44:18 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:36:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 /* Return the type of the command, Shell native or Builtin */
 int		cmd_router(char *cmd)
 {
-	if (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0 ||
-		ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0 ||
-		ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0 || 
-		ft_strcmp(cmd, "exit") == 0)
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
+		!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||
+		!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") || 
+		!ft_strcmp(cmd, "exit"))
 		return (BUILTIN_CMD);
 	else
 		return (SHELL_CMD);
@@ -58,6 +58,7 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 	return (NULL);
 }
 
+/* Check if command exists and return it's path */
 char	*find_cmd(char *cmd, t_mshell *init)
 {
 	char	**paths;
