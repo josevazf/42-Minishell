@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 18:11:34 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:41:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void 	fork_cmd(t_parser *parser_node, char **envp)
 void	executer_router(t_mshell *init, char **envp)
 {
 	t_parser	*parser_node;
+	int			og_stdin;
 
 	init->nbr_pipes = 0;
 	get_pipes(init);
@@ -93,6 +94,7 @@ void	executer_router(t_mshell *init, char **envp)
 		fork_cmd(init->parser, envp);
 	else
 	{
+		og_stdin = dup(STDIN_FILENO);
 		parser_node = init->parser;
 		while (init->nbr_pipes > 0)
 		{
@@ -101,7 +103,7 @@ void	executer_router(t_mshell *init, char **envp)
 			init->nbr_pipes--;		
 		}
 		fork_cmd(parser_node, envp);
-		//init->dont_exit = true;
+		dup2(og_stdin, STDIN_FILENO);
 		//free(parser_node);
 	}
 }
