@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 15:17:20 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:37:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,23 @@ char	**convert_env(t_mshell *init)
 	free(env_table);
 	return (strings_env);
 }
+
+/* void	executer_router()
+{
+	if (ft_strcmp(cmd, "echo") == 0)
+		 
+	else if (ft_strcmp(cmd, "cd") == 0)
+		
+	else if (ft_strcmp(cmd, "pwd") == 0)
+		
+	else if (ft_strcmp(cmd, "export") == 0)
+		
+	else if (ft_strcmp(cmd, "unset") == 0) 
+		
+	else if (ft_strcmp(cmd, "env") == 0) 
+		
+	else if (ft_strcmp(cmd, "exit") == 0)
+		
+	else
+		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
+} */

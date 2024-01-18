@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/16 11:00:54 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/18 16:51:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_mshell
 	int				nbr_pipes;
 	int				nbr_cmds;
 	bool			cmd_not_found;
+	//bool			dont_exit;
 	struct s_env	*env_table;
 	struct s_expand	*expander;
 	struct s_lexer	*lexer;

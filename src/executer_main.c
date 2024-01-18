@@ -6,13 +6,12 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 11:32:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/18 18:11:34 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/executer.h"
 #include "../includes/parser.h"
-#include "../includes/minishell.h"
 
 int	exit_code;
 
@@ -61,18 +60,16 @@ void	fork_pipe(t_parser *parser_node, char **envp)
 	}
 }
 
-void 	fork_simple(t_mshell *init, char **envp)
+void 	fork_cmd(t_parser *parser_node, char **envp)
 {
 	pid_t		pid;
-	t_parser	*parser;
 	int			status;
 	
-	parser = init->parser;
 	pid = fork();
 	if (pid == -1)
 		ft_error("minishell: failed creating fork", ERROR);
 	if (pid == 0)
-		execve(parser->path_exec, parser->cmd_exec, envp);
+		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	else
 	{
         if (waitpid(pid, &status, 0) != -1 )
@@ -85,23 +82,27 @@ void 	fork_simple(t_mshell *init, char **envp)
 	}
 }
 
-void	fork_router(t_mshell *init, char **envp)
+/* TOOOOO DOOOOOOOOOOOOOO */
+void	executer_router(t_mshell *init, char **envp)
 {
 	t_parser	*parser_node;
 
 	init->nbr_pipes = 0;
 	get_pipes(init);
 	if (init->nbr_pipes == 0)
-		fork_simple(init, envp);
+		fork_cmd(init->parser, envp);
 	else
 	{
 		parser_node = init->parser;
-		while (parser_node)
+		while (init->nbr_pipes > 0)
 		{
 			fork_pipe(parser_node, envp);
-			parser_node = parser_node->next;				
+			parser_node = parser_node->next;
+			init->nbr_pipes--;		
 		}
-		free(parser_node);
+		fork_cmd(parser_node, envp);
+		//init->dont_exit = true;
+		//free(parser_node);
 	}
 }
 
@@ -117,7 +118,7 @@ void	executer_main(t_mshell *init, char **envp)
 		return ;
 	}
 	strings_env = convert_env(init);
-	fork_router(init, envp);
+	executer_router(init, envp);
 /* 	while (strings_env[++i])
 		ft_printf("%s", strings_env[i]); */
 	ft_free_smatrix(strings_env);
