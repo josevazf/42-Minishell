@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/15 18:06:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:18:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	parser_node_push_back(t_parser **begin_list, int cmd_type,
 void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type)
 {
 	char		*cmd_temp;
-	char		*cmd_temp2;
 	char		*cmd_path;
 	
 	while (lexer)
@@ -78,8 +77,8 @@ void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type)
 		cmd_temp = ft_strdup(lexer->str);
 		while ((lexer = lexer->next) && lexer->operator != PIPE)
 		{
-			cmd_temp2 = get_cmd_temp2(cmd_temp, cmd_temp2);
-			cmd_temp = get_cmd_temp(cmd_temp, cmd_temp2, lexer->str);
+			cmd_temp = ft_strupdate(cmd_temp, "\n");
+			cmd_temp = ft_strupdate(cmd_temp, lexer->str);
 		}
 		if (!parser)
 			parser = create_parser_node(cmd_type, cmd_temp, cmd_path);

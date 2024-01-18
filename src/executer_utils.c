@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 15:51:21 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:17:20 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,16 @@ char	**convert_env(t_mshell *init)
 {
 	char	**strings_env;
 	char	*temp_line;
-	char	*temp_line2;
-	char	*temp_line3;
-	char	*temp_line4;
 	t_env	*env_table;
 
 	env_table = init->env_table;
 	temp_line = ft_strdup("");
 	while (env_table)
 	{
-		temp_line4 = ft_strjoin(temp_line, env_table->var);
-		free(temp_line);
-		temp_line3 = ft_strjoin(temp_line4, "=");
-		free(temp_line4);
-		temp_line2 = ft_strjoin(temp_line3, env_table->content);
-		free(temp_line3);
-		temp_line = ft_strjoin(temp_line2, "\n\t");
-		free(temp_line2);
+		temp_line = ft_strupdate(temp_line, env_table->var);
+		temp_line = ft_strupdate(temp_line, "=");
+		temp_line = ft_strupdate(temp_line, env_table->content);
+		temp_line = ft_strupdate(temp_line, "\n\t");
 		env_table = env_table->next;
 	}
 	strings_env = ft_split(temp_line, '\t');
