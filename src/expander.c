@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:57:38 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,81 @@
 
 t_env	*fetch_macro(t_mshell *init, t_env *env_node)
 {
-	init->expander->macro_len = 1;
-	while (init->input[init->expander->i + init->expander->macro_len] && \
-	!ft_iswhitespace(init->input[init->expander->i + \
-	init->expander->macro_len]) && init->input[init->expander->i + \
-	init->expander->macro_len] != '\"' && init->input[init->expander->i + \
-	init->expander->macro_len] != '\'' && init->input[init->expander->i + \
-	init->expander->macro_len] != '$')
-		init->expander->macro_len++;
-	while (env_node && (strncmp(init->input + init->expander->i + 1, \
-	env_node->var, init->expander->macro_len - 1) != 0 || \
-	(int)ft_strlen(env_node->var) != init->expander->macro_len - 1))
+	I->EXP->macro_len = 1;
+	while (I->INP[I->EXP->i + I->EXP->macro_len] && \
+	!ft_iswhitespace(I->INP[I->EXP->i + \
+	I->EXP->macro_len]) && I->INP[I->EXP->i + I->EXP->macro_len] != '\"' \
+	&& I->INP[I->EXP->i + I->EXP->macro_len] != '\'' && \
+	I->INP[I->EXP->i + I->EXP->macro_len] != '$')
+		I->EXP->macro_len++;
+	while (env_node && (strncmp(I->INP + I->EXP->i + 1, \
+	env_node->var, I->EXP->macro_len - 1) != 0 || \
+	(int)ft_strlen(env_node->var) != I->EXP->macro_len - 1))
 		env_node = env_node->next;
 	return (env_node);
 }
 
 void	update_input(t_mshell *init)
 {
-	free(init->input);
-	init->input = ft_strdup(init->expander->new_input);
-	free(init->expander->new_input);
+	free(I->INP);
+	I->INP = ft_strdup(I->EXP->new_input);
+	free(I->EXP->new_input);
 }
 
 void	clear_macro(t_mshell *init)
 {
-	init->expander->new_input = ft_strldup(init->input, init->expander->i);
-	init->expander->new_input = ft_strupdate(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
+	I->EXP->new_input = ft_strldup(I->INP, I->EXP->i);
+	I->EXP->new_input = ft_strupdate(I->EXP->new_input, \
+	I->INP + I->EXP->i + I->EXP->macro_len);
 	update_input(init);
 }
 
 void	expand(t_mshell *init, t_env *env_node)
 {
-	if (env_node == NULL && (init->input[init->expander->i] != '$' || init->input[init->expander->i + 1] != '?'  || init->expander->s_quote != 1))
-				clear_macro(init);
+	if (env_node == NULL && (I->INP[I->EXP->i] != '$' || init->\
+	input[I->EXP->i + 1] != '?' || I->EXP->s_quote != 1))
+		clear_macro(init);
 	else
 	{
-		init->expander->new_input = ft_strldup(init->input, init->expander->i);
-		if (init->input[init->expander->i] == '$' && init->input[init->expander->i + 1] == '?'  && init->expander->s_quote == 1)
-			init->expander->new_input = ft_strupdate(init->expander->new_input, ft_itoa(exit_code));
+		I->EXP->new_input = ft_strldup(I->INP, I->EXP->i);
+		if (I->INP[I->EXP->i] == '$' && I->INP[init->\
+		expander->i + 1] == '?' && I->EXP->s_quote == 1)
+			I->EXP->new_input = ft_strupdate(I->EXP->\
+			new_input, ft_itoa(exit_code));
 		else
-			init->expander->new_input = ft_strupdate(init->expander->new_input, env_node->content);
-		init->expander->new_input = ft_strupdate(init->expander->new_input, init->input + init->expander->i + init->expander->macro_len);
+			I->EXP->new_input = ft_strupdate(I->EXP->new_input \
+			, env_node->content);
+		I->EXP->new_input = ft_strupdate(I->EXP->new_input, \
+		I->INP + I->EXP->i + I->EXP->macro_len);
 		update_input(init);
 	}
-	init->expander->i = 0;
+	I->EXP->i = 0;
 }
 
 void	expander(t_mshell *init)
 {
 	t_env	*env_node;
 
-	init->expander = (t_expand *)malloc(sizeof(t_expand));
-	init->expander->i = 0;
-	init->expander->s_quote = 1;
-	while (init->input[init->expander->i])
+	I->EXP = (t_expand *)malloc(sizeof(t_expand));
+	expander_init(I->EXP);
+	while (I->INP[I->EXP->i])
 	{
 		env_node = init->env_table;
-		if (init->input[init->expander->i] == '\'' && init->expander->s_quote == 1)
-			init->expander->s_quote = 0;
-		else if (init->input[init->expander->i] == '\'' && init->expander->s_quote == 0)
-			init->expander->s_quote = 1;
-		else if (init->input[init->expander->i] == '$' && init->expander->s_quote == 1)
+		if (I->INP[I->EXP->i] == '\'' && I->EXP->s_quote == 1)
+			I->EXP->s_quote = 0;
+		else if (I->INP[I->EXP->i] == '\'' && I->EXP->s_quote == 0)
+			I->EXP->s_quote = 1;
+		else if (I->INP[I->EXP->i] == '$' && I->INP[I->EXP->i + 1] && \
+		!ft_iswhitespace(I->INP[I->EXP->i + 1]) && init->\
+		input[I->EXP->i + 1] != '\"' && I->EXP->s_quote == 1)
 			env_node = fetch_macro(init, env_node);
-		if (init->input[init->expander->i] != '$' || (init->input[init->expander->i] == '$' && init->expander->s_quote == 0))
-			init->expander->i++;
+		if (I->INP[I->EXP->i] == '$' && I->INP[I->EXP->i + 1] && \
+		(ft_iswhitespace(I->INP[I->EXP->i + 1]) || I->INP[I->EXP->i \
+		+ 1] == '\"') && I->EXP->s_quote == 1)
+			I->EXP->i++;
+		else if (I->INP[I->EXP->i] != '$' || (I->INP[I->EXP->i] == '$' \
+		&& I->EXP->s_quote == 0))
+			I->EXP->i++;
 		else
 			expand(init, env_node);
 	}
