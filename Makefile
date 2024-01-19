@@ -6,7 +6,7 @@
 #    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/19 00:12:42 by tiago            ###   ########.fr        #
+#    Updated: 2024/01/19 14:55:31 by tiago            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS			= 	minishell.c \
 					env_main.c \
 					lexer_main.c \
 					lexer_split.c \
+					lexer_split_utils.c \
 					lexer_elements.c \
 					lexer_quotes_checker.c \
 					expander.c \
