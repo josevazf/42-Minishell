@@ -6,28 +6,17 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 15:19:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:50:13 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "minishell.h"
-# include "lexer.h"
+# include "../includes/minishell.h"
 
 # define BUILTIN_CMD 11
 # define SHELL_CMD 12
-
-typedef struct s_parser
-{
-	char			**cmd_exec;
-	char			*path_exec;
-	int				cmd_type;
-	int				input;
-	int				output;
-	struct s_parser	*next;
-}	t_parser;
 
 // parser_main.c
 void		print_node(t_parser *parser); // TO DELETE EVENTUALLY

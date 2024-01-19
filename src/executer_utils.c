@@ -6,12 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 15:37:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:55:23 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/executer.h"
 #include "../includes/parser.h"
+#include "../includes/lexer.h"
 
 void	get_pipes(t_mshell *init)
 {
