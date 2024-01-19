@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/19 10:00:50 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:46:06 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	expander_init(t_expand *expander)
 {
 	expander->i = 0;
 	expander->macro_len = 0;
-	expander->s_quote = 0;
+	expander->s_quote = 1;
 	expander->new_input = NULL;
 }
 
