@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 08:23:54 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/10 12:16:04 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:02:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 void	lexer_elements_aid(char const *s, size_t *i)
 {

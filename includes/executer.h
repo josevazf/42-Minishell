@@ -6,15 +6,14 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/18 18:09:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:01:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTER_H
 # define EXECUTER_H
 
-# include "minishell.h"
-# include "parser.h"
+#include "../includes/minishell.h"
 
 // executer_main.c
 void	get_exit_code(int status);

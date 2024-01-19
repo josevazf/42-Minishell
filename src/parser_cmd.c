@@ -6,11 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 18:36:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:03:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 /* Return the type of the command, Shell native or Builtin */
 int		cmd_router(char *cmd)

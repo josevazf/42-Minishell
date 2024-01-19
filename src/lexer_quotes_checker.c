@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: patatoss <patatoss@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 08:18:02 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/10 12:09:25 by patatoss         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:02:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type)
 {

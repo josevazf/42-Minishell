@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/16 10:24:27 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/19 10:02:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/expander.h"
+#include "../includes/minishell.h"
 
 t_env	*fetch_macro(t_mshell *init, t_env *env_node)
 {

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 09:54:52 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:00:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "../libs/libft/libft.h"
 # include "../includes/structs.h"
+# include "../includes/lexer.h"
+# include "../includes/expander.h"
+# include "../includes/parser.h"
+# include "../includes/executer.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>

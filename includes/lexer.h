@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 09:53:07 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:01:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LEXER_H
 
 # include "../includes/minishell.h"
-# include "../includes/expander.h"
 
 # define CMD 1
 # define PIPE 2

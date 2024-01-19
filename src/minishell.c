@@ -6,13 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 18:11:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:02:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
-#include "../includes/parser.h"
-#include "../includes/executer.h"
+#include "../includes/minishell.h"
 
 int		main(int argc, char **argv, char **envp)
 {

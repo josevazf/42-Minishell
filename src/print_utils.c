@@ -6,13 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/08 19:26:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:03:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/lexer.h"
-#include "../includes/parser.h"
 
 void	print_parser(t_mshell *init)
 {

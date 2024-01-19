@@ -6,12 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 18:29:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:02:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/executer.h"
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 /*						WWWWIIIIIPPPPP 							*/
 

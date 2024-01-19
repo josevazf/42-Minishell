@@ -6,12 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/18 18:41:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 10:01:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/executer.h"
-#include "../includes/parser.h"
+#include "../includes/minishell.h"
 
 int	exit_code;
 
