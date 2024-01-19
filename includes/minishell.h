@@ -91,6 +91,13 @@ void	echo(t_mshell *init);
 // export.c
 void	export(t_mshell *init);
 
+// export_utils.c
+void	assign_val(t_env **env_node, t_env **count, int *flag, t_mshell *init);
+void	save_in_stash(t_env *node, t_env *stash);
+int	check_stash(t_env *node, t_env *stash);
+void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
+void	check_oldpwd(t_env *prnt, int *flag);
+
 // unset.c
 void	unset(t_mshell *init);
 
