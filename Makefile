@@ -6,7 +6,7 @@
 #    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/15 12:07:10 by tiago            ###   ########.fr        #
+#    Updated: 2024/01/19 00:12:42 by tiago            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS			= 	minishell.c \
 					env.c \
 					echo.c \
 					export.c \
+					export_utils.c \
 					unset.c \
 					print_utils.c \
 					pwd.c
