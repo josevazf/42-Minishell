@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:09:55 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ int		main(int argc, char **argv, char **envp)
 		{
 			free(input);
 			ft_printf("Exiting...\n");
-			break;
+			break ;
 		}
-		if (input[0] == '\0')
+		if (input[0] == '\0' || quotes_checker(input) != 0)
 		{
+			if (quotes_checker(input) != 0)
+				ft_printf("minishell: unclosed quotes\n");
 			free(input);
-			continue;	
+			continue ;	
 		}
-		quotes_checker(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));
 		mshell_init(init);
 		init->input = ft_strdup(input);
