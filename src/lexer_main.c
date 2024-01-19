@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:59:10 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_lexer	*lexer_list(char **args)
 {
 	int		i;
 	int		j;
-	t_lexer *lexer_list;
-	t_lexer *head;
+	t_lexer	*lexer_list;
+	t_lexer	*head;
 
 	i = 0;
 	lexer_list = (t_lexer *)malloc(sizeof(t_lexer));
@@ -60,8 +60,8 @@ t_lexer	*lexer_list(char **args)
 	}
 	return (head);
 }
-	
-int lexer_main(t_mshell *init)
+
+int	lexer_main(t_mshell *init)
 {
 	expander(init);
 	free_expander(init->expander);

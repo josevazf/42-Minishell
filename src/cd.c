@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 10:01:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:48:52 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	cd(t_mshell *init)
 
 	new_dir = NULL;
 	node = init->env_table;
-	while(node && ft_strcmp("PWD", node->var) != 0)
+	while (node && ft_strcmp("PWD", node->var) != 0)
 		node = node->next;
 	old_dir = ft_strdup(node->content);
 	free(node->content);
 	chdir(init->lexer->next->str);
 	new_dir = getcwd(NULL, 0);
 	node->content = ft_strdup(new_dir);
-	while(ft_strcmp("OLDPWD", node->var) != 0)
+	while (ft_strcmp("OLDPWD", node->var) != 0)
 	{
 		if (!node->next)
 		{
