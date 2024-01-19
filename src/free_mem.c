@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/15 16:30:29 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/18 18:16:19 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,60 +15,60 @@
 
 /* Free Expander nodes */
 
-void	free_expander(t_mshell *init)
+void	free_expander(t_expand *expander)
 {
-	init->expander->i = 0;
-	init->expander->macro_len = 0;
-	init->expander->s_quote = 0;
-	free(init->expander);
+	expander->i = 0;
+	expander->macro_len = 0;
+	expander->s_quote = 0;
+	free(expander);
 }
 
 /* Free Parser nodes */
-void	free_parser(t_mshell *init)
+void	free_parser(t_parser *parser)
 {
 	t_parser	*temp_parser;
 	
-	while (init->parser)
+	while (parser)
 	{
-		temp_parser = init->parser;
-		ft_free_smatrix(init->parser->cmd_exec);
-		free(init->parser->path_exec);
-		init->parser->cmd_type = 0;
-		init->parser->input = 0;
-		init->parser->output = 0;
-		init->parser = init->parser->next;
+		temp_parser = parser;
+		ft_free_smatrix(parser->cmd_exec);
+		free(parser->path_exec);
+		parser->cmd_type = 0;
+		parser->input = 0;
+		parser->output = 0;
+		parser = parser->next;
 		free(temp_parser);
 	}
 }
 
 /* Free Env table */
-void	free_env(t_mshell *init)
+void	free_env(t_env *env)
 {
 	t_env	*temp_env;
 
-	while (init->env_table)
+	while (env)
 	{
-		temp_env = init->env_table;
-		free(init->env_table->var);
-		free(init->env_table->content);
-		init->env_table = init->env_table->next;
+		temp_env = env;
+		free(env->var);
+		free(env->content);
+		env = env->next;
 		free(temp_env);
 	}
 }
 
 /* Free Lexer tokens */
-void	free_lexer(t_mshell *init)
+void	free_lexer(t_lexer *lexer)
 {
 	t_lexer	*temp_lex;
 	
-	while (init->lexer)
+	while (lexer)
 	{
-		temp_lex = init->lexer;
-		free(init->lexer->str);
-		init->lexer->operator = 0;
-		init->lexer->i = 0;
-		init->lexer->prev = NULL;
-		init->lexer = init->lexer->next;
+		temp_lex = lexer;
+		free(lexer->str);
+		lexer->operator = 0;
+		lexer->i = 0;
+		lexer->prev = NULL;
+		lexer = lexer->next;
 		free(temp_lex);
 	}	
 }
@@ -76,11 +76,11 @@ void	free_lexer(t_mshell *init)
 void	delete_lists(t_mshell *init)
 {
 	if (init->lexer)
-		free_lexer(init);
+		free_lexer(init->lexer);
 	if (init->env_table)
-		free_env(init);
+		free_env(init->env_table);
 	if (init->parser)
-		free_parser(init);
+		free_parser(init->parser);
 	free(init->input);
 	init->nbr_cmds = 0;
 	init->nbr_pipes = 0;
