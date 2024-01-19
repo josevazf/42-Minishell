@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 10:01:07 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:56:15 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ t_lexer	*lexer_list(char **args);
 int 	lexer_main(t_mshell *init);
 
 // lexer_split.c
+void	lexer_split(t_mshell *init);
+
+// lexer_split_utils.c
 int		lexer_size_of_word(char *s, size_t *i, t_mshell *init);
 size_t	len_update(char *s, unsigned int start, size_t len);
 char	*ft_lexer_substr(char *s, unsigned int start, size_t len);
-void	create_token(t_mshell *init, size_t *i);
-void	lexer_split(t_mshell *init);
 
 // lexer_elements.c
 void	lexer_elements_aid(char const *s, size_t *i);
@@ -40,7 +41,7 @@ int		lexer_elements(char const *s);
 
 // lexer_quotes_checker.c
 void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type);
-void	quotes_checker(char const *s);
+int		quotes_checker(char const *s);
 
 // structs_init.c
 void	lexer_init(t_lexer *lexer);
