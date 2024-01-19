@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:57:05 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 11:57:38 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/19 15:24:41 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,29 @@ void	clear_macro(t_mshell *init)
 
 void	expand(t_mshell *init, t_env *env_node)
 {
-	if (env_node == NULL && (I->INP[I->EXP->i] != '$' || init->\
-	input[I->EXP->i + 1] != '?' || I->EXP->s_quote != 1))
+	char		*i_inp;
+	t_expand	*i_exp;
+
+	i_inp = init->input;
+	i_exp = init->expander;
+	if (env_node == NULL && (i_inp[i_exp->i] != '$' || \
+	i_inp[i_exp->i + 1] != '?' || i_exp->s_quote != 1))
 		clear_macro(init);
 	else
 	{
-		I->EXP->new_input = ft_strldup(I->INP, I->EXP->i);
-		if (I->INP[I->EXP->i] == '$' && I->INP[init->\
-		expander->i + 1] == '?' && I->EXP->s_quote == 1)
-			I->EXP->new_input = ft_strupdate(I->EXP->\
-			new_input, ft_itoa(exit_code));
+		i_exp->new_input = ft_strldup(i_inp, i_exp->i);
+		if (i_inp[i_exp->i] == '$' && i_inp[i_exp->i + 1] == '?' \
+		&& i_exp->s_quote == 1)
+			i_exp->new_input = ft_strupdate(i_exp->new_input, \
+			ft_itoa(exit_code));
 		else
-			I->EXP->new_input = ft_strupdate(I->EXP->new_input \
-			, env_node->content);
-		I->EXP->new_input = ft_strupdate(I->EXP->new_input, \
-		I->INP + I->EXP->i + I->EXP->macro_len);
+			i_exp->new_input = ft_strupdate(i_exp->new_input, \
+			env_node->content);
+		i_exp->new_input = ft_strupdate(i_exp->new_input, \
+		i_inp + i_exp->i + i_exp->macro_len);
 		update_input(init);
 	}
-	I->EXP->i = 0;
+	i_exp->i = 0;
 }
 
 void	expander(t_mshell *init)
