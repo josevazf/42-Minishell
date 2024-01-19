@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 08:18:02 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:33:54 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type)
 	}
 }
 
-void	quotes_checker(char const *s)
+int	quotes_checker(char const *s)
 {
 	int	i;
 	int	s_quote;
@@ -42,7 +42,5 @@ void	quotes_checker(char const *s)
 			quotes_checker_aid(s, &i, &d_quote, '\"');
 		i++;
 	}
-	if (s_quote % 2 != 0 || d_quote % 2 != 0)
-		quotes_error();
-	return ;
+	return ((s_quote % 2) + (d_quote % 2));
 }
