@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/20 13:36:40 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 18:19:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	free_lexer(t_lexer *lexer)
 		free(temp_lex);
 	}	
 }
-void	free_history(t_history *history)
+/* void	free_history(t_history *history)
 {
 	t_history	*temp;
 	
@@ -83,7 +83,7 @@ void	free_history(t_history *history)
 		history = history->next;
 		free(temp);
 	}
-}
+} */
 
 void	delete_lists(t_mshell *init)
 {

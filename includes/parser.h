@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 16:06:01 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 22:06:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@
 
 // parser_main.c
 void		print_node(t_parser *parser); // TO DELETE EVENTUALLY
-t_parser	*create_parser_node(int cmd_type, char *cmd_temp, char *cmd_path);
-void		parser_node_push_back(t_parser **begin_list, int cmd_type, \
-											char *cmd_temp, char *cmd_path);
-void		parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, \
-																int cmd_type);
+// WIPPPPPPPPPPPPPPPPPPPPPPP
+/* t_parser	*create_parser_node(char **cmd_full, char *cmd_path, int input, int output);
+void		parser_node_push_back(t_parser **begin_list, char **cmd_full, char *cmd_path, int input, int output);
+t_parser	*parser_node(t_mshell *init, t_parser *parser, char *redirs, char *cmds);
+void		parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, char *redirs, char *cmds); */
+void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type);
+
+
 
 // parser_cmd.c
 //char	**parse_path(char **envp);

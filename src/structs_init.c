@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/21 20:10:28 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 18:54:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	parser_init(t_parser *parser)
 	parser->cmd_exec = NULL;
 	parser->path_exec = NULL;
 	parser->cmd_type = 0;
+	parser->input = 0;
 	parser->output = 0;
 	parser->next = NULL;
 }
@@ -51,4 +52,5 @@ void	mshell_init(t_mshell *init)
 	init->in = NULL;
 	init->nbr_pipes = 0;
 	init->nbr_cmds = 0;
+	init->cmd_not_found = true;
 }

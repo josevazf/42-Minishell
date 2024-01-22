@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:00:54 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	process_here_doc(char **argv)
 		clean_here_doc();
 	while (1)
 	{
-		ft_putstr_fd("here_doc>", 1);
+		ft_putstr_fd(">", 1);
 		input = get_next_line(0);
 		if (!input)
-			ft_error("pipex: input error", ERROR);
+			ft_error("minishell: input error", ERROR);
 		if (ft_strlen(input) == (ft_strlen(argv[2]) + 1) && \
 			ft_strncmp(input, argv[2], ft_strlen(argv[2])) == 0)
 		{
