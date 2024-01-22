@@ -3,30 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 10:01:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/21 16:00:02 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	exit_code;
-
-void	get_exit_code(int status)
+void	get_exit_code(int status, int *exit_code)
 {
 	if (WIFEXITED(status))
-		exit_code = WEXITSTATUS(status);
+		*exit_code = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		exit_code = WTERMSIG(status);
+		*exit_code = WTERMSIG(status);
 	else if (WIFSTOPPED(status))
-		exit_code = WSTOPSIG(status);
+		*exit_code = WSTOPSIG(status);
 	else
 		printf("Something strange just happened.\n");
 }
 
-void	fork_pipe(t_parser *parser_node, char **envp)
+void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -48,7 +46,7 @@ void	fork_pipe(t_parser *parser_node, char **envp)
 	{
 		close(pipe_fd[1]);
 		if (waitpid(pid, &status, 0) != -1 )
-			get_exit_code(status);
+			get_exit_code(status, exit_code);
         else
 		{
             perror("waitpid() failed"); //corrigir
@@ -59,7 +57,7 @@ void	fork_pipe(t_parser *parser_node, char **envp)
 	}
 }
 
-void 	fork_cmd(t_parser *parser_node, char **envp)
+void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
 {
 	pid_t		pid;
 	int			status;
@@ -72,7 +70,7 @@ void 	fork_cmd(t_parser *parser_node, char **envp)
 	else
 	{
         if (waitpid(pid, &status, 0) != -1 )
-			get_exit_code(status);
+			get_exit_code(status, exit_code);
         else
 		{
             perror("waitpid() failed"); //corrigir
@@ -82,7 +80,7 @@ void 	fork_cmd(t_parser *parser_node, char **envp)
 }
 
 /* TOOOOO DOOOOOOOOOOOOOO */
-void	executer_router(t_mshell *init, char **envp)
+void	executer_router(t_mshell *init, char **envp, int *exit_code)
 {
 	t_parser	*parser_node;
 	int			og_stdin;
@@ -90,36 +88,36 @@ void	executer_router(t_mshell *init, char **envp)
 	init->nbr_pipes = 0;
 	get_pipes(init);
 	if (init->nbr_pipes == 0)
-		fork_cmd(init->parser, envp);
+		fork_cmd(init->parser, envp, exit_code);
 	else
 	{
 		og_stdin = dup(STDIN_FILENO);
 		parser_node = init->parser;
 		while (init->nbr_pipes > 0)
 		{
-			fork_pipe(parser_node, envp);
+			fork_pipe(parser_node, envp, exit_code);
 			parser_node = parser_node->next;
 			init->nbr_pipes--;		
 		}
-		fork_cmd(parser_node, envp);
+		fork_cmd(parser_node, envp, exit_code);
 		dup2(og_stdin, STDIN_FILENO);
 		//free(parser_node);
 	}
 }
 
-void	executer_main(t_mshell *init, char **envp)
+void	executer_main(t_mshell *init, char **envp, int *exit_code)
 {
 	char		**strings_env;
 	
 	//i = -1;
 	if (init->cmd_not_found)
 	{
-		exit_code = 127;
+		*exit_code = 127;
 		init->parser = NULL;
 		return ;
 	}
 	strings_env = convert_env(init);
-	executer_router(init, envp);
+	executer_router(init, envp, exit_code);
 /* 	while (strings_env[++i])
 		ft_printf("%s", strings_env[i]); */
 	ft_free_smatrix(strings_env);

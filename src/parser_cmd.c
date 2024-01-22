@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 10:03:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:09:33 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /* Return the type of the command, Shell native or Builtin */
-int		cmd_router(char *cmd)
+int	cmd_router(char *cmd)
 {
-	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") ||
-		!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") ||
-		!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") || 
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") || \
+		!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") || \
+		!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") || \
 		!ft_strcmp(cmd, "exit"))
 		return (BUILTIN_CMD);
 	else
@@ -27,7 +27,7 @@ int		cmd_router(char *cmd)
 char	**parse_path(char *env_path)
 {
 	char	**paths;
-	
+
 	paths = ft_split(env_path, ':');
 	if (paths == NULL)
 		return (NULL);
@@ -64,7 +64,7 @@ char	*find_cmd(char *cmd, t_mshell *init)
 	char	**paths;
 	char	*cmd_path;
 	char	*error_msg;
-	
+
 	init->cmd_not_found = false;
 	paths = parse_path(getenv("PATH"));
 	cmd_path = get_cmd_path(paths, cmd);
@@ -72,7 +72,7 @@ char	*find_cmd(char *cmd, t_mshell *init)
 	{
 		ft_free_smatrix(paths);
 		error_msg = ft_strjoin(cmd, ": command not found\n");
-		ft_printf(error_msg);	
+		ft_printf(error_msg);
 		free(error_msg);
 		init->cmd_not_found = true;
 		return (NULL);

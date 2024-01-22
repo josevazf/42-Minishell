@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/20 13:36:40 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,19 @@ void	free_lexer(t_lexer *lexer)
 		free(temp_lex);
 	}	
 }
+void	free_history(t_history *history)
+{
+	t_history	*temp;
+	
+	while (history)
+	{
+		temp = history;
+		if (history->str)
+			free(history->str);
+		history = history->next;
+		free(temp);
+	}
+}
 
 void	delete_lists(t_mshell *init)
 {
@@ -80,7 +93,7 @@ void	delete_lists(t_mshell *init)
 		free_env(init->env_table);
 	if (init->parser)
 		free_parser(init->parser);
-	free(init->input);
+	free(init->in);
 	init->nbr_cmds = 0;
 	init->nbr_pipes = 0;
 	free(init);

@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 11:55:15 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 10:05:55 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -33,12 +34,8 @@
 # define CMD_NOT_FOUND 127
 # define IN_FILE 0
 # define OUT_FILE 1
-# define I init
-# define INP input
-# define EXP expander
 
-extern int exit_code;
-
+extern int	g_signo;
 // minishell.c
 /*---- main ----*/
 
@@ -88,6 +85,9 @@ void	check_oldpwd(t_env *prnt, int *flag);
 
 // unset.c
 void	unset(t_mshell *init);
+
+// signals.c
+void	handle_sigint(int sig);
 
 // print_utils.c
 void	print_parser(t_mshell *init);

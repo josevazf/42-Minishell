@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.h                                         :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/21 16:02:41 by tiago            ###   ########.fr       */
+/*   Created: 2024/01/22 09:59:35 by tiago             #+#    #+#             */
+/*   Updated: 2024/01/22 10:17:42 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_H
-# define EXPANDER_H
-
-# include "../includes/minishell.h"
-
-// expander.c
-void	expander(t_mshell *init, int *exit_code);
-
-// structs_init.c
-void	expander_init(t_expand *expander);
-
-#endif
+#include "../includes/minishell.h"
+	
+void	handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		g_signo = 130;
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}

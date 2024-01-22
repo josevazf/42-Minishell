@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/19 11:46:06 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/21 20:10:28 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parser_init(t_parser *parser)
 
 void	mshell_init(t_mshell *init)
 {
-	init->input = NULL;
+	init->in = NULL;
 	init->nbr_pipes = 0;
 	init->nbr_cmds = 0;
 }

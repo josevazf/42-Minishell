@@ -6,25 +6,24 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 14:43:57 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 11:54:03 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		main(int argc, char **argv, char **envp)
+int	g_signo;
+
+void	minishell(int exit_code, char **envp)
 {
 	char 		*input;
 	t_mshell	*init;
-	
-	if (argc != 1)
-		args_error();
+
 	while (1)
 	{
 		input = readline("minishell$> ");
 		if (input == NULL || ft_strcmp(input, "exit") == 0) // Resolve o CTLR+D
 		{
-			free(input);
 			ft_printf("Exiting...\n");
 			break ;
 		}
@@ -35,19 +34,35 @@ int		main(int argc, char **argv, char **envp)
 			free(input);
 			continue ;	
 		}
+		add_history(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));
 		mshell_init(init);
-		init->input = ft_strdup(input);
+		init->in = ft_strdup(input);
 		free(input);
 		create_env_list(init, envp, 0);
 		// print_env(init); // PRINT ENV TABLE
-		lexer_main(init);
+		lexer_main(init, &exit_code);
 		// print_lexer(init); // PRINT LEXER TOKENS
 		parser_main(init, init->lexer, NULL, 0);
 		// print_parser(init); // PRINT PARSER NODES
-		executer_main(init, envp);
+		executer_main(init, envp, &exit_code);
 		delete_lists(init);
 	}
+	rl_clear_history();
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	int			exit_code;
+	struct sigaction	sa;
+	
+	exit_code = 0;
+	sa.sa_handler = &handle_sigint;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	if (argc != 1)
+		args_error();
+	minishell(exit_code, envp);
 	(void)argv;
 	return (0);
 }

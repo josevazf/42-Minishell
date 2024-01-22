@@ -6,7 +6,7 @@
 #    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/19 14:55:31 by tiago            ###   ########.fr        #
+#    Updated: 2024/01/22 10:04:43 by tiago            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,8 @@ SRCS			= 	minishell.c \
 					export_utils.c \
 					unset.c \
 					print_utils.c \
-					pwd.c
+					pwd.c \
+					signals.c
 
 # Substitute .c with .o 
 OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)

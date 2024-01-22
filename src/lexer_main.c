@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 11:59:10 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/21 16:01:53 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ t_lexer	*lexer_list(char **args)
 	return (head);
 }
 
-int	lexer_main(t_mshell *init)
+int	lexer_main(t_mshell *init, int *exit_code)
 {
-	expander(init);
-	free_expander(init->expander);
+	expander(init, exit_code);
+	free_expander(init->exp);
 	lexer_split(init);
 	lexer_router(init->lexer);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 09:56:37 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:09:47 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct s_env
 
 typedef struct s_mshell
 {
-	char			*input;
-	int				nbr_pipes;
-	int				nbr_cmds;
-	bool			cmd_not_found;
-	struct s_env	*env_table;
-	struct s_expand	*expander;
-	struct s_lexer	*lexer;
-	struct s_parser	*parser;
+	char				*in;
+	int					nbr_pipes;
+	int					nbr_cmds;
+	bool				cmd_not_found;
+	struct s_env		*env_table;
+	struct s_expand		*exp;
+	struct s_lexer		*lexer;
+	struct s_parser		*parser;
 }	t_mshell;
 
 typedef struct s_lexer
