@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/21 16:01:53 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 17:59:18 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	lexer_router(t_lexer *tokens)
 		if (!ft_strcmp(tokens->str, "|"))
 			tokens->operator = PIPE;
 		else if (!ft_strcmp(tokens->str, ">"))
-			tokens->operator = GREAT;
+			tokens->operator = OUT_OWR;
 		else if (!ft_strcmp(tokens->str, ">>"))
-			tokens->operator = DOU_GREAT;
+			tokens->operator = OUT_APND;
 		else if (!ft_strcmp(tokens->str, "<"))
-			tokens->operator = LESS;
+			tokens->operator = IN_READ;
 		else if (!ft_strcmp(tokens->str, "<<"))
-			tokens->operator = DOU_LESS;
+			tokens->operator = IN_HDOC;
 		else
 			tokens->operator = CMD;
 		tokens = tokens->next;

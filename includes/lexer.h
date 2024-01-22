@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/21 16:02:51 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/22 18:30:18 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # include "../includes/minishell.h"
 
+// OPERATORS
 # define CMD 1
 # define PIPE 2
-# define GREAT 3
-# define DOU_GREAT 4
-# define LESS 5
-# define DOU_LESS 6
+# define OUT_OWR 3
+# define OUT_APND 4
+# define IN_READ 5
+# define IN_HDOC 6
 
 // lexer_main.c
 void	lexer_router(t_lexer *tokens);
