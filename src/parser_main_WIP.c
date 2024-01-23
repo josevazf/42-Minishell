@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/22 22:02:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:57:13 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_parser	*parser_node(t_mshell *init, t_parser *parser, char *redirs,
 	(void)redirs;
 	if (cmds)
 	{
+		ft_printf("cmds: %s\n", cmds);
+		ft_printf("redirs: %s\n", redirs);
 		cmd_full = ft_split(cmds, '\t');
 		if ((cmd_path = find_cmd(cmd_full[0], init)) == NULL)
 			return (NULL);
@@ -83,8 +85,19 @@ t_parser	*parser_node(t_mshell *init, t_parser *parser, char *redirs,
 	return (parser);
 }
 
-void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, char *redirs, char *cmds)
+char	*parser_merge_split(char *og_str, char *lexer_str)
 {
+	og_str = ft_strupdate(og_str, "\t");
+	og_str = ft_strupdate(og_str, lexer_str);
+	og_str = ft_strupdate(og_str, "\t");
+	return (og_str);
+}
+
+void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
+{
+	t_lexer		*lexer;
+
+	lexer = init->lexer;
 	(void)redirs;
 	while (lexer)
 	{
@@ -92,20 +105,31 @@ void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, char *redirs,
 			lexer = lexer->next;
 		while (lexer && lexer->operator != PIPE)
 		{
-			if (lexer->operator >= 3 && lexer->operator <= 6)
+			if(lexer->operator >= 3 && lexer->operator <= 6 && !redirs)
 			{
-				redirs = ft_strupdate(lexer->str, "\t");
+				redirs = ft_strdup(lexer->str);
+				lexer = lexer->next;
+				redirs = parser_merge_split(redirs, lexer->str);
+			}
+			else if (lexer->operator >= 3 && lexer->operator <= 6)
+			{
+				redirs = ft_strupdate(redirs, lexer->str);
 				lexer = lexer->next;
 				redirs = ft_strupdate(redirs, lexer->str);
 				lexer = lexer->next;
 			}
-			if (lexer->operator == CMD)
+			if (lexer->operator == CMD && !cmds)
 			{
-				cmds = ft_strupdate(lexer->str, "\t");
+				cmds = ft_strdup(lexer->str);
 				lexer = lexer->next;
 			}
-			parser = parser_node(init, parser, redirs, cmds);
+			if (lexer->operator == CMD)
+			{
+				cmds = parser_merge_split(cmds, lexer->str);
+				lexer = lexer->next;
+			}
 		}
+		parser = parser_node(init, parser, redirs, cmds);
 	}
 	free(lexer);
 }

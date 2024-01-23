@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/22 22:08:58 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/23 21:58:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	minishell(int exit_code, char **envp)
 		// print_env(init); // PRINT ENV TABLE
 		lexer_main(init, &exit_code);
 		// print_lexer(init); // PRINT LEXER TOKENS
-		// parser_main(init, init->lexer, NULL, NULL, NULL); // WIPPPP 
+		// parser_main(init, NULL, NULL, NULL); // WIPPPP 
 		parser_main(init, init->lexer, NULL, 0);
 		// print_parser(init); // PRINT PARSER NODES
 		executer_main(init, envp, &exit_code);
