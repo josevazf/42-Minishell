@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/22 18:19:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/23 12:16:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,6 @@ void	free_lexer(t_lexer *lexer)
 		free(temp_lex);
 	}	
 }
-/* void	free_history(t_history *history)
-{
-	t_history	*temp;
-	
-	while (history)
-	{
-		temp = history;
-		if (history->str)
-			free(history->str);
-		history = history->next;
-		free(temp);
-	}
-} */
 
 void	delete_lists(t_mshell *init)
 {
