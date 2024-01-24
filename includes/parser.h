@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/23 21:58:11 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:27:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		print_node(t_parser *parser); // TO DELETE EVENTUALLY
 void		parser_node_push_back(t_parser **begin_list, char **cmd_full, char *cmd_path, int input, int output);
 t_parser	*parser_node(t_mshell *init, t_parser *parser, char *redirs, char *cmds); */
 //void		parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds);
-void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser, int cmd_type);
+void	parser_main(t_mshell *init, t_lexer *lexer, t_parser *parser);
 
 
 

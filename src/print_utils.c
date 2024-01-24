@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 10:03:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:26:23 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	print_parser(t_mshell *init)
 			ft_printf("%s ", parser->cmd_exec[i]);
 		ft_printf("\n");
 		ft_printf("path->%s\n", parser->path_exec);
-		ft_printf("type->%d\n", parser->cmd_type);
 		ft_printf("input->%d\n", parser->input);
 		ft_printf("output->%d\n\n", parser->output);
 		parser = parser->next;
