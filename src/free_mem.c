@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/23 12:16:11 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:55:15 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	free_parser(t_parser *parser)
 		temp_parser = parser;
 		ft_free_smatrix(parser->cmd_exec);
 		free(parser->path_exec);
-		parser->cmd_type = 0;
 		parser->input = 0;
 		parser->output = 0;
 		parser = parser->next;
