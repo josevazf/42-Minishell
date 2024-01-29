@@ -83,9 +83,9 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 		redirs_full = ft_split(redirs, '\t');
 		if (!ft_strncmp(redirs_full[0], "<", 1))
 			init->red_input = process_file(init, redirs_full[1], IN_FILE);
-		if (!ft_strncmp(redirs_full[0], "<<", 1))
+		else if (!ft_strncmp(redirs_full[0], "<<", 2))
 			init->red_input = process_here_doc(init, redirs_full[1]);
-		if (!ft_strncmp(redirs_full[0], ">>", 2))
+		else if (!ft_strncmp(redirs_full[0], ">>", 2))
 			init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
 		else if (!ft_strncmp(redirs_full[0], ">", 1))
 			init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
