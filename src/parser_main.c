@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/25 11:03:51 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:21:36 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	print_node(t_parser *parser)
 	ft_printf("output->%d\n\n", parser->output);
 }
 
-t_parser	*create_parser_node(char *cmds, char *cmd_path, \
-											int input, int output)
+t_parser	*create_parser_node( t_mshell *init, char *cmds, char *cmd_path)
 {
 	t_parser	*node;
 
@@ -37,30 +36,30 @@ t_parser	*create_parser_node(char *cmds, char *cmd_path, \
 		return (NULL);
 	node->cmd_exec = ft_split(cmds, '\t');
 	node->path_exec = ft_strdup(cmd_path);
-	node->input = input;
-	node->output = output;
+	node->input = init->red_input;
+	node->output = init->red_output;
 	node->next = NULL;
 	//print_node(node);
 	return (node);
 }
 
-void	parser_node_push_back(t_parser **begin_list, char *cmds, 
-								char *cmd_path, int input, int output)
+void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, 
+								char *cmd_path)
 {
 	t_parser	*node;
-	
+
 	node = *begin_list;
 	if (node)
 	{
 		while (node->next)
 			node = node->next;
-		node->next = create_parser_node(cmds, cmd_path, input, output);
+		node->next = create_parser_node(init, cmds, cmd_path);
 	}
 	else
-		*begin_list = create_parser_node(cmds, cmd_path, input, output);
+		*begin_list = create_parser_node(init, cmds, cmd_path);
 }
 
-t_parser	*parser_node(t_mshell *init, t_parser *parser, char *redirs, 
+t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs, 
 								char *cmds)
 {
 	char		*cmd_path;
@@ -81,9 +80,9 @@ t_parser	*parser_node(t_mshell *init, t_parser *parser, char *redirs,
 		}
 	}
 	if (!parser)
-		parser = create_parser_node(cmds, cmd_path, STDIN_FILENO, STDOUT_FILENO);
+		parser = create_parser_node(init, cmds, cmd_path);
 	else
-		parser_node_push_back(&parser, cmds, cmd_path, STDIN_FILENO, STDOUT_FILENO);
+		parser_node_push_back(init, &parser, cmds, cmd_path);
 	free_parser_temps(cmds, redirs, cmd_path);
 	ft_free_smatrix(cmd_full);
 	init->parser = parser;
@@ -127,9 +126,10 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 				cmds = parser_merge_split(cmds, lexer->str);
 			lexer = lexer->next;
 		}
-		parser = parser_node(init, parser, redirs, cmds);
-		cmds = NULL;
-		free(cmds);
+		parser = parser_node_router(init, parser, redirs, cmds);
+		if (parser == NULL)
+			lexer = NULL;
+		free_parser_vars(&cmds, &redirs);
 	}
 	free(lexer);
 }
