@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/22 10:05:55 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:35:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define SUCCESS 0
 # define CMD_NOT_FOUND 127
 # define IN_FILE 0
-# define OUT_FILE 1
+# define OUT_FILE_OWR 1
+# define OUT_FILE_APND 2
 
 extern int	g_signo;
 // minishell.c

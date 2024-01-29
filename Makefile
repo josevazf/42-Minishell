@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/22 10:04:43 by tiago            ###   ########.fr        #
+#    Updated: 2024/01/29 16:34:33 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ CFLAGS			= -Wall -Wextra -Werror -g
 RM				= rm -rf
 
 SRCS			= 	minishell.c \
+					structs_init.c \
 					env_main.c \
 					lexer_main.c \
 					lexer_split.c \
@@ -54,8 +55,8 @@ SRCS			= 	minishell.c \
 					parser_main.c \
 					parser_cmd.c \
 					parser_utils.c \
+					parser_redirs.c \
 					executer_main.c \
-					structs_init.c \
 					executer_utils.c \
 					free_mem.c \
 					error.c \

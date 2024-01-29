@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/21 16:00:02 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/29 18:49:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
+		dup2(pipe_fd[1], parser_node->output);
 		close(pipe_fd[1]);
 		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	}
@@ -52,7 +52,7 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
             perror("waitpid() failed"); //corrigir
             exit(EXIT_FAILURE);
         }
-		dup2(pipe_fd[0], STDIN_FILENO);
+		dup2(pipe_fd[0], parser_node->input);
 		close(pipe_fd[0]);
 	}
 }
@@ -83,15 +83,16 @@ void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
 void	executer_router(t_mshell *init, char **envp, int *exit_code)
 {
 	t_parser	*parser_node;
-	int			og_stdin;
+	//int			og_stdin;
 
+	init->og_stdin = dup(STDIN_FILENO);
 	init->nbr_pipes = 0;
 	get_pipes(init);
 	if (init->nbr_pipes == 0)
 		fork_cmd(init->parser, envp, exit_code);
 	else
 	{
-		og_stdin = dup(STDIN_FILENO);
+
 		parser_node = init->parser;
 		while (init->nbr_pipes > 0)
 		{
@@ -100,9 +101,10 @@ void	executer_router(t_mshell *init, char **envp, int *exit_code)
 			init->nbr_pipes--;		
 		}
 		fork_cmd(parser_node, envp, exit_code);
-		dup2(og_stdin, STDIN_FILENO);
 		//free(parser_node);
 	}
+	dup2(init->og_stdin, STDIN_FILENO);
+	dup2(init->og_stdout, STDOUT_FILENO);
 }
 
 void	executer_main(t_mshell *init, char **envp, int *exit_code)

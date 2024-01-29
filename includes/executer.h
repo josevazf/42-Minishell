@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/21 15:59:22 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/29 16:31:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code);
 void	fork_cmd(t_parser *parser_node, char **envp, int *exit_code);
 void	executer_router(t_mshell *init, char **envp, int *exit_code);
 void	executer_main(t_mshell *init, char **envp, int *exit_code);
-
-// executer_redirs.c
-void	process_dev_urandom(void);
-void	clean_here_doc(void);
-void	process_here_doc(char **argv);
-void	process_file(char *file_name, int file_type);
 
 // executer_utils.c
 void	get_pipes(t_mshell *init);

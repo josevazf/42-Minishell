@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 14:06:51 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:03:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,16 @@ char		*get_cmd_path(char **envp_paths, char *cmd);
 char		*find_cmd(char *cmd, t_mshell *init);
 
 // parser_utils.c
-void		free_parser_temps(char *cmds, char *redirs, char *cmd_path);
+char		*get_redirs(char *og_redirs, t_lexer **lexer);
+char		*parser_merge_split(char *og_str, char *lexer_str);
+void		free_parser_temps(char *cmds, char *redirs, char *cmd_path, char **cmd_full);
 void		free_parser_vars(char **cmds, char **redirs);
+
+// parser_redirs.c
+void		process_dev_urandom(t_mshell *init);
+void		clean_here_doc(void);
+int			process_here_doc(t_mshell *init, char *eof);
+int			process_file(t_mshell *init, char *file_name, int file_type);
 
 // structs_init.c
 void		parser_init(t_parser *parser);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer_redirs.c                                  :+:      :+:    :+:   */
+/*   parser_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/22 18:00:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/29 21:11:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*						WWWWIIIIIPPPPP 							*/
 
-void	process_dev_urandom(void)
+void	process_dev_urandom(t_mshell *init)
 {
 	int		urandom_fd;
 	int		temp_fd;
@@ -37,7 +37,7 @@ void	process_dev_urandom(void)
 	}
 	close(urandom_fd);
 	close(temp_fd);
-	process_file("temp_urandom.txt", IN_FILE);
+	process_file(init, "temp_urandom.txt", IN_FILE);
 }
 
 /* Change to pipe routing instead of new temp file */
@@ -48,10 +48,11 @@ void	clean_here_doc(void)
 }
 
 /* Change to pipe routing instead of new temp file */
-void	process_here_doc(char **argv)
+int		process_here_doc(t_mshell *init, char *eof)
 {
 	int		file_fd;
 	char	*input;
+	int		export;
 
 	file_fd = open("here_doc", O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (file_fd == -1)
@@ -62,8 +63,8 @@ void	process_here_doc(char **argv)
 		input = get_next_line(0);
 		if (!input)
 			ft_error("minishell: input error", ERROR);
-		if (ft_strlen(input) == (ft_strlen(argv[2]) + 1) && \
-			ft_strncmp(input, argv[2], ft_strlen(argv[2])) == 0)
+		if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
+			ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 		{
 			free(input);
 			break ;
@@ -72,22 +73,29 @@ void	process_here_doc(char **argv)
 		free(input);
 	}
 	close(file_fd);
-	process_file("here_doc", IN_FILE);
+	export = process_file(init, "here_doc", IN_FILE);
+	return (export);
 }
 
-void	process_file(char *file_name, int file_type)
+int	process_file(t_mshell *init, char *file_name, int file_type)
 {
 	int	file_fd;
+	int	export;
 
+	init->og_stdin = dup(STDIN_FILENO);
+	init->og_stdout = dup(STDOUT_FILENO);
 	if (file_type == IN_FILE)
 		file_fd = open(file_name, O_RDONLY);
-	if (file_type == OUT_FILE)
+	if (file_type == OUT_FILE_OWR)
+		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (file_type == OUT_FILE_APND)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file_fd == -1)
 		ft_error("minishell: file error", ERROR);  /* FIXXXXX */
 	if (file_type == IN_FILE)
-		dup2(file_fd, STDIN_FILENO);
+		export = dup2(file_fd, STDIN_FILENO);
 	if (file_type == !IN_FILE)
-		dup2(file_fd, STDOUT_FILENO);
+		export = dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
+	return (export);
 }

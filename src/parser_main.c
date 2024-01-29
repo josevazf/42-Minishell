@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 13:21:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/29 20:01:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	print_node(t_parser *parser)
 	ft_printf("output->%d\n\n", parser->output);
 }
 
-t_parser	*create_parser_node( t_mshell *init, char *cmds, char *cmd_path)
+t_parser	*create_parser_node(t_mshell *init, char *cmds, char *cmd_path)
 {
 	t_parser	*node;
 
@@ -64,37 +64,41 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 {
 	char		*cmd_path;
 	char		**cmd_full;
+	char		**redirs_full;
 	
-	(void)redirs;
 	if (cmds)
 	{
 		cmd_full = ft_split(cmds, '\t');
 		cmd_path = find_cmd(cmd_full[0], init);
 		if (cmd_path == NULL)
 		{
-			free_parser_temps(cmds, redirs, cmd_path);
-			ft_free_smatrix(cmd_full);
+			free_parser_temps(cmds, redirs, cmd_path, cmd_full);
 			if (parser)
 				free_parser(parser);
 			return (NULL);
 		}
 	}
+	if (redirs)
+	{
+		redirs_full = ft_split(redirs, '\t');
+		if (!ft_strncmp(redirs_full[0], "<", 1))
+			init->red_input = process_file(init, redirs_full[1], IN_FILE);
+		if (!ft_strncmp(redirs_full[0], "<<", 1))
+			init->red_input = process_here_doc(init, redirs_full[1]);
+		if (!ft_strncmp(redirs_full[0], ">>", 2))
+			init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
+		else if (!ft_strncmp(redirs_full[0], ">", 1))
+			init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
+		ft_free_smatrix(redirs_full);
+		
+	}
 	if (!parser)
 		parser = create_parser_node(init, cmds, cmd_path);
 	else
 		parser_node_push_back(init, &parser, cmds, cmd_path);
-	free_parser_temps(cmds, redirs, cmd_path);
-	ft_free_smatrix(cmd_full);
+	free_parser_temps(cmds, redirs, cmd_path, cmd_full);
 	init->parser = parser;
 	return (parser);
-}
-
-char	*parser_merge_split(char *og_str, char *lexer_str)
-{
-	og_str = ft_strupdate(og_str, "\t");
-	og_str = ft_strupdate(og_str, lexer_str);
-	og_str = ft_strupdate(og_str, "\t");
-	return (og_str);
 }
 
 void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
@@ -108,18 +112,8 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 			lexer = lexer->next;
 		while (lexer && lexer->operator != PIPE)
 		{
-			if(lexer->operator >= 3 && lexer->operator <= 6 && !redirs)
-			{
-				redirs = ft_strdup(lexer->str);
-				lexer = lexer->next;
-				redirs = parser_merge_split(redirs, lexer->str);
-			}
-			else if (lexer->operator >= 3 && lexer->operator <= 6)
-			{
-				redirs = ft_strupdate(redirs, lexer->str);
-				lexer = lexer->next;
-				redirs = parser_merge_split(redirs, lexer->str);
-			}
+			if (lexer->operator >= 3 && lexer->operator <= 6)
+				redirs = get_redirs(redirs, &lexer);
 			else if (lexer->operator == CMD && !cmds)
 				cmds = ft_strdup(lexer->str);
 			else if (lexer->operator == CMD)
