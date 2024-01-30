@@ -25,7 +25,6 @@
 
 // lexer_main.c
 void	lexer_router(t_lexer *tokens);
-t_lexer	*lexer_list(char **args);
 int		lexer_main(t_mshell *init, int *exit_code);
 
 // lexer_split.c
