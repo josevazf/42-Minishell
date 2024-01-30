@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:54:45 by tiago             #+#    #+#             */
-/*   Updated: 2024/01/19 14:55:17 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/30 16:17:10 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	lexer_size_of_word(char *s, size_t *i, t_mshell *init)
 	len = 0;
 	init->lexer->d_quote_expand = 0;
 	quote = '\"';
-	while (!ft_iswhitespace(s[*i]) && s[*i])
+	while (s[*i] && !ft_iswhitespace(s[*i]) && s[*i] != '|')
 	{
 		if (s && (s[*i] == '\'' || s[*i] == '\"'))
 		{
