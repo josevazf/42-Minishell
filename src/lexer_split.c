@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/30 16:28:28 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/30 17:02:22 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ void	create_token(t_mshell *init, size_t *i)
 	size_t	len;
 
 	len = 0;
-	if (init->in[*i] == '|' || init->in[*i] == '<' || init->in[*i] == '>')
-	{
-		len = 1;
-		(*i)++;
-	}
-	else if ((init->in[*i] == '<' && init->in[*i + 1] == '<' ) || (init->in[*i] == '>' && init->in[*i + 1] == '>' ))
+	if ((init->in[*i] == '<' && init->in[*i + 1] == '<' ) || \
+	(init->in[*i] == '>' && init->in[*i + 1] == '>' ))
 	{
 		len = 2;
 		*i += 2;
+	}
+	else if (init->in[*i] == '|' || init->in[*i] == '<' || init->in[*i] == '>')
+	{
+		len = 1;
+		(*i)++;
 	}
 	else
 		len = lexer_size_of_word(init->in, i, init);
