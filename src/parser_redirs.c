@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 15:07:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:29:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		process_here_doc(t_mshell *init, char *eof)
 	int		export;
 
 	file_fd = open("here_doc", O_CREAT | O_RDWR | O_APPEND, 0644);
-	printf("olaaaaaaa");
 	if (file_fd == -1)
 		clean_here_doc();
 	while (1)
@@ -83,8 +82,7 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	int	file_fd;
 	int	export;
 
-	init->og_stdin = dup(STDIN_FILENO);
-	init->og_stdout = dup(STDOUT_FILENO);
+	(void)init;
 	if (file_type == IN_FILE)
 		file_fd = open(file_name, O_RDONLY);
 	if (file_type == OUT_FILE_OWR)

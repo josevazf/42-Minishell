@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 14:54:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:44:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,13 @@ void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
 void	executer_router(t_mshell *init, char **envp, int *exit_code)
 {
 	t_parser	*parser_node;
-	//int			og_stdin;
 
-	//init->og_stdin = dup(STDIN_FILENO);
 	init->nbr_pipes = 0;
 	get_pipes(init);
 	if (init->nbr_pipes == 0)
 		fork_cmd(init->parser, envp, exit_code);
 	else
 	{
-
 		parser_node = init->parser;
 		while (init->nbr_pipes > 0)
 		{
@@ -101,7 +98,6 @@ void	executer_router(t_mshell *init, char **envp, int *exit_code)
 			init->nbr_pipes--;		
 		}
 		fork_cmd(parser_node, envp, exit_code);
-		//free(parser_node);
 	}
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
@@ -111,7 +107,6 @@ void	executer_main(t_mshell *init, char **envp, int *exit_code)
 {
 	char		**strings_env;
 	
-	//i = -1;
 	if (init->cmd_not_found)
 	{
 		*exit_code = 127;

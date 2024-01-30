@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 14:44:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:43:01 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,16 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, char *cmd_path)
 	node = (t_parser *)malloc(sizeof(t_parser));
 	if (!node)
 		return (NULL);
-	node->cmd_exec = ft_split(cmds, '\t');
-	node->path_exec = ft_strdup(cmd_path);
+	if (!cmds)
+	{
+		node->cmd_exec = NULL;
+		node->path_exec = NULL;		
+	}
+	else
+	{
+		node->cmd_exec = ft_split(cmds, '\t');
+		node->path_exec = ft_strdup(cmd_path);	
+	}
 	node->input = init->red_input;
 	node->output = init->red_output;
 	node->next = NULL;
@@ -66,6 +74,7 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 	char		**cmd_full;
 	char		**redirs_full;
 	
+	cmd_path = NULL;
 	if (cmds)
 	{
 		cmd_full = ft_split(cmds, '\t');
@@ -81,10 +90,10 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 	if (redirs)
 	{
 		redirs_full = ft_split(redirs, '\t');
-		if (!ft_strncmp(redirs_full[0], "<", 1))
+		if (!ft_strncmp(redirs_full[0], "<<", 2))
+			init->red_input = process_here_doc(init, redirs_full[1]);	
+		else if (!ft_strncmp(redirs_full[0], "<", 1))
 			init->red_input = process_file(init, redirs_full[1], IN_FILE);
-		else if (!ft_strncmp(redirs_full[0], "<<", 2))
-			init->red_input = process_here_doc(init, redirs_full[1]);
 		else if (!ft_strncmp(redirs_full[0], ">>", 2))
 			init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
 		else if (!ft_strncmp(redirs_full[0], ">", 1))
@@ -107,6 +116,8 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 	lexer = init->lexer;
 	while (lexer)
 	{
+		init->og_stdin = dup(STDIN_FILENO);
+		init->og_stdout = dup(STDOUT_FILENO);
 		if (lexer->operator == PIPE)
 			lexer = lexer->next;
 		while (lexer && lexer->operator != PIPE)
