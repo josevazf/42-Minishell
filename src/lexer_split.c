@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/30 17:02:22 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/30 17:53:25 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,27 @@ void	create_all_tokens(t_mshell *init)
 	init->lexer = lexer_head;
 }
 
-void	lexer_split(t_mshell *init)
+void	check_empty_node(t_mshell *init)
 {
+	t_lexer	*node;
+	
+	node = init->lexer;
+	while (node->next)
+	{
+		if (node->next->str == NULL)
+		{
+			free(node->next);
+			node->next = NULL;
+			break ;
+		}
+		node = node->next;
+	}
+}
+
+void	lexer_split(t_mshell *init)
+{	
 	init->lexer = NULL;
 	create_all_tokens(init);
+	check_empty_node(init);
 	return ;
 }
