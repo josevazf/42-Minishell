@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 20:01:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:44:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 		else if (!ft_strncmp(redirs_full[0], ">", 1))
 			init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
 		ft_free_smatrix(redirs_full);
-		
 	}
 	if (!parser)
 		parser = create_parser_node(init, cmds, cmd_path);

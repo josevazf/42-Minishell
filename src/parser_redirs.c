@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 21:11:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 15:07:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ int		process_here_doc(t_mshell *init, char *eof)
 	int		export;
 
 	file_fd = open("here_doc", O_CREAT | O_RDWR | O_APPEND, 0644);
+	printf("olaaaaaaa");
 	if (file_fd == -1)
 		clean_here_doc();
 	while (1)
 	{
-		ft_putstr_fd(">", 1);
-		input = get_next_line(0);
+		ft_putstr_fd(">", init->og_stdout);
+		input = get_next_line(init->og_stdin);
 		if (!input)
 			ft_error("minishell: input error", ERROR);
 		if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
@@ -89,12 +90,12 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	if (file_type == OUT_FILE_OWR)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file_type == OUT_FILE_APND)
-		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
-		ft_error("minishell: file error", ERROR);  /* FIXXXXX */
+		ft_error("minishell_ hd: file error", ERROR);  /* FIXXXXX */
 	if (file_type == IN_FILE)
 		export = dup2(file_fd, STDIN_FILENO);
-	if (file_type == !IN_FILE)
+	if (file_type != IN_FILE)
 		export = dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
 	return (export);

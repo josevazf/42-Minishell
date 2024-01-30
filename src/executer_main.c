@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 18:49:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 14:54:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	executer_router(t_mshell *init, char **envp, int *exit_code)
 	t_parser	*parser_node;
 	//int			og_stdin;
 
-	init->og_stdin = dup(STDIN_FILENO);
+	//init->og_stdin = dup(STDIN_FILENO);
 	init->nbr_pipes = 0;
 	get_pipes(init);
 	if (init->nbr_pipes == 0)
