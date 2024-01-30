@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 16:44:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:06:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], parser_node->output);
 		close(pipe_fd[1]);
-		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
+		if (parser_node->cmd_exec != NULL)
+			execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	}
 	else
 	{
@@ -65,7 +66,7 @@ void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
 	pid = fork();
 	if (pid == -1)
 		ft_error("minishell: failed creating fork", ERROR);
-	if (pid == 0)
+	if (pid == 0 && parser_node->cmd_exec != NULL)
 		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	else
 	{

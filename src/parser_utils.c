@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 16:07:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:17:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ char	*parser_merge_split(char *og_str, char *lexer_str)
 void	free_parser_temps(char *cmds, char *redirs, char *cmd_path, 
 												char **cmd_full)
 {
-	free(cmds);
-	free(redirs);
-	free(cmd_path);
-	ft_free_smatrix(cmd_full);
+	if (cmds)
+		free(cmds);
+	if (redirs)
+		free(redirs);
+	if (cmd_path)
+		free(cmd_path);
+	if (cmd_full)
+		ft_free_smatrix(cmd_full);
 }
 
 /* Helper function to free Parser variables */
