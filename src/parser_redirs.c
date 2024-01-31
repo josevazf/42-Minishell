@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 16:29:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:29:55 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	if (file_type != IN_FILE)
 		export = dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
+	if (!ft_strcmp(file_name, "here_doc"))
+		unlink("here_doc");
 	return (export);
 }
