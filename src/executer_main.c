@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 17:06:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:50:56 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], parser_node->output);
 		close(pipe_fd[1]);
-		if (parser_node->cmd_exec != NULL)
-			execve(parser_node->path_exec, parser_node->cmd_exec, envp);
+		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	}
 	else
 	{
@@ -66,7 +65,7 @@ void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
 	pid = fork();
 	if (pid == -1)
 		ft_error("minishell: failed creating fork", ERROR);
-	if (pid == 0 && parser_node->cmd_exec != NULL)
+	if (pid == 0)
 		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	else
 	{
@@ -108,6 +107,8 @@ void	executer_main(t_mshell *init, char **envp, int *exit_code)
 {
 	char		**strings_env;
 	
+	signal(SIGINT, sighandler_fork);
+	signal(SIGQUIT, sighandler_fork);
 	if (init->cmd_not_found)
 	{
 		*exit_code = 127;

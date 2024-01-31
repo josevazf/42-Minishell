@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/30 18:18:52 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:43:01 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 	char		**redirs_full;
 	
 	cmd_path = NULL;
-	cmd_full = NULL;
-	redirs_full = NULL;
 	if (cmds)
 	{
 		cmd_full = ft_split(cmds, '\t');

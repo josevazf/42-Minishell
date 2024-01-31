@@ -6,13 +6,13 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:59:35 by tiago             #+#    #+#             */
-/*   Updated: 2024/01/22 10:17:42 by tiago            ###   ########.fr       */
+/*   Updated: 2024/01/31 11:11:04 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 	
-void	handle_sigint(int sig)
+void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -22,4 +22,17 @@ void	handle_sigint(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+}
+
+void	sighandler_fork(int signo)
+{
+	if (signo == SIGINT || signo == SIGQUIT)
+		g_signo = 128 + signo;
+}
+
+void	set_signals()
+{
+	g_signo = 0;
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

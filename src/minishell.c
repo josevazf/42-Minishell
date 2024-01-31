@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/25 11:02:44 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:11:30 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	minishell(int exit_code, char **envp)
 
 	while (1)
 	{
+		set_signals();
 		input = readline("minishell$> ");
 		if (input == NULL || ft_strcmp(input, "exit") == 0) // Resolve o CTLR+D
 		{
@@ -55,12 +56,8 @@ void	minishell(int exit_code, char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	int			exit_code;
-	struct sigaction	sa;
 	
 	exit_code = 0;
-	sa.sa_handler = &handle_sigint;
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
 	if (argc != 1)
 		args_error();
 	minishell(exit_code, envp);

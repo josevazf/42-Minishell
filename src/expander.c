@@ -49,6 +49,8 @@ void	expand(t_mshell *init, t_env *env_node, int *exit_code)
 	char		*i_inp;
 	t_expand	*i_exp;
 
+	if (g_signo == 130)
+		*exit_code = 130;
 	i_inp = init->in;
 	i_exp = init->exp;
 	if (env_node == NULL && (i_inp[i_exp->i] != '$' || \
