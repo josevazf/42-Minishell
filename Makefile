@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/01/29 16:34:33 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/02/01 17:44:48 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,30 +45,30 @@ RM				= rm -rf
 
 SRCS			= 	minishell.c \
 					structs_init.c \
-					env_main.c \
-					lexer_main.c \
-					lexer_split.c \
-					lexer_split_utils.c \
-					lexer_elements.c \
-					lexer_quotes_checker.c \
-					expander.c \
-					parser_main.c \
-					parser_cmd.c \
-					parser_utils.c \
-					parser_redirs.c \
-					executer_main.c \
-					executer_utils.c \
+					lexer/lexer_main.c \
+					lexer/lexer_split.c \
+					lexer/lexer_split_utils.c \
+					lexer/lexer_elements.c \
+					lexer/lexer_quotes_checker.c \
+					expander/expander.c \
+					parser/parser_main.c \
+					parser/parser_cmd.c \
+					parser/parser_utils.c \
+					parser/parser_redirs.c \
+					executer/executer_main.c \
+					executer/executer_utils.c \
+					builtins/cd.c \
+					builtins/env_main.c \
+					builtins/env.c \
+					builtins/echo.c \
+					builtins/export.c \
+					builtins/export_utils.c \
+					builtins/unset.c \
+					builtins/pwd.c \
+					signals.c \
 					free_mem.c \
 					error.c \
-					cd.c \
-					env.c \
-					echo.c \
-					export.c \
-					export_utils.c \
-					unset.c \
-					print_utils.c \
-					pwd.c \
-					signals.c
+					print_utils.c
 
 # Substitute .c with .o 
 OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
