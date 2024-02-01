@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 20:03:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:13:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		free_parser_temps(char *cmds, char *redirs, char *cmd_path, char **cmd_ful
 void		free_parser_vars(char **cmds, char **redirs);
 
 // parser_redirs.c
-void		process_dev_urandom(t_mshell *init);
+void    	redirs_router(t_mshell *init, char *redirs);
 void		clean_here_doc(void);
 int			process_here_doc(t_mshell *init, char *eof);
 int			process_file(t_mshell *init, char *file_name, int file_type);

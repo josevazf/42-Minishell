@@ -6,38 +6,26 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/31 18:29:55 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:12:18 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*						WWWWIIIIIPPPPP 							*/
-
-void	process_dev_urandom(t_mshell *init)
+void	redirs_router(t_mshell *init, char *redirs)
 {
-	int		urandom_fd;
-	int		temp_fd;
-	int		i;
-	char	*input;
-
-	i = 0;
-	urandom_fd = open("/dev/urandom", O_RDONLY);
-	temp_fd = open("temp_urandom.txt", O_CREAT | O_RDWR | O_APPEND, 0644);
-	if (urandom_fd == -1 || temp_fd == -1)
-		ft_error("minishell: file error", ERROR);
-	while (++i < 50)
-	{
-		input = get_next_line(urandom_fd);
-		if (!input)
-			ft_error("minishell: input error", 1);
-		ft_putstr_fd(input, temp_fd);
-		free(input);
-		ft_printf("%i", i);
-	}
-	close(urandom_fd);
-	close(temp_fd);
-	process_file(init, "temp_urandom.txt", IN_FILE);
+	char	**redirs_full;
+	
+	redirs_full = ft_split(redirs, '\t');
+	if (!ft_strncmp(redirs_full[0], "<<", 2))
+		init->red_input = process_here_doc(init, redirs_full[1]);	
+	else if (!ft_strncmp(redirs_full[0], "<", 1))
+		init->red_input = process_file(init, redirs_full[1], IN_FILE);
+	else if (!ft_strncmp(redirs_full[0], ">>", 2))
+		init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
+	else if (!ft_strncmp(redirs_full[0], ">", 1))
+		init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
+	ft_free_smatrix(redirs_full);
 }
 
 /* Change to pipe routing instead of new temp file */
