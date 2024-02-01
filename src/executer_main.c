@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/31 18:26:01 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:52:32 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 			get_exit_code(status, exit_code);
         else
 		{
-            perror("waitpid() failed"); //corrigir
+            perror("waitpid() failed yooo"); //corrigir
             exit(EXIT_FAILURE);
         }
 		dup2(pipe_fd[0], parser_node->input);
@@ -74,13 +74,13 @@ void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
 			get_exit_code(status, exit_code);
         else
 		{
-            perror("waitpid() failed"); //corrigir
+            perror("waitpid() failed yoyoyo"); //corrigir
             exit(EXIT_FAILURE);
         }
 	}
 }
 
-/* TOOOOO DOOOOOOOOOOOOOO */
+/* Fix env file */
 void	executer_router(t_mshell *init, char **envp, int *exit_code)
 {
 	t_parser	*parser_node;

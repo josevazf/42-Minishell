@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/31 18:29:06 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:47:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,12 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 {
 	t_lexer		*lexer;
 
+	init->og_stdin = dup(STDIN_FILENO);
+	init->og_stdout = dup(STDOUT_FILENO);
 	lexer = init->lexer;
 	while (lexer)
 	{
-		init->og_stdin = dup(STDIN_FILENO);
-		init->og_stdout = dup(STDOUT_FILENO);
+
 		if (lexer->operator == PIPE)
 			lexer = lexer->next;
 		while (lexer && lexer->operator != PIPE)
