@@ -6,11 +6,17 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/08 15:29:47 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:51:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int redirs_error(void)
+{
+	ft_printf("minishell: syntax error near unexpected token `newline'");
+	exit (ERROR);
+}
 
 /* Deal with malloc failure */
 int	malloc_error(void *input)

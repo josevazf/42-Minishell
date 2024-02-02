@@ -6,11 +6,16 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/01 17:12:18 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:52:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/* void	check_redirs(t_lexer *lexer)
+{
+	
+} */
 
 void	redirs_router(t_mshell *init, char *redirs)
 {

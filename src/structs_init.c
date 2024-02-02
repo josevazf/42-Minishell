@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/29 18:06:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:17:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	mshell_init(t_mshell *init)
 	init->in = NULL;
 	init->nbr_pipes = 0;
 	init->nbr_cmds = 0;
-	init->og_stdin = STDIN_FILENO;
-	init->og_stdout = STDOUT_FILENO;
+	init->og_stdin = dup(STDIN_FILENO);
+	init->og_stdout = dup(STDOUT_FILENO);
 	init->red_input = STDIN_FILENO;
 	init->red_output = STDOUT_FILENO;
 	init->cmd_not_found = true;

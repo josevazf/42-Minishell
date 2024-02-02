@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/01 17:19:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/02 19:52:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*get_redirs(char *og_redirs, t_lexer **lexer)
 	{
 		og_redirs = ft_strupdate(og_redirs, (*lexer)->str);
 		(*lexer) = (*lexer)->next;
+		if ((*lexer) == NULL)
+			return (NULL);
 		og_redirs = parser_merge_split(og_redirs, (*lexer)->str);
 	}
 	return (og_redirs);
