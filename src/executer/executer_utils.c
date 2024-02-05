@@ -6,11 +6,28 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:12 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:54:27 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	fork_pipe_utils(int *pipe_fd, pid_t pid, int *exit_code, 
+											t_parser **parser_node)
+{
+	int	status;
+	
+	close(pipe_fd[1]);
+	if (waitpid(pid, &status, 0) != -1 )
+		get_exit_code(status, exit_code);
+	else
+	{
+		perror("waitpid() failed yooo"); //corrigir
+		exit(EXIT_FAILURE);
+	}
+	dup2(pipe_fd[0], (*parser_node)->input);
+	close(pipe_fd[0]);
+}
 
 void	get_pipes(t_mshell *init)
 {

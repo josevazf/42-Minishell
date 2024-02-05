@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/29 16:31:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:54:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	executer_router(t_mshell *init, char **envp, int *exit_code);
 void	executer_main(t_mshell *init, char **envp, int *exit_code);
 
 // executer_utils.c
+void	fork_pipe_utils(int *pipe_fd, pid_t pid, int *exit_code, 
+                                        t_parser **parser_node);
 void	get_pipes(t_mshell *init);
 char	**convert_env(t_mshell *init);
 

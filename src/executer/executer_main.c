@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/01 16:52:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:57:13 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
-	int		status;
 
 	if (pipe(pipe_fd) == -1)
 		ft_error("minishell: failed creating pipe", ERROR); /* FIXXXXX */
@@ -44,18 +43,8 @@ void	fork_pipe(t_parser *parser_node, char **envp, int *exit_code)
 			execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 	}
 	else
-	{
-		close(pipe_fd[1]);
-		if (waitpid(pid, &status, 0) != -1 )
-			get_exit_code(status, exit_code);
-        else
-		{
-            perror("waitpid() failed yooo"); //corrigir
-            exit(EXIT_FAILURE);
-        }
-		dup2(pipe_fd[0], parser_node->input);
-		close(pipe_fd[0]);
-	}
+		fork_pipe_utils(pipe_fd, pid, exit_code, &parser_node);
+
 }
 
 void 	fork_cmd(t_parser *parser_node, char **envp, int *exit_code)
