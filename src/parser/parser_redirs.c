@@ -6,22 +6,23 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/02 19:52:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:44:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/* void	check_redirs(t_lexer *lexer)
-{
-	
-} */
 
 void	redirs_router(t_mshell *init, char *redirs)
 {
 	char	**redirs_full;
 	
 	redirs_full = ft_split(redirs, '\t');
+	if (redirs_full[1] == NULL)
+	{
+		ft_free_smatrix(redirs_full);
+		redirs_error();
+		return ;
+	}
 	if (!ft_strncmp(redirs_full[0], "<<", 2))
 		init->red_input = process_here_doc(init, redirs_full[1]);	
 	else if (!ft_strncmp(redirs_full[0], "<", 1))
@@ -55,7 +56,7 @@ int		process_here_doc(t_mshell *init, char *eof)
 		ft_putstr_fd(">", init->og_stdout);
 		input = get_next_line(init->og_stdin);
 		if (!input)
-			ft_error("minishell: input error", ERROR);
+			perror("minishell: input error");
 		if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
 			ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 		{
@@ -83,7 +84,7 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	if (file_type == OUT_FILE_APND)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
-		ft_error("minishell_ hd: file error", ERROR);  /* FIXXXXX */
+		file_error(file_name);  /* FIXXXXX */
 	if (file_type == IN_FILE)
 		export = dup2(file_fd, STDIN_FILENO);
 	if (file_type != IN_FILE)

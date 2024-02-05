@@ -6,16 +6,23 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/01 18:51:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:45:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	file_error(char *file_name)
+{
+	printf("minishell: %s: No such file or directory", file_name);
+	exit(EXIT_FAILURE);
+}
+
 int redirs_error(void)
 {
-	ft_printf("minishell: syntax error near unexpected token `newline'");
-	exit (ERROR);
+	ft_printf("minishell: syntax error near unexpected token `newline'\n");
+	return (2);
+	//exit(EXIT_FAILURE);
 }
 
 /* Deal with malloc failure */
@@ -38,12 +45,12 @@ int	fd_error(int fd)
 int	args_error(void)
 {
 	ft_printf("minishell usage: ./minishell\n");
-	exit (ERROR);
+	exit(EXIT_FAILURE);
 }
 
 /* Deal with unclosed quotes */
 int	quotes_error(void)
 {
 	ft_printf("minishell: unclosed quotes\n");
-	exit (ERROR);
+	exit(EXIT_FAILURE);
 }

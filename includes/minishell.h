@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/31 11:11:19 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/05 11:50:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_env	*create_env_node(char *var, char *content);
 int		*create_env_list(t_mshell *init, char **envp, int i);
 
 // error.c
+int     file_error(char *file_name);
+int     redirs_error(void);
 int		args_error(void);
 int		fd_error(int fd);
 int		malloc_error(void *input);
