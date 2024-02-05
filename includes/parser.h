@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 11:51:47 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:58:00 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		free_parser_vars(char **cmds, char **redirs);
 // parser_redirs.c
 //void        check_redirs(t_lexer *lexer);
 void    	redirs_router(t_mshell *init, char *redirs);
-void		clean_here_doc(void);
+void        write_here_doc(t_mshell *init, char *eof, int *pipe_fd);
 int			process_here_doc(t_mshell *init, char *eof);
 int			process_file(t_mshell *init, char *file_name, int file_type);
 

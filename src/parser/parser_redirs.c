@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 12:44:48 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:47:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,57 @@ void	redirs_router(t_mshell *init, char *redirs)
 	ft_free_smatrix(redirs_full);
 }
 
-/* Change to pipe routing instead of new temp file */
-void	clean_here_doc(void)
+/* Get here_doc input and write to pipe */
+void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
 {
-	unlink("here_doc");
-	ft_error("minishell: here_doc error", ERROR); 
+	char	*input;
+	
+	ft_putstr_fd(">", init->og_stdout);
+	input = get_next_line(init->og_stdin);
+	if (!input) 
+	{
+		perror("minishell: input error");
+		close(pipe_fd[1]);
+		exit(EXIT_FAILURE);
+	}
+	if (ft_strlen(input) == (ft_strlen(eof) + 1) &&
+		ft_strncmp(input, eof, ft_strlen(eof)) == 0)
+	{
+		free(input);
+		close(pipe_fd[1]);
+		exit(EXIT_SUCCESS);
+	}
+	write(pipe_fd[1], input, ft_strlen(input));
+	free(input);
 }
 
-/* Change to pipe routing instead of new temp file */
+/* Process here_doc */
 int		process_here_doc(t_mshell *init, char *eof)
 {
-	int		file_fd;
-	char	*input;
+	pid_t	pid;
+	int		pipe_fd[2];
 	int		export;
+	int		status;
 
-	file_fd = open("here_doc", O_CREAT | O_RDWR | O_APPEND, 0644);
-	if (file_fd == -1)
-		clean_here_doc();
-	while (1)
+	if (pipe(pipe_fd) == -1)
+		ft_error("minishell: failed creating pipe", ERROR); /* FIXXXXX */
+	pid = fork();
+	if (pid == -1)
+		ft_error("minishell: failed creating fork", ERROR); /* FIXXXXX */
+	if (pid == 0)
 	{
-		ft_putstr_fd(">", init->og_stdout);
-		input = get_next_line(init->og_stdin);
-		if (!input)
-			perror("minishell: input error");
-		if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
-			ft_strncmp(input, eof, ft_strlen(eof)) == 0)
-		{
-			free(input);
-			break ;
-		}
-		ft_putstr_fd(input, file_fd);
-		free(input);
+		close(pipe_fd[0]);
+        while (1) 
+			write_here_doc(init, eof, pipe_fd);
 	}
-	close(file_fd);
-	export = process_file(init, "here_doc", IN_FILE);
-	return (export);
+	else
+	{
+        close(pipe_fd[1]);
+		export = dup2(pipe_fd[0], STDIN_FILENO);
+        close(pipe_fd[0]);
+        waitpid(pid, &status, 0);
+        return (export);
+	}
 }
 
 int	process_file(t_mshell *init, char *file_name, int file_type)
@@ -90,7 +106,5 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	if (file_type != IN_FILE)
 		export = dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
-	if (!ft_strcmp(file_name, "here_doc"))
-		unlink("here_doc");
 	return (export);
 }
