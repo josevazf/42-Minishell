@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 15:54:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:34:21 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	fork_pipe_utils(int *pipe_fd, pid_t pid, int *exit_code,
 	close(pipe_fd[0]);
 }
 
+/* Get number of pipes */
 void	get_pipes(t_mshell *init)
 {
 	t_lexer	*lexer;
@@ -44,8 +45,7 @@ void	get_pipes(t_mshell *init)
 	free(lexer);
 }
 
-/* Convert Env linked list to original format `**char` 
-	TO FIXXX */
+/* Convert Env linked list to original format `**char` */
 char	**convert_env(t_mshell *init)
 {
 	char	**strings_env;
@@ -59,7 +59,7 @@ char	**convert_env(t_mshell *init)
 		temp_line = ft_strupdate(temp_line, env_table->var);
 		temp_line = ft_strupdate(temp_line, "=");
 		temp_line = ft_strupdate(temp_line, env_table->content);
-		temp_line = ft_strupdate(temp_line, "\n\t");
+		temp_line = ft_strupdate(temp_line, "\t");
 		env_table = env_table->next;
 	}
 	strings_env = ft_split(temp_line, '\t');

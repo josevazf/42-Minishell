@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/31 11:11:30 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/06 12:36:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	minishell(int exit_code, char **envp)
 		parser_main(init, NULL, NULL, NULL); // WIPPPP 
 		// parser_main(init, init->lexer, NULL);
 		// print_parser(init); // PRINT PARSER NODES
-		executer_main(init, envp, &exit_code);
+		executer_main(init, &exit_code);
 		delete_lists(init);
 	}
 	rl_clear_history();

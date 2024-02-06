@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 20:47:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:25:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	redirs_router(t_mshell *init, char *redirs)
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
 {
 	char	*input;
-	
+
 	ft_putstr_fd(">", init->og_stdout);
 	input = get_next_line(init->og_stdin);
 	if (!input) 
