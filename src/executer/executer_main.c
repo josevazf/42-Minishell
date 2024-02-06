@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/06 12:36:25 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:02:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void 	fork_cmd(t_parser *parser_node, char **strings_env, int *exit_code)
 	if (pid == -1)
 		ft_error("minishell: failed creating fork", ERROR);
 	if (pid == 0 && parser_node->cmd_exec != NULL)
+	{
 		execve(parser_node->path_exec, parser_node->cmd_exec, strings_env);
+		close(pid);
+	}
 	else
 	{
         if (waitpid(pid, &status, 0) != -1 )
@@ -91,6 +94,8 @@ void	executer_router(t_mshell *init, char **strings_env, int *exit_code)
 	}
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
+	close(init->og_stdin);
+	close(init->og_stdout);
 }
 
 void	executer_main(t_mshell *init, int *exit_code)

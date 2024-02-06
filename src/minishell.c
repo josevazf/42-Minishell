@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/06 12:36:07 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:34:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	minishell(int exit_code, char **envp)
 	{
 		set_signals();
 		input = readline("minishell$> ");
-		if (input == NULL || ft_strcmp(input, "exit") == 0) // Resolve o CTLR+D
+		if (input == NULL || ft_strcmp(input, "exit") == 0)
 		{
 			ft_printf("Exiting...\n");
 			break ;
