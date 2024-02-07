@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/19 16:09:33 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/07 15:24:12 by guest            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ char	*find_cmd(char *cmd, t_mshell *init)
 
 	init->cmd_not_found = false;
 	paths = parse_path(getenv("PATH"));
-	cmd_path = get_cmd_path(paths, cmd);
+	if (access(cmd, F_OK | X_OK) == 0)
+		cmd_path = ft_strdup(cmd);
+	else
+		cmd_path = get_cmd_path(paths, cmd);
 	if (cmd_path == NULL)
 	{
 		ft_free_smatrix(paths);
