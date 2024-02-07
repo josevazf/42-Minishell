@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exp.c                                         :+:      :+:    :+:   */
+/*   exp.c                                         		:+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -48,11 +48,11 @@ void	expand(t_mshell *init, t_env *env_node, int *exit_code)
 {
 	char		*i_inp;
 	t_expand	*i_exp;
+	char		*alph_exit_code;
 
-	if (g_signo == 130)
-		*exit_code = 130;
 	i_inp = init->in;
 	i_exp = init->exp;
+	alph_exit_code = ft_itoa(*exit_code);
 	if (env_node == NULL && (i_inp[i_exp->i] != '$' || \
 	i_inp[i_exp->i + 1] != '?' || i_exp->s_quote != 1))
 		clear_macro(init);
@@ -61,8 +61,7 @@ void	expand(t_mshell *init, t_env *env_node, int *exit_code)
 		i_exp->new_input = ft_strldup(i_inp, i_exp->i);
 		if (i_inp[i_exp->i] == '$' && i_inp[i_exp->i + 1] == '?' \
 		&& i_exp->s_quote == 1)
-			i_exp->new_input = ft_strupdate(i_exp->new_input, \
-			ft_itoa(*exit_code));
+			i_exp->new_input = ft_strupdate(i_exp->new_input, alph_exit_code);
 		else
 			i_exp->new_input = ft_strupdate(i_exp->new_input, \
 			env_node->content);
@@ -70,6 +69,7 @@ void	expand(t_mshell *init, t_env *env_node, int *exit_code)
 		i_inp + i_exp->i + i_exp->macro_len);
 		update_input(init);
 	}
+	free(alph_exit_code);
 	i_exp->i = 0;
 }
 
