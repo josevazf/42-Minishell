@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 11:50:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:28:24 by guest            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ void	check_oldpwd(t_env *prnt, int *flag);
 
 // unset.c
 void	unset(t_mshell *init);
+
+// exit_shell.c
+void	exit_ms(t_mshell *init);
 
 // signals.c
 void	sigint_handler(int sig);
