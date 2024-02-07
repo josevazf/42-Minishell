@@ -18,6 +18,9 @@
 // expander.c
 void	expander(t_mshell *init, int *exit_code);
 
+// eof_handler.c
+void    eof_manager(t_mshell *init);
+
 // structs_init.c
 void	expander_init(t_expand *expander);
 
