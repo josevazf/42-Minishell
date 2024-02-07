@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/06 12:25:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:36:53 by guest            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 {
 	int	file_fd;
 	int	export;
+	char	*file_err;
 
 	(void)init;
 	if (file_type == IN_FILE)
@@ -100,7 +101,10 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	if (file_type == OUT_FILE_APND)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
-		file_error(file_name);  /* FIXXXXX */
+	{
+		file_err = strerror(errno);
+		printf("%s\n", file_err);
+	}
 	if (file_type == IN_FILE)
 		export = dup2(file_fd, STDIN_FILENO);
 	if (file_type != IN_FILE)
