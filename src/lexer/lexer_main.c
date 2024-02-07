@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/30 16:52:25 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/07 14:58:00 by guest            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	lexer_router(t_lexer *tokens)
 
 int	lexer_main(t_mshell *init, int *exit_code)
 {
+	if (g_signo == 130)
+		*exit_code = 130;
+	eof_manager(init);
 	expander(init, exit_code);
 	free_expander(init->exp);
 	lexer_split(init);
