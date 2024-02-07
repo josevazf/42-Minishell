@@ -52,6 +52,5 @@ void    eof_manager(t_mshell *init)
         }
         i++;
     }
-    printf("****%s****\n", init->in);
     free(old_str);
 }
