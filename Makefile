@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: guest <guest@student.42.fr>                +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/02/07 11:59:52 by guest            ###   ########.fr        #
+#    Updated: 2024/02/08 11:09:32 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,24 @@ $(LIBFT):
 	@echo "$(YELLOW)Compiling necessary libs...$(RESET)"
 	$(MAKE) -C $(LIBFT_DIR)
 
+#testing fd leaks
+leaks: readline.supp
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes ./minishell
+
+readline.supp:
+	@echo "{" > readline.supp
+	@echo "    leak readline" >> readline.supp
+	@echo "    Memcheck:Leak" >> readline.supp
+	@echo "    ..." >> readline.supp
+	@echo "    fun:readline" >> readline.supp
+	@echo "}" >> readline.supp
+	@echo "{" >> readline.supp
+	@echo "    leak add_history" >> readline.supp
+	@echo "    Memcheck:Leak" >> readline.supp
+	@echo "    ..." >> readline.supp
+	@echo "    fun:add_history" >> readline.supp
+	@echo "}" >> readline.supp
+
 #remove .o files
 clean:
 	$(RM) $(OBJS_DIR)
@@ -98,7 +116,7 @@ clean:
 	@echo "$(RED)Object files have been deleted!$(RESET)"
 
 fclean: clean
-	$(RM) $(NAME) $(LIBFT)
+	$(RM) $(NAME) $(LIBFT) readline.supp
 
 #reset environment - remove everything and recompile
 re: fclean
