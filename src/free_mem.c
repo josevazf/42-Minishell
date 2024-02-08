@@ -6,14 +6,15 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/31 18:27:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:22:55 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/* Free Expander nodes */
 
+
+/* Free Expander nodes */
 void	free_expander(t_expand *expander)
 {
 	expander->i = 0;
@@ -84,5 +85,8 @@ void	delete_lists(t_mshell *init)
 	free(init->in);
 	init->nbr_cmds = 0;
 	init->nbr_pipes = 0;
+	close(init->og_stdin);
+	close(init->og_stdout);
 	free(init);
+	
 }

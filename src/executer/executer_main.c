@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/06 20:02:48 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:27:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void 	fork_cmd(t_parser *parser_node, char **strings_env, int *exit_code)
 	else
 	{
         if (waitpid(pid, &status, 0) != -1 )
-			get_exit_code(status, exit_code);
+		{
+			close(pid);
+			get_exit_code(status, exit_code);			
+		}
         else
 		{
             perror("waitpid() failed yoyoyo"); //corrigir
@@ -94,8 +97,6 @@ void	executer_router(t_mshell *init, char **strings_env, int *exit_code)
 	}
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
-	close(init->og_stdin);
-	close(init->og_stdout);
 }
 
 void	executer_main(t_mshell *init, int *exit_code)

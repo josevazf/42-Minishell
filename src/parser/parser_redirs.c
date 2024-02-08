@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_redirs.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/07 16:36:53 by guest            ###   ########.fr       */
+/*   Updated: 2024/02/08 17:45:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	redirs_router(t_mshell *init, char *redirs)
-{
-	char	**redirs_full;
-	
-	redirs_full = ft_split(redirs, '\t');
-	if (redirs_full[1] == NULL)
-	{
-		ft_free_smatrix(redirs_full);
-		redirs_error();
-		return ;
-	}
-	if (!ft_strncmp(redirs_full[0], "<<", 2))
-		init->red_input = process_here_doc(init, redirs_full[1]);	
-	else if (!ft_strncmp(redirs_full[0], "<", 1))
-		init->red_input = process_file(init, redirs_full[1], IN_FILE);
-	else if (!ft_strncmp(redirs_full[0], ">>", 2))
-		init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
-	else if (!ft_strncmp(redirs_full[0], ">", 1))
-		init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
-	ft_free_smatrix(redirs_full);
-}
 
 /* Get here_doc input and write to pipe */
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
@@ -104,6 +82,7 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	{
 		file_err = strerror(errno);
 		printf("%s\n", file_err);
+		return (-1);
 	}
 	if (file_type == IN_FILE)
 		export = dup2(file_fd, STDIN_FILENO);
@@ -111,4 +90,26 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 		export = dup2(file_fd, STDOUT_FILENO);
 	close(file_fd);
 	return (export);
+}
+
+void	redirs_router(t_mshell *init, char *redirs)
+{
+	char	**redirs_full;
+	
+	redirs_full = ft_split(redirs, '\t');
+	if (redirs_full[1] == NULL)
+	{
+		ft_free_smatrix(redirs_full);
+		redirs_error();
+		return ;
+	}
+	if (!ft_strncmp(redirs_full[0], "<<", 2))
+		init->red_input = process_here_doc(init, redirs_full[1]);	
+	else if (!ft_strncmp(redirs_full[0], "<", 1))
+		init->red_input = process_file(init, redirs_full[1], IN_FILE);
+	else if (!ft_strncmp(redirs_full[0], ">>", 2))
+		init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
+	else if (!ft_strncmp(redirs_full[0], ">", 1))
+		init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
+	ft_free_smatrix(redirs_full);
 }
