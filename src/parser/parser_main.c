@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/09 15:36:11 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:50:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 	
 	cmd_path = NULL;
 	cmd_full = NULL;
+	if (redirs)
+		redirs_router(init, redirs);
 	if (cmds)
 	{
 		cmd_full = ft_split(cmds, '\t');
@@ -70,8 +72,6 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs,
 			return (NULL);
 		}
 	}
-	if (redirs)
-		redirs_router(init, redirs);
 	if (!parser)
 		parser = create_parser_node(init, cmds, cmd_path);
 	else
@@ -93,7 +93,7 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 		while (lexer && lexer->operator != PIPE)
 		{
 			if (lexer->operator >= 3 && lexer->operator <= 6)
-				redirs = get_redirs(redirs, &lexer);
+				redirs = get_redirs(init, redirs, &lexer);
 			else if (lexer->operator == CMD && !cmds)
 				cmds = ft_strdup(lexer->str);
 			else if (lexer->operator == CMD)
@@ -104,6 +104,7 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 		if (parser == NULL)
 			lexer = NULL;
 		free_parser_vars(&cmds, &redirs);
+		init->stop_redirs = false;
 	}
 	free(lexer);
 }

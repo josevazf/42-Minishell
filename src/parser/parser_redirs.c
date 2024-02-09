@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/09 15:45:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/09 17:40:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 
 void	redirs_router(t_mshell *init, char *redirs)
 {
+	int		i;
 	char	**redirs_full;
 	
+	i = -1;
 	redirs_full = ft_split(redirs, '\t');
 	if (redirs_full[1] == NULL)
 	{
@@ -103,15 +105,18 @@ void	redirs_router(t_mshell *init, char *redirs)
 		redirs_error();
 		return ;
 	}
-	if (!ft_strncmp(redirs_full[0], "<<", 2))
-		init->red_input = process_here_doc(init, redirs_full[1]);	
-	else if (!ft_strncmp(redirs_full[0], "<", 1))
-		init->red_input = process_file(init, redirs_full[1], IN_FILE);
-	else if (!ft_strncmp(redirs_full[0], ">>", 2))
-		init->red_output = process_file(init, redirs_full[1], OUT_FILE_APND);
-	else if (!ft_strncmp(redirs_full[0], ">", 1))
-		init->red_output = process_file(init, redirs_full[1], OUT_FILE_OWR);
-	if (init->red_output == -1)
-		init->stop_redirs = true;
+	while (redirs_full[++i])
+	{
+		if (!ft_strncmp(redirs_full[i], "<<", 2))
+			init->red_input = process_here_doc(init, redirs_full[i + 1]);	
+		else if (!ft_strncmp(redirs_full[i], "<", 1))
+			init->red_input = process_file(init, redirs_full[i + 1], IN_FILE);
+		else if (!ft_strncmp(redirs_full[i], ">>", 2))
+			init->red_output = process_file(init, redirs_full[i + 1], OUT_FILE_APND);
+		else if (!ft_strncmp(redirs_full[i], ">", 1))
+			init->red_output = process_file(init, redirs_full[i + 1], OUT_FILE_OWR);
+		if (init->red_output == -1 || init->red_input)
+			init->stop_redirs = true;
+	}
 	ft_free_smatrix(redirs_full);
 }
