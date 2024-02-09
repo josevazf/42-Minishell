@@ -69,7 +69,7 @@ void	delete_lists(t_mshell *init);
 void	pwd(t_parser *parser);
 
 // cd.c
-void	cd(t_mshell *init);
+void	cd(t_mshell *init, t_parser *parser, int *exit_code);
 
 // env.c
 void	env(t_mshell *init);
