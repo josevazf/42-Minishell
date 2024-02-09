@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 11:51:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:36:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, char *cmd_path)
 	node = (t_parser *)malloc(sizeof(t_parser));
 	if (!node)
 		return (NULL);
-	if (!cmds)
+	if (!cmds || init->stop_redirs)
 	{
 		node->cmd_exec = NULL;
 		node->path_exec = NULL;		

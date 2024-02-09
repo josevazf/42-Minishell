@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/08 17:27:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:43:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	executer_router(t_mshell *init, char **strings_env, int *exit_code)
 
 	init->nbr_pipes = 0;
 	get_pipes(init);
-	if (init->nbr_pipes == 0)
+	if (init->nbr_pipes == 0 && init->parser->cmd_exec != NULL)
 		fork_cmd(init->parser, strings_env, exit_code);
-	else
+	else if (init->parser->cmd_exec != NULL)
 	{
 		parser_node = init->parser;
 		while (init->nbr_pipes > 0)

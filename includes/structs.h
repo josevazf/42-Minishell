@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/29 18:06:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:34:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_mshell
 	int					og_stdout;
 	int					red_input;
 	int					red_output;
+	bool				stop_redirs;
 	struct s_env		*env_table;
 	struct s_expand		*exp;
 	struct s_lexer		*lexer;
