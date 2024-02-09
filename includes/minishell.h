@@ -66,7 +66,7 @@ void	free_lexer(t_lexer *lexer);
 void	delete_lists(t_mshell *init);
 
 // pwd.c
-void	pwd(t_mshell *init);
+void	pwd(t_parser *parser);
 
 // cd.c
 void	cd(t_mshell *init);
