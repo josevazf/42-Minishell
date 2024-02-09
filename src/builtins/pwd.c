@@ -12,22 +12,11 @@
 
 #include "../includes/minishell.h"
 
-void	pwd(t_mshell *init)
+void	pwd(t_parser *parser)
 {
-	t_env	*env_head;
+	char	*dir;
 
-	env_head = init->env_table;
-	while (init->env_table)
-	{
-		if (ft_strcmp("PWD", init->env_table->var) == 0)
-		{
-			write(1, init->env_table->content, \
-			ft_strlen(init->env_table->content));
-			write(1, "\n", 1);
-			return ;
-		}
-		init->env_table = init->env_table->next;
-	}
-	init->env_table = env_head;
-	return ;
+	dir = getcwd(NULL, 0);
+	write(parser->output, dir, ft_strlen(dir));
+	write(parser->output, "\n", 1);
 }
