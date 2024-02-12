@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 11:49:16 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/12 16:14:28 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,51 @@ void	print_str(t_lexer *node)
 	}
 }
 
-void	echo(t_mshell *init)
+// void	echo(t_mshell *init)
+// {
+// 	t_lexer	*node;
+// 	int		flag;
+// 	int		i;
+
+// 	flag = 0;
+// 	i = 2;
+// 	node = init->lexer->next;
+// 	if (node->str[i - 2] == '-' && node->str[i - 1] == 'n')
+// 	{
+// 		while (node->str[i] == 'n')
+// 			i++;
+// 		if (!node->str[i])
+// 		{
+// 			flag = 1;
+// 			node = node->next;
+// 		}
+// 	}
+// 	print_str(node);
+// 	if (flag == 0)
+// 		ft_printf("\n");
+// 	return ;
+// }
+
+void	echo(t_parser *parser)
 {
-	t_lexer	*node;
 	int		flag;
 	int		i;
+	int		j;
 
 	flag = 0;
 	i = 2;
-	node = init->lexer->next;
-	if (node->str[i - 2] == '-' && node->str[i - 1] == 'n')
+	j = 1;
+	if (parser->cmd_exec[j][0] == '-' && parser->cmd_exec[j][1] == 'n')
 	{
-		while (node->str[i] == 'n')
+		while (parser->cmd_exec[j][i] && parser->cmd_exec[j][i] == 'n')
 			i++;
-		if (!node->str[i])
-		{
+		if (!parser->cmd_exec[j][i])
 			flag = 1;
-			node = node->next;
-		}
+		j++;
 	}
-	print_str(node);
+	if (parser->cmd_exec[j])
+		printf("%s", parser->cmd_exec[j]);
 	if (flag == 0)
-		ft_printf("\n");
-	return ;
+		printf("\n");
+	exit (0);
 }

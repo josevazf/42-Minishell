@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/07 16:50:37 by guest            ###   ########.fr       */
+/*   Updated: 2024/02/12 16:01:26 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code);
 void	env(t_mshell *init);
 
 // echo.c
-void	echo(t_mshell *init);
+void	echo(t_parser *parser);
 
 // export.c
 void	export(t_mshell *init);
