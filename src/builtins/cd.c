@@ -58,30 +58,32 @@ void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 	}
 }
 
+
 void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 {
-	t_env	*node;
+	t_env	*node_head;
 	char	*old_dir;
 	char	*new_dir;
 
 	cd_error_checker(init, parser, exit_code);
 	new_dir = NULL;
-	node = init->env_table;
-	old_dir = ft_strdup(getcwd(NULL, 0));
+	node_head = init->env_table;
+	old_dir = getcwd(NULL, 0);
 	if (parser->cmd_exec[1] == NULL)
 		new_dir = ft_strdup(get_home(init));
 	else
 		update_dir(parser, &new_dir);
-	node->content = ft_strdup(new_dir);
+	init->env_table->content = ft_strdup(new_dir);
 	free(new_dir);
-	while (ft_strcmp("OLDPWD", node->var) != 0)
+	while (ft_strcmp("OLDPWD", init->env_table->var) != 0)
 	{
-		if (!node->next)
-			create_oldpwd_node(node);
-		node = node->next;
+		if (!init->env_table->next)
+			create_oldpwd_node(init->env_table);
+		init->env_table = init->env_table->next;
 	}
-	if (node->content)
-		free(node->content);
-	node->content = ft_strdup(old_dir);
+	if (init->env_table->content)
+		free(init->env_table->content);
+	init->env_table->content = ft_strdup(old_dir);
 	free(old_dir);
+	init->env_table = node_head;
 }
