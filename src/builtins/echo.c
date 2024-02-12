@@ -23,31 +23,6 @@ void	print_str(t_lexer *node)
 	}
 }
 
-// void	echo(t_mshell *init)
-// {
-// 	t_lexer	*node;
-// 	int		flag;
-// 	int		i;
-
-// 	flag = 0;
-// 	i = 2;
-// 	node = init->lexer->next;
-// 	if (node->str[i - 2] == '-' && node->str[i - 1] == 'n')
-// 	{
-// 		while (node->str[i] == 'n')
-// 			i++;
-// 		if (!node->str[i])
-// 		{
-// 			flag = 1;
-// 			node = node->next;
-// 		}
-// 	}
-// 	print_str(node);
-// 	if (flag == 0)
-// 		ft_printf("\n");
-// 	return ;
-// }
-
 void	echo(t_parser *parser)
 {
 	int		flag;
