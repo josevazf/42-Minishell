@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/09 17:40:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:45:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	redirs_router(t_mshell *init, char *redirs)
 			init->red_output = process_file(init, redirs_full[i + 1], OUT_FILE_APND);
 		else if (!ft_strncmp(redirs_full[i], ">", 1))
 			init->red_output = process_file(init, redirs_full[i + 1], OUT_FILE_OWR);
-		if (init->red_output == -1 || init->red_input)
+		if (init->red_output == -1 || init->red_input == -1)
 			init->stop_redirs = true;
 	}
 	ft_free_smatrix(redirs_full);

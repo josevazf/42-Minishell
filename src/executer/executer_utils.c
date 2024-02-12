@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/06 12:34:21 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:47:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,20 @@ char	**convert_env(t_mshell *init)
 	return (strings_env);
 }
 
-/* void	executer_router()
+void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_env, int *exit_code)
 {
-	if (ft_strcmp(cmd, "echo") == 0)
-		 
-	else if (ft_strcmp(cmd, "cd") == 0)
-		
-	else if (ft_strcmp(cmd, "pwd") == 0)
-		
-	else if (ft_strcmp(cmd, "export") == 0)
-		
-	else if (ft_strcmp(cmd, "unset") == 0) 
-		
-	else if (ft_strcmp(cmd, "env") == 0) 
-		
-	else if (ft_strcmp(cmd, "exit") == 0)
-		
+	if (!ft_strcmp(parser_node->cmd_exec[0], "echo") == 0)
+		echo(parser_node);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd") == 0)
+		cd(init, parser_node, &exit_code);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd") == 0)
+		pwd(parser_node);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "export") == 0)
+		export(init);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset") == 0) 
+		unset(init);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "env") == 0) 
+		env(init);
 	else
-		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
-} */
+		execve(parser_node->path_exec, parser_node->cmd_exec, strings_env);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/07 15:24:12 by guest            ###   ########.fr       */
+/*   Updated: 2024/02/12 15:20:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ char	*find_cmd(char *cmd, t_mshell *init)
 	char	*error_msg;
 
 	init->cmd_not_found = false;
+	if (cmd_router(cmd) == BUILTIN_CMD)
+		return ("builtin");
 	paths = parse_path(getenv("PATH"));
 	if (access(cmd, F_OK | X_OK) == 0)
 		cmd_path = ft_strdup(cmd);
