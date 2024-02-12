@@ -34,19 +34,18 @@ void	create_oldpwd_node(t_env *node)
 
 void	update_dir(t_parser *parser, char **new_dir)
 {
-	chdir(parser->cmd_exec[1]);
+	char	*file_err;
+
+	if (chdir(parser->cmd_exec[1]) != 0)
+		{
+			file_err = strerror(errno);
+			printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
+		}
 	*new_dir = getcwd(NULL, 0);
 }
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
-{
-	char	*file_err;
-	
-	if (chdir(parser->cmd_exec[1]) != 0)
-	{
-		file_err = strerror(errno);
-		printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
-	}
+{	
 	if (parser->cmd_exec[2] != NULL)
 	{
 		printf("minishell: cd: too many arguments\n");
