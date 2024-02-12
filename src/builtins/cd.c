@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/19 11:48:52 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/12 10:23:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	create_OLDPWD_node(t_env *node)
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 {
-	t_env	*node;
+	//t_env	*node;
 
-	node = init->env_table;
+	//node = init->env_table;
 	if (parser->cmd_exec[2])
 	{
 		printf("bash: cd: too many arguments\n");
