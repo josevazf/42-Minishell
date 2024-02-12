@@ -22,7 +22,8 @@ void	minishell(int exit_code, char **envp)
 
 	while (1)
 	{
-		dir = ft_strupdate(getcwd(NULL, 0), "$ ");
+		dir = getcwd(NULL, 0);
+		dir = ft_strupdate(dir, "$ ");
 		set_signals();
 		input = readline(dir);
 		if (input == NULL || ft_strcmp(input, "exit") == 0)
