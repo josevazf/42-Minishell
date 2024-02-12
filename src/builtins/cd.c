@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/12 16:20:37 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:41:47 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,22 @@ void	update_dir(t_parser *parser, char **new_dir)
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 {
+	char	*file_err;
+	
+	if (chdir(parser->cmd_exec[1]) != 0)
+	{
+		file_err = strerror(errno);
+		printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
+	}
 	if (parser->cmd_exec[2] != NULL)
 	{
-		printf("bash: cd: too many arguments\n");
+		printf("minishell: cd: too many arguments\n");
 		*exit_code = 1;
-		exit(1);
 	}
 	else if (parser->cmd_exec[1] == NULL && get_home(init) == NULL)
 	{
-		printf("bash: cd: HOME not set\n");
+		printf("minishell: cd: HOME not set\n");
 		*exit_code = 1;
-		exit(1);
 	}
 }
 
@@ -80,5 +85,4 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 		free(node->content);
 	node->content = ft_strdup(old_dir);
 	free(old_dir);
-	exit(0);
 }
