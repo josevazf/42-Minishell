@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/06 19:34:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:19:03 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@ int	g_signo;
 void	minishell(int exit_code, char **envp)
 {
 	char 		*input;
+	char		*dir;
 	t_mshell	*init;
 
 	while (1)
 	{
+		dir = ft_strupdate(getcwd(NULL, 0), "$ ");
 		set_signals();
-		input = readline("minishell$> ");
+		input = readline(dir);
 		if (input == NULL || ft_strcmp(input, "exit") == 0)
 		{
-			ft_printf("Exiting...\n");
+			printf("exit\n");
 			break ;
 		}
 		if (input[0] == '\0' || quotes_checker(input) != 0)
 		{
 			if (quotes_checker(input) != 0)
-				ft_printf("minishell: unclosed quotes\n");
+				printf("minishell: unclosed quotes\n");
 			free(input);
 			continue ;	
 		}
@@ -44,11 +46,13 @@ void	minishell(int exit_code, char **envp)
 		// print_env(init); // PRINT ENV TABLE
 		lexer_main(init, &exit_code);
 		// print_lexer(init); // PRINT LEXER TOKENS
+		// TEST
 		parser_main(init, NULL, NULL, NULL); // WIPPPP 
 		// parser_main(init, init->lexer, NULL);
 		// print_parser(init); // PRINT PARSER NODES
 		executer_main(init, &exit_code);
 		delete_lists(init);
+		free(dir);
 	}
 	rl_clear_history();
 }
