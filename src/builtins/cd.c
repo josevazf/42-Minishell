@@ -28,12 +28,14 @@ void	create_oldpwd_node(t_env *node)
 {
 	node->next = (t_env *)malloc(sizeof(t_env));
 	node->next->var = ft_strdup("OLDPWD");
+	node->next->content = NULL;
+	node->next->next = NULL;
 }
 
-void	update_dir(t_parser *parser, char *new_dir)
+void	update_dir(t_parser *parser, char **new_dir)
 {
 	chdir(parser->cmd_exec[1]);
-	new_dir = getcwd(NULL, 0);
+	*new_dir = getcwd(NULL, 0);
 }
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
@@ -65,7 +67,7 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 	if (parser->cmd_exec[1] == NULL)
 		new_dir = ft_strdup(get_home(init));
 	else
-		update_dir(parser, new_dir);
+		update_dir(parser, &new_dir);
 	node->content = ft_strdup(new_dir);
 	free(new_dir);
 	while (ft_strcmp("OLDPWD", node->var) != 0)
@@ -74,7 +76,8 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 			create_oldpwd_node(node);
 		node = node->next;
 	}
-	free(node->content);
+	if (node->content)
+		free(node->content);
 	node->content = ft_strdup(old_dir);
 	free(old_dir);
 	exit(0);
