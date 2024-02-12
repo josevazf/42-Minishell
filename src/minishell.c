@@ -26,6 +26,7 @@ void	minishell(int exit_code, char **envp)
 		dir = ft_strupdate(dir, "$ ");
 		set_signals();
 		input = readline(dir);
+		free(dir);
 		if (input == NULL || ft_strcmp(input, "exit") == 0)
 		{
 			printf("exit\n");
@@ -53,7 +54,6 @@ void	minishell(int exit_code, char **envp)
 		// print_parser(init); // PRINT PARSER NODES
 		executer_main(init, &exit_code);
 		delete_lists(init);
-		free(dir);
 	}
 	rl_clear_history();
 }
