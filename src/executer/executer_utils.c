@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/12 15:47:26 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:52:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_e
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo") == 0)
 		echo(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd") == 0)
-		cd(init, parser_node, &exit_code);
+		cd(init, parser_node, exit_code);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd") == 0)
 		pwd(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "export") == 0)
