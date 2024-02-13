@@ -14,14 +14,23 @@
 
 char	*get_home(t_mshell *init)
 {
-	t_env	*node;
+	t_env	*node_home;
+	t_env	*node_pwd;
 
-	node = init->env_table;
-	while (node && ft_strcmp("HOME", node->var) != 0)
-		node = node->next;
-	if (!node)
+	node_home = init->env_table;
+	while (node_home && ft_strcmp("HOME", node_home->var) != 0)
+		node_home = node_home->next;
+	if (!node_home)
 		return (NULL);
-	return (node->content);
+	node_pwd = init->env_table;
+	while (node_pwd && ft_strcmp("PWD", node_pwd->var) != 0)
+		node_pwd = node_pwd->next;
+	if (ft_strcmp("PWD", node_pwd->var) == 0)
+	{
+		free(node_pwd->content),
+		node_pwd->content = ft_strdup(node_home->content);
+	}
+	return (node_home->content);
 }
 
 void	create_oldpwd_node(t_env *node)
@@ -45,11 +54,14 @@ void	update_dir(t_parser *parser, char **new_dir)
 }
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
-{	
-	if (parser->cmd_exec[2] != NULL)
+{
+	if (parser->cmd_exec[1] != NULL)
 	{
-		printf("minishell: cd: too many arguments\n");
-		*exit_code = 1;
+		if (parser->cmd_exec[2] != NULL)
+		{
+			printf("minishell: cd: too many arguments\n");
+			*exit_code = 1;
+		}
 	}
 	else if (parser->cmd_exec[1] == NULL && get_home(init) == NULL)
 	{
@@ -61,29 +73,31 @@ void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 
 void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 {
-	t_env	*node_head;
+	t_env	*node;
 	char	*old_dir;
 	char	*new_dir;
 
 	cd_error_checker(init, parser, exit_code);
-	new_dir = NULL;
-	node_head = init->env_table;
+	node = init->env_table;
 	old_dir = getcwd(NULL, 0);
 	if (parser->cmd_exec[1] == NULL)
+	{
 		new_dir = ft_strdup(get_home(init));
+		chdir(new_dir);
+	}
 	else
 		update_dir(parser, &new_dir);
-	init->env_table->content = ft_strdup(new_dir);
+	free(node->content);
+	node->content = ft_strdup(new_dir);
 	free(new_dir);
-	while (ft_strcmp("OLDPWD", init->env_table->var) != 0)
+	while (ft_strcmp("OLDPWD", node->var) != 0)
 	{
-		if (!init->env_table->next)
-			create_oldpwd_node(init->env_table);
-		init->env_table = init->env_table->next;
+		if (!node->next)
+			create_oldpwd_node(node);
+		node = node->next;
 	}
-	if (init->env_table->content)
-		free(init->env_table->content);
-	init->env_table->content = ft_strdup(old_dir);
+	if (node->content)
+		free(node->content);
+	node->content = ft_strdup(old_dir);
 	free(old_dir);
-	init->env_table = node_head;
 }
