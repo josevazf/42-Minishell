@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/12 16:41:52 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:11:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 		while (lexer && lexer->operator != PIPE)
 		{
 			if (lexer->operator >= 3 && lexer->operator <= 6)
-				redirs = get_redirs(redirs, &lexer);
+				redirs = get_redirs(init, redirs, &lexer);
 			else if (lexer->operator == CMD && !cmds)
 				cmds = ft_strdup(lexer->str);
 			else if (lexer->operator == CMD)

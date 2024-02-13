@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 19:58:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:11:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char		*get_cmd_path(char **envp_paths, char *cmd);
 char		*find_cmd(char *cmd, t_mshell *init);
 
 // parser_utils.c
-char		*get_redirs(char *og_redirs, t_lexer **lexer);
+char		*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer);
 char		*parser_merge_split(char *og_str, char *lexer_str);
 void		free_parser_temps(char *cmds, char *redirs, char *cmd_path, char **cmd_full);
 void		free_parser_vars(char **cmds, char **redirs);

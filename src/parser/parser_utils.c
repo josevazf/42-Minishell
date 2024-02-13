@@ -6,13 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 11:57:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:11:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_redirs(char *og_redirs, t_lexer **lexer)
+char	*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer)
 {
 	if (!og_redirs)
 	{
@@ -30,6 +30,8 @@ char	*get_redirs(char *og_redirs, t_lexer **lexer)
 		(*lexer) = (*lexer)->next;
 		og_redirs = parser_merge_split(og_redirs, (*lexer)->str);
 	}
+	if (og_redirs)
+		init->redirs_exist = true;
 	return (og_redirs);
 }
 

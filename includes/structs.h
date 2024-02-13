@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/09 15:34:37 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:12:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ typedef struct s_mshell
 	char				*in;
 	int					nbr_pipes;
 	int					nbr_cmds;
-	bool				cmd_not_found;
 	int					og_stdin;
 	int					og_stdout;
 	int					red_input;
 	int					red_output;
+	bool				cmd_not_found;
 	bool				stop_redirs;
+	bool				redirs_exist;
 	struct s_env		*env_table;
 	struct s_expand		*exp;
 	struct s_lexer		*lexer;

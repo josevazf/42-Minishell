@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/09 15:34:21 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:12:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	mshell_init(t_mshell *init)
 	init->red_output = STDOUT_FILENO;
 	init->stop_redirs = false;
 	init->cmd_not_found = true;
+	init->redirs_exist = false;
 }

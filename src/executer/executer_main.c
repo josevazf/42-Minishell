@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/12 17:30:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:16:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	get_exit_code(int status, int *exit_code)
 		printf("Something strange just happened.\n");
 }
 
-void	fork_pipe(t_mshell *init, t_parser *parser_node, char **strings_env, int *exit_code)
+void	fork_pipe(t_mshell *init, t_parser *parser_node, char **strings_env, 
+													int *exit_code)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -46,7 +47,8 @@ void	fork_pipe(t_mshell *init, t_parser *parser_node, char **strings_env, int *e
 		fork_pipe_utils(pipe_fd, pid, exit_code, &parser_node);
 }
 
-void 	fork_cmd(t_mshell *init, t_parser *parser_node, char **strings_env, int *exit_code)
+void 	fork_cmd(t_mshell *init, t_parser *parser_node, char **strings_env, 
+													int *exit_code)
 {
 	pid_t		pid;
 	int			status;
@@ -81,7 +83,8 @@ void	executer_fork_router(t_mshell *init, char **strings_env, int *exit_code)
 
 	init->nbr_pipes = 0;
 	get_pipes(init);
-	if (init->nbr_pipes == 0 && init->parser->cmd_exec != NULL && !ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
+	if (init->nbr_pipes == 0 && init->parser->cmd_exec != NULL && 
+				!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
 		cd(init, init->parser, exit_code);
 	else if (init->nbr_pipes == 0 && init->parser->cmd_exec != NULL)
 		fork_cmd(init, init->parser, strings_env, exit_code);
@@ -106,7 +109,14 @@ void	executer_main(t_mshell *init, int *exit_code)
 
 	signal(SIGINT, sighandler_fork);
 	signal(SIGQUIT, sighandler_fork);
-	if (init->cmd_not_found)
+	if (init->cmd_not_found && init->redirs_exist)
+	{
+		dup2(init->og_stdin, STDIN_FILENO);
+		dup2(init->og_stdout, STDOUT_FILENO);
+		*exit_code = 0;
+		return ;
+	}
+	else if (init->cmd_not_found)
 	{
 		*exit_code = 127;
 		init->parser = NULL;
