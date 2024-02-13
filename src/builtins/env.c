@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:21:20 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/19 10:01:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:18:09 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	env(t_mshell *init)
 		init->env_table = init->env_table->next;
 	}
 	init->env_table = env_head;
+	exit(EXIT_SUCCESS);
 }

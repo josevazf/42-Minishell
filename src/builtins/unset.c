@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/01/19 10:03:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:18:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void	unset(t_mshell *init)
 			env_node = env_node->next;
 		}
 	}
+	exit(EXIT_SUCCESS);
 }
