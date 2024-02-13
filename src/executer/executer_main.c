@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/13 12:16:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:50:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,12 @@ void	executer_fork_router(t_mshell *init, char **strings_env, int *exit_code)
 
 	init->nbr_pipes = 0;
 	get_pipes(init);
-	if (init->nbr_pipes == 0 && init->parser->cmd_exec != NULL && 
-				!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
+	if (init->nbr_pipes == 0 && !ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
 		cd(init, init->parser, exit_code);
+	else if (init->nbr_pipes == 0 && !ft_strncmp(init->parser->cmd_exec[0], "unset", 5))
+		unset(init);
+	else if (init->nbr_pipes == 0 && !ft_strncmp(init->parser->cmd_exec[0], "export", 6))
+		export(init);
 	else if (init->nbr_pipes == 0 && init->parser->cmd_exec != NULL)
 		fork_cmd(init, init->parser, strings_env, exit_code);
 	else if (init->parser->cmd_exec != NULL)
