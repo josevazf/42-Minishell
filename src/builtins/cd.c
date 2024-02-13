@@ -53,7 +53,6 @@ void	update_dir(t_parser *parser, char **new_dir, t_env *node)
 	*new_dir = getcwd(NULL, 0);
 	free(node->content);
 	node->content = ft_strdup(*new_dir);
-	free(*new_dir);
 }
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
@@ -89,6 +88,7 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 	}
 	else
 		update_dir(parser, &new_dir, node);
+	free(new_dir);
 	while (ft_strcmp("OLDPWD", node->var) != 0)
 	{
 		if (!node->next)
