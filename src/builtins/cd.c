@@ -41,16 +41,19 @@ void	create_oldpwd_node(t_env *node)
 	node->next->next = NULL;
 }
 
-void	update_dir(t_parser *parser, char **new_dir)
+void	update_dir(t_parser *parser, char **new_dir, t_env *node)
 {
 	char	*file_err;
 
 	if (chdir(parser->cmd_exec[1]) != 0)
-		{
-			file_err = strerror(errno);
-			printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
-		}
+	{
+		file_err = strerror(errno);
+		printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
+	}
 	*new_dir = getcwd(NULL, 0);
+	free(node->content);
+	node->content = ft_strdup(*new_dir);
+	free(*new_dir);
 }
 
 void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
@@ -70,7 +73,6 @@ void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 	}
 }
 
-
 void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 {
 	t_env	*node;
@@ -86,10 +88,7 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 		chdir(new_dir);
 	}
 	else
-		update_dir(parser, &new_dir);
-	free(node->content);
-	node->content = ft_strdup(new_dir);
-	free(new_dir);
+		update_dir(parser, &new_dir, node);
 	while (ft_strcmp("OLDPWD", node->var) != 0)
 	{
 		if (!node->next)
