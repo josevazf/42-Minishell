@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/13 12:12:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:51:18 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	env_table_init(t_env *env_table)
 {
 	env_table->var = NULL;
 	env_table->content = NULL;
+	env_table->visibility = 0;
 	env_table->next = NULL;
 }
 
@@ -59,4 +60,8 @@ void	mshell_init(t_mshell *init)
 	init->stop_redirs = false;
 	init->cmd_not_found = true;
 	init->redirs_exist = false;
+	init->env_table = NULL;
+	init->exp = NULL;
+	init->lexer = NULL;
+	init->parser = NULL;
 }

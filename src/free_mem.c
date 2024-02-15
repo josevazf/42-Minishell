@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/08 17:22:55 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:01:59 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void	delete_lists(t_mshell *init)
 		free_env(init->env_table);
 	if (init->parser)
 		free_parser(init->parser);
-	free(init->in);
+	if (init->in)
+		free(init->in);
 	init->nbr_cmds = 0;
 	init->nbr_pipes = 0;
 	close(init->og_stdin);
 	close(init->og_stdout);
 	free(init);
-	
 }

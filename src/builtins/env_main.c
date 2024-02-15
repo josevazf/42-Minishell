@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/03 15:08:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 11:34:17 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_env	*create_env_node(char *var, char *content)
 		return (NULL);
 	node->var = ft_strdup(var);
 	node->content = ft_strdup(content);
+	node->visibility = 0;
 	node->next = NULL;
 	return (node);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/12 16:01:26 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:37:35 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void	echo(t_parser *parser);
 
 // export.c
 void	export(t_mshell *init);
+
+// new_var_set.c
+void	new_var_checker(t_mshell *init);
 
 // export_utils.c
 void	assign_val(t_env **env_node, t_env **count, int *flag, t_mshell *init);

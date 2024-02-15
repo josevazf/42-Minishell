@@ -3,42 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:31:22 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	var_exists(t_mshell *init, t_env *env_node)
+{
+	char *export_var;
+	char *export_content;
+	int i;
+
+	i = 7;
+	export_content = NULL;
+	while (init->in[i] && init->in[i] != '=')
+		i++;
+	export_var = ft_strldup(init->in + 7, i - 7);
+	if (init->in[i])
+	{
+		i = ft_strlen(init->in);
+		while (init->in[i] != '=')
+			i--;
+		export_content = ft_strdup(init->in + i);
+	}
+	while (env_node)
+	{
+		if (ft_strcmp(env_node->var, export_var) == 0 && export_content)
+		{
+			if (env_node->content)
+				free (env_node->content);
+			env_node->content = ft_strdup(export_content);
+			env_node->visibility = 0;
+			return (0);
+		}
+		env_node = env_node->next;
+	}
+	return (1);
+}
+
 void	export_new(t_mshell *init)
 {
-	t_lexer	*lexer_node;
 	t_env	*env_node;
-	size_t	i;
 
-	lexer_node = init->lexer->next;
 	env_node = init->env_table;
+	if (var_exists(init, env_node) == 0)
+		return ;
 	while (env_node->next)
 		env_node = env_node->next;
-	while (lexer_node)
-	{
-		env_node->next = (t_env *)malloc(sizeof(t_env));
-		env_table_init(env_node->next);
-		env_node = env_node->next;
-		i = 0;
-		while (lexer_node->str[i] && lexer_node->str[i] != '=')
-			i++;
-		if (i == ft_strlen(lexer_node->str))
-			env_node->var = ft_strdup(lexer_node->str);
-		else
-		{
-			env_node->var = ft_strldup(lexer_node->str, i);
-			env_node->content = ft_strndup(lexer_node->str, i + 1);
-		}
-		lexer_node = lexer_node->next;
-	}
+	env_node->next = (t_env *)malloc(sizeof(t_env));
+	env_table_init(env_node->next);
+	env_node = env_node->next;
+	env_node->var = ft_strdup(init->parser->cmd_exec[1]);
+	if (init->parser->cmd_exec[2] && init->parser->cmd_exec[3])
+		env_node->content = ft_strdup(init->parser->cmd_exec[3]);	
 }
 
 void	export(t_mshell *init)
@@ -49,7 +70,7 @@ void	export(t_mshell *init)
 	t_env	*stash;
 	int		flag;
 
-	if (!init->lexer->next)
+	if (!init->parser->cmd_exec[1])
 	{
 		stash = (t_env *)malloc(sizeof(t_env));
 		env_table_init(stash);
@@ -58,7 +79,7 @@ void	export(t_mshell *init)
 		{
 			sort_list(&prnt, env_node, init, stash);
 			check_oldpwd(prnt, &flag);
-			if (strcmp(prnt->var, "_") != 0)
+			if (strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
 				ft_printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
 			save_in_stash(prnt, stash);
 			env_node = init->env_table;

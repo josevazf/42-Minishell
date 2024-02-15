@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/07 14:58:00 by guest            ###   ########.fr       */
+/*   Updated: 2024/02/15 12:53:51 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ int	lexer_main(t_mshell *init, int *exit_code)
 	eof_manager(init);
 	expander(init, exit_code);
 	free_expander(init->exp);
-	lexer_split(init);
-	lexer_router(init->lexer);
+	new_var_checker(init);
+	if (ft_strlen(init->in) > 0)
+	{
+		lexer_split(init);
+		lexer_router(init->lexer);
+	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/02/08 11:09:32 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/02/15 12:37:01 by tiaferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS			= 	minishell.c \
 					builtins/export_utils.c \
 					builtins/unset.c \
 					builtins/pwd.c \
+					builtins/new_var_set.c \
 					signals.c \
 					free_mem.c \
 					error.c \
