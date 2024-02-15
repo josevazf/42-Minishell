@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/15 14:54:12 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:18:32 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,10 @@ void	executer_fork_router(t_mshell *init, char **strings_env, int *exit_code)
 		{
 			fork_pipe(init, parser_node, strings_env, exit_code);
 			parser_node = parser_node->next;
-			init->nbr_pipes--;		
+			init->nbr_pipes--;
 		}
 		fork_cmd(init, parser_node, strings_env, exit_code);
 	}
-	dup2(init->og_stdin, STDIN_FILENO);
-	dup2(init->og_stdout, STDOUT_FILENO);
 }
 
 void	executer_main(t_mshell *init, int *exit_code)
@@ -127,7 +125,7 @@ void	executer_main(t_mshell *init, int *exit_code)
 	}
 	strings_env = convert_env(init);
 	executer_fork_router(init, strings_env, exit_code);
-/* 	while (strings_env[++i])
-		ft_printf("%s", strings_env[i]); */
 	ft_free_smatrix(strings_env);
+	dup2(init->og_stdin, STDIN_FILENO);
+	dup2(init->og_stdout, STDOUT_FILENO);
 }
