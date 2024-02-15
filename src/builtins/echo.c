@@ -41,7 +41,12 @@ void	echo(t_parser *parser)
 		j++;
 	}
 	if (parser->cmd_exec[j])
-		printf("%s", parser->cmd_exec[j]);
+		while (parser->cmd_exec[j])
+		{
+			printf("%s", parser->cmd_exec[j++]);
+			if (parser->cmd_exec[j])
+				printf(" ");
+		}
 	if (flag == 0)
 		printf("\n");
 	exit (0);
