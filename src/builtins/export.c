@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/15 14:31:22 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:08:55 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,20 @@
 
 int	var_exists(t_mshell *init, t_env *env_node)
 {
-	char *export_var;
-	char *export_content;
-	int i;
+	char **export_split;
 
-	i = 7;
-	export_content = NULL;
-	while (init->in[i] && init->in[i] != '=')
-		i++;
-	export_var = ft_strldup(init->in + 7, i - 7);
-	if (init->in[i])
-	{
-		i = ft_strlen(init->in);
-		while (init->in[i] != '=')
-			i--;
-		export_content = ft_strdup(init->in + i);
-	}
+	export_split = ft_split(init->parser->cmd_exec[1], '=');
 	while (env_node)
 	{
-		if (ft_strcmp(env_node->var, export_var) == 0 && export_content)
+		if (ft_strcmp(env_node->var, export_split[0]) == 0)
 		{
-			if (env_node->content)
-				free (env_node->content);
-			env_node->content = ft_strdup(export_content);
 			env_node->visibility = 0;
+			if (export_split[1])
+			{
+				if (env_node->content)
+					free (env_node->content);
+				env_node->content = ft_strdup(export_split[1]);
+			}
 			return (0);
 		}
 		env_node = env_node->next;
@@ -57,9 +47,12 @@ void	export_new(t_mshell *init)
 	env_node->next = (t_env *)malloc(sizeof(t_env));
 	env_table_init(env_node->next);
 	env_node = env_node->next;
-	env_node->var = ft_strdup(init->parser->cmd_exec[1]);
-	if (init->parser->cmd_exec[2] && init->parser->cmd_exec[3])
-		env_node->content = ft_strdup(init->parser->cmd_exec[3]);	
+	env_node->var = ft_strdup(init->parser->cmd_exec[1]); //CORRIGIR
+	if (init->parser->cmd_exec[2])
+	{
+		if (init->parser->cmd_exec[3])
+			env_node->content = ft_strdup(init->parser->cmd_exec[3]);
+	}
 }
 
 void	export(t_mshell *init)

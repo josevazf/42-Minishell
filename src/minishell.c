@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/15 12:54:48 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:05:22 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	minishell(int exit_code, char **envp)
 
 	while (1)
 	{
-		dir = getcwd(NULL, 0);
-		dir = ft_strupdate(dir, "$ ");
+		dir = ft_strdup("\033[1;32m");
+		dir = ft_strupdate(dir, "Minishell:~");
+		dir = ft_strupdate(dir, getcwd(NULL, 0));
+		dir = ft_strupdate(dir, "\033[0m$ ");
 		set_signals();
 		input = readline(dir);
 		free(dir);
