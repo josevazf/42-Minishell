@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/15 11:34:17 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:10:53 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,41 @@ char	**envp_dup(char **envp)
 	envp_copy = (char **)malloc(sizeof(char *) * i + 1);
 	i = 0;
 	while (envp[i])
-		envp_copy[i] = ft_strdup(envp[i++]);
-	envp_copy[i] == NULL;
+	{
+		envp_copy[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	envp_copy[i] = NULL;
 	return (envp_copy);
 }
 
-// char	**update_envp_copy(char **envp_copy, t_mshell *init)
-// {
-// 	int	i;
-// 	t_env	*node;
+/* Updates de envp_copy variable to reflect any changes made to it */
+char	**update_envp_copy(char **envp_copy, t_mshell *init)
+{
+	int	i;
+	t_env	*node;
 	
-// 	i = 0;
-// 	ft_free_smatrix(envp_copy);
-	
-// }
+	i = 0;
+	ft_free_smatrix(envp_copy);
+	node = init->env_table;
+	while (node)
+	{
+		i++;
+		node = node->next;
+	}
+	envp_copy = (char **)malloc(sizeof(char *) * i + 1);
+	i = 0;
+	node = init->env_table;
+	while (node)
+	{
+		envp_copy[i] = ft_strdup(node->var);
+		envp_copy[i] = ft_strupdate(envp_copy[i], "=");
+		envp_copy[i] = ft_strupdate(envp_copy[i], node->content);
+		i++;
+		node = node->next;
+	}
+	return (envp_copy);
+}
 
 /* Creates env node */
 
@@ -101,4 +122,3 @@ int		*create_env_list(t_mshell *init, char **envp, int i)
 	init->env_table = env_list;
 	return (0);
 }
-

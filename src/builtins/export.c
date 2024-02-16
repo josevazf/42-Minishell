@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/15 15:08:55 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:11:17 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	var_exists(t_mshell *init, t_env *env_node)
 	return (1);
 }
 
-void	export_new(t_mshell *init)
+void	export_new(t_mshell *init, char **envp_copy)
 {
 	t_env	*env_node;
 
@@ -53,9 +53,10 @@ void	export_new(t_mshell *init)
 		if (init->parser->cmd_exec[3])
 			env_node->content = ft_strdup(init->parser->cmd_exec[3]);
 	}
+	update_envp_copy(envp_copy, init);
 }
 
-void	export(t_mshell *init)
+void	export(t_mshell *init, char **envp_copy)
 {
 	t_env	*env_node;
 	t_env	*prnt;
@@ -81,5 +82,5 @@ void	export(t_mshell *init)
 		free_env(stash);
 	}
 	else
-		export_new(init);
+		export_new(init, envp_copy);
 }

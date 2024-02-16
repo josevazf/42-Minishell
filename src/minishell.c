@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/15 15:05:22 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:01:06 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	minishell(int exit_code, char **envp)
 {
 	char 		*input;
 	char		*dir;
+	char		**envp_copy;
 	t_mshell	*init;
 
+	envp_copy = envp_dup(envp);
 	while (1)
 	{
 		dir = ft_strdup("\033[1;32m");
@@ -46,7 +48,7 @@ void	minishell(int exit_code, char **envp)
 		mshell_init(init);
 		init->in = ft_strdup(input);
 		free(input);
-		create_env_list(init, envp, 0);
+		create_env_list(init, envp_copy, 0);
 		// print_env(init); // PRINT ENV TABLE
 		lexer_main(init, &exit_code);
 		if (ft_strlen(init->in) > 0)
@@ -54,7 +56,7 @@ void	minishell(int exit_code, char **envp)
 			// print_lexer(init); // PRINT LEXER TOKENS
 			parser_main(init, NULL, NULL, NULL);
 			// print_parser(init); // PRINT PARSER NODES
-			executer_main(init, &exit_code);
+			executer_main(init, &exit_code, &envp_copy);
 		}
 		delete_lists(init);
 	}

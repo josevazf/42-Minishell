@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/15 12:37:35 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:11:30 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	env_table_init(t_env *env_table);
 void	mshell_init(t_mshell *init);
 
 // env_main.c
+char	**envp_dup(char **envp);
+char	**update_envp_copy(char **envp_copy, t_mshell *init);
 void	env_node_push_back(t_env **begin_ll, char *var, char *content);
 t_env	*create_env_node(char *var, char *content);
 int		*create_env_list(t_mshell *init, char **envp, int i);
@@ -78,7 +80,7 @@ void	env(t_mshell *init);
 void	echo(t_parser *parser);
 
 // export.c
-void	export(t_mshell *init);
+void	export(t_mshell *init, char **envp_copy);
 
 // new_var_set.c
 void	new_var_checker(t_mshell *init);
@@ -91,7 +93,7 @@ void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
 void	check_oldpwd(t_env *prnt, int *flag);
 
 // unset.c
-void	unset(t_mshell *init);
+void	unset(t_mshell *init, char **envp_copy);
 
 // exit_shell.c
 void	exit_ms(t_mshell *init);

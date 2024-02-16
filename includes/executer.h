@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/12 15:43:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:57:10 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	fork_pipe(t_mshell *init,t_parser *parser_node, char **strings_env,
 														int *exit_code);
 void	fork_cmd(t_mshell *init,t_parser *parser_node, char **strings_env, 
 														int *exit_code);
-void	executer_fork_router(t_mshell *init, char **strings_env, int *exit_code);
-void	executer_main(t_mshell *init, int *exit_code);
+void	executer_fork_router(t_mshell *init, char **strings_env, int *exit_code, char ***envp_copy);
+void	executer_main(t_mshell *init, int *exit_code, char ***envp_copy);
 
 // executer_utils.c
 void	fork_pipe_utils(int *pipe_fd, pid_t pid, int *exit_code, 
