@@ -12,7 +12,36 @@
 
 #include "../includes/minishell.h"
 
+/* Duplicates envp */
+
+char	**envp_dup(char **envp)
+{
+	int	i;
+	char	**envp_copy;
+	
+	i = 0;
+	while (envp[i])
+		i++;
+	envp_copy = (char **)malloc(sizeof(char *) * i + 1);
+	i = 0;
+	while (envp[i])
+		envp_copy[i] = ft_strdup(envp[i++]);
+	envp_copy[i] == NULL;
+	return (envp_copy);
+}
+
+// char	**update_envp_copy(char **envp_copy, t_mshell *init)
+// {
+// 	int	i;
+// 	t_env	*node;
+	
+// 	i = 0;
+// 	ft_free_smatrix(envp_copy);
+	
+// }
+
 /* Creates env node */
+
 t_env	*create_env_node(char *var, char *content)
 {
 	t_env	*node;
@@ -72,3 +101,4 @@ int		*create_env_list(t_mshell *init, char **envp, int i)
 	init->env_table = env_list;
 	return (0);
 }
+
