@@ -93,7 +93,7 @@ void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
 void	check_oldpwd(t_env *prnt, int *flag);
 
 // unset.c
-void	unset(t_mshell *init, char **envp_copy);
+void	unset(t_mshell *init, char ***envp_copy);
 
 // exit_shell.c
 void	exit_ms(t_mshell *init);

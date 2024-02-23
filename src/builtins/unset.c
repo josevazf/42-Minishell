@@ -19,13 +19,13 @@ void	free_env_node(t_env *env_node)
 	free(env_node);
 }
 
-void	unset(t_mshell *init, char **envp_copy)
+void	unset(t_mshell *init, char ***envp_copy)
 {
 	t_env	*env_node;
 	t_env	*temp;
 
 	env_node = init->env_table;
-	if (ft_strcmp(env_node->var, init->parser->cmd_exec[1]) == 0)
+	if (ft_strcmp(env_node->var, init->parser->cmd_exec[1]) == 0) 
 	{
 		init->env_table = init->env_table->next;
 		free_env_node(env_node);
@@ -39,9 +39,10 @@ void	unset(t_mshell *init, char **envp_copy)
 				temp = env_node->next;
 				env_node->next = env_node->next->next;
 				free_env_node(temp);
+				break ;
 			}
 			env_node = env_node->next;
 		}
 	}
-	envp_copy = update_envp_copy(init, envp_copy);
+	*envp_copy = update_envp_copy(init, *envp_copy);
 }

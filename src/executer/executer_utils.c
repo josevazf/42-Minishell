@@ -79,7 +79,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_e
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "export"))
 		export(init, strings_env);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset")) 
-		unset(init, strings_env);
+		unset(init, &strings_env);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env")) 
 		env(init);
 	else

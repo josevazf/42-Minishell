@@ -59,7 +59,7 @@ void	minishell(int exit_code, char **envp)
 			// print_lexer(init); // PRINT LEXER TOKENS
 			parser_main(init, NULL, NULL, NULL);
 			// print_parser(init); // PRINT PARSER NODES
-			executer_main(init, &exit_code, envp_copy);
+			executer_main(init, &exit_code, &envp_copy);
 		}
 		delete_lists(init);
 	}
