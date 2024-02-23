@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/16 18:11:56 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/21 11:02:13 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	unset(t_mshell *init, char **envp_copy)
 			env_node = env_node->next;
 		}
 	}
-	update_envp_copy(envp_copy, init);
+	envp_copy = update_envp_copy(init, envp_copy);
 	exit(EXIT_SUCCESS);
 }

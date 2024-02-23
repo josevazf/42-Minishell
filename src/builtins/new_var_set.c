@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/16 18:13:08 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/21 11:06:57 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	create_new_var(t_mshell *init)
+void	create_new_var(t_mshell *init, char ***envp_copy)
 {
 	int		i;
 	int		j;
@@ -26,6 +26,7 @@ void	create_new_var(t_mshell *init)
 	node->next = (t_env *)malloc(sizeof(t_env));
 	node = node->next;
 	env_table_init(node);
+	node->visibility = 1;
 	while (ft_iswhitespace(init->in[i]))
 		i++;
 	while (init->in[i + j] != '=')
@@ -37,9 +38,10 @@ void	create_new_var(t_mshell *init)
 		j++;
 	if (!init->in[i + j])
 		node->content = ft_strldup(init->in + i, j);
+	*envp_copy = update_envp_copy(init, *envp_copy);
 }
 
-void	new_var_checker(t_mshell *init)
+void	new_var_checker(t_mshell *init, char ***envp_copy)
 {
 	int	i;
 
@@ -51,6 +53,6 @@ void	new_var_checker(t_mshell *init)
 	while (ft_isalnum(init->in[i]))
 		i++;
 	if (init->in[i] == '=')
-		create_new_var(init);
+		create_new_var(init, envp_copy);
 	return;
 }

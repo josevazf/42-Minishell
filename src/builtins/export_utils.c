@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:09:33 by tiago             #+#    #+#             */
-/*   Updated: 2024/01/19 10:02:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/17 10:07:37 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	assign_val(t_env **env_node, t_env **count, int *flag, t_mshell *init)
+t_env	*assign_val(t_env **count, int *flag, t_mshell *init)
 {
-	*env_node = init->env_table;
+	t_env	*env_node;
+	
+	env_node = init->env_table;
 	*count = init->env_table;
 	*flag = 0;
+	return (env_node);
 }
 
 void	save_in_stash(t_env *node, t_env *stash)

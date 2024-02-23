@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/12 15:58:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:25:57 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,17 @@ char	**convert_env(t_mshell *init)
 	return (strings_env);
 }
 
-void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_env, int *exit_code)
+void	executer_cmd_router(t_mshell *init, char **envp_copy, int *exit_code)
 {
+	t_parser	*parser_node;
+
+	parser_node = init->parser;
+	while (init->nbr_pipes > 0)
+	{
+		fork_pipe(init, envp_copy, exit_code);
+		parser_node = parser_node->next;
+		init->nbr_pipes--;
+	}
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
 		echo(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd"))
@@ -77,11 +86,11 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_e
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd"))
 		pwd(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "export"))
-		export(init);
+		export(init, envp_copy);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset")) 
-		unset(init);
+		unset(init, envp_copy);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env")) 
 		env(init);
 	else
-		execve(parser_node->path_exec, parser_node->cmd_exec, strings_env);
+		execve(parser_node->path_exec, parser_node->cmd_exec, envp_copy);
 }

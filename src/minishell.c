@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/16 18:01:06 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/21 11:37:25 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	minishell(int exit_code, char **envp)
 	t_mshell	*init;
 
 	envp_copy = envp_dup(envp);
+
 	while (1)
 	{
-		dir = ft_strdup("\033[1;32m");
-		dir = ft_strupdate(dir, "Minishell:~");
+		/* dir = getcwd(NULL, 0);
+		dir = ft_strupdate(dir, "\033[0m$ ");
+		dir = ft_strupdate("\033[1;32mMinishell:~", dir); */
+		dir = ft_strdup("\033[1;32mMinishell:~");
 		dir = ft_strupdate(dir, getcwd(NULL, 0));
 		dir = ft_strupdate(dir, "\033[0m$ ");
 		set_signals();
@@ -50,16 +53,17 @@ void	minishell(int exit_code, char **envp)
 		free(input);
 		create_env_list(init, envp_copy, 0);
 		// print_env(init); // PRINT ENV TABLE
-		lexer_main(init, &exit_code);
+		lexer_main(init, &envp_copy, &exit_code);
 		if (ft_strlen(init->in) > 0)
 		{
 			// print_lexer(init); // PRINT LEXER TOKENS
 			parser_main(init, NULL, NULL, NULL);
 			// print_parser(init); // PRINT PARSER NODES
-			executer_main(init, &exit_code, &envp_copy);
+			executer_main(init, &exit_code, envp_copy);
 		}
 		delete_lists(init);
 	}
+	ft_free_smatrix(envp_copy);
 	rl_clear_history();
 }
 

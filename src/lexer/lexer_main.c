@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/15 18:18:15 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/21 10:55:56 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	lexer_router(t_lexer *tokens)
 	}
 }
 
-int	lexer_main(t_mshell *init, int *exit_code)
+int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	if (g_signo == 130)
 		*exit_code = 130;
 	eof_manager(init);
 	expander(init, exit_code);
 	free_expander(init->exp);
-	new_var_checker(init);
+	new_var_checker(init, envp_copy);
 	if (ft_strlen(init->in) > 0)
 	{
 		lexer_split(init);

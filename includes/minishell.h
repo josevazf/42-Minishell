@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/16 18:11:30 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/21 12:44:50 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	mshell_init(t_mshell *init);
 
 // env_main.c
 char	**envp_dup(char **envp);
-char	**update_envp_copy(char **envp_copy, t_mshell *init);
-void	env_node_push_back(t_env **begin_ll, char *var, char *content);
-t_env	*create_env_node(char *var, char *content);
-int		*create_env_list(t_mshell *init, char **envp, int i);
+char	**update_envp_copy(t_mshell *init, char **envp_copy);
+void	env_node_push_back(t_env **begin_list, char *var, char *content, char *str);
+t_env	*create_env_node(char *var, char *content, char *str);
+int		*create_env_list(t_mshell *init, char **envp_copy, int i);
 
 // error.c
 int     file_error(char *file_name);
@@ -83,10 +83,10 @@ void	echo(t_parser *parser);
 void	export(t_mshell *init, char **envp_copy);
 
 // new_var_set.c
-void	new_var_checker(t_mshell *init);
+void	new_var_checker(t_mshell *init, char ***envp_copy);
 
 // export_utils.c
-void	assign_val(t_env **env_node, t_env **count, int *flag, t_mshell *init);
+t_env	*assign_val(t_env **count, int *flag, t_mshell *init);
 void	save_in_stash(t_env *node, t_env *stash);
 int		check_stash(t_env *node, t_env *stash);
 void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
