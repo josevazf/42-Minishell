@@ -56,7 +56,6 @@ void export_new(t_mshell *init, char **envp_copy)
 	if (export_split[1])
 		env_node->content = ft_strdup(export_split[1]);
 	ft_free_smatrix(export_split);
-	printf("C\n");
 	envp_copy = update_envp_copy(init, envp_copy);
 }
 
