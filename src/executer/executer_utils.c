@@ -68,17 +68,8 @@ char	**convert_env(t_mshell *init)
 	return (strings_env);
 }
 
-void	executer_cmd_router(t_mshell *init, char **envp_copy, int *exit_code)
+void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_env, int *exit_code)
 {
-	t_parser	*parser_node;
-
-	parser_node = init->parser;
-	while (init->nbr_pipes > 0)
-	{
-		fork_pipe(init, envp_copy, exit_code);
-		parser_node = parser_node->next;
-		init->nbr_pipes--;
-	}
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
 		echo(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd"))
@@ -86,11 +77,11 @@ void	executer_cmd_router(t_mshell *init, char **envp_copy, int *exit_code)
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd"))
 		pwd(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "export"))
-		export(init, envp_copy);
+		export(init, strings_env);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset")) 
-		unset(init, envp_copy);
+		unset(init, strings_env);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env")) 
 		env(init);
 	else
-		execve(parser_node->path_exec, parser_node->cmd_exec, envp_copy);
+		execve(parser_node->path_exec, parser_node->cmd_exec, strings_env);
 }
