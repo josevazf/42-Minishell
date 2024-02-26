@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/26 09:56:27 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 11:20:02 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,29 @@ void	manage_oldpwd(t_env *node, char *old_dir)
 	free(old_dir);
 }
 
-void	create_oldpwd_node(t_env *node)
-{
-	node->next = (t_env *)malloc(sizeof(t_env));
-	node->next->var = ft_strdup("OLDPWD");
-	node->next->content = NULL;
-	node->next->next = NULL;
-	node->next->visibility = 0;
-}
-
-void	update_dir(t_parser *parser, char **new_dir, t_env *node)
+void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
+															t_env *node)
 {
 	char	*file_err;
 
-	if (chdir(parser->cmd_exec[1]) != 0)
+	if (parser->cmd_exec[1] == NULL)
 	{
-		file_err = strerror(errno);
-		printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
+		*new_dir = ft_strdup(get_home(init));
+		chdir(*new_dir);
 	}
-	*new_dir = getcwd(NULL, 0);
+	else
+	{
+		if (chdir(parser->cmd_exec[1]) != 0)
+		{
+			file_err = strerror(errno);
+			printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
+		}
+		*new_dir = getcwd(NULL, 0);
+	}
+	while (ft_strcmp(node->var, "PWD") != 0)
+		node = node->next;
+	if (!node)
+		return ;
 	free(node->content);
 	node->content = ft_strdup(*new_dir);
 }
@@ -102,14 +106,9 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 	cd_error_checker(init, parser, exit_code);
 	node = init->env_table;
 	old_dir = getcwd(NULL, 0);
-	if (parser->cmd_exec[1] == NULL)
-	{
-		new_dir = ft_strdup(get_home(init));
-		chdir(new_dir);
-	}
-	else
-		update_dir(parser, &new_dir, node);
+	update_dir(init, parser, &new_dir, node);
 	free(new_dir);
+	node = init->env_table;
 	manage_oldpwd(node, old_dir);
 	*envp_copy = update_envp_copy(init, *envp_copy);
 }

@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 09:59:11 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 11:33:09 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,37 @@
 
 int	g_signo;
 
+
+char	*prompt_line(char **envp_copy)
+{
+	char	*line;
+	char	*dir;
+	char	*cwd;
+	int		i;
+	int		len;
+	
+	i = 0;
+	len = 0;
+	while (ft_strncmp(envp_copy[i], "HOME", 4) != 0)
+		i++;
+	len = ft_strlen(envp_copy[i] + 4);
+	cwd = getcwd(NULL, 0);
+	if (ft_strncmp(cwd, envp_copy[i] + 5, len - 1) == 0)
+		dir = ft_strdup(cwd + len - 1);
+	else
+		dir = ft_strdup(cwd);
+	free(cwd);
+	line = ft_strdup("\033[1;32mMinishell:~");
+	line = ft_strupdate(line, dir);
+	free(dir);
+	line = ft_strupdate(line, "\033[0m$ ");
+	return (line);
+}
+
 void	minishell(int exit_code, char **envp)
 {
 	char 		*input;
-	char		*dir;
+	char		*line;
 	char		**envp_copy;
 	t_mshell	*init;
 
@@ -25,15 +52,10 @@ void	minishell(int exit_code, char **envp)
 
 	while (1)
 	{
-		/* dir = getcwd(NULL, 0);
-		dir = ft_strupdate(dir, "\033[0m$ ");
-		dir = ft_strupdate("\033[1;32mMinishell:~", dir); */
-		dir = ft_strdup("\033[1;32mMinishell:~");
-		dir = ft_strupdate(dir, getcwd(NULL, 0));
-		dir = ft_strupdate(dir, "\033[0m$ ");
+		line = prompt_line(envp_copy);
 		set_signals();
-		input = readline(dir);
-		free(dir);
+		input = readline(line);
+		free(line);
 		if (input == NULL || ft_strcmp(input, "exit") == 0)
 		{
 			printf("exit\n");
