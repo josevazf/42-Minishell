@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/21 12:45:18 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 09:31:06 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ char	**envp_dup(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		envp_copy[i] = ft_strdup(envp[i]);
+		if (ft_strcmp(envp[i], "_=./minishell") == 0)
+			envp_copy[i] = ft_strdup("_=/usr/bin/env");
+		else
+			envp_copy[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	envp_copy[i] = NULL;

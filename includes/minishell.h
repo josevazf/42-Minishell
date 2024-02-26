@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/21 12:44:50 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 09:56:12 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	delete_lists(t_mshell *init);
 void	pwd(t_parser *parser);
 
 // cd.c
-void	cd(t_mshell *init, t_parser *parser, int *exit_code);
+void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy);
 
 // env.c
 void	env(t_mshell *init);

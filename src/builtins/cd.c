@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/12 17:41:47 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 09:56:27 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,33 @@ char	*get_home(t_mshell *init)
 	return (node_home->content);
 }
 
+void	manage_oldpwd(t_env *node, char *old_dir)
+{
+	while (ft_strcmp("OLDPWD", node->var) != 0)
+	{
+		if (!node->next)
+		{
+			node->next = (t_env *)malloc(sizeof(t_env));
+			node->next->var = ft_strdup("OLDPWD");
+			node->next->content = NULL;
+			node->next->next = NULL;
+			node->next->visibility = 0;
+		}
+		node = node->next;
+	}
+	if (node->content)
+		free(node->content);
+	node->content = ft_strdup(old_dir);
+	free(old_dir);
+}
+
 void	create_oldpwd_node(t_env *node)
 {
 	node->next = (t_env *)malloc(sizeof(t_env));
 	node->next->var = ft_strdup("OLDPWD");
 	node->next->content = NULL;
 	node->next->next = NULL;
+	node->next->visibility = 0;
 }
 
 void	update_dir(t_parser *parser, char **new_dir, t_env *node)
@@ -72,7 +93,7 @@ void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 	}
 }
 
-void	cd(t_mshell *init, t_parser *parser, int *exit_code)
+void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 {
 	t_env	*node;
 	char	*old_dir;
@@ -89,14 +110,6 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code)
 	else
 		update_dir(parser, &new_dir, node);
 	free(new_dir);
-	while (ft_strcmp("OLDPWD", node->var) != 0)
-	{
-		if (!node->next)
-			create_oldpwd_node(node);
-		node = node->next;
-	}
-	if (node->content)
-		free(node->content);
-	node->content = ft_strdup(old_dir);
-	free(old_dir);
+	manage_oldpwd(node, old_dir);
+	*envp_copy = update_envp_copy(init, *envp_copy);
 }

@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/20 15:31:38 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 09:57:16 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void 	fork_cmd(t_mshell *init, t_parser *parser_node, char **envp_copy,
 void	process_single_cmd(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	if (!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
-		cd(init, init->parser, exit_code);
+		cd(init, init->parser, exit_code, envp_copy);
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "unset", 5))
 		unset(init, envp_copy);
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "export", 6))
