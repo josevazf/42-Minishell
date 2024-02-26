@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 11:33:09 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 11:50:42 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ char	*prompt_line(char **envp_copy)
 	
 	i = 0;
 	len = 0;
-	while (ft_strncmp(envp_copy[i], "HOME", 4) != 0)
+	while (envp_copy[i] && ft_strncmp(envp_copy[i], "HOME", 4) != 0)
 		i++;
-	len = ft_strlen(envp_copy[i] + 4);
+	if (envp_copy[i])
+		len = ft_strlen(envp_copy[i] + 4);
 	cwd = getcwd(NULL, 0);
-	if (ft_strncmp(cwd, envp_copy[i] + 5, len - 1) == 0)
+	if (envp_copy[i] && ft_strncmp(cwd, envp_copy[i] + 5, len - 1) == 0)
 		dir = ft_strdup(cwd + len - 1);
 	else
 		dir = ft_strdup(cwd);

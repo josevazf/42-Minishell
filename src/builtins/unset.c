@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/21 11:02:13 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:45:19 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	free_env_node(t_env *env_node)
+void	free_env_node(t_env *env_node, t_mshell *init)
 {
+	if (init)
+		init->env_table = init->env_table->next;
 	free(env_node->var);
 	free(env_node->content);
 	free(env_node);
@@ -24,11 +26,12 @@ void	unset(t_mshell *init, char ***envp_copy)
 	t_env	*env_node;
 	t_env	*temp;
 
+	if (!init->parser->cmd_exec[1])
+		return ;
 	env_node = init->env_table;
 	if (ft_strcmp(env_node->var, init->parser->cmd_exec[1]) == 0) 
 	{
-		init->env_table = init->env_table->next;
-		free_env_node(env_node);
+		free_env_node(env_node, init);
 	}
 	else
 	{
@@ -38,7 +41,7 @@ void	unset(t_mshell *init, char ***envp_copy)
 			{
 				temp = env_node->next;
 				env_node->next = env_node->next->next;
-				free_env_node(temp);
+				free_env_node(temp, init);
 				break ;
 			}
 			env_node = env_node->next;
