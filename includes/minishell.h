@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 09:56:12 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 12:14:00 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	env(t_mshell *init);
 void	echo(t_parser *parser);
 
 // export.c
-void	export(t_mshell *init, char **envp_copy);
+void export(t_mshell *init, char **envp_copy, int *exit_code);
 
 // new_var_set.c
 void	new_var_checker(t_mshell *init, char ***envp_copy);

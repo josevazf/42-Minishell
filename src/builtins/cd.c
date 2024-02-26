@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/26 11:20:02 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 11:55:08 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 	node->content = ft_strdup(*new_dir);
 }
 
-void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
+int	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 {
 	if (parser->cmd_exec[1] != NULL)
 	{
@@ -88,13 +88,16 @@ void	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 		{
 			printf("minishell: cd: too many arguments\n");
 			*exit_code = 1;
+			return (1);
 		}
 	}
 	else if (parser->cmd_exec[1] == NULL && get_home(init) == NULL)
 	{
 		printf("minishell: cd: HOME not set\n");
 		*exit_code = 1;
+		return (1);
 	}
+	return (0);
 }
 
 void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
@@ -103,7 +106,8 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 	char	*old_dir;
 	char	*new_dir;
 
-	cd_error_checker(init, parser, exit_code);
+	if (cd_error_checker(init, parser, exit_code) == 1)
+		return ;
 	node = init->env_table;
 	old_dir = getcwd(NULL, 0);
 	update_dir(init, parser, &new_dir, node);

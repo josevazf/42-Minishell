@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 09:31:06 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 12:10:03 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,11 @@ char	**update_envp_copy(t_mshell *init, char **envp_copy)
 		envp_copy[i] = ft_strdup(node->var);
 		if (node->visibility == 1)
 			envp_copy[i] = ft_strupdate(envp_copy[i], "~");
-		envp_copy[i] = ft_strupdate(envp_copy[i], "=");
-		envp_copy[i] = ft_strupdate(envp_copy[i], node->content);
+		if (node->content)
+		{	
+			envp_copy[i] = ft_strupdate(envp_copy[i], "=");
+			envp_copy[i] = ft_strupdate(envp_copy[i], node->content);
+		}
 		i++;
 		node = node->next;
 	}
