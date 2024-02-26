@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 12:14:55 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 15:21:08 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char **strings_e
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd"))
 		pwd(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "export"))
-		export(init, strings_env, exit_code);
+		export(init, &strings_env, exit_code);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset")) 
 		unset(init, &strings_env);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env")) 

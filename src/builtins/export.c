@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/26 12:15:38 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 15:20:04 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int var_exists(t_mshell *init, t_env *env_node, char **envp_copy)
+int var_exists(t_mshell *init, t_env *env_node, char ***envp_copy)
 {
 	char **export_split;
 
@@ -28,7 +28,7 @@ int var_exists(t_mshell *init, t_env *env_node, char **envp_copy)
 					free(env_node->content);
 				env_node->content = ft_strdup(export_split[1]);
 			}
-			envp_copy = update_envp_copy(init, envp_copy);
+			*envp_copy = update_envp_copy(init, *envp_copy);
 			ft_free_smatrix(export_split);
 			return (0);
 		}
@@ -38,7 +38,7 @@ int var_exists(t_mshell *init, t_env *env_node, char **envp_copy)
 	return (1);
 }
 
-void export_new(t_mshell *init, char **envp_copy, int *exit_code)
+void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	t_env *env_node;
 	char **export_split;
@@ -63,10 +63,10 @@ void export_new(t_mshell *init, char **envp_copy, int *exit_code)
 	if (export_split[1])
 		env_node->content = ft_strdup(export_split[1]);
 	ft_free_smatrix(export_split);
-	envp_copy = update_envp_copy(init, envp_copy);
+	*envp_copy = update_envp_copy(init, *envp_copy);
 }
 
-void export(t_mshell *init, char **envp_copy, int *exit_code)
+void export(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	t_env *env_node;
 	t_env *prnt;

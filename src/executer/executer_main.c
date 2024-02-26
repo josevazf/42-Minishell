@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 12:14:36 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 15:20:59 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	process_single_cmd(t_mshell *init, char ***envp_copy, int *exit_code)
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "unset", 5))
 		unset(init, envp_copy);
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "export", 6))
-		export(init, *envp_copy, exit_code);
+		export(init, envp_copy, exit_code);
 	else if (init->parser->cmd_exec != NULL)
 		fork_cmd(init, init->parser, *envp_copy, exit_code);		
 }
