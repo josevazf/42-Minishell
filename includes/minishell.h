@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 12:14:00 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 16:56:46 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	mshell_init(t_mshell *init);
 
 // env_main.c
 char	**envp_dup(char **envp);
-char	**update_envp_copy(t_mshell *init, char **envp_copy);
-void	env_node_push_back(t_env **begin_list, char *var, char *content, char *str);
-t_env	*create_env_node(char *var, char *content, char *str);
-int		*create_env_list(t_mshell *init, char **envp_copy, int i);
+char	**update_envp_copy(t_mshell *init, char ***envp_copy);
+void	env_node_push_back(t_env **begin_list, char *var, char *content);
+t_env	*create_env_node(char *var, char *content);
+int		*create_env_list(t_mshell *init, char **envp_copy);
 
 // error.c
 int     file_error(char *file_name);
@@ -80,7 +80,7 @@ void	env(t_mshell *init);
 void	echo(t_parser *parser);
 
 // export.c
-void export(t_mshell *init, char **envp_copy, int *exit_code);
+void export(t_mshell *init, char ***envp_copy, int *exit_code);
 
 // new_var_set.c
 void	new_var_checker(t_mshell *init, char ***envp_copy);

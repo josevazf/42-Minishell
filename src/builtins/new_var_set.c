@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/21 11:06:57 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:38:05 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 		j++;
 	if (!init->in[i + j])
 		node->content = ft_strldup(init->in + i, j);
-	*envp_copy = update_envp_copy(init, *envp_copy);
+	*envp_copy = update_envp_copy(init, envp_copy);
 }
 
 void	new_var_checker(t_mshell *init, char ***envp_copy)

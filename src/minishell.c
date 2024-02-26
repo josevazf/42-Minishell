@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 11:50:42 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/26 17:04:25 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	minishell(int exit_code, char **envp)
 		mshell_init(init);
 		init->in = ft_strdup(input);
 		free(input);
-		create_env_list(init, envp_copy, 0);
+		create_env_list(init, envp_copy);
 		// print_env(init); // PRINT ENV TABLE
 		lexer_main(init, &envp_copy, &exit_code);
 		if (ft_strlen(init->in) > 0)

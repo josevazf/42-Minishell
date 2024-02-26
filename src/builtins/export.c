@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/26 15:20:04 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:03:32 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int var_exists(t_mshell *init, t_env *env_node, char ***envp_copy)
 					free(env_node->content);
 				env_node->content = ft_strdup(export_split[1]);
 			}
-			*envp_copy = update_envp_copy(init, *envp_copy);
+			*envp_copy = update_envp_copy(init, envp_copy);
 			ft_free_smatrix(export_split);
 			return (0);
 		}
@@ -51,19 +51,18 @@ void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 	}
 	export_split = ft_split(init->parser->cmd_exec[1], '=');
 	env_node = init->env_table;
-
 	if (var_exists(init, env_node, envp_copy) == 0)
 		return;
 	while (env_node->next)
 		env_node = env_node->next;
 	env_node->next = (t_env *)malloc(sizeof(t_env));
-	env_table_init(env_node->next);
 	env_node = env_node->next;
+	env_table_init(env_node);
 	env_node->var = ft_strdup(export_split[0]);
 	if (export_split[1])
 		env_node->content = ft_strdup(export_split[1]);
 	ft_free_smatrix(export_split);
-	*envp_copy = update_envp_copy(init, *envp_copy);
+	*envp_copy = update_envp_copy(init, envp_copy);
 }
 
 void export(t_mshell *init, char ***envp_copy, int *exit_code)
@@ -84,7 +83,12 @@ void export(t_mshell *init, char ***envp_copy, int *exit_code)
 			sort_list(&prnt, env_node, init, stash);
 			check_oldpwd(prnt, &flag);
 			if (strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
-				ft_printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
+			{
+				if (prnt->content)
+					ft_printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
+				else
+					ft_printf("declare -x %s\n", prnt->var);
+			}
 			save_in_stash(prnt, stash);
 			env_node = init->env_table;
 			count = count->next;
