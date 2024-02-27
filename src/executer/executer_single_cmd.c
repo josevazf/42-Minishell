@@ -6,13 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 16:14:19 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:07:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		single_cmd_notfound(t_mshell *init)
+int	single_cmd_notfound(t_mshell *init)
 {
 	char	*error_msg;
 
@@ -26,34 +26,34 @@ int		single_cmd_notfound(t_mshell *init)
 }
 
 /* Fork single command */
-void 	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***strings_env, 
+void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp, \
 													int *exit_code)
 {
 	pid_t		pid;
 	int			status;
-	
+
 	pid = fork();
 	if (pid == -1)
 		ft_error("minishell: failed creating fork", ERROR);
 	if (pid == 0 && parser_node->cmd_exec != NULL)
 	{
-		executer_cmd_router(init, parser_node, strings_env, exit_code);
+		executer_cmd_router(init, parser_node, envp, exit_code);
 		close(pid);
 	}
 	else
 	{
-        if (waitpid(pid, &status, 0) != -1 )
+		if (waitpid(pid, &status, 0) != -1)
 		{
 			close(pid);
-			get_exit_code(status, exit_code);			
+			get_exit_code(status, exit_code);
 		}
-        else
+		else
 			ft_error("waitpid() failed", EXIT_FAILURE);
 	}
 }
 
 /* Process single command */
-void	process_single_cmd(t_mshell *init, char ***strings_env, int *exit_code)
+void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 {
 	if (init->parser->redirs)
 		single_redirs_router(init, init->parser);
@@ -65,7 +65,7 @@ void	process_single_cmd(t_mshell *init, char ***strings_env, int *exit_code)
 	else if (!init->parser->path_exec && init->parser->redirs)
 	{
 		*exit_code = 1;
-		return ;	
+		return ;
 	}
 	else if (!ft_strcmp(init->parser->path_exec, "notfound"))
 	{
@@ -73,11 +73,11 @@ void	process_single_cmd(t_mshell *init, char ***strings_env, int *exit_code)
 		return ;
 	}
 	if (!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
-		cd(init, init->parser, exit_code, strings_env);
+		cd(init, init->parser, exit_code, envp);
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "unset", 5))
-		unset(init, strings_env);
+		unset(init, envp);
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "export", 6))
-		export(init, strings_env, exit_code);
+		export(init, envp, exit_code);
 	else if (init->parser->cmd_exec != NULL)
-		fork_single_cmd(init, init->parser, strings_env, exit_code);		
+		fork_single_cmd(init, init->parser, envp, exit_code);
 }

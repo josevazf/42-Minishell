@@ -6,13 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 16:15:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:09:58 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
+int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 {
 	char	*error_msg;
 
@@ -25,9 +25,9 @@ int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 	return (127);
 }
 
-int		**process_pipes(t_mshell *init, int **pipe_fds)
+int	**process_pipes(t_mshell *init, int **pipe_fds)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (init->nbr_pipes == 0)
@@ -40,13 +40,13 @@ int		**process_pipes(t_mshell *init, int **pipe_fds)
 		pipe_fds[i] = (int *)malloc(sizeof(int) * 2);
 		malloc_error(pipe_fds[i]);
 		if (pipe(pipe_fds[i]) == -1)
-			ft_error("minishell: failed creating pipe", ERROR); /* FIXXXXX */
+			ft_error("minishell: failed creating pipe", ERROR);
 	}
 	return (pipe_fds);
 }
 
-void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node, 
-											char ***strings_env, int *exit_code)
+void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node, \
+											char ***envp, int *exit_code)
 {
 	close_pipes(init, pipe_fds);
 	multi_redirs_router(init, parser_node, pipe_fds);
@@ -66,16 +66,16 @@ void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node,
 		exit(*exit_code);
 	}
 	if (!ft_strncmp(parser_node->cmd_exec[0], "cd", 2))
-		cd(init, init->parser, exit_code, strings_env);
+		cd(init, init->parser, exit_code, envp);
 	else if (!ft_strncmp(parser_node->cmd_exec[0], "unset", 5))
-		unset(init, strings_env);
+		unset(init, envp);
 	else if (!ft_strncmp(parser_node->cmd_exec[0], "export", 6))
-		export(init, strings_env, exit_code);
+		export(init, envp, exit_code);
 	else if (parser_node->cmd_exec != NULL)
-		executer_cmd_router(init, parser_node, strings_env, exit_code);
+		executer_cmd_router(init, parser_node, envp, exit_code);
 }
 
-void	process_parent(t_mshell *init, int **pipe_fds, int *child_pids, 
+void	process_parent(t_mshell *init, int **pipe_fds, int *child_pids, \
 													int *exit_code)
 {
 	int	i;

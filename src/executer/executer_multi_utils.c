@@ -6,11 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 18:29:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:02:55 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	close_parent_pipes(t_mshell *init, int **pipe_fds)
 {
@@ -35,7 +35,7 @@ void	close_pipes(t_mshell *init, int **pipe_fds)
 	i = 0;
 	if (!pipe_fds)
 		return ;
-	while(pipe_fds[i])
+	while (pipe_fds[i])
 	{
 		if (i != init->cmd_index - 2)
 		{

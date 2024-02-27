@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 16:16:12 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:44:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
 
 	ft_putstr_fd("> ", init->og_stdout);
 	input = get_next_line(init->og_stdin);
-	if (!input) 
+	if (!input)
 	{
 		perror("minishell: input error");
 		close(pipe_fd[1]);
 		exit(EXIT_FAILURE);
 	}
-	if (ft_strlen(input) == (ft_strlen(eof) + 1) &&
+	if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
 		ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 	{
 		free(input);
@@ -37,32 +37,31 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
 }
 
 /* Process here_doc */
-int		process_here_doc(t_mshell *init, char *eof)
+int	process_here_doc(t_mshell *init, char *eof)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
 	int		export;
 	int		status;
 
-	//printf("\n\nPROCESS HERE DOCCCCCC\n\n");
 	if (pipe(pipe_fd) == -1)
-		ft_error("minishell: failed creating pipe", ERROR); /* FIXXXXX */
+		ft_error("minishell: failed creating pipe", ERROR);
 	pid = fork();
 	if (pid == -1)
-		ft_error("minishell: failed creating fork", ERROR); /* FIXXXXX */
+		ft_error("minishell: failed creating fork", ERROR);
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
-        while (1) 
+		while (1)
 			write_here_doc(init, eof, pipe_fd);
 	}
 	else
 	{
-        close(pipe_fd[1]);
+		close(pipe_fd[1]);
 		export = dup2(pipe_fd[0], STDIN_FILENO);
-        close(pipe_fd[0]);	
-        waitpid(pid, &status, 0);
-        return (export);
+		close(pipe_fd[0]);
+		waitpid(pid, &status, 0);
+		return (export);
 	}
 }
 
@@ -70,7 +69,7 @@ int		process_here_doc(t_mshell *init, char *eof)
 void	get_pipes(t_mshell *init)
 {
 	t_lexer	*lexer;
-	
+
 	lexer = init->lexer;
 	while (lexer)
 	{
@@ -104,20 +103,21 @@ char	**convert_env(t_mshell *init)
 	return (strings_env);
 }
 
-void	executer_cmd_router(t_mshell *init, t_parser *parser_node, char ***strings_env, int *exit_code)
+void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
+									char ***envp, int *exit_code)
 {
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
 		echo(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd"))
-		cd(init, parser_node, exit_code, strings_env);
+		cd(init, parser_node, exit_code, envp);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd"))
 		pwd(parser_node);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "export"))
-		export(init, strings_env, exit_code);
-	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset")) 
-		unset(init, strings_env);
-	else if (!ft_strcmp(parser_node->cmd_exec[0], "env")) 
+		export(init, envp, exit_code);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset"))
+		unset(init, envp);
+	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
 		env(init);
 	else
-		execve(parser_node->path_exec, parser_node->cmd_exec, *strings_env);
+		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
 }

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/18 23:23:50 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:41:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int	single_process_file(t_mshell *init, char *file_name, int file_type)
 {
-	int	file_fd;
-	int	export;
+	int		file_fd;
+	int		export;
 	char	*file_err;
 
 	(void)init;
 	if (file_type == IN_FILE)
 		file_fd = open(file_name, O_RDONLY);
-	if (file_type == OUT_FILE_OWR)
+	if (file_type == OUT_FOWR)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file_type == OUT_FILE_APND)
+	if (file_type == OUT_FAPND)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
 	{
@@ -42,30 +42,28 @@ int	single_process_file(t_mshell *init, char *file_name, int file_type)
 void	single_redirs_router(t_mshell *init, t_parser *node)
 {
 	int		i;
-	char	**red_full;
-	
+	char	**redirs;
+
 	i = -1;
-/* 	printf("\n\nREDIRS ROUTERRRR\n\n");
- 	printf("\n\nredirs-> %s\n\n", node->redirs) */;
-	red_full = ft_split(node->redirs, '\t');
-	if (red_full[1] == NULL || red_full[3] == NULL)
+	redirs = ft_split(node->redirs, '\t');
+	if (redirs[1] == NULL || redirs[3] == NULL)
 	{
 		node->token_err = true;
-		ft_free_smatrix(red_full);
+		ft_free_smatrix(redirs);
 		return ;
 	}
-	while (red_full[++i])
+	while (redirs[++i])
 	{
-		if (!ft_strncmp(red_full[i], "<<", 2))
-			node->input = process_here_doc(init, red_full[i + 1]);	
-		else if (!ft_strncmp(red_full[i], "<", 1))
-			node->input = single_process_file(init, red_full[i + 1], IN_FILE);
-		else if (!ft_strncmp(red_full[i], ">>", 2))
-			node->output = single_process_file(init, red_full[i + 1], OUT_FILE_APND);
-		else if (!ft_strncmp(red_full[i], ">", 1))
-			node->output = single_process_file(init, red_full[i + 1], OUT_FILE_OWR);
+		if (!ft_strncmp(redirs[i], "<<", 2))
+			node->input = process_here_doc(init, redirs[i + 1]);
+		else if (!ft_strncmp(redirs[i], "<", 1))
+			node->input = single_process_file(init, redirs[i + 1], IN_FILE);
+		else if (!ft_strncmp(redirs[i], ">>", 2))
+			node->output = single_process_file(init, redirs[i + 1], OUT_FAPND);
+		else if (!ft_strncmp(redirs[i], ">", 1))
+			node->output = single_process_file(init, redirs[i + 1], OUT_FOWR);
 		if (node->output == -1 || node->input == -1)
 			node->file_nf = true;
 	}
-	ft_free_smatrix(red_full);
+	ft_free_smatrix(redirs);
 }

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 16:09:21 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:50:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 		process_parent(init, pipe_fds, child_pids, exit_code);
 		if (pipe_fds != NULL)
 			ft_free_imatrix(pipe_fds);
-	} 
+	}
 }
 
 void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code)

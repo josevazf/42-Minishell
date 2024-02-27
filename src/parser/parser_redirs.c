@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/17 15:31:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:38:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	(void)init;
 	if (file_type == IN_FILE)
 		file_fd = open(file_name, O_RDONLY);
-	if (file_type == OUT_FILE_OWR)
+	if (file_type == OUT_FOWR)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file_type == OUT_FILE_APND)
+	if (file_type == OUT_FAPND)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
 	{
@@ -59,9 +59,9 @@ void	redirs_router(t_mshell *init, char *redirs)
 		else if (!ft_strncmp(red_full[i], "<", 1))
 			init->red_input = process_file(init, red_full[i + 1], IN_FILE);
 		else if (!ft_strncmp(red_full[i], ">>", 2))
-			init->red_output = process_file(init, red_full[i + 1], OUT_FILE_APND);
+			init->red_output = process_file(init, red_full[i + 1], OUT_FAPND);
 		else if (!ft_strncmp(red_full[i], ">", 1))
-			init->red_output = process_file(init, red_full[i + 1], OUT_FILE_OWR);
+			init->red_output = process_file(init, red_full[i + 1], OUT_FOWR);
 		if (init->red_output == -1 || init->red_input == -1)
 			init->stop_redirs = true;
 	}

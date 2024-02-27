@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 16:05:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:37:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	multi_check_input(t_mshell *init, t_parser *node, int i)
 
 	node->input_t = NO_RED;
 	if (node->redirs)
-	{	
+	{
 		red_full = ft_split(node->redirs, '\t');
 		if (red_full[1] == NULL)
 		{
@@ -32,22 +32,23 @@ void	multi_check_input(t_mshell *init, t_parser *node, int i)
 			if (!ft_strncmp(red_full[i], "<<", 2))
 				node->input_t = IN_HD;
 			else if (!ft_strncmp(red_full[i], "<", 1))
-				node->input_t = IN_FILE;				
+				node->input_t = IN_FILE;
 		}
 		ft_free_smatrix(red_full);
 	}
-	if (node->input_t != IN_HD && node->input_t != IN_FILE && init->cmd_index != 1)
+	if (node->input_t != IN_HD && node->input_t != IN_FILE && \
+									init->cmd_index != 1)
 		node->input_t = IO_PIPE;
 }
 
 void	multi_check_output(t_mshell *init, t_parser *node, int i)
 {
 	char	**red_full;
-	
+
 	(void)init;
 	node->output_t = NO_RED;
 	if (node->redirs)
-	{	
+	{
 		red_full = ft_split(node->redirs, '\t');
 		if (red_full[1] == NULL)
 		{
@@ -59,13 +60,13 @@ void	multi_check_output(t_mshell *init, t_parser *node, int i)
 		while (red_full[++i])
 		{
 			if (!ft_strncmp(red_full[i], ">>", 2))
-				node->output_t = OUT_FILE_APND;
+				node->output_t = OUT_FAPND;
 			else if (!ft_strncmp(red_full[i], ">", 1))
-				node->output_t = OUT_FILE_OWR;
+				node->output_t = OUT_FOWR;
 		}
 		ft_free_smatrix(red_full);
 	}
-	if (node->next && node->output_t != OUT_FILE_APND && node->output_t != OUT_FILE_OWR)
+	if (node->next && node->output_t != OUT_FAPND && node->output_t != OUT_FOWR)
 		node->output_t = IO_PIPE;
 }
 
@@ -76,14 +77,15 @@ void	multi_redir_input(t_mshell *init, t_parser *node, int **pipe_fds)
 
 	i = -1;
 	if (node->input_t == IN_HD || node->input_t == IN_FILE)
-	{	
+	{
 		red_full = ft_split(node->redirs, '\t');
 		while (red_full[++i])
 		{
 			if (!ft_strncmp(red_full[i], "<<", 2))
-				node->input = process_here_doc(init, red_full[i + 1]);	
+				node->input = process_here_doc(init, red_full[i + 1]);
 			else if (!ft_strncmp(red_full[i], "<", 1))
-				node->input = single_process_file(init, red_full[i + 1], IN_FILE);
+				node->input = single_process_file(init, red_full[i + 1], \
+																IN_FILE);
 		}
 		if (node->input == -1)
 			node->file_nf = true;
@@ -92,7 +94,7 @@ void	multi_redir_input(t_mshell *init, t_parser *node, int **pipe_fds)
 	else if (node->input_t == IO_PIPE)
 		node->input = pipe_fds[init->cmd_index - 2][0];
 	if (node->input_t != NO_RED)
-		dup2(node->input, STDIN_FILENO);		
+		dup2(node->input, STDIN_FILENO);
 }
 
 void	multi_redir_output(t_mshell *init, t_parser *node, int **pipe_fds)
@@ -101,15 +103,17 @@ void	multi_redir_output(t_mshell *init, t_parser *node, int **pipe_fds)
 	char	**red_full;
 
 	i = -1;
-	if (node->output_t == OUT_FILE_APND || node->output_t == OUT_FILE_OWR)
-	{	
+	if (node->output_t == OUT_FAPND || node->output_t == OUT_FOWR)
+	{
 		red_full = ft_split(node->redirs, '\t');
 		while (red_full[++i])
 		{
 			if (!ft_strncmp(red_full[i], ">>", 2))
-				node->output = single_process_file(init, red_full[i + 1], OUT_FILE_APND);
+				node->output = single_process_file(init, red_full[i + 1], \
+																OUT_FAPND);
 			else if (!ft_strncmp(red_full[i], ">", 1))
-				node->output = single_process_file(init, red_full[i + 1], OUT_FILE_OWR);
+				node->output = single_process_file(init, red_full[i + 1], \
+																OUT_FOWR);
 		}
 		if (node->output == -1)
 			node->file_nf = true;

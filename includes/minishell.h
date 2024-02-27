@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 15:59:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:36:16 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # define CMD_NOT_FOUND 127
 # define IN_FILE 0
 # define IN_HD 1
-# define OUT_FILE_OWR 2
-# define OUT_FILE_APND 3
+# define OUT_FOWR 2
+# define OUT_FAPND 3
 # define IO_PIPE 4
 # define NO_RED 5
 # define INVALID 6
