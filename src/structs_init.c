@@ -25,6 +25,7 @@ void	expander_init(t_expand *expander)
 	expander->i = 0;
 	expander->macro_len = 0;
 	expander->s_quote = 1;
+	expander->d_quote = 1;
 	expander->new_input = NULL;
 }
 
