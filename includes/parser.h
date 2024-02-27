@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/13 12:11:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:05:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 # define SHELL_CMD 12
 
 // parser_main.c
-t_parser	*create_parser_node(t_mshell *init, char *cmds, char *cmd_path);
-void		parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, char *cmd_path);
-t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs, char *cmds);
-void		parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds);
+t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node);
+void		parser_node_push_back(t_mshell *init, t_parser **begin_list, 
+                                        char *cmds, t_parser *node);
+t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *cmds);
+void		parser_main(t_mshell *init, t_parser *parser, char *cmds);
 
 // parser_cmd.c
 int			cmd_router(char *cmd);
@@ -37,10 +38,7 @@ void		free_parser_temps(char *cmds, char *redirs, char *cmd_path, char **cmd_ful
 void		free_parser_vars(char **cmds, char **redirs);
 
 // parser_redirs.c
-//void        check_redirs(t_lexer *lexer);
 void    	redirs_router(t_mshell *init, char *redirs);
-void        write_here_doc(t_mshell *init, char *eof, int *pipe_fd);
-int			process_here_doc(t_mshell *init, char *eof);
 int			process_file(t_mshell *init, char *file_name, int file_type);
 
 // structs_init.c

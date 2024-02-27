@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_mem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/15 13:01:59 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:01:20 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-
 
 /* Free Expander nodes */
 void	free_expander(t_expand *expander)
@@ -35,6 +33,8 @@ void	free_parser(t_parser *parser)
 			ft_free_smatrix(parser->cmd_exec);
 		if (parser->path_exec)
 			free(parser->path_exec);
+		if (parser->redirs)
+			free(parser->redirs);
 		parser->input = 0;
 		parser->output = 0;
 		parser = parser->next;
@@ -84,7 +84,8 @@ void	delete_lists(t_mshell *init)
 		free_parser(init->parser);
 	if (init->in)
 		free(init->in);
-	init->nbr_cmds = 0;
+	//init->temp_pid = 0;
+	init->cmd_index = 0;
 	init->nbr_pipes = 0;
 	close(init->og_stdin);
 	close(init->og_stdout);

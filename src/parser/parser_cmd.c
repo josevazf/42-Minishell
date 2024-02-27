@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42porto.com     +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/12 16:08:00 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/19 10:05:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ char	*find_cmd(char *cmd, t_mshell *init)
 {
 	char	**paths;
 	char	*cmd_path;
-	char	*error_msg;
+	char	*not_found;
 
-	init->cmd_not_found = false;
+	(void)init;
+	not_found = NULL;
 	if (cmd_router(cmd) == BUILTIN_CMD)
 		return (ft_strdup("builtin"));
 	paths = parse_path(getenv("PATH"));
@@ -76,11 +77,8 @@ char	*find_cmd(char *cmd, t_mshell *init)
 	if (cmd_path == NULL)
 	{
 		ft_free_smatrix(paths);
-		error_msg = ft_strjoin(cmd, ": command not found\n");
-		ft_printf(error_msg);
-		free(error_msg);
-		init->cmd_not_found = true;
-		return (NULL);
+		not_found = ft_strdup("notfound");
+		return (not_found);
 	}
 	ft_free_smatrix(paths);
 	return (cmd_path);

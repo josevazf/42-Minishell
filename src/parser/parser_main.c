@@ -6,20 +6,19 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/13 12:11:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:10:32 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_parser	*create_parser_node(t_mshell *init, char *cmds, char *cmd_path)
+/* Fill parser node */
+t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 {
-	t_parser	*node;
-
 	node = (t_parser *)malloc(sizeof(t_parser));
 	if (!node)
 		return (NULL);
-	if (!cmds || init->stop_redirs)
+	if (!cmds)
 	{
 		node->cmd_exec = NULL;
 		node->path_exec = NULL;		
@@ -27,61 +26,61 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, char *cmd_path)
 	else
 	{
 		node->cmd_exec = ft_split(cmds, '\t');
-		node->path_exec = ft_strdup(cmd_path);	
+		node->path_exec = ft_strdup(init->tcmd_path);
+		node->cmd_type = cmd_router(node->cmd_exec[0]);
 	}
+	if (!init->tredirs)
+		node->redirs = NULL;
+	else
+		node->redirs = ft_strdup(init->tredirs);
 	node->input = init->red_input;
 	node->output = init->red_output;
 	node->next = NULL;
+	node->token_err = false;
+	node->file_nf = false;
 	return (node);
 }
 
-void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, 
-								char *cmd_path)
+/* Set new parser node to the end of the parser linked list */
+void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, t_parser *node)
 {
-	t_parser	*node;
-
 	node = *begin_list;
 	if (node)
 	{
 		while (node->next)
 			node = node->next;
-		node->next = create_parser_node(init, cmds, cmd_path);
+		node->next = create_parser_node(init, cmds, NULL);
 	}
 	else
-		*begin_list = create_parser_node(init, cmds, cmd_path);
+		*begin_list = create_parser_node(init, cmds, NULL);
 }
 
-t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *redirs, 
-								char *cmds)
+/* Route information to create new parser node */
+t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *cmds)
 {
-	char		*cmd_path;
-	char		**cmd_full;
-	
-	cmd_path = NULL;
-	cmd_full = NULL;
-	if (redirs)
-		redirs_router(init, redirs);
 	if (cmds)
 	{
-		cmd_full = ft_split(cmds, '\t');
-		cmd_path = find_cmd(cmd_full[0], init);
-		if (cmd_path == NULL)
+		init->tcmd_full = ft_split(cmds, '\t');
+		init->tcmd_path = find_cmd(init->tcmd_full[0], init);
+/* 		if (init->tcmd_path == NULL)
 		{
-			free_parser_temps(cmds, redirs, cmd_path, cmd_full);
+			free_parser_temps(cmds, init->tredirs, init->tcmd_path, 
+											init->tcmd_full);
 			free_parser(parser);
 			return (NULL);
-		}
+		} */
 	}
 	if (!parser)
-		parser = create_parser_node(init, cmds, cmd_path);
+		parser = create_parser_node(init, cmds, NULL);
 	else
-		parser_node_push_back(init, &parser, cmds, cmd_path);
-	free_parser_temps(cmds, redirs, cmd_path, cmd_full);
+		parser_node_push_back(init, &parser, cmds, NULL);
+	free_parser_temps(cmds, init->tredirs, init->tcmd_path, init->tcmd_full);
 	init->parser = parser;
 	return (parser);
 }
 
-void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
+
+void	parser_main(t_mshell *init, t_parser *parser, char *cmds)
 {
 	t_lexer		*lexer;
 
@@ -93,17 +92,17 @@ void	parser_main(t_mshell *init, t_parser *parser, char *redirs, char *cmds)
 		while (lexer && lexer->operator != PIPE)
 		{
 			if (lexer->operator >= 3 && lexer->operator <= 6)
-				redirs = get_redirs(init, redirs, &lexer);
+				init->tredirs = get_redirs(init, init->tredirs, &lexer);
 			else if (lexer->operator == CMD && !cmds)
 				cmds = ft_strdup(lexer->str);
 			else if (lexer->operator == CMD)
 				cmds = parser_merge_split(cmds, lexer->str);
 			lexer = lexer->next;
 		}
-		parser = parser_node_router(init, parser, redirs, cmds);
+		parser = parser_node_router(init, parser, cmds);
 		if (parser == NULL)
 			lexer = NULL;
-		free_parser_vars(&cmds, &redirs);
+		free_parser_vars(&cmds, &init->tredirs);
 		init->stop_redirs = false;
 	}
 	free(lexer);

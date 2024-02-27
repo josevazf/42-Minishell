@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 11:55:50 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/27 16:06:51 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void	minishell(int exit_code, char **envp)
 		if (ft_strlen(init->in) > 0)
 		{
 			// print_lexer(init); // PRINT LEXER TOKENS
-			parser_main(init, NULL, NULL, NULL);
+			parser_main(init, NULL, NULL);
 			// print_parser(init); // PRINT PARSER NODES
-			executer_main(init, &exit_code, &envp_copy);
+			executer_main(init, &envp_copy, &exit_code);
 		}
 		delete_lists(init);
 	}

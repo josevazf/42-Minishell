@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/15 11:34:30 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:03:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ typedef struct s_env
 typedef struct s_mshell
 {
 	char				*in;
+	char				**tcmd_full;
+	char				*tcmd_path;
+	char				*tredirs;
 	int					nbr_pipes;
-	int					nbr_cmds;
+	int					temp_pid;
+	int					cmd_index;
 	int					og_stdin;
 	int					og_stdout;
 	int					red_input;
 	int					red_output;
-	bool				cmd_not_found;
 	bool				stop_redirs;
-	bool				redirs_exist;
 	struct s_env		*env_table;
 	struct s_expand		*exp;
 	struct s_lexer		*lexer;
@@ -64,7 +66,12 @@ typedef struct s_parser
 {
 	char			**cmd_exec;
 	char			*path_exec;
+	char			*redirs;
+	bool			file_nf;
+	bool			token_err;
 	int				cmd_type;
+	int				input_t;
+	int				output_t;
 	int				input;
 	int				output;
 	struct s_parser	*next;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_redirs.c                                    :+:      :+:    :+:   */
+/*   executer_single_redirs.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:56:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/17 15:31:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/18 23:23:50 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	process_file(t_mshell *init, char *file_name, int file_type)
+int	single_process_file(t_mshell *init, char *file_name, int file_type)
 {
 	int	file_fd;
 	int	export;
@@ -39,31 +39,33 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	return (export);
 }
 
-void	redirs_router(t_mshell *init, char *redirs)
+void	single_redirs_router(t_mshell *init, t_parser *node)
 {
 	int		i;
 	char	**red_full;
 	
 	i = -1;
-	red_full = ft_split(redirs, '\t');
-	if (red_full[1] == NULL)
+/* 	printf("\n\nREDIRS ROUTERRRR\n\n");
+ 	printf("\n\nredirs-> %s\n\n", node->redirs) */;
+	red_full = ft_split(node->redirs, '\t');
+	if (red_full[1] == NULL || red_full[3] == NULL)
 	{
+		node->token_err = true;
 		ft_free_smatrix(red_full);
-		redirs_error();
 		return ;
 	}
 	while (red_full[++i])
 	{
 		if (!ft_strncmp(red_full[i], "<<", 2))
-			init->red_input = process_here_doc(init, red_full[i + 1]);	
+			node->input = process_here_doc(init, red_full[i + 1]);	
 		else if (!ft_strncmp(red_full[i], "<", 1))
-			init->red_input = process_file(init, red_full[i + 1], IN_FILE);
+			node->input = single_process_file(init, red_full[i + 1], IN_FILE);
 		else if (!ft_strncmp(red_full[i], ">>", 2))
-			init->red_output = process_file(init, red_full[i + 1], OUT_FILE_APND);
+			node->output = single_process_file(init, red_full[i + 1], OUT_FILE_APND);
 		else if (!ft_strncmp(red_full[i], ">", 1))
-			init->red_output = process_file(init, red_full[i + 1], OUT_FILE_OWR);
-		if (init->red_output == -1 || init->red_input == -1)
-			init->stop_redirs = true;
+			node->output = single_process_file(init, red_full[i + 1], OUT_FILE_OWR);
+		if (node->output == -1 || node->input == -1)
+			node->file_nf = true;
 	}
 	ft_free_smatrix(red_full);
 }

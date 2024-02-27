@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 16:56:46 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:59:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@
 # define SUCCESS 0
 # define CMD_NOT_FOUND 127
 # define IN_FILE 0
-# define OUT_FILE_OWR 1
-# define OUT_FILE_APND 2
+# define IN_HD 1
+# define OUT_FILE_OWR 2
+# define OUT_FILE_APND 3
+# define IO_PIPE 4
+# define NO_RED 5
+# define INVALID 6
 
 extern int	g_signo;
 // minishell.c
@@ -57,6 +61,7 @@ int     file_error(char *file_name);
 int     redirs_error(void);
 int		args_error(void);
 int		fd_error(int fd);
+int		fork_error(int fd);
 int		malloc_error(void *input);
 int		quotes_error(void);
 

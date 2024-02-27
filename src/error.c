@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/05 12:45:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:00:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,23 @@ int	malloc_error(void *input)
 {
 	if (input == NULL)
 		ft_error("minishell: malloc failed", ERROR);
-	return (SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 /* Deal with file descriptor failure */
 int	fd_error(int fd)
 {
-	if (fd == -1)
+	if (fd < 0)
 		ft_error("minishell: file error", ERROR);
-	return (SUCCESS);
+	return (EXIT_FAILURE);
+}
+
+/* Deal with fork failure */
+int	fork_error(int pid)
+{
+	if (pid < 0)
+		ft_error("minishell: fork error", ERROR);
+	return (EXIT_FAILURE);
 }
 
 /* Deal with bad arguments */

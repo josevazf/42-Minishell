@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/15 13:51:18 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:08:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	parser_init(t_parser *parser)
 {
 	parser->cmd_exec = NULL;
 	parser->path_exec = NULL;
+	parser->redirs = NULL;
+	parser->file_nf = false;
+	parser->token_err = false;
 	parser->cmd_type = 0;
 	parser->input = 0;
 	parser->output = 0;
@@ -52,14 +55,16 @@ void	mshell_init(t_mshell *init)
 {
 	init->in = NULL;
 	init->nbr_pipes = 0;
-	init->nbr_cmds = 0;
+	init->tcmd_full = NULL;
+	init->tcmd_path = NULL;
+	init->tredirs = NULL;
+	init->temp_pid = 0;
+	init->cmd_index = 0;
 	init->og_stdin = dup(STDIN_FILENO);
 	init->og_stdout = dup(STDOUT_FILENO);
 	init->red_input = STDIN_FILENO;
 	init->red_output = STDOUT_FILENO;
 	init->stop_redirs = false;
-	init->cmd_not_found = true;
-	init->redirs_exist = false;
 	init->env_table = NULL;
 	init->exp = NULL;
 	init->lexer = NULL;
