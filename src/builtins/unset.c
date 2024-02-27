@@ -34,9 +34,7 @@ void	unset(t_mshell *init, char ***envp_copy)
 	{
 		env_node = init->env_table;
 		if (ft_strcmp(env_node->var, init->parser->cmd_exec[i]) == 0) 
-		{
 			free_env_node(env_node, init);
-		}
 		else
 		{
 			while (env_node->next)

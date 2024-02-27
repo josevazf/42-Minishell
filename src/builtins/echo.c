@@ -12,17 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	print_str(t_lexer *node)
-{
-	while (node)
-	{
-		ft_printf("%s", node->str);
-		if (node->next)
-			ft_printf(" ");
-		node = node->next;
-	}
-}
-
 void	echo(t_parser *parser)
 {
 	int		flag;
