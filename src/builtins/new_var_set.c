@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/26 16:38:05 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:41:00 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,23 @@ void	new_var_checker(t_mshell *init, char ***envp_copy)
 	i = 0;
 	while (ft_iswhitespace(init->in[i]))
 		i++;
-	if (!ft_isalnum(init->in[i]))
-		return;
+	if (ft_strncmp(init->in + i, "export=", 7) == 0)
+	{
+		free(init->in);
+		init->in = ft_strdup("");
+		return ;
+	}
 	while (ft_isalnum(init->in[i]))
 		i++;
 	if (init->in[i] == '=')
+	{
+		if (init->in[i + 1] == '\0')
+		{
+			free(init->in);
+			init->in = ft_strdup("");
+			return ;
+		}
 		create_new_var(init, envp_copy);
+	}
 	return;
 }

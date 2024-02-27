@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/26 17:03:32 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:32:45 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,34 @@ int var_exists(t_mshell *init, t_env *env_node, char ***envp_copy)
 	return (1);
 }
 
+int	export_error_checker(t_mshell *init, int *exit_code)
+{
+	char **export_split;
+	if (init->parser->cmd_exec[2])
+	{
+		printf("minishell: export: `%s': not a valid identifier\n", init->parser->cmd_exec[2]);
+		*exit_code = 1;
+		return (1);
+	}
+	export_split = ft_split(init->parser->cmd_exec[1], '=');
+	if (export_split[0] == NULL)
+	{
+		ft_free_smatrix(export_split);
+		printf("minishell: export: `=': not a valid identifier\n");
+		*exit_code = 1;
+		return (1);
+	}
+	ft_free_smatrix(export_split);
+	return (0);
+}
+
 void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	t_env *env_node;
 	char **export_split;
 
-	if (init->parser->cmd_exec[2])
-	{
-		printf("minishell: export: `%s': not a valid identifier\n", init->parser->cmd_exec[2]);
-		*exit_code = 1;
+	if (export_error_checker(init, exit_code) == 1)
 		return ;
-	}
 	export_split = ft_split(init->parser->cmd_exec[1], '=');
 	env_node = init->env_table;
 	if (var_exists(init, env_node, envp_copy) == 0)

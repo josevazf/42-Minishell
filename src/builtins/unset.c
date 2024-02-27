@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/26 16:37:38 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/26 21:59:47 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,33 @@ void	unset(t_mshell *init, char ***envp_copy)
 {
 	t_env	*env_node;
 	t_env	*temp;
-
+	int		i;
+	
 	if (!init->parser->cmd_exec[1])
 		return ;
-	env_node = init->env_table;
-	if (ft_strcmp(env_node->var, init->parser->cmd_exec[1]) == 0) 
+	i = 1;
+	while (init->parser->cmd_exec[i])
 	{
-		free_env_node(env_node, init);
-	}
-	else
-	{
-		while (env_node->next)
+		env_node = init->env_table;
+		if (ft_strcmp(env_node->var, init->parser->cmd_exec[i]) == 0) 
 		{
-			if (ft_strcmp(env_node->next->var, init->parser->cmd_exec[1]) == 0)
-			{
-				temp = env_node->next;
-				env_node->next = env_node->next->next;
-				free_env_node(temp, init);
-				break ;
-			}
-			env_node = env_node->next;
+			free_env_node(env_node, init);
 		}
+		else
+		{
+			while (env_node->next)
+			{
+				if (ft_strcmp(env_node->next->var, init->parser->cmd_exec[i]) == 0)
+				{
+					temp = env_node->next;
+					env_node->next = env_node->next->next;
+					free_env_node(temp, init);
+					break ;
+				}
+				env_node = env_node->next;
+			}
+		}
+		i++;
 	}
 	*envp_copy = update_envp_copy(init, envp_copy);
 }

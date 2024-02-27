@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/01/30 17:53:25 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/27 10:36:04 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,25 @@ void	create_all_tokens(t_mshell *init)
 void	check_empty_node(t_mshell *init)
 {
 	t_lexer	*node;
+	t_lexer	*temp;
 	
 	node = init->lexer;
 	while (node->next)
 	{
 		if (node->next->str == NULL)
 		{
-			free(node->next);
-			node->next = NULL;
-			break ;
+			if (node->next->next)
+			{
+				temp = node->next;
+				node->next = node->next->next;
+				free(temp);
+			}
+			else
+			{
+				free(node->next);
+				node->next = NULL;
+				break ;
+			}
 		}
 		node = node->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:54:45 by tiago             #+#    #+#             */
-/*   Updated: 2024/01/30 17:07:28 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/27 10:51:59 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,30 @@ size_t	len_update(char *s, unsigned int start, size_t len)
 	return (updated_len);
 }
 
+// char	*create_lexer_substr(size_t i, size_t len, char *s, unsigned int start)
+// {
+// 	if ((s[start + j] == '\'' || s[start + j] == '\"') && flag == 0)
+// 	{
+// 		flag = 1;
+// 		quote = s[start + j];
+// 		j++;
+// 	}
+// 	if (s[start + j] == quote && flag)
+// 	{
+// 		j++;
+// 		flag = 0;
+// 		continue ;
+// 	}
+// 	substr[i] = s[start + j];
+// 	i++;
+// 	j++;
+	
+// }
+
 char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
 {
 	char	*substr;
+	char	quote;
 	size_t	i;
 	size_t	j;
 
@@ -77,14 +98,15 @@ char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
 		return (NULL);
 	while (i < len)
 	{
-		if (s[start + j] == '\'' || s[start + j] == '\"')
-			j++;
-		if (s[start + j] != '\'' && s[start + j] != '\"')
+		if ((s[start + j] == '\'' || s[start + j] == '\"') && quote == 0)
+			quote = s[start + j++];
+		if (s[start + j] == quote)
 		{
-			substr[i] = s[start + j];
-			i++;
+			j++;
+			quote = 0;
+			continue ;
 		}
-		j++;
+		substr[i++] = s[start + j++];
 	}
 	substr[i] = '\0';
 	return (substr);
