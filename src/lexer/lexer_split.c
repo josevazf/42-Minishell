@@ -34,6 +34,11 @@ void	create_token(t_mshell *init, size_t *i)
 	if (init->in[*i] && (init->in[*i] == '\"' || init->in[*i] == '\''))
 		(*i)++;
 }
+void	create_empty_token(t_mshell *init, size_t *i)
+{
+	lexer_init(init->lexer);
+	*i +=2;
+}
 
 void	create_all_tokens(t_mshell *init)
 {
@@ -51,10 +56,10 @@ void	create_all_tokens(t_mshell *init)
 			lexer_head = init->lexer;
 		while (ft_iswhitespace(init->in[i]) && init->in[i])
 			i++;
-		while (init->in[i] && ((init->in[i] == '\"' && \
+		if (init->in[i] && ((init->in[i] == '\"' && \
 		init->in[i + 1] == '\"') || (init->in[i] == '\'' \
 		&& init->in[i + 1] == '\'')))
-			i += 2;
+			create_empty_token(init, &i);
 		if (init->in[i] && !ft_iswhitespace(init->in[i]))
 			create_token(init, &i);
 		if (init->in[i])
@@ -62,6 +67,8 @@ void	create_all_tokens(t_mshell *init)
 		init->lexer = init->lexer->next;
 	}
 	init->lexer = lexer_head;
+	printf("1!\n");
+	print_lexer(init);
 }
 
 void	check_empty_node(t_mshell *init)
@@ -95,6 +102,6 @@ void	lexer_split(t_mshell *init)
 {	
 	init->lexer = NULL;
 	create_all_tokens(init);
-	check_empty_node(init);
+	// check_empty_node(init);
 	return ;
 }

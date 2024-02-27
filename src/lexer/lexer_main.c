@@ -28,6 +28,7 @@ void	lexer_router(t_lexer *tokens)
 			tokens->operator = IN_HDOC;
 		else
 			tokens->operator = CMD;
+		printf("operator: %d\n", tokens->operator);
 		tokens = tokens->next;
 	}
 }
