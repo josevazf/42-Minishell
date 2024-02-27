@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/26 17:04:25 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:50:30 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ void	minishell(int exit_code, char **envp)
 		if (input[0] == '\0' || quotes_checker(input) != 0)
 		{
 			if (quotes_checker(input) != 0)
+			{
+				add_history(input);
 				printf("minishell: unclosed quotes\n");
+			}
 			free(input);
 			continue ;	
 		}
