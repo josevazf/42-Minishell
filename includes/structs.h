@@ -59,6 +59,7 @@ typedef struct s_expand
 	int		i;
 	int		macro_len;
 	int		s_quote;
+	int		d_quote;
 	char	*new_input;
 }	t_expand;
 
