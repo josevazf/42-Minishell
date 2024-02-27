@@ -6,17 +6,17 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/26 20:32:45 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/27 12:22:10 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int var_exists(t_mshell *init, t_env *env_node, char ***envp_copy)
+int var_exists(t_mshell *init, t_env *env_node, int *i, char ***envp_copy)
 {
 	char **export_split;
 
-	export_split = ft_split(init->parser->cmd_exec[1], '=');
+	export_split = ft_split(init->parser->cmd_exec[*i], '=');
 	while (env_node)
 	{
 		if (ft_strcmp(env_node->var, export_split[0]) == 0)
@@ -30,6 +30,7 @@ int var_exists(t_mshell *init, t_env *env_node, char ***envp_copy)
 			}
 			*envp_copy = update_envp_copy(init, envp_copy);
 			ft_free_smatrix(export_split);
+			(*i)++;
 			return (0);
 		}
 		env_node = env_node->next;
@@ -41,12 +42,6 @@ int var_exists(t_mshell *init, t_env *env_node, char ***envp_copy)
 int	export_error_checker(t_mshell *init, int *exit_code)
 {
 	char **export_split;
-	if (init->parser->cmd_exec[2])
-	{
-		printf("minishell: export: `%s': not a valid identifier\n", init->parser->cmd_exec[2]);
-		*exit_code = 1;
-		return (1);
-	}
 	export_split = ft_split(init->parser->cmd_exec[1], '=');
 	if (export_split[0] == NULL)
 	{
@@ -61,25 +56,31 @@ int	export_error_checker(t_mshell *init, int *exit_code)
 
 void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 {
-	t_env *env_node;
-	char **export_split;
+	t_env	*env_node;
+	char	**export_split;
+	int		i;
 
+	i = 1;
 	if (export_error_checker(init, exit_code) == 1)
 		return ;
-	export_split = ft_split(init->parser->cmd_exec[1], '=');
-	env_node = init->env_table;
-	if (var_exists(init, env_node, envp_copy) == 0)
-		return;
-	while (env_node->next)
+	while (init->parser->cmd_exec[i])
+	{
+		export_split = ft_split(init->parser->cmd_exec[i], '=');
+		env_node = init->env_table;
+		if (var_exists(init, env_node, &i, envp_copy) == 0)
+			continue;
+		while (env_node->next)
+			env_node = env_node->next;
+		env_node->next = (t_env *)malloc(sizeof(t_env));
 		env_node = env_node->next;
-	env_node->next = (t_env *)malloc(sizeof(t_env));
-	env_node = env_node->next;
-	env_table_init(env_node);
-	env_node->var = ft_strdup(export_split[0]);
-	if (export_split[1])
-		env_node->content = ft_strdup(export_split[1]);
-	ft_free_smatrix(export_split);
-	*envp_copy = update_envp_copy(init, envp_copy);
+		env_table_init(env_node);
+		env_node->var = ft_strdup(export_split[0]);
+		if (export_split[1])
+			env_node->content = ft_strdup(export_split[1]);
+		ft_free_smatrix(export_split);
+		*envp_copy = update_envp_copy(init, envp_copy);
+		i++;
+	}
 }
 
 void export(t_mshell *init, char ***envp_copy, int *exit_code)
