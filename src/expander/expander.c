@@ -82,13 +82,17 @@ void	expander(t_mshell *init, int *exit_code)
 	while (init->in[init->exp->i])
 	{
 		env_node = init->env_table;
-		if (init->in[init->exp->i] == '\'' && init->exp->s_quote == 1)
+		if (init->in[init->exp->i] == '\'' && init->exp->s_quote == 1 && init->exp->d_quote == 1)
 			init->exp->s_quote = 0;
-		else if (init->in[init->exp->i] == '\'' && init->exp->s_quote == 0)
+		else if (init->in[init->exp->i] == '\'' && init->exp->s_quote == 0 && init->exp->d_quote == 1)
 			init->exp->s_quote = 1;
+		else if (init->in[init->exp->i] == '\"' && init->exp->s_quote == 1 && init->exp->d_quote == 1)
+			init->exp->d_quote = 0;
+		else if (init->in[init->exp->i] == '\"' && init->exp->s_quote == 1 && init->exp->d_quote == 0)
+			init->exp->d_quote = 1;
 		else if (init->in[init->exp->i] == '$' && init->in[init->exp->i \
 		+ 1] && !ft_iswhitespace(init->in[init->exp->i + 1]) && init->\
-		in[init->exp->i + 1] != '\"' && init->exp->s_quote == 1)
+		in[init->exp->i + 1] != '\"' && init->exp->d_quote == 0)
 			env_node = fetch_macro(init, env_node);
 		if (init->in[init->exp->i] == '$' && init->in[init->exp->i + 1] \
 		&& (ft_iswhitespace(init->in[init->exp->i + 1]) || \
