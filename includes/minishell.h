@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 17:36:16 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:37:37 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	echo(t_parser *parser);
 void export(t_mshell *init, char ***envp_copy, int *exit_code);
 
 // new_var_set.c
-void	new_var_checker(t_mshell *init, char ***envp_copy);
+int	new_var_checker(t_mshell *init, char ***envp_copy);
 
 // export_utils.c
 t_env	*assign_val(t_env **count, int *flag, t_mshell *init);
