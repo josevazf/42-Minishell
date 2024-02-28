@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/26 22:35:40 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/28 15:21:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	lexer_router(t_lexer *tokens)
 			tokens->operator = IN_HDOC;
 		else
 			tokens->operator = CMD;
-		printf("operator: %d\n", tokens->operator);
 		tokens = tokens->next;
 	}
 }

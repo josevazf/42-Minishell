@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/19 10:05:19 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:49:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,27 @@ int	cmd_router(char *cmd)
 		return (SHELL_CMD);
 }
 
-char	**parse_path(char *env_path)
+// Find 'PATH=' in envp file and return the paths delimited by ':'
+char	**parse_path(char **envp)
 {
+	char	*envp_dup;
 	char	**paths;
+	int		i;
 
-	paths = ft_split(env_path, ':');
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			break ;
+		i++;
+	}
+	if (envp[i] == NULL)
+		return (NULL);
+	envp_dup = ft_strdup(envp[i] + 5);
+	if (envp_dup == NULL)
+		return (NULL);
+	paths = ft_split(envp_dup, ':');
+	free(envp_dup);
 	if (paths == NULL)
 		return (NULL);
 	return (paths);
@@ -42,6 +58,8 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 	int		i;
 
 	i = 0;
+	if (!envp_paths)
+		return (NULL);
 	while (envp_paths[++i])
 	{
 		temp_path = ft_strjoin(envp_paths[i], "/");
@@ -59,7 +77,7 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 }
 
 /* Check if command exists and return it's path */
-char	*find_cmd(char *cmd, t_mshell *init)
+char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
 {
 	char	**paths;
 	char	*cmd_path;
@@ -69,14 +87,15 @@ char	*find_cmd(char *cmd, t_mshell *init)
 	not_found = NULL;
 	if (cmd_router(cmd) == BUILTIN_CMD)
 		return (ft_strdup("builtin"));
-	paths = parse_path(getenv("PATH"));
+	paths = parse_path(*envp_copy);
 	if (access(cmd, F_OK | X_OK) == 0)
 		cmd_path = ft_strdup(cmd);
 	else
 		cmd_path = get_cmd_path(paths, cmd);
 	if (cmd_path == NULL)
 	{
-		ft_free_smatrix(paths);
+		if (paths)
+			ft_free_smatrix(paths);
 		not_found = ft_strdup("notfound");
 		return (not_found);
 	}

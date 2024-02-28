@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/23 17:10:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:33:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,12 @@ void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, t_
 }
 
 /* Route information to create new parser node */
-t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *cmds)
+t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds)
 {
 	if (cmds)
 	{
 		init->tcmd_full = ft_split(cmds, '\t');
-		init->tcmd_path = find_cmd(init->tcmd_full[0], init);
-/* 		if (init->tcmd_path == NULL)
-		{
-			free_parser_temps(cmds, init->tredirs, init->tcmd_path, 
-											init->tcmd_full);
-			free_parser(parser);
-			return (NULL);
-		} */
+		init->tcmd_path = find_cmd(init->tcmd_full[0], init, envp_copy);
 	}
 	if (!parser)
 		parser = create_parser_node(init, cmds, NULL);
@@ -80,7 +73,7 @@ t_parser	*parser_node_router(t_mshell *init, t_parser *parser, char *cmds)
 }
 
 
-void	parser_main(t_mshell *init, t_parser *parser, char *cmds)
+void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds)
 {
 	t_lexer		*lexer;
 
@@ -99,7 +92,7 @@ void	parser_main(t_mshell *init, t_parser *parser, char *cmds)
 				cmds = parser_merge_split(cmds, lexer->str);
 			lexer = lexer->next;
 		}
-		parser = parser_node_router(init, parser, cmds);
+		parser = parser_node_router(init, envp_copy, parser, cmds);
 		if (parser == NULL)
 			lexer = NULL;
 		free_parser_vars(&cmds, &init->tredirs);

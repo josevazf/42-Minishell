@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/27 10:36:04 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/28 15:26:09 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	create_all_tokens(t_mshell *init)
 		init->lexer = init->lexer->next;
 	}
 	init->lexer = lexer_head;
-	printf("1!\n");
-	print_lexer(init);
 }
 
 void	check_empty_node(t_mshell *init)
