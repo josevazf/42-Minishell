@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/28 15:42:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:44:38 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ void	minishell(int exit_code, char **envp)
 		free(input);
 		create_env_list(init, envp_copy);
 		// print_env(init); // PRINT ENV TABLE
-		lexer_main(init, &envp_copy, &exit_code);
+		if (lexer_main(init, &envp_copy, &exit_code) == 1)
+		{
+			delete_lists(init);
+			continue ;
+		}
 		if (ft_strlen(init->in) > 0)
 		{
 			// print_lexer(init); // PRINT LEXER TOKENS
