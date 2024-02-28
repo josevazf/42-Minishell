@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/28 15:26:09 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:01:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	create_token(t_mshell *init, size_t *i)
 	}
 	else
 		len = lexer_size_of_word(init->in, i, init);
-	init->lexer->str = ft_lexer_substr(init->in, *i - len, len);
+	init->lexer->str = ft_lexer_substr(init->in, *i - len, len, NULL);
 	if (init->in[*i] && (init->in[*i] == '\"' || init->in[*i] == '\''))
 		(*i)++;
 }

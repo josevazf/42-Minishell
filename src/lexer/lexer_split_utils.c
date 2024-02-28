@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:54:45 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/27 10:51:59 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/28 16:01:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ size_t	len_update(char *s, unsigned int start, size_t len)
 	
 // }
 
-char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
+char	*ft_lexer_substr(char *s, unsigned int start, size_t len, char *substr)
 {
-	char	*substr;
 	char	quote;
 	size_t	i;
 	size_t	j;
