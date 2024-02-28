@@ -92,7 +92,7 @@ void	expander(t_mshell *init, int *exit_code)
 			init->exp->d_quote = 1;
 		else if (init->in[init->exp->i] == '$' && init->in[init->exp->i \
 		+ 1] && !ft_iswhitespace(init->in[init->exp->i + 1]) && init->\
-		in[init->exp->i + 1] != '\"' && init->exp->d_quote == 0)
+		in[init->exp->i + 1] != '\"')
 			env_node = fetch_macro(init, env_node);
 		if (init->in[init->exp->i] == '$' && init->in[init->exp->i + 1] \
 		&& (ft_iswhitespace(init->in[init->exp->i + 1]) || \
