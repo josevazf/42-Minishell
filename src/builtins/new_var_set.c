@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/26 21:41:00 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/28 19:44:16 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 	*envp_copy = update_envp_copy(init, envp_copy);
 }
 
-void	new_var_checker(t_mshell *init, char ***envp_copy)
+int	new_var_checker(t_mshell *init, char ***envp_copy)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ void	new_var_checker(t_mshell *init, char ***envp_copy)
 	{
 		free(init->in);
 		init->in = ft_strdup("");
-		return ;
+		return (1);
 	}
 	while (ft_isalnum(init->in[i]))
 		i++;
@@ -62,9 +62,10 @@ void	new_var_checker(t_mshell *init, char ***envp_copy)
 		{
 			free(init->in);
 			init->in = ft_strdup("");
-			return ;
+			return (1);
 		}
 		create_new_var(init, envp_copy);
+		return (0);
 	}
-	return;
+	return (1);
 }
