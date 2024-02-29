@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 14:39:19 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:07:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +72,43 @@ t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, t_parser *parser
 	return (parser);
 }
 
-/* int		check_pipe_syntax(lexer)
+int		check_pipe_syntax(t_mshell *init)
 {
+	t_lexer		*lexer;
+
+	lexer = init->lexer;
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
 		{
-			if (lexer->next->operator == PIPE && lexer->next->next->operator == PIPE)
-			if (lexer->next == NULL || lexer->next->operator == PIPE)
+			if (!lexer->next|| (lexer->next->operator == PIPE && !lexer->next->next))
 			{
 				ft_printf("minishell: syntax error near unexpected token `|'\n");
+				free(lexer);
+				init->stop_redirs = true;
+				return (2);
+			}
+			else if (lexer->next->operator == PIPE && lexer->next->next->operator == PIPE)
+			{
+				ft_printf("minishell: syntax error near unexpected token `||'\n");
+				free(lexer);
+				init->stop_redirs = true;
 				return (2);
 			}
 		}
 		lexer = lexer->next;
 	}
-} */
+	free(lexer);
+	return (SUCCESS);
+}
 
 void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds)
 {
 	t_lexer		*lexer;
 
 	lexer = init->lexer;
-/* 	if (check_pipe_syntax(lexer) == 2)
-		lexer = NULL; */
+	if (check_pipe_syntax(init) == 2)
+		lexer = NULL;
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
