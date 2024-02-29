@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 17:37:11 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:46:01 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	multi_check_input(t_mshell *init, t_parser *node, int i)
 	if (node->redirs)
 	{
 		red_full = ft_split(node->redirs, '\t');
-		if (red_full[1] == NULL)
+		if (red_full[1] == NULL || !check_red_error(red_full[1]))
 		{
 			node->token_err = true;
 			node->input_t = INVALID;
@@ -50,7 +50,7 @@ void	multi_check_output(t_mshell *init, t_parser *node, int i)
 	if (node->redirs)
 	{
 		red_full = ft_split(node->redirs, '\t');
-		if (red_full[1] == NULL)
+		if (red_full[1] == NULL || !check_red_error(red_full[1]))
 		{
 			node->token_err = true;
 			node->output_t = INVALID;
@@ -84,7 +84,7 @@ void	multi_redir_input(t_mshell *init, t_parser *node, int **pipe_fds)
 			if (!ft_strncmp(red_full[i], "<<", 2))
 				node->input = process_here_doc(init, red_full[i + 1]);
 			else if (!ft_strncmp(red_full[i], "<", 1))
-				node->input = single_process_file(init, red_full[i + 1], \
+				node->input = process_file(init, red_full[i + 1], \
 																IN_FILE);
 		}
 		if (node->input == -1)
@@ -109,10 +109,10 @@ void	multi_redir_output(t_mshell *init, t_parser *node, int **pipe_fds)
 		while (red_full[++i])
 		{
 			if (!ft_strncmp(red_full[i], ">>", 2))
-				node->output = single_process_file(init, red_full[i + 1], \
+				node->output = process_file(init, red_full[i + 1], \
 																OUT_FAPND);
 			else if (!ft_strncmp(red_full[i], ">", 1))
-				node->output = single_process_file(init, red_full[i + 1], \
+				node->output = process_file(init, red_full[i + 1], \
 																OUT_FOWR);
 		}
 		if (node->output == -1)

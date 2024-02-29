@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/21 10:17:20 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/02/29 11:20:12 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,18 @@ void	print_parser(t_mshell *init)
 		i = -1;
 		if (parser->cmd_exec)
 		{
-			ft_printf("cmd->");
+			printf("cmd->");
 			while (parser->cmd_exec[++i])
-				ft_printf("%s ", parser->cmd_exec[i]);
+				printf("%s ", parser->cmd_exec[i]);
 		}
 		else
 			ft_printf("cmd-> NULL");
-		ft_printf("\n");
-		ft_printf("path->%s\n", parser->path_exec);
-		ft_printf("input->%d\n", parser->input);
-		ft_printf("output->%d\n\n", parser->output);
+		printf("\n");
+		printf("path-> %s\n", parser->path_exec);
+		if (parser->redirs)
+			printf("redirs-> %s\n", parser->redirs);
+		printf("input-> %d\n", parser->input);
+		printf("output-> %d\n\n", parser->output);
 		parser = parser->next;
 	}
 	free(parser);

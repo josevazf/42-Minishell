@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/02/27 16:17:02 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/02/29 11:46:24 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,14 +55,13 @@ SRCS			= 	minishell.c \
 					parser/parser_main.c \
 					parser/parser_cmd.c \
 					parser/parser_utils.c \
-					parser/parser_redirs.c \
 					executer/executer_main.c \
 					executer/executer_utils.c \
 					executer/executer_single_cmd.c \
-					executer/executer_single_redirs.c \
 					executer/executer_multi_cmds.c \
 					executer/executer_multi_redirs.c \
 					executer/executer_multi_utils.c \
+					executer/executer_redirs_utils.c \
 					builtins/cd.c \
 					builtins/env_main.c \
 					builtins/env.c \
