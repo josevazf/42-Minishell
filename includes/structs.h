@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 16:03:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:21:47 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_lexer
 	int				operator;
 	int				i;
 	int				d_quote_expand;
+	int				is_node;
 	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }	t_lexer;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/28 15:42:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:33:35 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node);
 void		parser_node_push_back(t_mshell *init, t_parser **begin_list, 
                                         char *cmds, t_parser *node);
-t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds);
-void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds);
+t_parser	*parser_node_router(t_mshell *init, char **envp_copy, t_parser *parser, char *cmds);
+void	parser_main(t_mshell *init, char **envp_copy, t_parser *parser, char *cmds);
 
 // parser_cmd.c
 int			cmd_router(char *cmd);
 char		**parse_path(char **env_path);
 char		*get_cmd_path(char **envp_paths, char *cmd);
-char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy);
+char	*find_cmd(char *cmd, t_mshell *init, char **envp_copy);
 
 // parser_utils.c
 char		*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer);

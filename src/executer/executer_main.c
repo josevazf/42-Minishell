@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_main.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 17:59:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:27:48 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_exit_code(int status, int *exit_code)
 		printf("Something strange just happened.\n");
 }
 
-void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
+void	executer_fork_router(t_mshell *init, char **env, int *exit_code, int i)
 {
 	int			**pipe_fds;
 	int			*child_pids;
@@ -59,13 +59,8 @@ void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 	}
 }
 
-void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code)
+void	executer_main(t_mshell *init, char **envp_copy, int *exit_code)
 {
-	if (init->stop_redirs)
-	{
-		*exit_code = 2;
-		return ;
-	}
 	signal(SIGINT, sighandler_fork);
 	signal(SIGQUIT, sighandler_fork);
 	executer_fork_router(init, envp_copy, exit_code, 0);

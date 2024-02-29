@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/29 11:48:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:30:25 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 // executer_main.c
 void	get_exit_code(int status, int *exit_code);
-void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i);
-void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code);
+void	executer_fork_router(t_mshell *init, char **env, int *exit_code, int i);
+void	executer_main(t_mshell *init, char **envp_copy, int *exit_code);
 
 // executer_utils.c
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd);
@@ -26,20 +26,20 @@ int		process_here_doc(t_mshell *init, char *eof);
 void	get_pipes(t_mshell *init);
 char	**convert_env(t_mshell *init);
 void	executer_cmd_router(t_mshell *init, t_parser *parser_node, 
-							char ***strings_env,	int *exit_code);
+							char **strings_env,	int *exit_code);
 
 // executer_single_cmd.c
 int		single_cmd_notfound(t_mshell *init);
-void 	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***strings_env, 
+void 	fork_single_cmd(t_mshell *init, t_parser *parser_node, char **strings_env, 
 													int *exit_code);
-void	process_single_cmd(t_mshell *init, char ***strings_env, int *exit_code);
+void	process_single_cmd(t_mshell *init, char **strings_env, int *exit_code);
 void	single_redirs_router(t_mshell *init, t_parser *node);
 
 // executer_multi_cmds.c
 int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node);
 int		**process_pipes(t_mshell *init, int **pipe_fds);
 void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node, 
-											char ***strings_env, int *exit_code);
+											char **strings_env, int *exit_code);
 void	process_parent(t_mshell *init, int **pipe_fds, int *child_pids, 
 													int *exit_code);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/28 15:21:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:20:09 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	lexer_router(t_lexer *tokens)
 {
 	while (tokens)
 	{
-		if (!ft_strcmp(tokens->str, "|"))
+		if (!tokens->str)
+			tokens->operator = CMD;
+		else if (!ft_strcmp(tokens->str, "|"))
 			tokens->operator = PIPE;
 		else if (!ft_strcmp(tokens->str, ">"))
 			tokens->operator = OUT_OWR;
@@ -32,14 +34,15 @@ void	lexer_router(t_lexer *tokens)
 	}
 }
 
-int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
+int	lexer_main(t_mshell *init, char **envp_copy, int *exit_code)
 {
 	if (g_signo == 130)
 		*exit_code = 130;
 	eof_manager(init);
 	expander(init, exit_code);
 	free_expander(init->exp);
-	new_var_checker(init, envp_copy);
+	if (new_var_checker(init, envp_copy) == 0)
+		return (1);
 	if (ft_strlen(init->in) > 0)
 	{
 		lexer_split(init);

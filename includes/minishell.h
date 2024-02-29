@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/28 19:37:37 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:33:00 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	delete_lists(t_mshell *init);
 void	pwd(t_parser *parser);
 
 // cd.c
-void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy);
+void	cd(t_mshell *init, t_parser *parser, int *exit_code, char **envp_copy);
 
 // env.c
 void	env(t_mshell *init);
@@ -85,10 +85,10 @@ void	env(t_mshell *init);
 void	echo(t_parser *parser);
 
 // export.c
-void export(t_mshell *init, char ***envp_copy, int *exit_code);
+void export(t_mshell *init, char **envp_copy, int *exit_code);
 
 // new_var_set.c
-int	new_var_checker(t_mshell *init, char ***envp_copy);
+int	new_var_checker(t_mshell *init, char **envp_copy);
 
 // export_utils.c
 t_env	*assign_val(t_env **count, int *flag, t_mshell *init);
@@ -98,7 +98,7 @@ void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
 void	check_oldpwd(t_env *prnt, int *flag);
 
 // unset.c
-void	unset(t_mshell *init, char ***envp_copy);
+void	unset(t_mshell *init, char **envp_copy);
 
 // exit_shell.c
 void	exit_ms(t_mshell *init);
