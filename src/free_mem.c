@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/27 16:01:20 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:06:36 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	delete_lists(t_mshell *init)
 		free_parser(init->parser);
 	if (init->in)
 		free(init->in);
-	//init->temp_pid = 0;
 	init->cmd_index = 0;
 	init->nbr_pipes = 0;
 	close(init->og_stdin);

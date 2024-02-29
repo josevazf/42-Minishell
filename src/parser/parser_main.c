@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/28 15:33:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:39:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,30 @@ t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, t_parser *parser
 	return (parser);
 }
 
+/* int		check_pipe_syntax(lexer)
+{
+	while (lexer)
+	{
+		if (lexer->operator == PIPE)
+		{
+			if (lexer->next->operator == PIPE && lexer->next->next->operator == PIPE)
+			if (lexer->next == NULL || lexer->next->operator == PIPE)
+			{
+				ft_printf("minishell: syntax error near unexpected token `|'\n");
+				return (2);
+			}
+		}
+		lexer = lexer->next;
+	}
+} */
 
 void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds)
 {
 	t_lexer		*lexer;
 
 	lexer = init->lexer;
+/* 	if (check_pipe_syntax(lexer) == 2)
+		lexer = NULL; */
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
@@ -96,7 +114,7 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds
 		if (parser == NULL)
 			lexer = NULL;
 		free_parser_vars(&cmds, &init->tredirs);
-		init->stop_redirs = false;
 	}
 	free(lexer);
 }
+

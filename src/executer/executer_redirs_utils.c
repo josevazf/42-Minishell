@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:33:28 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 11:45:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 14:33:50 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@
 int	check_red_error(char *redir_syntax)
 {
 	if (!ft_strncmp(redir_syntax, "<", 1) || !ft_strncmp(redir_syntax, ">", 1))
-	{
-		printf("\nasneira\n");
 		return (1);
-	}
 	return (0);
 }
 
