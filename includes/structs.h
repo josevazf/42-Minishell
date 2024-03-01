@@ -37,7 +37,7 @@ typedef struct s_mshell
 	int					og_stdout;
 	int					red_input;
 	int					red_output;
-	bool				stop_redirs;
+	bool				stop_exec;
 	struct s_env		*env_table;
 	struct s_expand		*exp;
 	struct s_lexer		*lexer;
