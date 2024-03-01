@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/29 22:20:09 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:38:34 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	lexer_router(t_lexer *tokens)
 	}
 }
 
-int	lexer_main(t_mshell *init, char **envp_copy, int *exit_code)
+int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	if (g_signo == 130)
 		*exit_code = 130;

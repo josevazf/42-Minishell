@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 17:17:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:37:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_exit_code(int status, int *exit_code)
 		printf("Something strange just happened.\n");
 }
 
-void	executer_fork_router(t_mshell *init, char **env, int *exit_code, int i)
+void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 {
 	t_parser	*parser_node;
 
@@ -53,7 +53,7 @@ void	executer_fork_router(t_mshell *init, char **env, int *exit_code, int i)
 	}
 }
 
-void	executer_main(t_mshell *init, char **envp_copy, int *exit_code)
+void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	if (init->stop_exec)
 	{

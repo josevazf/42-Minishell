@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 16:33:00 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:34:04 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,16 @@ void	free_env(t_env *env);
 void	free_lexer(t_lexer *lexer);
 void	delete_lists(t_mshell *init);
 
-// pwd.c
+// builtins
 void	pwd(t_parser *parser);
-
-// cd.c
-void	cd(t_mshell *init, t_parser *parser, int *exit_code, char **envp_copy);
-
-// env.c
+void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy);
 void	env(t_mshell *init);
-
-// echo.c
 void	echo(t_parser *parser);
-
-// export.c
-void export(t_mshell *init, char **envp_copy, int *exit_code);
+void	export(t_mshell *init, char ***envp_copy, int *exit_code);
+void	unset(t_mshell *init, char ***envp_copy);
 
 // new_var_set.c
-int	new_var_checker(t_mshell *init, char **envp_copy);
+int		new_var_checker(t_mshell *init, char ***envp_copy);
 
 // export_utils.c
 t_env	*assign_val(t_env **count, int *flag, t_mshell *init);
@@ -96,9 +89,6 @@ void	save_in_stash(t_env *node, t_env *stash);
 int		check_stash(t_env *node, t_env *stash);
 void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
 void	check_oldpwd(t_env *prnt, int *flag);
-
-// unset.c
-void	unset(t_mshell *init, char **envp_copy);
 
 // exit_shell.c
 void	exit_ms(t_mshell *init);

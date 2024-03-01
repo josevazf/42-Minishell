@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 22:32:06 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:29:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 int	g_signo;
-
 
 char	*prompt_line(char **envp_copy)
 {
@@ -42,7 +41,16 @@ char	*prompt_line(char **envp_copy)
 	return (line);
 }
 
-void	minishell(int exit_code, char **envp)
+/* int	exit_arguments(char *input)
+{
+	char	**exit_in;
+	
+	printf("exit\n");
+	exit_in = ft_split(input, ' ');
+	
+} */
+
+int	minishell(int exit_code, char **envp)
 {
 	char 		*input;
 	char		*line;
@@ -56,8 +64,9 @@ void	minishell(int exit_code, char **envp)
 		set_signals();
 		input = readline(line);
 		free(line);
-		if (input == NULL || ft_strcmp(input, "exit") == 0)
+		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
+			//exit_code = exit_arguments(input);
 			printf("exit\n");
 			break ;
 		}
@@ -94,6 +103,7 @@ void	minishell(int exit_code, char **envp)
 	}
 	ft_free_smatrix(envp_copy);
 	rl_clear_history();
+	return (exit_code);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -103,7 +113,7 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = 0;
 	if (argc != 1)
 		args_error();
-	minishell(exit_code, envp);
+	exit_code = minishell(exit_code, envp);
 	(void)argv;
-	return (0);
+	return (exit_code);
 }

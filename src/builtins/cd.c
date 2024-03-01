@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/29 16:30:57 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:34:52 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 	return (0);
 }
 
-void	cd(t_mshell *init, t_parser *parser, int *exit_code, char **envp_copy)
+void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 {
 	t_env	*node;
 	char	*old_dir;
@@ -113,5 +113,5 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code, char **envp_copy)
 	free(new_dir);
 	node = init->env_table;
 	manage_oldpwd(node, old_dir);
-	envp_copy = update_envp_copy(init, &envp_copy);
+	*envp_copy = update_envp_copy(init, envp_copy);
 }

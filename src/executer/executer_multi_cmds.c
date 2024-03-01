@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 17:17:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:37:36 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	process_pipes(t_mshell *init)
 	}
 }
 
-void	process_child(t_mshell *init, t_parser *parser_node, char **envp,
+void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 			int *exit_code)
 {
 	close_pipes(init);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/29 16:18:57 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:37:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	create_new_var(t_mshell *init, char **envp_copy)
+void	create_new_var(t_mshell *init, char ***envp_copy)
 {
 	int		i;
 	int		j;
@@ -41,7 +41,7 @@ void	create_new_var(t_mshell *init, char **envp_copy)
 	envp_copy = update_envp_copy(init, &envp_copy);
 }
 
-int	new_var_checker(t_mshell *init, char **envp_copy)
+int	new_var_checker(t_mshell *init, char ***envp_copy)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 16:28:40 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:38:27 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ char	**convert_env(t_mshell *init)
 	return (strings_env);
 }
 
-void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
-									char **envp, int *exit_code)
+void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
+			char ***envp, int *exit_code)
 {
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
 		echo(parser_node);
@@ -119,5 +119,5 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
 		env(init);
 	else
-		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
+		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
 }

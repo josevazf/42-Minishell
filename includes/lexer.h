@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/29 22:27:29 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:32:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 // lexer_main.c
 void	lexer_router(t_lexer *tokens);
-int		lexer_main(t_mshell *init, char **envp_copy, int *exit_code);
+int		lexer_main(t_mshell *init, char ***envp_copy, int *exit_code);
 
 // lexer_split.c
 void	lexer_split(t_mshell *init);

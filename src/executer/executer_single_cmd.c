@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_single_cmd.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 16:28:17 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 18:38:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	single_cmd_notfound(t_mshell *init)
 }
 
 /* Fork single command */
-void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char **envp, \
-													int *exit_code)
+void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp,
+			int *exit_code)
 {
 	pid_t		pid;
 	int			status;
@@ -53,7 +53,7 @@ void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char **envp, \
 }
 
 /* Process single command */
-void	process_single_cmd(t_mshell *init, char **envp, int *exit_code)
+void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 {
 	if (init->parser->redirs)
 		single_redirs_router(init, init->parser);
