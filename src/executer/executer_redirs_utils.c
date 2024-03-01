@@ -6,18 +6,17 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:33:28 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 14:33:50 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:14:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
 int	check_red_error(char *redir_syntax)
 {
 	if (!ft_strncmp(redir_syntax, "<", 1) || !ft_strncmp(redir_syntax, ">", 1))
-		return (1);
-	return (0);
+		return (ERROR);
+	return (SUCCESS);
 }
 
 int	process_file(t_mshell *init, char *file_name, int file_type)

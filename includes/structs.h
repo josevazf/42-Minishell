@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 09:47:01 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:16:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_mshell
 	char				*tcmd_path;
 	char				*tredirs;
 	int					nbr_pipes;
-	int					temp_pid;
+	int					*child_pids;
+	int					**pipe_fds;
 	int					cmd_index;
 	int					og_stdin;
 	int					og_stdout;

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 11:46:01 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:14:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	multi_check_input(t_mshell *init, t_parser *node, int i)
 	if (node->redirs)
 	{
 		red_full = ft_split(node->redirs, '\t');
-		if (red_full[1] == NULL || !check_red_error(red_full[1]))
+		if (red_full[1] == NULL || check_red_error(red_full[1]) == ERROR)
 		{
 			node->token_err = true;
 			node->input_t = INVALID;
@@ -50,7 +50,7 @@ void	multi_check_output(t_mshell *init, t_parser *node, int i)
 	if (node->redirs)
 	{
 		red_full = ft_split(node->redirs, '\t');
-		if (red_full[1] == NULL || !check_red_error(red_full[1]))
+		if (red_full[1] == NULL || check_red_error(red_full[1]) == ERROR)
 		{
 			node->token_err = true;
 			node->output_t = INVALID;
@@ -70,7 +70,7 @@ void	multi_check_output(t_mshell *init, t_parser *node, int i)
 		node->output_t = IO_PIPE;
 }
 
-void	multi_redir_input(t_mshell *init, t_parser *node, int **pipe_fds)
+void	multi_redir_input(t_mshell *init, t_parser *node)
 {
 	int		i;
 	char	**red_full;
@@ -92,12 +92,12 @@ void	multi_redir_input(t_mshell *init, t_parser *node, int **pipe_fds)
 		ft_free_smatrix(red_full);
 	}
 	else if (node->input_t == IO_PIPE)
-		node->input = pipe_fds[init->cmd_index - 2][0];
+		node->input = init->pipe_fds[init->cmd_index - 2][0];
 	if (node->input_t != NO_RED)
 		dup2(node->input, STDIN_FILENO);
 }
 
-void	multi_redir_output(t_mshell *init, t_parser *node, int **pipe_fds)
+void	multi_redir_output(t_mshell *init, t_parser *node)
 {
 	int		i;
 	char	**red_full;
@@ -120,16 +120,16 @@ void	multi_redir_output(t_mshell *init, t_parser *node, int **pipe_fds)
 		ft_free_smatrix(red_full);
 	}
 	else if (node->output_t == IO_PIPE)
-		node->output = pipe_fds[init->cmd_index - 1][1];
+		node->output = init->pipe_fds[init->cmd_index - 1][1];
 	if (node->output_t != NO_RED)
 		dup2(node->output, STDOUT_FILENO);
 }
 
-void	multi_redirs_router(t_mshell *init, t_parser *node, int **pipe_fds)
+void	multi_redirs_router(t_mshell *init, t_parser *node)
 {
 	multi_check_input(init, node, -1);
 	multi_check_output(init, node, -1);
-	multi_redir_input(init, node, pipe_fds);
-	multi_redir_output(init, node, pipe_fds);
-	close_redirs_pipes(init, pipe_fds, node);
+	multi_redir_input(init, node);
+	multi_redir_output(init, node);
+	close_redirs_pipes(init, node);
 }

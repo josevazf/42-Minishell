@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/01 15:51:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:20:18 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,25 @@ void	single_redirs_router(t_mshell *init, t_parser *node);
 
 // executer_multi_cmds.c
 int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node);
-int		**process_pipes(t_mshell *init, int **pipe_fds);
-void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node,
-			char **strings_env, int *exit_code);
-void	process_parent(t_mshell *init, int **pipe_fds, int *child_pids,
+void	process_pipes(t_mshell *init);
+void	process_child(t_mshell *init, t_parser *parser_node, char **strings_env,
 			int *exit_code);
+void	process_parent(t_mshell *init, int *exit_code);
 
 // executer_multi_redirs.c
 void	multi_check_input(t_mshell *init, t_parser *node, int i);
 void	multi_check_output(t_mshell *init, t_parser *node, int i);
-void	multi_redir_input(t_mshell *init, t_parser *node, int **pipe_fds);
-void	multi_redir_output(t_mshell *init, t_parser *node, int **pipe_fds);
-void	multi_redirs_router(t_mshell *init, t_parser *node, int **pipe_fds);
+void	multi_redir_input(t_mshell *init, t_parser *node);
+void	multi_redir_output(t_mshell *init, t_parser *node);
+void	multi_redirs_router(t_mshell *init, t_parser *node);
 
 // executer_multi_utils.c
-void	close_parent_pipes(t_mshell *init, int **pipe_fds);
-void	close_redirs_pipes(t_mshell *init, int **pipe_fds, t_parser *node);
-void	close_pipes(t_mshell *init, int **pipe_fds);
+void	close_parent_pipes(t_mshell *init);
+void	close_redirs_pipes(t_mshell *init, t_parser *node);
+void	close_pipes(t_mshell *init);
 
 // executer_redirs_utils.c
 int		check_red_error(char *redir_syntax);
 int		process_file(t_mshell *init, char *file_name, int file_type);
-
 
 #endif

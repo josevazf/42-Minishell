@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_cmds.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 16:29:40 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 17:17:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,30 @@ int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 	return (127);
 }
 
-int	**process_pipes(t_mshell *init, int **pipe_fds)
+void	process_pipes(t_mshell *init)
 {
 	int	i;
 
 	i = -1;
 	if (init->nbr_pipes == 0)
-		return (NULL);
-	pipe_fds = (int **)malloc(sizeof(int *) * (init->nbr_pipes + 1));
-	malloc_error(pipe_fds);
-	pipe_fds[init->nbr_pipes] = NULL;
+		return ;
+	init->pipe_fds = (int **)malloc(sizeof(int *) * (init->nbr_pipes + 1));
+	malloc_error(init->pipe_fds);
+	init->pipe_fds[init->nbr_pipes] = NULL;
 	while (++i < init->nbr_pipes)
 	{
-		pipe_fds[i] = (int *)malloc(sizeof(int) * 2);
-		malloc_error(pipe_fds[i]);
-		if (pipe(pipe_fds[i]) == -1)
+		init->pipe_fds[i] = (int *)malloc(sizeof(int) * 2);
+		malloc_error(init->pipe_fds[i]);
+		if (pipe(init->pipe_fds[i]) == -1)
 			ft_error("minishell: failed creating pipe", ERROR);
 	}
-	return (pipe_fds);
 }
 
-void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node, \
-											char **envp, int *exit_code)
+void	process_child(t_mshell *init, t_parser *parser_node, char **envp,
+			int *exit_code)
 {
-	close_pipes(init, pipe_fds);
-	multi_redirs_router(init, parser_node, pipe_fds);
+	close_pipes(init);
+	multi_redirs_router(init, parser_node);
 	if (parser_node->token_err)
 	{
 		*exit_code = redirs_error();
@@ -75,19 +74,18 @@ void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node, \
 		executer_cmd_router(init, parser_node, envp, exit_code);
 }
 
-void	process_parent(t_mshell *init, int **pipe_fds, int *child_pids, \
-													int *exit_code)
+void	process_parent(t_mshell *init, int *exit_code)
 {
 	int	i;
 	int	status;
 
 	i = -1;
-	close_parent_pipes(init, pipe_fds);
+	close_parent_pipes(init);
 	while (++i < (init->nbr_pipes + 1))
 	{
-		if (waitpid(child_pids[i], &status, 0) != -1)
+		if (waitpid(init->child_pids[i], &status, 0) != -1)
 			get_exit_code(status, exit_code);
 	}
-	if (child_pids != NULL)
-		free(child_pids);
+	if (init->child_pids != NULL)
+		free(init->child_pids);
 }

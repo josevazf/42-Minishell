@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/29 14:06:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:21:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_expander(t_expand *expander)
 void	free_parser(t_parser *parser)
 {
 	t_parser	*temp_parser;
-	
+
 	while (parser)
 	{
 		temp_parser = parser;
@@ -61,7 +61,7 @@ void	free_env(t_env *env)
 void	free_lexer(t_lexer *lexer)
 {
 	t_lexer	*temp_lex;
-	
+
 	while (lexer)
 	{
 		temp_lex = lexer;
@@ -71,7 +71,7 @@ void	free_lexer(t_lexer *lexer)
 		lexer->prev = NULL;
 		lexer = lexer->next;
 		free(temp_lex);
-	}	
+	}
 }
 
 void	delete_lists(t_mshell *init)
@@ -84,6 +84,10 @@ void	delete_lists(t_mshell *init)
 		free_parser(init->parser);
 	if (init->in)
 		free(init->in);
+	if (init->pipe_fds)
+		ft_free_imatrix(init->pipe_fds);
+	if (init->child_pids)
+		free(init->child_pids);
 	init->cmd_index = 0;
 	init->nbr_pipes = 0;
 	close(init->og_stdin);
