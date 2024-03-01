@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:43:34 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 19:32:21 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	delete_lists(t_mshell *init);
 void	pwd(t_parser *parser);
 void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy);
 void	env(t_mshell *init);
-void	echo(t_parser *parser);
+void	echo(t_parser *parser, int i, int j);
 void	export(t_mshell *init, char ***envp_copy, int *exit_code);
 void	unset(t_mshell *init, char ***envp_copy);
 
