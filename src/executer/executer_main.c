@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 17:59:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 09:47:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 
 void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
-	if (init->stop_redirs)
+	if (init->stop_exec)
 	{
 		*exit_code = 2;
 		return ;

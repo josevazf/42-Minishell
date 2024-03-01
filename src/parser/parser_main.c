@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 18:07:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:04:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 	if (!cmds)
 	{
 		node->cmd_exec = NULL;
-		node->path_exec = NULL;		
+		node->path_exec = NULL;
 	}
 	else
 	{
@@ -42,7 +42,8 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 }
 
 /* Set new parser node to the end of the parser linked list */
-void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, t_parser *node)
+void	parser_node_push_back(t_mshell *init, t_parser **begin_list,
+			char *cmds, t_parser *node)
 {
 	node = *begin_list;
 	if (node)
@@ -56,7 +57,8 @@ void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, t_
 }
 
 /* Route information to create new parser node */
-t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds)
+t_parser	*parser_node_router(t_mshell *init, char ***envp_copy,
+				t_parser *parser, char *cmds)
 {
 	if (cmds)
 	{
@@ -72,7 +74,7 @@ t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, t_parser *parser
 	return (parser);
 }
 
-int		check_pipe_syntax(t_mshell *init)
+int	check_pipe_syntax(t_mshell *init)
 {
 	t_lexer		*lexer;
 
@@ -81,34 +83,34 @@ int		check_pipe_syntax(t_mshell *init)
 	{
 		if (lexer->operator == PIPE)
 		{
-			if (!lexer->next|| (lexer->next->operator == PIPE && !lexer->next->next))
+			if (!lexer->next || (lexer->next->operator == PIPE && \
+					!lexer->next->next))
 			{
-				ft_printf("minishell: syntax error near unexpected token `|'\n");
-				free(lexer);
-				init->stop_redirs = true;
-				return (2);
+				printf("minishell: syntax error near unexpected token `|'\n");
+				init->stop_exec = true;
+				return (ERROR);
 			}
-			else if (lexer->next->operator == PIPE && lexer->next->next->operator == PIPE)
+			else if (lexer->next->operator == PIPE && \
+				lexer->next->next->operator == PIPE)
 			{
-				ft_printf("minishell: syntax error near unexpected token `||'\n");
-				free(lexer);
-				init->stop_redirs = true;
-				return (2);
+				printf("minishell: syntax error near unexpected token `||'\n");
+				init->stop_exec = true;
+				return (ERROR);
 			}
 		}
 		lexer = lexer->next;
 	}
-	free(lexer);
 	return (SUCCESS);
 }
 
-void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds)
+void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
+			char *cmds)
 {
 	t_lexer		*lexer;
 
+	if (!check_pipe_syntax(init))
+		return ;
 	lexer = init->lexer;
-	if (check_pipe_syntax(init) == 2)
-		lexer = NULL;
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
@@ -130,4 +132,3 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, char *cmds
 	}
 	free(lexer);
 }
-
