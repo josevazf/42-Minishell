@@ -66,7 +66,7 @@ void	mshell_init(t_mshell *init)
 	init->og_stdout = dup(STDOUT_FILENO);
 	init->red_input = STDIN_FILENO;
 	init->red_output = STDOUT_FILENO;
-	init->stop_redirs = false;
+	init->stop_exec = false;
 	init->env_table = NULL;
 	init->exp = NULL;
 	init->lexer = NULL;
