@@ -26,7 +26,7 @@ int	single_cmd_notfound(t_mshell *init)
 }
 
 /* Fork single command */
-void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp, \
+void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char **envp, \
 													int *exit_code)
 {
 	pid_t		pid;
@@ -53,7 +53,7 @@ void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp, \
 }
 
 /* Process single command */
-void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
+void	process_single_cmd(t_mshell *init, char **envp, int *exit_code)
 {
 	if (init->parser->redirs)
 		single_redirs_router(init, init->parser);
