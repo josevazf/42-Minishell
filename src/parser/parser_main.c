@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 10:04:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 16:21:23 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	parser_node_push_back(t_mshell *init, t_parser **begin_list,
 }
 
 /* Route information to create new parser node */
-t_parser	*parser_node_router(t_mshell *init, char ***envp_copy,
+t_parser	*parser_node_router(t_mshell *init, char **envp_copy,
 				t_parser *parser, char *cmds)
 {
 	if (cmds)
@@ -103,12 +103,12 @@ int	check_pipe_syntax(t_mshell *init)
 	return (SUCCESS);
 }
 
-void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
+void	parser_main(t_mshell *init, char **envp_copy, t_parser *parser,
 			char *cmds)
 {
 	t_lexer		*lexer;
 
-	if (!check_pipe_syntax(init))
+	if (check_pipe_syntax(init) == ERROR)
 		return ;
 	lexer = init->lexer;
 	while (lexer)
