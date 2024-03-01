@@ -46,7 +46,7 @@ int	**process_pipes(t_mshell *init, int **pipe_fds)
 }
 
 void	process_child(t_mshell *init, int **pipe_fds, t_parser *parser_node, \
-											char ***envp, int *exit_code)
+											char **envp, int *exit_code)
 {
 	close_pipes(init, pipe_fds);
 	multi_redirs_router(init, parser_node, pipe_fds);
