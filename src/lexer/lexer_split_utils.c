@@ -63,28 +63,9 @@ size_t	len_update(char *s, unsigned int start, size_t len)
 	return (updated_len);
 }
 
-// char	*create_lexer_substr(size_t i, size_t len, char *s, unsigned int start)
-// {
-// 	if ((s[start + j] == '\'' || s[start + j] == '\"') && flag == 0)
-// 	{
-// 		flag = 1;
-// 		quote = s[start + j];
-// 		j++;
-// 	}
-// 	if (s[start + j] == quote && flag)
-// 	{
-// 		j++;
-// 		flag = 0;
-// 		continue ;
-// 	}
-// 	substr[i] = s[start + j];
-// 	i++;
-// 	j++;
-	
-// }
-
-char	*ft_lexer_substr(char *s, unsigned int start, size_t len, char *substr)
+char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
 {
+	char	*substr;
 	char	quote;
 	size_t	i;
 	size_t	j;
