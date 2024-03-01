@@ -24,7 +24,7 @@ void	get_exit_code(int status, int *exit_code)
 		printf("Something strange just happened.\n");
 }
 
-void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
+void	executer_fork_router(t_mshell *init, char **env, int *exit_code, int i)
 {
 	int			**pipe_fds;
 	int			*child_pids;
@@ -59,7 +59,7 @@ void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 	}
 }
 
-void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code)
+void	executer_main(t_mshell *init, char **envp_copy, int *exit_code)
 {
 	if (init->stop_exec)
 	{
