@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 16:26:09 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/01 10:04:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 	if (!cmds)
 	{
 		node->cmd_exec = NULL;
-		node->path_exec = NULL;		
+		node->path_exec = NULL;
 	}
 	else
 	{
@@ -42,7 +42,8 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 }
 
 /* Set new parser node to the end of the parser linked list */
-void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, t_parser *node)
+void	parser_node_push_back(t_mshell *init, t_parser **begin_list,
+			char *cmds, t_parser *node)
 {
 	node = *begin_list;
 	if (node)
@@ -56,7 +57,8 @@ void	parser_node_push_back(t_mshell *init, t_parser **begin_list, char *cmds, t_
 }
 
 /* Route information to create new parser node */
-t_parser	*parser_node_router(t_mshell *init, char **envp_copy, t_parser *parser, char *cmds)
+t_parser	*parser_node_router(t_mshell *init, char ***envp_copy,
+				t_parser *parser, char *cmds)
 {
 	if (cmds)
 	{
@@ -71,7 +73,6 @@ t_parser	*parser_node_router(t_mshell *init, char **envp_copy, t_parser *parser,
 	init->parser = parser;
 	return (parser);
 }
-
 
 int	check_pipe_syntax(t_mshell *init)
 {
@@ -102,7 +103,8 @@ int	check_pipe_syntax(t_mshell *init)
 	return (SUCCESS);
 }
 
-void	parser_main(t_mshell *init, char **envp_copy, t_parser *parser, char *cmds)
+void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
+			char *cmds)
 {
 	t_lexer		*lexer;
 
@@ -130,4 +132,3 @@ void	parser_main(t_mshell *init, char **envp_copy, t_parser *parser, char *cmds)
 	}
 	free(lexer);
 }
-
