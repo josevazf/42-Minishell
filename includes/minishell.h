@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:34:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:43:34 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	mshell_init(t_mshell *init);
 // env_main.c
 char	**envp_dup(char **envp);
 char	**update_envp_copy(t_mshell *init, char ***envp_copy);
-void	env_node_push_back(t_env **begin_list, char *var, char *content);
+void	env_node_push_back(t_env *begin_list, char *var, char *content);
 t_env	*create_env_node(char *var, char *content);
 int		*create_env_list(t_mshell *init, char **envp_copy);
 
