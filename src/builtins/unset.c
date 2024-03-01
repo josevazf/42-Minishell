@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/26 21:59:47 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/29 16:32:44 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_env_node(t_env *env_node, t_mshell *init)
 	free(env_node);
 }
 
-void	unset(t_mshell *init, char ***envp_copy)
+void	unset(t_mshell *init, char **envp_copy)
 {
 	t_env	*env_node;
 	t_env	*temp;
@@ -51,5 +51,5 @@ void	unset(t_mshell *init, char ***envp_copy)
 		}
 		i++;
 	}
-	*envp_copy = update_envp_copy(init, envp_copy);
+	envp_copy = update_envp_copy(init, &envp_copy);
 }
