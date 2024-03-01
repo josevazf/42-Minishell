@@ -61,6 +61,11 @@ void	executer_fork_router(t_mshell *init, char **env, int *exit_code, int i)
 
 void	executer_main(t_mshell *init, char **envp_copy, int *exit_code)
 {
+	if (init->stop_exec)
+	{
+		*exit_code = 2;
+		return ;
+	}
 	signal(SIGINT, sighandler_fork);
 	signal(SIGQUIT, sighandler_fork);
 	executer_fork_router(init, envp_copy, exit_code, 0);
