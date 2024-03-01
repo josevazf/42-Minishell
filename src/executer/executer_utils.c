@@ -104,7 +104,7 @@ char	**convert_env(t_mshell *init)
 }
 
 void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
-									char ***envp, int *exit_code)
+									char **envp, int *exit_code)
 {
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
 		echo(parser_node);
@@ -119,5 +119,5 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
 		env(init);
 	else
-		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
+		execve(parser_node->path_exec, parser_node->cmd_exec, envp);
 }
