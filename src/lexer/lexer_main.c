@@ -16,7 +16,9 @@ void	lexer_router(t_lexer *tokens)
 {
 	while (tokens)
 	{
-		if (!ft_strcmp(tokens->str, "|"))
+		if (!tokens->str)
+			tokens->operator = CMD;
+		else if (!ft_strcmp(tokens->str, "|"))
 			tokens->operator = PIPE;
 		else if (!ft_strcmp(tokens->str, ">"))
 			tokens->operator = OUT_OWR;
@@ -32,7 +34,7 @@ void	lexer_router(t_lexer *tokens)
 	}
 }
 
-int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
+int	lexer_main(t_mshell *init, char **envp_copy, int *exit_code)
 {
 	if (g_signo == 130)
 		*exit_code = 130;
