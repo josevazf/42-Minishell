@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 13:50:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:37:01 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	print_parser(t_mshell *init)
 		printf("output-> %d\n\n", parser->output);
 		parser = parser->next;
 	}
-	free(parser);
 }
 
 /* Prints Lexer tokens */
@@ -52,7 +51,6 @@ void	print_lexer(t_mshell *init)
 		ft_printf("op:%d\n\n", lexer->operator);
 		lexer = lexer->next;
 	}
-	free(lexer);
 }
 
 /* Prints Env table */
@@ -67,5 +65,4 @@ void	print_env(t_mshell *init)
 		ft_printf("%s\n", env_table->content);
 		env_table = env_table->next;
 	}
-	free(env_table);
 }

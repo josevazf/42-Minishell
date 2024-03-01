@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
 /*   Updated: 2024/03/01 09:54:20 by jrocha-v         ###   ########.fr       */
@@ -35,6 +35,7 @@ void	lexer_init(t_lexer *lexer)
 	lexer->operator = 0;
 	lexer->i = 0;
 	lexer->d_quote_expand = 0;
+	lexer->is_node = 0;
 	lexer->next = NULL;
 	lexer->prev = NULL;
 }

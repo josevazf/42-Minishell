@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/28 15:49:26 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:37:09 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*get_cmd_path(char **envp_paths, char *cmd)
 }
 
 /* Check if command exists and return it's path */
-char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
+char	*find_cmd(char *cmd, t_mshell *init, char **envp_copy)
 {
 	char	**paths;
 	char	*cmd_path;
@@ -87,7 +87,7 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
 	not_found = NULL;
 	if (cmd_router(cmd) == BUILTIN_CMD)
 		return (ft_strdup("builtin"));
-	paths = parse_path(*envp_copy);
+	paths = parse_path(envp_copy);
 	if (access(cmd, F_OK | X_OK) == 0)
 		cmd_path = ft_strdup(cmd);
 	else

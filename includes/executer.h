@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
 /*   Updated: 2024/03/01 09:59:31 by jrocha-v         ###   ########.fr       */
@@ -59,5 +59,6 @@ void	close_pipes(t_mshell *init, int **pipe_fds);
 // executer_redirs_utils.c
 int		check_red_error(char *redir_syntax);
 int		process_file(t_mshell *init, char *file_name, int file_type);
+
 
 #endif

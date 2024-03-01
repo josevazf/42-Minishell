@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/28 19:44:38 by tiago            ###   ########.fr       */
+/*   Updated: 2024/02/29 22:32:06 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	minishell(int exit_code, char **envp)
 	t_mshell	*init;
 
 	envp_copy = envp_dup(envp);
-
 	while (1)
 	{
 		line = prompt_line(envp_copy);
@@ -79,7 +78,7 @@ void	minishell(int exit_code, char **envp)
 		free(input);
 		create_env_list(init, envp_copy);
 		// print_env(init); // PRINT ENV TABLE
-		if (lexer_main(init, &envp_copy, &exit_code) == 1)
+		if (lexer_main(init, envp_copy, &exit_code) == 1)
 		{
 			delete_lists(init);
 			continue ;
@@ -87,9 +86,9 @@ void	minishell(int exit_code, char **envp)
 		if (ft_strlen(init->in) > 0)
 		{
 			// print_lexer(init); // PRINT LEXER TOKENS
-			parser_main(init, &envp_copy, NULL, NULL);
+			parser_main(init, envp_copy, NULL, NULL);
 			// print_parser(init); // PRINT PARSER NODES
-			executer_main(init, &envp_copy, &exit_code);
+			executer_main(init, envp_copy, &exit_code);
 		}
 		delete_lists(init);
 	}
