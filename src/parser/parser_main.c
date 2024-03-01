@@ -72,30 +72,43 @@ t_parser	*parser_node_router(t_mshell *init, char **envp_copy, t_parser *parser,
 	return (parser);
 }
 
-/* int		check_pipe_syntax(lexer)
+
+int	check_pipe_syntax(t_mshell *init)
 {
+	t_lexer		*lexer;
+
+	lexer = init->lexer;
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
 		{
-			if (lexer->next->operator == PIPE && lexer->next->next->operator == PIPE)
-			if (lexer->next == NULL || lexer->next->operator == PIPE)
+			if (!lexer->next || (lexer->next->operator == PIPE && \
+					!lexer->next->next))
 			{
-				ft_printf("minishell: syntax error near unexpected token `|'\n");
-				return (2);
+				printf("minishell: syntax error near unexpected token `|'\n");
+				init->stop_exec = true;
+				return (ERROR);
+			}
+			else if (lexer->next->operator == PIPE && \
+				lexer->next->next->operator == PIPE)
+			{
+				printf("minishell: syntax error near unexpected token `||'\n");
+				init->stop_exec = true;
+				return (ERROR);
 			}
 		}
 		lexer = lexer->next;
 	}
-} */
+	return (SUCCESS);
+}
 
 void	parser_main(t_mshell *init, char **envp_copy, t_parser *parser, char *cmds)
 {
 	t_lexer		*lexer;
 
+	if (!check_pipe_syntax(init))
+		return ;
 	lexer = init->lexer;
-/* 	if (check_pipe_syntax(lexer) == 2)
-		lexer = NULL; */
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
