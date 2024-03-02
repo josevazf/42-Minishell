@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 17:14:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/02 20:13:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	multi_redir_input(t_mshell *init, t_parser *node)
 				node->input = process_here_doc(init, red_full[i + 1]);
 			else if (!ft_strncmp(red_full[i], "<", 1))
 				node->input = process_file(init, red_full[i + 1], \
-																IN_FILE);
+					IN_FILE);
 		}
 		if (node->input == -1)
 			node->file_nf = true;
@@ -106,14 +106,14 @@ void	multi_redir_output(t_mshell *init, t_parser *node)
 	if (node->output_t == OUT_FAPND || node->output_t == OUT_FOWR)
 	{
 		red_full = ft_split(node->redirs, '\t');
-		while (red_full[++i])
+		while (red_full[++i] && node->output != -1)
 		{
 			if (!ft_strncmp(red_full[i], ">>", 2))
 				node->output = process_file(init, red_full[i + 1], \
-																OUT_FAPND);
+					OUT_FAPND);
 			else if (!ft_strncmp(red_full[i], ">", 1))
 				node->output = process_file(init, red_full[i + 1], \
-																OUT_FOWR);
+					OUT_FOWR);
 		}
 		if (node->output == -1)
 			node->file_nf = true;

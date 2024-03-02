@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 19:32:21 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/02 20:06:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		*create_env_list(t_mshell *init, char **envp_copy);
 
 // error.c
 int     file_error(char *file_name);
-int     redirs_error(void);
+int     redirs_error(t_parser *parser_node);
 int		args_error(void);
 int		fd_error(int fd);
 int		fork_error(int fd);

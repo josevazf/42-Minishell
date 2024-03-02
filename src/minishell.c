@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/02 16:31:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/02 18:56:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*prompt_line(char **envp_copy)
 	else
 		dir = ft_strdup(cwd);
 	free(cwd);
-	line = ft_strdup("\033[1;32mMinishell:~");
+	line = ft_strdup("\033[1;32mminishell:~");
 	line = ft_strupdate(line, dir);
 	free(dir);
 	line = ft_strupdate(line, "\033[0m$ ");

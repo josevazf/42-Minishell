@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:37:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/02 20:04:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 {
 	close_pipes(init);
 	multi_redirs_router(init, parser_node);
-	if (parser_node->token_err)
+	if (parser_node->token_err || parser_node->file_nf)
 	{
-		*exit_code = redirs_error();
+		*exit_code = redirs_error(parser_node);
 		exit(*exit_code);
 	}
 	else if (!parser_node->path_exec && parser_node->redirs)
@@ -86,6 +86,4 @@ void	process_parent(t_mshell *init, int *exit_code)
 		if (waitpid(init->child_pids[i], &status, 0) != -1)
 			get_exit_code(status, exit_code);
 	}
-	if (init->child_pids != NULL)
-		free(init->child_pids);
 }

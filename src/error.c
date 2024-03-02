@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/27 16:00:10 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/02 20:08:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@ int	file_error(char *file_name)
 	exit(EXIT_FAILURE);
 }
 
-int redirs_error(void)
+int redirs_error(t_parser *parser_node)
 {
-	ft_printf("minishell: syntax error near unexpected token `newline'\n");
-	return (2);
-	//exit(EXIT_FAILURE);
+	if (parser_node->token_err)
+	{
+		ft_printf("minishell: syntax error near unexpected token `newline'\n");
+		return (2);
+	}
+	else if (parser_node->file_nf)
+		return (1);
+	else
+		return (0);
 }
 
 /* Deal with malloc failure */
