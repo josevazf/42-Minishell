@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:41:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/02 16:31:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,26 @@ char	*prompt_line(char **envp_copy)
 	return (line);
 }
 
-/* int	exit_arguments(char *input)
+int	exit_arguments(char *input, int exit_code)
 {
 	char	**exit_in;
 	
-	printf("exit\n");
-	exit_in = ft_split(input, ' ');
-	
-} */
+	if (input)
+	{
+		input = ft_strupdate(input, " ");
+		exit_in = ft_split(input, ' ');
+		if (exit_in[2] != NULL)
+		{
+			printf("minishell: exit: too many arguments\n");
+			exit_code = 1;
+		}
+		else
+			printf("exit\n");
+	}
+	else
+		printf("exit\n");
+	return (exit_code);
+}
 
 int	minishell(int exit_code, char **envp)
 {
@@ -64,11 +76,12 @@ int	minishell(int exit_code, char **envp)
 		set_signals();
 		input = readline(line);
 		free(line);
+		// input = check_whitespace(input);
 		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
-			//exit_code = exit_arguments(input);
-			printf("exit\n");
-			break ;
+			exit_code = exit_arguments(input, exit_code);
+			if (exit_code != 1)
+				break ;
 		}
 		if (input[0] == '\0' || quotes_checker(input) != 0)
 		{
