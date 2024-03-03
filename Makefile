@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/02/29 11:46:24 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/03 11:49:35 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRCS			= 	minishell.c \
 					builtins/cd.c \
 					builtins/env_main.c \
 					builtins/env.c \
+					builtins/exit_shell.c \
 					builtins/echo.c \
 					builtins/export.c \
 					builtins/export_utils.c \
