@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/03 11:24:52 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/03 12:14:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ char	*prompt_line(char **envp_copy)
 	return (line);
 }
 
-int	minishell(int exit_code, char **envp)
+int	minishell(int exit_code, char **envp, char *input)
 {
-	char 		*input;
 	char		*line;
 	char		**envp_copy;
 	t_mshell	*init;
@@ -59,7 +58,6 @@ int	minishell(int exit_code, char **envp)
 		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
 			exit_code = exit_arguments(input, exit_code);
-			free(input);
 			if (exit_code != 1 || input == NULL)
 				break ;
 			else
@@ -77,9 +75,7 @@ int	minishell(int exit_code, char **envp)
 		}
 		add_history(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));
-		mshell_init(init);
-		init->in = ft_strdup(input);
-		free(input);
+		mshell_init(init, input);
 		create_env_list(init, envp_copy);
 		// print_env(init); // PRINT ENV TABLE
 		if (lexer_main(init, &envp_copy, &exit_code) == 1)
@@ -108,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = 0;
 	if (argc != 1)
 		args_error();
-	exit_code = minishell(exit_code, envp);
+	exit_code = minishell(exit_code, envp, NULL);
 	(void)argv;
 	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by guest             #+#    #+#             */
-/*   Updated: 2024/03/03 11:24:47 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/03 12:11:00 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	exit_arguments(char *input, int exit_code)
 			printf("exit\n");
 			printf("minishell: exit: %s: numeric argument required\n", exit_in[1]);		
 		}
+		free(input);
+		ft_free_smatrix(exit_in);
 	}
 	else
 		printf("exit\n");
