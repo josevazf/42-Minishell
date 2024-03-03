@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/02 18:56:10 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:24:52 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,6 @@ char	*prompt_line(char **envp_copy)
 	return (line);
 }
 
-int	exit_arguments(char *input, int exit_code)
-{
-	char	**exit_in;
-	
-	if (input)
-	{
-		input = ft_strupdate(input, " ");
-		exit_in = ft_split(input, ' ');
-		if (exit_in[2] != NULL)
-		{
-			printf("minishell: exit: too many arguments\n");
-			exit_code = 1;
-		}
-		else
-			printf("exit\n");
-	}
-	else
-		printf("exit\n");
-	return (exit_code);
-}
-
 int	minishell(int exit_code, char **envp)
 {
 	char 		*input;
@@ -80,8 +59,11 @@ int	minishell(int exit_code, char **envp)
 		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
 			exit_code = exit_arguments(input, exit_code);
-			if (exit_code != 1)
+			free(input);
+			if (exit_code != 1 || input == NULL)
 				break ;
+			else
+				continue;
 		}
 		if (input[0] == '\0' || quotes_checker(input) != 0)
 		{
@@ -91,7 +73,7 @@ int	minishell(int exit_code, char **envp)
 				printf("minishell: unclosed quotes\n");
 			}
 			free(input);
-			continue ;	
+			continue ;
 		}
 		add_history(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));

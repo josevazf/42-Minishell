@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/02 20:06:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:25:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void	env(t_mshell *init);
 void	echo(t_parser *parser, int i, int j);
 void	export(t_mshell *init, char ***envp_copy, int *exit_code);
 void	unset(t_mshell *init, char ***envp_copy);
+int		check_exit_args(char **exit_in, int *exit_code);
+int		exit_arguments(char *input, int exit_code);
+void	exit_ms(t_mshell *init);
 
 // new_var_set.c
 int		new_var_checker(t_mshell *init, char ***envp_copy);
@@ -89,9 +92,6 @@ void	save_in_stash(t_env *node, t_env *stash);
 int		check_stash(t_env *node, t_env *stash);
 void	sort_list(t_env **prnt, t_env *env_node, t_mshell *init, t_env *stash);
 void	check_oldpwd(t_env *prnt, int *flag);
-
-// exit_shell.c
-void	exit_ms(t_mshell *init);
 
 // signals.c
 void	sigint_handler(int sig);
