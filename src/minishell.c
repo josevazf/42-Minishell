@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/03 12:14:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:38:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ char	*prompt_line(char **envp_copy)
 	free(dir);
 	line = ft_strupdate(line, "\033[0m$ ");
 	return (line);
+}
+
+void	parse_and_execute(t_mshell *init, char ***envp_copy, int *exit_code)
+{
+	// print_lexer(init); // PRINT LEXER TOKENS
+	parser_main(init, envp_copy, NULL, NULL);
+	// print_parser(init); // PRINT PARSER NODES
+	executer_main(init, envp_copy, exit_code);
 }
 
 int	minishell(int exit_code, char **envp, char *input)
@@ -84,12 +92,7 @@ int	minishell(int exit_code, char **envp, char *input)
 			continue ;
 		}
 		if (ft_strlen(init->in) > 0)
-		{
-			// print_lexer(init); // PRINT LEXER TOKENS
-			parser_main(init, &envp_copy, NULL, NULL);
-			// print_parser(init); // PRINT PARSER NODES
-			executer_main(init, &envp_copy, &exit_code);
-		}
+			parse_and_execute(init, &envp_copy, &exit_code);
 		delete_lists(init);
 	}
 	ft_free_smatrix(envp_copy);
