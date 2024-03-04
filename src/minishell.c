@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 16:21:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:23:51 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,6 @@ void	free_and_clear(char **envp)
 {
 	ft_free_smatrix(envp);
 	rl_clear_history();
-}
-
-void	set_prompt_and_get_input(char **envp, char **input, char **line)
-{
-	*line = prompt_line(envp);
-	*input = readline(*line);
-	free(*line);
 }
 
 int	check_whitespace(char *input)
