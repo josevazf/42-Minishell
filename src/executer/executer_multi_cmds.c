@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/02 20:04:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 10:27:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,12 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 		*exit_code = multi_cmd_notfound(init, parser_node);
 		exit(*exit_code);
 	}
-	if (!ft_strncmp(parser_node->cmd_exec[0], "cd", 2))
-		cd(init, init->parser, exit_code, envp);
-	else if (!ft_strncmp(parser_node->cmd_exec[0], "unset", 5))
-		unset(init, envp);
-	else if (!ft_strncmp(parser_node->cmd_exec[0], "export", 6))
-		export(init, envp, exit_code);
-	else if (parser_node->cmd_exec != NULL)
+	if (parser_node->cmd_exec != NULL)
 		executer_cmd_router(init, parser_node, envp, exit_code);
 }
 
 void	process_parent(t_mshell *init, int *exit_code)
-{
+{	
 	int	i;
 	int	status;
 
