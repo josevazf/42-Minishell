@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 16:18:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:30:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,14 @@
 
 extern int	g_signo;
 // minishell.c
-/*---- main ----*/
+char	*prompt_line(char **envp_copy);
+int		minishell(int exit_code, char **envp, char *input, char *line);
+
+// minishell_utils.c
+void	set_prompt_and_get_input(char **envp, char **input, char **line);
+void	parse_and_execute(t_mshell *init, char ***envp_copy, int *exit_code);
+void	free_and_clear(char **envp);
+int		check_whitespace(char *input);
 
 // structs_init.c
 void	env_table_init(t_env *env_table);

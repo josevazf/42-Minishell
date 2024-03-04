@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/03/03 11:49:35 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/04 16:29:19 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ CFLAGS			= -Wall -Wextra -Werror -g
 RM				= rm -rf
 
 SRCS			= 	minishell.c \
+					minishell_utils.c \
 					structs_init.c \
 					lexer/lexer_main.c \
 					lexer/lexer_split.c \
