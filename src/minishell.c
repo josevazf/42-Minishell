@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 13:22:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:49:38 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ char	*prompt_line(char **envp_copy)
 	return (line);
 }
 
+void	set_prompt_and_get_input(char **envp, char **input, char **line)
+{
+	*line = prompt_line(envp);
+	*input = readline(*line);
+	free(*line);
+}
+
 void	parse_and_execute(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	if (ft_strlen(init->in) > 0)
@@ -59,10 +66,8 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 
 	while (1)
 	{
-		line = prompt_line(envp);
 		set_signals();
-		input = readline(line);
-		free(line);
+		set_prompt_and_get_input(envp, &input, &line);
 		// input = check_whitespace(input);
 		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
