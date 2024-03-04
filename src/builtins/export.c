@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/01 18:36:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:01:17 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int var_exists(t_mshell *init, t_env *env_node, int *i, char ***envp_copy)
+int	var_exists(t_mshell *init, t_env *env_node, int *i, char ***envp_copy)
 {
-	char **export_split;
+	char	**export_split;
 
 	export_split = ft_split(init->parser->cmd_exec[*i], '=');
 	while (env_node)
@@ -41,7 +41,8 @@ int var_exists(t_mshell *init, t_env *env_node, int *i, char ***envp_copy)
 
 int	export_error_checker(t_mshell *init, int *exit_code)
 {
-	char **export_split;
+	char	**export_split;
+
 	export_split = ft_split(init->parser->cmd_exec[1], '=');
 	if (export_split[0] == NULL)
 	{
@@ -54,7 +55,7 @@ int	export_error_checker(t_mshell *init, int *exit_code)
 	return (0);
 }
 
-void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
+void	export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	t_env	*env_node;
 	char	**export_split;
@@ -68,7 +69,7 @@ void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 		export_split = ft_split(init->parser->cmd_exec[i], '=');
 		env_node = init->env_table;
 		if (var_exists(init, env_node, &i, envp_copy) == 0)
-			continue;
+			continue ;
 		while (env_node->next)
 			env_node = env_node->next;
 		env_node->next = (t_env *)malloc(sizeof(t_env));
@@ -83,13 +84,24 @@ void export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 	}
 }
 
-void export(t_mshell *init, char ***envp_copy, int *exit_code)
+void	export_printer(t_env *prnt)
 {
-	t_env *env_node;
-	t_env *prnt;
-	t_env *count;
-	t_env *stash;
-	int flag;
+	if (strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
+	{
+		if (prnt->content)
+			ft_printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
+		else
+			ft_printf("declare -x %s\n", prnt->var);
+	}
+}
+
+void	export(t_mshell *init, char ***envp_copy, int *exit_code)
+{
+	t_env	*env_node;
+	t_env	*prnt;
+	t_env	*count;
+	t_env	*stash;
+	int		flag;
 
 	if (!init->parser->cmd_exec[1])
 	{
@@ -100,13 +112,7 @@ void export(t_mshell *init, char ***envp_copy, int *exit_code)
 		{
 			sort_list(&prnt, env_node, init, stash);
 			check_oldpwd(prnt, &flag);
-			if (strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
-			{
-				if (prnt->content)
-					ft_printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
-				else
-					ft_printf("declare -x %s\n", prnt->var);
-			}
+			export_printer(prnt);
 			save_in_stash(prnt, stash);
 			env_node = init->env_table;
 			count = count->next;
