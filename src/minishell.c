@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 13:22:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:17:23 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,52 @@ void	parse_and_execute(t_mshell *init, char ***envp_copy, int *exit_code)
 	delete_lists(init);
 }
 
+void	free_and_clear(char **envp)
+{
+	ft_free_smatrix(envp);
+	rl_clear_history();
+}
+
+void	set_prompt_and_get_input(char **envp, char **input, char **line)
+{
+	*line = prompt_line(envp);
+	*input = readline(*line);
+	free(*line);
+}
+
+int	check_whitespace(char *input)
+{
+	int	i;
+	
+	i = 0;
+	if (input == NULL)
+		return (EXIT_SUCCESS);
+	while (input[i] && input[i] != '\0')
+	{
+		if (!ft_iswhitespace(input[i]) || input[i] == '\0')
+			return (EXIT_SUCCESS);
+		i++;
+	}
+	free(input);
+	return (EXIT_FAILURE);
+}
+
 int	minishell(int exit_code, char **envp, char *input, char *line)
 {
 	t_mshell	*init;
 
 	while (1)
 	{
-		line = prompt_line(envp);
 		set_signals();
-		input = readline(line);
-		free(line);
-		// input = check_whitespace(input);
+		set_prompt_and_get_input(envp, &input, &line);
+		if (check_whitespace(input) == 1)
+			continue;
 		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
 			exit_code = exit_arguments(input, exit_code);
 			if (exit_code != 1 || input == NULL)
 				break ;
-			else
-				continue ;
+			continue ;
 		}
 		if (quotes_checker(input) != 0)
 			continue ;
@@ -79,8 +107,7 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 			continue ;
 		parse_and_execute(init, &envp, &exit_code);
 	}
-	ft_free_smatrix(envp);
-	rl_clear_history();
+	free_and_clear(envp);
 	return (exit_code);
 }
 
@@ -95,5 +122,7 @@ int	main(int argc, char **argv, char **envp)
 	envp_copy = envp_dup(envp);
 	exit_code = minishell(exit_code, envp_copy, NULL, NULL);
 	(void)argv;
+	if (exit_code < 0)
+		exit_code = exit_code + 100;
 	return (exit_code);
 }

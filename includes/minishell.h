@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 13:17:26 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:18:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	env(t_mshell *init);
 void	echo(t_parser *parser, int i, int j);
 void	export(t_mshell *init, char ***envp_copy, int *exit_code);
 void	unset(t_mshell *init, char ***envp_copy);
+void	free_exit_args(char *input, char **exit_in);
 int		check_exit_args(char **exit_in, int *exit_code);
 int		exit_arguments(char *input, int exit_code);
-void	exit_ms(t_mshell *init);
 
 // new_var_set.c
 int		new_var_checker(t_mshell *init, char ***envp_copy);
