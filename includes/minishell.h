@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/03 12:01:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:17:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ extern int	g_signo;
 
 // structs_init.c
 void	env_table_init(t_env *env_table);
-void	mshell_init(t_mshell *ini, char *inputt);
+t_mshell	*mshell_init(t_mshell *ini, char *input, char **envp);
 
 // env_main.c
 char	**envp_dup(char **envp);

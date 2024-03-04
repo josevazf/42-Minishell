@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 13:06:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:22:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,13 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 			if (exit_code != 1 || input == NULL)
 				break ;
 			else
-				continue;
+				continue ;
 		}
 		if (quotes_checker(input) != 0)
 			continue ;
-		add_history(input);
-		init = (t_mshell *)malloc(sizeof(t_mshell));
-		mshell_init(init, input);
-		create_env_list(init, envp);
+		init = mshell_init(init, input, envp);
 		if (lexer_main(init, &envp, &exit_code) == 1)
-		{
-			delete_lists(init);
 			continue ;
-		}
 		parse_and_execute(init, &envp, &exit_code);
 	}
 	ft_free_smatrix(envp);
