@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 08:18:02 by patatoss          #+#    #+#             */
-/*   Updated: 2024/02/29 18:36:52 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/04 12:48:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	add_hist_unquotes(char const *input)
+{
+	add_history(input);
+	free((char*)input);
+	printf("minishell: unclosed quotes\n");
+}
 
 void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type)
 {
@@ -25,7 +32,7 @@ void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type)
 	}
 }
 
-int	quotes_checker(char const *s)
+int		quotes_checker(char const *s)
 {
 	int	i;
 	int	s_quote;
@@ -42,5 +49,10 @@ int	quotes_checker(char const *s)
 			quotes_checker_aid(s, &i, &d_quote, '\"');
 		i++;
 	}
-	return ((s_quote % 2) + (d_quote % 2));
+	if (((s_quote % 2) + (d_quote % 2)) != 0)
+	{
+		add_hist_unquotes(s);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

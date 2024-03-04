@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 11:38:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 13:06:13 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,23 @@ char	*prompt_line(char **envp_copy)
 
 void	parse_and_execute(t_mshell *init, char ***envp_copy, int *exit_code)
 {
-	// print_lexer(init); // PRINT LEXER TOKENS
-	parser_main(init, envp_copy, NULL, NULL);
-	// print_parser(init); // PRINT PARSER NODES
-	executer_main(init, envp_copy, exit_code);
+	if (ft_strlen(init->in) > 0)
+	{
+		// print_lexer(init); // PRINT LEXER TOKENS
+		parser_main(init, envp_copy, NULL, NULL);
+		// print_parser(init); // PRINT PARSER NODES
+		executer_main(init, envp_copy, exit_code);
+	}
+	delete_lists(init);
 }
 
-int	minishell(int exit_code, char **envp, char *input)
+int	minishell(int exit_code, char **envp, char *input, char *line)
 {
-	char		*line;
-	char		**envp_copy;
 	t_mshell	*init;
 
-	envp_copy = envp_dup(envp);
 	while (1)
 	{
-		line = prompt_line(envp_copy);
+		line = prompt_line(envp);
 		set_signals();
 		input = readline(line);
 		free(line);
@@ -71,31 +72,20 @@ int	minishell(int exit_code, char **envp, char *input)
 			else
 				continue;
 		}
-		if (input[0] == '\0' || quotes_checker(input) != 0)
-		{
-			if (quotes_checker(input) != 0)
-			{
-				add_history(input);
-				printf("minishell: unclosed quotes\n");
-			}
-			free(input);
+		if (quotes_checker(input) != 0)
 			continue ;
-		}
 		add_history(input);
 		init = (t_mshell *)malloc(sizeof(t_mshell));
 		mshell_init(init, input);
-		create_env_list(init, envp_copy);
-		// print_env(init); // PRINT ENV TABLE
-		if (lexer_main(init, &envp_copy, &exit_code) == 1)
+		create_env_list(init, envp);
+		if (lexer_main(init, &envp, &exit_code) == 1)
 		{
 			delete_lists(init);
 			continue ;
 		}
-		if (ft_strlen(init->in) > 0)
-			parse_and_execute(init, &envp_copy, &exit_code);
-		delete_lists(init);
+		parse_and_execute(init, &envp, &exit_code);
 	}
-	ft_free_smatrix(envp_copy);
+	ft_free_smatrix(envp);
 	rl_clear_history();
 	return (exit_code);
 }
@@ -103,11 +93,13 @@ int	minishell(int exit_code, char **envp, char *input)
 int	main(int argc, char **argv, char **envp)
 {
 	int			exit_code;
+	char		**envp_copy;
 	
 	exit_code = 0;
 	if (argc != 1)
 		args_error();
-	exit_code = minishell(exit_code, envp, NULL);
+	envp_copy = envp_dup(envp);
+	exit_code = minishell(exit_code, envp_copy, NULL, NULL);
 	(void)argv;
 	return (exit_code);
 }

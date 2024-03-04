@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/01 18:32:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:40:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	lexer_elements_aid(char const *s, size_t *i);
 int		lexer_elements(char const *s);
 
 // lexer_quotes_checker.c
+void	add_hist_unquotes(char const *input);
 void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type);
 int		quotes_checker(char const *s);
 

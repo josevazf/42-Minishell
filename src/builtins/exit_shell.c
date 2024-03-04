@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by guest             #+#    #+#             */
-/*   Updated: 2024/03/03 12:11:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:11:13 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,20 @@ int	exit_arguments(char *input, int exit_code)
 	{
 		input = ft_strupdate(input, " ");
 		exit_in = ft_split(input, ' ');
-		if (exit_in[2] != NULL)
+		if (exit_in[1] == NULL)
+		{
+			printf("\nyooo\n");
+			printf("exit\n");
+		}	
+		else if (exit_in[2] != NULL)
 		{
 			printf("minishell: exit: too many arguments\n");
+			add_history(input);
 			exit_code = 1;
 		}
-		else if (exit_in[1] == NULL)
-			printf("exit\n");
 		else if (check_exit_args(exit_in, &exit_code) == ERROR)
-		{
-			printf("exit\n");
-			printf("minishell: exit: %s: numeric argument required\n", exit_in[1]);		
-		}
+			printf("exit\nminishell: exit: %s: numeric argument required\n", 
+				exit_in[1]);		
 		free(input);
 		ft_free_smatrix(exit_in);
 	}
