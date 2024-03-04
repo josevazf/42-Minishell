@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/01 18:32:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:06:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 			char ***strings_env, int *exit_code);
 
 // executer_single_cmd.c
+int		single_cmd_isdir(char *cmd);
 int		single_cmd_notfound(t_mshell *init);
 void	fork_single_cmd(t_mshell *init, t_parser *parser_node,
 			char ***strings_env, int *exit_code);

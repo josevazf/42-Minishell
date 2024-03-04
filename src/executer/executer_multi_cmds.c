@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 10:27:56 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:05:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 }
 
 void	process_parent(t_mshell *init, int *exit_code)
-{	
+{
 	int	i;
 	int	status;
 

@@ -6,11 +6,20 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/02 20:07:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:10:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	single_cmd_isdir(char *cmd)
+{
+	char	*file_err;
+
+	file_err = strerror(errno);
+	printf("minishell: %s: %s\n", cmd, file_err);
+	return (126);
+}
 
 int	single_cmd_notfound(t_mshell *init)
 {
@@ -58,21 +67,19 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 	if (init->parser->redirs)
 		single_redirs_router(init, init->parser);
 	if (init->parser->token_err)
-	{
 		*exit_code = redirs_error(init->parser);
-		return ;
-	}
 	else if (!init->parser->path_exec && init->parser->redirs)
-	{
 		*exit_code = 1;
-		return ;
-	}
 	else if (!ft_strcmp(init->parser->path_exec, "notfound"))
 	{
-		*exit_code = single_cmd_notfound(init);
-		return ;
+		if (open(init->parser->cmd_exec[0], O_WRONLY | O_TRUNC,
+				0644) == -1 && init->parser->cmd_exec[0][ft_strlen(
+				init->parser->cmd_exec[0]) - 1] == '/')
+			*exit_code = single_cmd_isdir(init->parser->cmd_exec[0]);
+		else
+			*exit_code = single_cmd_notfound(init);
 	}
-	if (!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
+	else if (!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
 		cd(init, init->parser, exit_code, envp);
 	else if (!ft_strncmp(init->parser->cmd_exec[0], "unset", 5))
 		unset(init, envp);
@@ -80,6 +87,7 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 		export(init, envp, exit_code);
 	else if (init->parser->cmd_exec != NULL)
 		fork_single_cmd(init, init->parser, envp, exit_code);
+	return ;
 }
 
 void	single_redirs_router(t_mshell *init, t_parser *node)

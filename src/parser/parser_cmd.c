@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:38:50 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:44:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,9 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
 	if (cmd_router(cmd) == BUILTIN_CMD)
 		return (ft_strdup("builtin"));
 	paths = parse_path(*envp_copy);
-	if (access(cmd, F_OK | X_OK) == 0)
-		cmd_path = ft_strdup(cmd);
-	else
-		cmd_path = get_cmd_path(paths, cmd);
+/* 	if (access(cmd, F_OK | X_OK) == 0)
+		cmd_path = ft_strdup(cmd); */
+	cmd_path = get_cmd_path(paths, cmd);
 	if (cmd_path == NULL)
 	{
 		if (paths)
