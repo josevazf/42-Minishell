@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 16:50:10 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 10:44:45 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/05 23:10:12 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*ft_strcpy(char *dest, const char *src)
 char	*ft_strdup(const char *str)
 {
 	char	*temp;
-	
+
 	temp = malloc(ft_strlen(str) + 1);
 	if (temp != NULL)
 	{

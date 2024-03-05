@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 09:26:26 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/01/12 13:25:40 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/05 23:10:35 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		ft_int_max(int x, int y);
 int		ft_checkext(char *str, char *ext);
 int		ft_nbrlen(long n);
 int		ft_strcmp(char *s1, char *s2);
-char 	*ft_strpbrk(const char *s1, const char *s2);
+char	*ft_strpbrk(const char *s1, const char *s2);
 char	*ft_strldup(const char *s, size_t l);
 char	*ft_strndup(const char *s, size_t n);
 char	*ft_strupdate(char *s1, char const *s2);
