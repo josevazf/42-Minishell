@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 16:28:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/05 00:11:52 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*prompt_line(char **envp_copy)
 	char	*cwd;
 	int		i;
 	int		len;
-	
+
 	i = 0;
 	len = 0;
 	while (envp_copy[i] && ft_strncmp(envp_copy[i], "HOME", 4) != 0)
@@ -50,7 +50,7 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 		set_signals();
 		set_prompt_and_get_input(envp, &input, &line);
 		if (check_whitespace(input) == 1)
-			continue;
+			continue ;
 		if (input == NULL || !ft_strncmp(input, "exit", 4))
 		{
 			exit_code = exit_arguments(input, exit_code);
@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	int			exit_code;
 	char		**envp_copy;
-	
+
 	exit_code = 0;
 	if (argc != 1)
 		args_error();

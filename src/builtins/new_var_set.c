@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/01 18:44:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:33:38 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 	int		i;
 	int		j;
 	t_env	*node;
-	
+
 	i = 0;
 	j = 0;
 	node = init->env_table;

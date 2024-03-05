@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by guest             #+#    #+#             */
-/*   Updated: 2024/03/04 16:17:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:33:13 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_exit_args(char **exit_in, int *exit_code)
 {
 	int	i;
 	int	value;
-	
+
 	i = -1;
 	while (exit_in[1][++i])
 	{
@@ -25,7 +25,7 @@ int	check_exit_args(char **exit_in, int *exit_code)
 		if (!ft_isdigit(exit_in[1][i]) && exit_in[1][i])
 		{
 			*exit_code = 2;
-			return (ERROR);	
+			return (ERROR);
 		}
 	}
 	value = ft_atoi(exit_in[1]);
@@ -54,7 +54,7 @@ int	exit_arguments(char *input, int exit_code)
 			exit_code = exit_code - 100;
 		}
 		else if (check_exit_args(exit_in, &exit_code) == ERROR)
-			printf("exit\nminishell: exit: %s: numeric argument required\n", 
+			printf("exit\nminishell: exit: %s: numeric argument required\n", \
 				exit_in[1]);
 		else if (exit_in[2] != NULL)
 		{

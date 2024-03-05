@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:54:45 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/29 22:39:56 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/04 23:39:46 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ char	*ft_lexer_substr(char *s, unsigned int start, size_t len)
 
 	i = 0;
 	j = 0;
+	quote = 0;
 	len = len_update(s, start, len);
 	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
 	while (i < len)
 	{
 		if ((s[start + j] == '\'' || s[start + j] == '\"') && quote == 0)

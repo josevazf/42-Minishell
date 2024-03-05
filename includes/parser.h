@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:34:20 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/05 00:20:18 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 
 // parser_main.c
 t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node);
-void		parser_node_push_back(t_mshell *init, t_parser **begin_list,	
+void		parser_node_push_back(t_mshell *init, t_parser **begin_list, \
 				char *cmds, t_parser *node);
-t_parser	*parser_node_router(t_mshell *init, char ***envp_copy,
+t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, \
 				t_parser *parser, char *cmds);
 int			check_pipe_syntax(t_mshell *init);
-void		parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
+void		parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, \
 				char *cmds);
 
 // parser_cmd.c
@@ -37,7 +37,7 @@ char		*find_cmd(char *cmd, t_mshell *init, char ***envp_copy);
 // parser_utils.c
 char		*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer);
 char		*parser_merge_split(char *og_str, char *lexer_str);
-void		free_parser_temps(char *cmds, char *redirs, char *cmd_path,
+void		free_parser_temps(char *cmds, char *redirs, char *cmd_path, \
 				char **cmd_full);
 void		free_parser_vars(char **cmds, char **redirs);
 

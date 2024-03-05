@@ -6,12 +6,12 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:59:35 by tiago             #+#    #+#             */
-/*   Updated: 2024/01/31 11:11:04 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/05 00:12:54 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-	
+
 void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
@@ -30,7 +30,7 @@ void	sighandler_fork(int signo)
 		g_signo = 128 + signo;
 }
 
-void	set_signals()
+void	set_signals(void)
 {
 	g_signo = 0;
 	signal(SIGINT, sigint_handler);

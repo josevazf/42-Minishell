@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_quotes_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 08:18:02 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/04 12:48:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:15:16 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	add_hist_unquotes(char const *input)
 {
 	add_history(input);
-	free((char*)input);
+	free((char *)input);
 	printf("minishell: unclosed quotes\n");
 }
 
@@ -32,7 +32,7 @@ void	quotes_checker_aid(char const *s, int *i, int *count, char quote_type)
 	}
 }
 
-int		quotes_checker(char const *s)
+int	quotes_checker(char const *s)
 {
 	int	i;
 	int	s_quote;

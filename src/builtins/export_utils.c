@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:09:33 by tiago             #+#    #+#             */
-/*   Updated: 2024/02/17 10:07:37 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/04 18:29:41 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_env	*assign_val(t_env **count, int *flag, t_mshell *init)
 {
 	t_env	*env_node;
-	
+
 	env_node = init->env_table;
 	*count = init->env_table;
 	*flag = 0;

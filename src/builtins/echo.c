@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/01 19:33:58 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:29:19 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void	echo(t_parser *parser, int i, int j)
 		j++;
 	}
 	if (parser->cmd_exec[j])
+	{
 		while (parser->cmd_exec[j])
 		{
 			printf("%s", parser->cmd_exec[j++]);
 			if (parser->cmd_exec[j])
 				printf(" ");
 		}
+	}
 	if (flag == 0)
 		printf("\n");
 	exit (0);

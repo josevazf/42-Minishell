@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/03/04 16:29:19 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/05 00:09:43 by tiago            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS			= 	minishell.c \
 					lexer/lexer_quotes_checker.c \
 					expander/expander.c \
 					expander/eof_handler.c \
+					expander/macros_tools.c \
 					parser/parser_main.c \
 					parser/parser_cmd.c \
 					parser/parser_utils.c \
@@ -75,8 +76,10 @@ SRCS			= 	minishell.c \
 					builtins/new_var_set.c \
 					signals.c \
 					free_mem.c \
-					error.c \
-					print_utils.c
+					error_1.c \
+					error_2.c \
+					print_utils.c \
+					envp_tools.c
 
 # Substitute .c with .o 
 OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/02/29 17:37:01 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/05 00:12:28 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	print_parser(t_mshell *init)
 {
-	int 		i;
+	int			i;
 	t_parser	*parser;
-	
+
 	parser = init->parser;
 	while (parser != NULL)
 	{
@@ -43,7 +43,7 @@ void	print_parser(t_mshell *init)
 void	print_lexer(t_mshell *init)
 {
 	t_lexer		*lexer;
-	
+
 	lexer = init->lexer;
 	while (lexer)
 	{

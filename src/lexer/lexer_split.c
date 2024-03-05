@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/02/29 22:59:47 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/04 18:25:55 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,20 @@ void	create_token(t_mshell *init, size_t *i)
 	if (init->in[*i] && (init->in[*i] == '\"' || init->in[*i] == '\''))
 		(*i)++;
 }
-void	create_empty_token(t_mshell *init, size_t *i)
+
+void	malloc_tokens(t_mshell *init, int i)
 {
-	lexer_init(init->lexer);
-	*i +=2;
+	if (init->in[i] && !init->lexer)
+	{
+		init->lexer = (t_lexer *)malloc(sizeof(t_lexer));
+		lexer_init(init->lexer);
+	}
+	else if (init->in[i] && !init->lexer->next)
+	{
+		init->lexer->next = (t_lexer *)malloc(sizeof(t_lexer));
+		lexer_init(init->lexer->next);
+		init->lexer = init->lexer->next;
+	}
 }
 
 void	create_all_tokens(t_mshell *init)
@@ -51,17 +61,7 @@ void	create_all_tokens(t_mshell *init)
 	{
 		while (ft_iswhitespace(init->in[i]) && init->in[i])
 			i++;
-		if (init->in[i] && !init->lexer)
-		{
-			init->lexer = (t_lexer *)malloc(sizeof(t_lexer));
-			lexer_init(init->lexer);
-		}
-		else if (init->in[i] && !init->lexer->next)
-		{
-			init->lexer->next = (t_lexer *)malloc(sizeof(t_lexer));
-			lexer_init(init->lexer->next);
-			init->lexer = init->lexer->next;
-		}
+		malloc_tokens(init, i);
 		if (!lexer_head)
 			lexer_head = init->lexer;
 		if (init->in[i] && ((init->in[i] == '\"' && \
