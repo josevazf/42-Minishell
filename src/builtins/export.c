@@ -6,17 +6,14 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/04 18:01:17 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/05 23:06:13 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	var_exists(t_mshell *init, t_env *env_node, int *i, char ***envp_copy)
+int	var_exists(t_mshell *init, t_env *env_node, int *i, char **export_split, char ***envp_copy)
 {
-	char	**export_split;
-
-	export_split = ft_split(init->parser->cmd_exec[*i], '=');
 	while (env_node)
 	{
 		if (ft_strcmp(env_node->var, export_split[0]) == 0)
@@ -35,7 +32,6 @@ int	var_exists(t_mshell *init, t_env *env_node, int *i, char ***envp_copy)
 		}
 		env_node = env_node->next;
 	}
-	ft_free_smatrix(export_split);
 	return (1);
 }
 
@@ -68,7 +64,7 @@ void	export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 	{
 		export_split = ft_split(init->parser->cmd_exec[i], '=');
 		env_node = init->env_table;
-		if (var_exists(init, env_node, &i, envp_copy) == 0)
+		if (var_exists(init, env_node, &i, export_split, envp_copy) == 0)
 			continue ;
 		while (env_node->next)
 			env_node = env_node->next;

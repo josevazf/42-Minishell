@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/04 18:33:38 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/05 22:58:01 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 	*envp_copy = update_envp_copy(init, envp_copy);
 }
 
+int	empty_input(t_mshell *init)
+{
+	free(init->in);
+	init->in = ft_strdup("");
+	return (1);
+}
+
 int	new_var_checker(t_mshell *init, char ***envp_copy)
 {
 	int	i;
@@ -49,21 +56,13 @@ int	new_var_checker(t_mshell *init, char ***envp_copy)
 	while (ft_iswhitespace(init->in[i]))
 		i++;
 	if (ft_strncmp(init->in + i, "export=", 7) == 0)
-	{
-		free(init->in);
-		init->in = ft_strdup("");
-		return (1);
-	}
+		return (empty_input(init));
 	while (ft_isalnum(init->in[i]))
 		i++;
 	if (init->in[i] == '=')
 	{
 		if (init->in[i + 1] == '\0')
-		{
-			free(init->in);
-			init->in = ft_strdup("");
-			return (1);
-		}
+			return (empty_input(init));
 		create_new_var(init, envp_copy);
 		return (0);
 	}
