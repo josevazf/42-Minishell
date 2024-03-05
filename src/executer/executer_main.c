@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 10:30:51 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:39:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 			fork_error(init->child_pids[i - 1]);
 			if (init->child_pids[i - 1] == 0)
 			{
-				if (init->child_pids != NULL)
-					free(init->child_pids);
 				init->cmd_index = i;
 				process_child(init, parser_node, env, exit_code);
 			}

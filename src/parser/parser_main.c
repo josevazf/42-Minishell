@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 18:39:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:32:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	parser_node_push_back(t_mshell *init, t_parser **begin_list,
 t_parser	*parser_node_router(t_mshell *init, char ***envp_copy,
 				t_parser *parser, char *cmds)
 {
+	init->tcmd_full = NULL;
+	init->tcmd_path = NULL;
 	if (cmds)
 	{
 		init->tcmd_full = ft_split(cmds, '\t');
