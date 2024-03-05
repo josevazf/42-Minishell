@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/05 22:58:01 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/05 23:39:58 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,43 @@ int	empty_input(t_mshell *init)
 	return (1);
 }
 
+void	set_content(t_mshell *init, t_env *node, int i, int j)
+{
+	while (init->in[i + j] && !ft_iswhitespace(init->in[i + j]))
+		j++;
+	if (!init->in[i + j])
+		node->content = ft_strldup(init->in + i, j);
+}
+
+int	var_is_set(t_mshell *init, char ***envp_copy)
+{
+	int		i;
+	int		j;
+	t_env	*node;
+
+	i = 0;
+	j = 0;
+	node = init->env_table;
+	while (ft_iswhitespace(init->in[i]))
+		i++;
+	while (init->in[i + j] != '=')
+		j++;
+	while (node)
+	{
+		if (ft_strncmp(init->in + i, node->var, j) == 0)
+		{
+			node->visibility = 0;
+			i = j + 1;
+			j = 0;
+			set_content(init, node, i, j);
+			*envp_copy = update_envp_copy(init, envp_copy);
+			return (0);
+		}
+		node = node->next;
+	}
+	return (1);
+}
+
 int	new_var_checker(t_mshell *init, char ***envp_copy)
 {
 	int	i;
@@ -63,7 +100,8 @@ int	new_var_checker(t_mshell *init, char ***envp_copy)
 	{
 		if (init->in[i + 1] == '\0')
 			return (empty_input(init));
-		create_new_var(init, envp_copy);
+		if (!var_is_set(init, envp_copy))
+			create_new_var(init, envp_copy);
 		return (0);
 	}
 	return (1);
