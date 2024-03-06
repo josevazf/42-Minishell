@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:59:01 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/05 00:00:46 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:47:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_env	*macro_check_and_fetch(t_mshell *init, t_env *env_node)
 {
 	if (init->in[init->exp->i] == '\'' && init->exp->s_quote == 1 \
 	&& init->exp->d_quote == 1)
-			init->exp->s_quote = 0;
+		init->exp->s_quote = 0;
 	else if (init->in[init->exp->i] == '\'' && init->exp->s_quote == 0 \
 	&& init->exp->d_quote == 1)
 		init->exp->s_quote = 1;

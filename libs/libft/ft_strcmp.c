@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:05:23 by jrocha-v          #+#    #+#             */
-/*   Updated: 2023/12/12 11:06:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 09:46:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	ft_strcmp(char *s1, char *s2)
 
 	i = 0;
 	while ((s1[i] == s2[i]) && s1[i] != '\0')
-	i++;
+		i++;
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }

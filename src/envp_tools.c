@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:43:34 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/04 23:46:10 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:48:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**update_envp_copy(t_mshell *init, char ***envp_copy)
 		if (node->visibility == 1 && node->var[ft_strlen(node->var) - 1] != '~')
 			(*envp_copy)[i] = ft_strupdate((*envp_copy)[i], "~");
 		if (node->content)
-		{	
+		{
 			(*envp_copy)[i] = ft_strupdate((*envp_copy)[i], "=");
 			(*envp_copy)[i] = ft_strupdate((*envp_copy)[i], node->content);
 		}
