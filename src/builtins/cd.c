@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/01 18:34:52 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:30:46 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 		}
 		*new_dir = getcwd(NULL, 0);
 	}
-	while (ft_strcmp(node->var, "PWD") != 0)
+	while (node && ft_strcmp(node->var, "PWD") != 0)
 		node = node->next;
 	if (!node)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/05 23:39:58 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 15:41:30 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 
 	i = 0;
 	j = 0;
+	printf("ENTROU\n");
 	node = init->env_table;
 	while (node->next)
 		node = node->next;
@@ -69,9 +70,11 @@ int	var_is_set(t_mshell *init, char ***envp_copy)
 		i++;
 	while (init->in[i + j] != '=')
 		j++;
+	printf("j: %d\n", j);
 	while (node)
 	{
-		if (ft_strncmp(init->in + i, node->var, j) == 0)
+		printf("node->var: %s\n", node->var);
+		if (ft_strncmp(init->in + i, node->var, j) == 0 && !node->var[j])
 		{
 			node->visibility = 0;
 			i = j + 1;
@@ -100,7 +103,7 @@ int	new_var_checker(t_mshell *init, char ***envp_copy)
 	{
 		if (init->in[i + 1] == '\0')
 			return (empty_input(init));
-		if (!var_is_set(init, envp_copy))
+		if (var_is_set(init, envp_copy) == 1)
 			create_new_var(init, envp_copy);
 		return (0);
 	}
