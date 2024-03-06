@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 18:39:10 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:18:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 		*exit_code = 2;
 		return ;
 	}
-	get_pipes(init);
 	signal(SIGINT, sighandler_fork);
 	signal(SIGQUIT, sighandler_fork);
 	executer_fork_router(init, envp_copy, exit_code, 0);

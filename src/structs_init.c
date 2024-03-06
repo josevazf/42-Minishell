@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/04 13:17:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:15:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_mshell	*mshell_init(t_mshell *init, char *input, char **envp)
 	add_history(input);
 	init = (t_mshell *)malloc(sizeof(t_mshell));
 	init->in = ft_strdup(input);
+	init->set_var = false;
 	init->nbr_pipes = 0;
 	init->tcmd_full = NULL;
 	init->tcmd_path = NULL;

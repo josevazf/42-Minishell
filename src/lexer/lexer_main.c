@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/04 18:15:44 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 14:59:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 	expander(init, exit_code);
 	free_expander(init->exp);
 	if (new_var_checker(init, envp_copy) == 0)
-	{
-		delete_lists(init);
 		return (1);
-	}
 	if (ft_strlen(init->in) > 0)
 	{
 		lexer_split(init);

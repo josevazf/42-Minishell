@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 17:16:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:15:50 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_env
 typedef struct s_mshell
 {
 	char				*in;
+	bool				set_var;
 	char				**tcmd_full;
 	char				*tcmd_path;
 	char				*tredirs;
