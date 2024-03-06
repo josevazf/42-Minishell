@@ -6,12 +6,41 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 18:33:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:08:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/* Check if there is an unexpected token after a redirection (<, >, <<, >>) */
+int	check_redir_syntax(t_mshell *init)
+{
+	t_lexer		*lexer;
+
+	lexer = init->lexer;
+	while (lexer)
+	{
+		if (lexer->operator == OUT_OWR || lexer->operator == OUT_APND || \
+			lexer->operator == IN_READ || lexer->operator == IN_HDOC)
+		{
+			if (lexer->next->operator == PIPE || \
+				lexer->next->operator == OUT_OWR || \
+				lexer->next->operator == OUT_APND || \
+				lexer->next->operator == IN_READ || \
+				lexer->next->operator == IN_HDOC)
+			{
+				printf("minishell: syntax error near unexpected token `%s'\n",
+					lexer->next->str);
+				init->stop_exec = true;
+				return (ERROR);
+			}
+		}
+		lexer = lexer->next;
+	}
+	return (SUCCESS);
+}
+
+/* Merge redirs from one node into a single string */
 char	*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer)
 {
 	(void)init;

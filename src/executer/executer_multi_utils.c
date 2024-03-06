@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/01 16:49:14 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:34:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	close_pipes(t_mshell *init)
 		if (i != init->cmd_index - 2)
 		{
 			if (close(init->pipe_fds[i][0]) == -1)
-				ft_error("minishell: error closing child fd 0", ERROR);
+				ft_error("minishell: error closing pipe", ERROR);
 		}
 		if (i != init->cmd_index - 1)
 		{
 			if (close(init->pipe_fds[i][1]) == -1)
-				ft_error("minishell: error closing child fd 1", ERROR);
+				ft_error("minishell: error closing pipe", ERROR);
 		}
 		i++;
 	}
@@ -58,11 +58,11 @@ void	close_redirs_pipes(t_mshell *init, t_parser *node)
 	if (init->cmd_index > 1)
 	{
 		if (close(init->pipe_fds[init->cmd_index - 2][0]) == -1)
-			ft_error("minishell: error closing pipe read end", ERROR);
+			ft_error("minishell: error closing pipe", ERROR);
 	}
 	if (node->next)
 	{
 		if (close(init->pipe_fds[init->cmd_index - 1][1]) == -1)
-			ft_error("minishell: error closing pipe write end", ERROR);
+			ft_error("minishell: error closing pipe", ERROR);
 	}
 }

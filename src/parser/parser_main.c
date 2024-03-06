@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 18:32:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:45:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
 {
 	t_lexer		*lexer;
 
-	if (check_pipe_syntax(init) == ERROR)
+	if (check_pipe_syntax(init) == ERROR || check_redir_syntax(init) == ERROR)
 		return ;
 	lexer = init->lexer;
 	while (lexer)

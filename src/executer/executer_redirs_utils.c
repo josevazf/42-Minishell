@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:33:28 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 17:56:10 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:41:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	check_red_error(char *redir_syntax)
 {
-	if (!ft_strncmp(redir_syntax, "<", 1) || !ft_strncmp(redir_syntax, ">", 1))
+	if (!ft_strncmp(redir_syntax, "<", 1) || !ft_strncmp(redir_syntax, ">", 1) \
+		|| !ft_strncmp(redir_syntax, "|", 1))
 		return (ERROR);
 	return (SUCCESS);
 }

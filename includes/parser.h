@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 00:20:18 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 20:07:14 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,12 @@ char		*get_cmd_path(char **envp_paths, char *cmd);
 char		*find_cmd(char *cmd, t_mshell *init, char ***envp_copy);
 
 // parser_utils.c
+int			check_redir_syntax(t_mshell *init);
 char		*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer);
 char		*parser_merge_split(char *og_str, char *lexer_str);
 void		free_parser_temps(char *cmds, char *redirs, char *cmd_path, \
 				char **cmd_full);
 void		free_parser_vars(char **cmds, char **redirs);
-
-// parser_redirs.c
-void		redirs_router(t_mshell *init, char *redirs);
-int			process_file(t_mshell *init, char *file_name, int file_type);
 
 // structs_init.c
 void		parser_init(t_parser *parser);
