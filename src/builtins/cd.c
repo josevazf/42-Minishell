@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/06 15:30:46 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 16:55:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,21 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 
 int	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 {
-	if (parser->cmd_exec[2] != NULL)
+	if (parser->cmd_exec[1] == NULL && get_home(init) == NULL)
 	{
+		printf("minishell: cd: HOME not set\n");
+		*exit_code = 1;
+		return (1);
+	}
+	else if (parser->cmd_exec[1] && parser->cmd_exec[2])
+	{
+		printf("\n\n%s\n\n", parser->cmd_exec[2]);
 		printf("minishell: cd: too many arguments\n");
 		*exit_code = 1;
 		return (1);
 	}
 	else if (parser->cmd_exec[1] == NULL && !parser->cmd_exec[2])
 		return (1);
-	else if (parser->cmd_exec[1] == NULL && get_home(init) == NULL)
-	{
-		printf("minishell: cd: HOME not set\n");
-		*exit_code = 1;
-		return (1);
-	}
 	return (0);
 }
 

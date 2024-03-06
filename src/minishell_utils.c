@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:18 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 15:18:51 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:24:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parse_and_execute(t_mshell *init, char ***envp_copy, int *exit_code)
 		if ((init->nbr_pipes == 0 && !init->set_var) || init->nbr_pipes > 0)
 		{
 			parser_main(init, envp_copy, NULL, NULL);
-			executer_main(init, envp_copy, exit_code);	
+			executer_main(init, envp_copy, exit_code);
 		}
 	}
 	delete_lists(init);

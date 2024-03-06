@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/06 15:41:30 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 15:44:42 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 
 	i = 0;
 	j = 0;
-	printf("ENTROU\n");
 	node = init->env_table;
 	while (node->next)
 		node = node->next;
@@ -70,10 +69,8 @@ int	var_is_set(t_mshell *init, char ***envp_copy)
 		i++;
 	while (init->in[i + j] != '=')
 		j++;
-	printf("j: %d\n", j);
 	while (node)
 	{
-		printf("node->var: %s\n", node->var);
 		if (ft_strncmp(init->in + i, node->var, j) == 0 && !node->var[j])
 		{
 			node->visibility = 0;
