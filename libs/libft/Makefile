@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/15 22:23:12 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/01/12 13:26:17 by tiaferna         ###   ########.fr        #
+#    Updated: 2024/03/06 09:41:16 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,6 @@ SRCS		= ft_atoi.c \
 			  ft_lstclear.c \
 			  ft_lstiter.c \
 			  ft_lstmap.c \
-			  ft_printf/ft_printf_utils.c \
-			  ft_printf/ft_printf.c \
 			  get_next_line/get_next_line.c \
 			  get_next_line/get_next_line_utils.c \
 			  ft_iswhitespace.c \
@@ -72,8 +70,6 @@ SRCS		= ft_atoi.c \
 			  ft_error.c \
 			  ft_count_words.c \
 			  ft_count_words_del.c \
-			  ft_print_imatrix.c \
-			  ft_print_smatrix.c \
 			  ft_isinbase.c \
 			  ft_atoi_base.c \
 			  ft_int_max.c \

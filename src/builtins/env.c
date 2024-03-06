@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:21:20 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/05 22:13:53 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:35:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	env(t_mshell *init)
 	while (init->env_table)
 	{
 		if (init->env_table->visibility == 0 && init->env_table->content)
-			ft_printf("%s=%s\n", init->env_table->var, init->env_table->content);
+			printf("%s=%s\n", init->env_table->var, init->env_table->content);
 		init->env_table = init->env_table->next;
 	}
 	init->env_table = env_head;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 00:12:28 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:35:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_parser(t_mshell *init)
 				printf("%s ", parser->cmd_exec[i]);
 		}
 		else
-			ft_printf("cmd-> NULL");
+			printf("cmd-> NULL");
 		printf("\n");
 		printf("path-> %s\n", parser->path_exec);
 		if (parser->redirs)
@@ -47,8 +47,8 @@ void	print_lexer(t_mshell *init)
 	lexer = init->lexer;
 	while (lexer)
 	{
-		ft_printf("str:%s\n", lexer->str);
-		ft_printf("op:%d\n\n", lexer->operator);
+		printf("str:%s\n", lexer->str);
+		printf("op:%d\n\n", lexer->operator);
 		lexer = lexer->next;
 	}
 }
@@ -61,8 +61,8 @@ void	print_env(t_mshell *init)
 	env_table = init->env_table;
 	while (env_table)
 	{
-		ft_printf("%s=", env_table->var);
-		ft_printf("%s\n", env_table->content);
+		printf("%s=", env_table->var);
+		printf("%s\n", env_table->content);
 		env_table = env_table->next;
 	}
 }

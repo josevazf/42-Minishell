@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 00:09:33 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/04 18:29:41 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:35:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void	check_oldpwd(t_env *prnt, int *flag)
 	if (ft_strcmp("OLDPWD", prnt->var) < 0 && *flag == 0)
 	{
 		*flag = 1;
-		ft_printf("declare -x OLDPWD\n");
+		printf("declare -x OLDPWD\n");
 	}
 }

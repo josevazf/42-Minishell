@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/05 23:13:11 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:35:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	export_printer(t_env *prnt)
 	if (strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
 	{
 		if (prnt->content)
-			ft_printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
+			printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
 		else
-			ft_printf("declare -x %s\n", prnt->var);
+			printf("declare -x %s\n", prnt->var);
 	}
 }
 

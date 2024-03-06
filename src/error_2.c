@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:08:28 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/05 00:09:28 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:34:58 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	redirs_error(t_parser *parser_node)
 {
 	if (parser_node->token_err)
 	{
-		ft_printf("minishell: syntax error near unexpected token `newline'\n");
+		printf("minishell: syntax error near unexpected token `newline'\n");
 		return (2);
 	}
 	else if (parser_node->file_nf)

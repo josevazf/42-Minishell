@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 00:10:00 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/06 09:34:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	fork_error(int pid)
 /* Deal with bad arguments */
 int	args_error(void)
 {
-	ft_printf("minishell usage: ./minishell\n");
+	printf("minishell usage: ./minishell\n");
 	exit(EXIT_FAILURE);
 }
 
 /* Deal with unclosed quotes */
 int	quotes_error(void)
 {
-	ft_printf("minishell: unclosed quotes\n");
+	printf("minishell: unclosed quotes\n");
 	exit(EXIT_FAILURE);
 }
