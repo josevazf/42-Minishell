@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/04 23:46:14 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/07 10:44:02 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_env_node(t_env *env_node, t_mshell *init)
 {
 	if (init)
 		init->env_table = init->env_table->next;
+	env_node->visibility = 0;
 	free(env_node->var);
 	free(env_node->content);
 	free(env_node);
@@ -35,7 +36,7 @@ void	unset_if_present(t_mshell *init, t_env	*env_node, int *i)
 			{
 				temp = env_node->next;
 				env_node->next = env_node->next->next;
-				free_env_node(temp, init);
+				free_env_node(temp, NULL);
 				break ;
 			}
 			env_node = env_node->next;
