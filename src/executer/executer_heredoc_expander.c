@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:17 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/08 22:25:19 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/08 23:09:41 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,7 @@ void	heredoc_clear_macro(t_mshell *init, char **input)
 t_env	*heredoc_macro_check_and_fetch(t_mshell *init, char **input, \
 													t_env *env_node)
 {
-	if ((*input)[init->exp->i] == '\'' && init->exp->s_quote == 1 \
-	&& init->exp->d_quote == 1)
-		init->exp->s_quote = 0;
-	else if ((*input)[init->exp->i] == '\'' && init->exp->s_quote == 0 \
-	&& init->exp->d_quote == 1)
-		init->exp->s_quote = 1;
-	else if ((*input)[init->exp->i] == '\"' && init->exp->s_quote == 1 \
-	&& init->exp->d_quote == 1)
-		init->exp->d_quote = 0;
-	else if ((*input)[init->exp->i] == '\"' && init->exp->s_quote == 1 \
-	&& init->exp->d_quote == 0)
-		init->exp->d_quote = 1;
-	else if ((*input)[init->exp->i] == '$' && (*input)[init->exp->i \
+	if ((*input)[init->exp->i] == '$' && (*input)[init->exp->i \
 	+ 1] && !ft_iswhitespace((*input)[init->exp->i + 1]) && init->\
 	in[init->exp->i + 1] != '\"')
 		env_node = heredoc_fetch_macro(init, input, env_node);
