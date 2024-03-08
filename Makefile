@@ -6,7 +6,7 @@
 #    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/03/05 00:09:43 by tiago            ###   ########.fr        #
+#    Updated: 2024/03/07 11:00:56 by tiago            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS			= 	minishell.c \
 					parser/parser_main.c \
 					parser/parser_cmd.c \
 					parser/parser_utils.c \
+					executer/executer_heredoc_expander.c \
 					executer/executer_main.c \
 					executer/executer_utils.c \
 					executer/executer_single_cmd.c \

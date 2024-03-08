@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_single_cmd.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 18:10:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:13:18 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp,
 void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 {
 	if (init->parser->redirs)
-		single_redirs_router(init, init->parser);
+		single_redirs_router(init, init->parser, exit_code);
 	if (init->parser->token_err)
 		*exit_code = redirs_error(init->parser);
 	else if (!init->parser->path_exec && init->parser->redirs)
@@ -90,7 +90,7 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 	return ;
 }
 
-void	single_redirs_router(t_mshell *init, t_parser *node)
+void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code)
 {
 	int		i;
 	char	**redirs;
@@ -106,7 +106,7 @@ void	single_redirs_router(t_mshell *init, t_parser *node)
 	while (redirs[++i])
 	{
 		if (!ft_strncmp(redirs[i], "<<", 2))
-			node->input = process_here_doc(init, redirs[i + 1]);
+			node->input = process_here_doc(init, redirs[i + 1], exit_code);
 		else if (!ft_strncmp(redirs[i], "<", 1))
 			node->input = process_file(init, redirs[i + 1], IN_FILE);
 		else if (!ft_strncmp(redirs[i], ">>", 2))

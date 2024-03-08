@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_redirs.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/02 20:13:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:28:29 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	multi_check_output(t_mshell *init, t_parser *node, int i)
 		node->output_t = IO_PIPE;
 }
 
-void	multi_redir_input(t_mshell *init, t_parser *node)
+void	multi_redir_input(t_mshell *init, t_parser *node, int *exit_code)
 {
 	int		i;
 	char	**red_full;
@@ -82,7 +82,8 @@ void	multi_redir_input(t_mshell *init, t_parser *node)
 		while (red_full[++i])
 		{
 			if (!ft_strncmp(red_full[i], "<<", 2))
-				node->input = process_here_doc(init, red_full[i + 1]);
+				node->input = process_here_doc(init, red_full[i + 1], \
+																exit_code);
 			else if (!ft_strncmp(red_full[i], "<", 1))
 				node->input = process_file(init, red_full[i + 1], \
 					IN_FILE);
@@ -125,11 +126,11 @@ void	multi_redir_output(t_mshell *init, t_parser *node)
 		dup2(node->output, STDOUT_FILENO);
 }
 
-void	multi_redirs_router(t_mshell *init, t_parser *node)
+void	multi_redirs_router(t_mshell *init, t_parser *node, int *exit_code)
 {
 	multi_check_input(init, node, -1);
 	multi_check_output(init, node, -1);
-	multi_redir_input(init, node);
+	multi_redir_input(init, node, exit_code);
 	multi_redir_output(init, node);
 	close_redirs_pipes(init, node);
 }

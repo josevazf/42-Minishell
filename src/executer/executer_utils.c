@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 10:37:25 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:34:17 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /* Get here_doc input and write to pipe */
-void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
+void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 {
 	char	*input;
 
 	ft_putstr_fd("> ", init->og_stdout);
 	input = get_next_line(init->og_stdin);
+	heredoc_expander(init, &input, exit_code);
+	free_expander(init->exp);
 	if (!input)
 	{
 		perror("minishell: input error");
@@ -37,7 +39,7 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd)
 }
 
 /* Process here_doc */
-int	process_here_doc(t_mshell *init, char *eof)
+int	process_here_doc(t_mshell *init, char *eof, int *exit_code)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
@@ -53,7 +55,7 @@ int	process_here_doc(t_mshell *init, char *eof)
 	{
 		close(pipe_fd[0]);
 		while (1)
-			write_here_doc(init, eof, pipe_fd);
+			write_here_doc(init, eof, pipe_fd, exit_code);
 	}
 	else
 	{

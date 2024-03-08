@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_cmds.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/04 18:05:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:07:46 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 			int *exit_code)
 {
 	close_pipes(init);
-	multi_redirs_router(init, parser_node);
+	multi_redirs_router(init, parser_node, exit_code);
 	if (parser_node->token_err || parser_node->file_nf)
 	{
 		*exit_code = redirs_error(parser_node);
