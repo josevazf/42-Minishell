@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/09 16:32:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:13:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 		if (chdir(parser->cmd_exec[1]) != 0)
 		{
 			file_err = strerror(errno);
-			printf("minishell: %s: %s\n", parser->cmd_exec[1], file_err);
+			printf("minishell: cd: %s: %s\n", parser->cmd_exec[1], file_err);
 		}
 		*new_dir = getcwd(NULL, 0);
 	}

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 20:08:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:49:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ int	check_redir_syntax(t_mshell *init)
 	lexer = init->lexer;
 	while (lexer)
 	{
-		if (lexer->operator == OUT_OWR || lexer->operator == OUT_APND || \
-			lexer->operator == IN_READ || lexer->operator == IN_HDOC)
+		if (lexer->operator >= 3 && lexer->operator <= 6)
 		{
-			if (lexer->next->operator == PIPE || \
-				lexer->next->operator == OUT_OWR || \
-				lexer->next->operator == OUT_APND || \
-				lexer->next->operator == IN_READ || \
-				lexer->next->operator == IN_HDOC)
+			if (!lexer->next)
+			{
+				printf("minishell: syntax error near unexpected token \
+`newline'\n");
+				init->stop_exec = true;
+				return (ERROR);
+			}
+			else if (lexer->next->operator >= 2 && lexer->next->operator <= 6)
 			{
 				printf("minishell: syntax error near unexpected token `%s'\n",
 					lexer->next->str);
