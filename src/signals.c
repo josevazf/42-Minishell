@@ -3,18 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:59:35 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/05 00:12:54 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/09 16:31:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	sigint_handler(int sig)
+void	sigpipe_handler(int signo)
 {
-	if (sig == SIGINT)
+	(void)signo;
+	printf("Received SIGPIPE signal. Pipe closed by child process.\n");
+	exit(EXIT_FAILURE);
+}
+
+void	sigint_handler(int signo)
+{
+	if (signo == SIGINT)
 	{
 		g_signo = 130;
 		write(1, "\n", 1);

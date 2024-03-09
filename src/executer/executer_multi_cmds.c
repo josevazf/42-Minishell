@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_cmds.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/07 11:07:46 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/09 16:33:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,18 @@ void	process_pipes(t_mshell *init)
 		return ;
 	init->pipe_fds = (int **)malloc(sizeof(int *) * (init->nbr_pipes + 1));
 	malloc_error(init->pipe_fds);
+	init->closed_pipes = (int **)malloc(sizeof(int *) * (init->nbr_pipes + 1));
+	malloc_error(init->closed_pipes);
 	init->pipe_fds[init->nbr_pipes] = NULL;
+	init->closed_pipes[init->nbr_pipes] = NULL;
 	while (++i < init->nbr_pipes)
 	{
 		init->pipe_fds[i] = (int *)malloc(sizeof(int) * 2);
 		malloc_error(init->pipe_fds[i]);
+		init->closed_pipes[i] = (int *)malloc(sizeof(int) * 2);
+		malloc_error(init->closed_pipes[i]);
+		init->closed_pipes[i][0] = 0;
+		init->closed_pipes[i][1] = 0;
 		if (pipe(init->pipe_fds[i]) == -1)
 			ft_error("minishell: failed creating pipe", ERROR);
 	}
@@ -47,7 +54,7 @@ void	process_pipes(t_mshell *init)
 void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 			int *exit_code)
 {
-	close_pipes(init);
+	close_child_pipes(init);
 	multi_redirs_router(init, parser_node, exit_code);
 	if (parser_node->token_err || parser_node->file_nf)
 	{

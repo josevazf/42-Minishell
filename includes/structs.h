@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 12:15:50 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:08:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_mshell
 	int					nbr_pipes;
 	int					*child_pids;
 	int					**pipe_fds;
+	int					**closed_pipes;
 	int					cmd_index;
 	int					og_stdin;
 	int					og_stdout;

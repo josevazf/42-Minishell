@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/05 00:16:27 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/09 16:08:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void		sort_list(t_env **prnt, t_env *env_node, t_mshell *init, \
 void		check_oldpwd(t_env *prnt, int *flag);
 
 // signals.c
+void		sigpipe_handler(int signo);
 void		sigint_handler(int sig);
 void		sighandler_fork(int signo);
 void		set_signals(void);

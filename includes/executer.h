@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/07 11:31:25 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/09 16:07:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	multi_redirs_router(t_mshell *init, t_parser *node, int *exit_code);
 // executer_multi_utils.c
 void	close_parent_pipes(t_mshell *init);
 void	close_redirs_pipes(t_mshell *init, t_parser *node);
-void	close_pipes(t_mshell *init);
+void	close_child_pipes(t_mshell *init);
+void	close_pipes(t_mshell *init, int i, int j);
 
 // executer_redirs_utils.c
 int		check_red_error(char *redir_syntax);

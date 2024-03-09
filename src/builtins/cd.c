@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/06 16:55:28 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:32:32 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 	}
 	else if (parser->cmd_exec[1] && parser->cmd_exec[2])
 	{
-		printf("\n\n%s\n\n", parser->cmd_exec[2]);
 		printf("minishell: cd: too many arguments\n");
 		*exit_code = 1;
 		return (1);

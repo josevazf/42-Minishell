@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 11:26:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 12:18:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:33:12 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void	executer_fork_router(t_mshell *init, char ***env, int *exit_code, int i)
 
 	if (init->nbr_pipes == 0)
 		process_single_cmd(init, env, exit_code);
-	else if (init->parser->cmd_exec != NULL)
+	else if (init->parser->cmd_exec || init->parser->redirs)
 	{
 		process_pipes(init);
 		parser_node = init->parser;
 		init->child_pids = (int *)malloc(sizeof(int) * (init->nbr_pipes + 1));
 		malloc_error(init->child_pids);
+		signal(SIGPIPE, sigpipe_handler);
 		while (i++ <= init->nbr_pipes)
 		{
 			init->child_pids[i - 1] = fork();
