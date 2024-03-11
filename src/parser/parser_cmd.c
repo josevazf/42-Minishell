@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 18:24:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:04:00 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	cmd_router(char *cmd)
 		return (SHELL_CMD);
 }
 
-// Find 'PATH=' in envp file and return the paths delimited by ':'
+/* Find 'PATH=' in envp file and return the paths delimited by ':' */
 char	**parse_path(char **envp)
 {
 	char	*envp_dup;
@@ -51,27 +51,30 @@ char	**parse_path(char **envp)
 }
 
 /* Get the full path for the command to execute */
-char	*get_cmd_path(char **envp_paths, char *cmd)
+char	*get_cmd_path(char **envp_paths, char *cmd, char *tpath, char *newpath)
 {
-	char	*temp_path;
-	char	*new_path;
 	int		i;
 
 	i = 0;
 	if (!envp_paths)
 		return (NULL);
+	if (!ft_strncmp(cmd, "./", 2))
+	{
+		newpath = ft_strdup(cmd);
+		return (newpath);
+	}
 	while (envp_paths[++i])
 	{
-		temp_path = ft_strjoin(envp_paths[i], "/");
-		if (temp_path == NULL)
+		tpath = ft_strjoin(envp_paths[i], "/");
+		if (tpath == NULL)
 			return (NULL);
-		new_path = ft_strjoin(temp_path, cmd);
-		free(temp_path);
-		if (new_path == NULL)
+		newpath = ft_strjoin(tpath, cmd);
+		free(tpath);
+		if (newpath == NULL)
 			return (NULL);
-		if (access(new_path, X_OK) == 0)
-			return (new_path);
-		free(new_path);
+		if (access(newpath, X_OK) == 0)
+			return (newpath);
+		free(newpath);
 	}
 	return (NULL);
 }
@@ -88,7 +91,7 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
 	if (cmd_router(cmd) == BUILTIN_CMD)
 		return (ft_strdup("builtin"));
 	paths = parse_path(*envp_copy);
-	cmd_path = get_cmd_path(paths, cmd);
+	cmd_path = get_cmd_path(paths, cmd, NULL, NULL);
 	if (cmd_path == NULL)
 	{
 		if (paths)

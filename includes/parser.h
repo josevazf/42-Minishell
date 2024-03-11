@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 20:07:14 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:02:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void		parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, \
 // parser_cmd.c
 int			cmd_router(char *cmd);
 char		**parse_path(char **env_path);
-char		*get_cmd_path(char **envp_paths, char *cmd);
+char		*get_cmd_path(char **envp_paths, char *cmd, char *tpath, \
+				char *newpath);
 char		*find_cmd(char *cmd, t_mshell *init, char ***envp_copy);
 
 // parser_utils.c

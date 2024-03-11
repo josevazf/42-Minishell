@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 16:57:50 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:05:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,22 @@ void	get_pipes(t_mshell *init)
 	free(lexer);
 }
 
-/* Convert Env linked list to original format `**char` */
-char	**convert_env(t_mshell *init)
+void	exec_executable(t_mshell *init, t_parser *parser_node)
 {
-	char	**strings_env;
-	char	*temp_line;
-	t_env	*env_table;
+	char	*file_err;
 
-	env_table = init->env_table;
-	temp_line = ft_strdup("");
-	while (env_table)
+	(void)init;
+	if (access(parser_node->cmd_exec[0], F_OK | X_OK) != 0)
 	{
-		temp_line = ft_strupdate(temp_line, env_table->var);
-		temp_line = ft_strupdate(temp_line, "=");
-		temp_line = ft_strupdate(temp_line, env_table->content);
-		temp_line = ft_strupdate(temp_line, "\t");
-		env_table = env_table->next;
+		file_err = strerror(errno);
+		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], file_err);
+		if (errno == 13)
+			exit(126);
+		else
+			exit(127);
 	}
-	strings_env = ft_split(temp_line, '\t');
-	free(temp_line);
-	free(env_table);
-	return (strings_env);
+	execve(parser_node->path_exec, parser_node->cmd_exec, NULL);
+	exit(EXIT_SUCCESS);
 }
 
 void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
@@ -130,6 +125,8 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 			parser_node->cmd_exec[1]);
 		exit(127);
 	}
+	else if (!ft_strncmp(parser_node->cmd_exec[0], "./", 2))
+		exec_executable(init, parser_node);
 	else
 		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
 }
