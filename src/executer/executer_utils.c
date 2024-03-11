@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 00:03:57 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/11 09:00:36 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,9 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 	{
 		if (!parser_node->cmd_exec[1])
 			env(init);
-		else
-			exit (EXIT_FAILURE);
+		printf("env: '%s': No such file or directory\n", 
+			parser_node->cmd_exec[1]);
+		exit(127);
 	}
 	else
 		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
