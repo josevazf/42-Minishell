@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/09 16:07:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 10:47:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	process_single_cmd(t_mshell *init, char ***strings_env, int *exit_code);
 void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code);
 
 // executer_multi_cmds.c
+int		multi_cmd_isdir(t_mshell *init, char *cmd);
 int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node);
 void	process_pipes(t_mshell *init);
 void	process_child(t_mshell *init, t_parser *parser_node, \

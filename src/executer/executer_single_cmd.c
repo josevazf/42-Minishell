@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/09 17:49:58 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 10:39:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 int	single_cmd_isdir(char *cmd)
 {
 	char	*file_err;
-
+	
+	file_err = NULL;
 	file_err = strerror(errno);
 	printf("minishell: %s: %s\n", cmd, file_err);
 	return (126);
@@ -26,8 +27,6 @@ int	single_cmd_notfound(t_mshell *init)
 	char	*error_msg;
 
 	error_msg = NULL;
-	dup2(init->og_stdin, STDIN_FILENO);
-	dup2(init->og_stdout, STDOUT_FILENO);
 	error_msg = ft_strjoin(init->parser->cmd_exec[0], ": command not found\n");
 	printf("%s", error_msg);
 	free(error_msg);
@@ -73,8 +72,9 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 	else if (!ft_strcmp(init->parser->path_exec, "notfound"))
 	{
 		if (open(init->parser->cmd_exec[0], O_WRONLY | O_TRUNC,
-				0644) == -1 && init->parser->cmd_exec[0][ft_strlen(
-				init->parser->cmd_exec[0]) - 1] == '/')
+				0644) == -1 && (init->parser->cmd_exec[0][ft_strlen(
+				init->parser->cmd_exec[0]) - 1] == '/' ||
+				init->parser->cmd_exec[0][0] == '/'))
 			*exit_code = single_cmd_isdir(init->parser->cmd_exec[0]);
 		else
 			*exit_code = single_cmd_notfound(init);
