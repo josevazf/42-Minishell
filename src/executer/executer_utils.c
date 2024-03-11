@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 09:00:36 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:57:50 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 
 	ft_putstr_fd("> ", init->og_stdout);
 	input = get_next_line(init->og_stdin);
-	heredoc_expander(init, &input, exit_code);
-	free_expander(init->exp);
 	if (!input)
 	{
 		perror("minishell: input error");
@@ -34,6 +32,9 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 		close(pipe_fd[1]);
 		exit(EXIT_SUCCESS);
 	}
+	if (init->expand_heredoc == true)
+		heredoc_expander(init, &input, exit_code);
+	free_expander(init->exp);
 	write(pipe_fd[1], input, ft_strlen(input));
 	free(input);
 }

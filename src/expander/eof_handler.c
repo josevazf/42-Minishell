@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   eof_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:37:04 by guest             #+#    #+#             */
-/*   Updated: 2024/03/10 23:55:36 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/11 17:02:34 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	eof_protector(t_mshell *init, int *i, int *len, char *old_str)
+void	settle_eof(t_mshell *init, char *eof)
 {
-	char	*eof;
-
-	eof = ft_strldup(old_str + *i, *len);
-	free(init->in);
-	init->in = ft_strldup(old_str, *i);
-	init->in = ft_strupdate(init->in, "\'");
-	init->in = ft_strupdate(init->in, eof);
-	init->in = ft_strupdate(init->in, "\'");
-	init->in = ft_strupdate(init->in, old_str + *i + *len);
+	init->expand_heredoc = true;
+	if ((eof[0] == '\'' && eof[ft_strlen(eof) - 1] == '\'') || \
+	(eof[0] == '\"' && eof[ft_strlen(eof) - 1] == '\"'))
+	{
+		if (eof[1] == '$' && eof[2] && eof[2] != '\'' && eof[2] != '\"')
+			init->expand_heredoc = false;
+		init->eof = ft_strldup(eof + 1, ft_strlen(eof) - 2);
+	}
+	else
+		init->eof = ft_strdup(eof);
 	free(eof);
 }
 
@@ -31,6 +32,7 @@ void	eof_manager(t_mshell *init)
 	int		i;
 	int		len;
 	char	*old_str;
+	char	*eof;
 
 	i = 0;
 	len = 0;
@@ -44,11 +46,9 @@ void	eof_manager(t_mshell *init)
 				i++;
 			while (old_str[i + len] && !ft_iswhitespace(old_str[i + len]))
 				len++;
-			if (old_str[i] == '$')
-			{
-				eof_protector(init, &i, &len, old_str);
-				break ;
-			}
+			eof = ft_strldup(old_str + i, len);
+			settle_eof(init, eof);
+			break ;
 		}
 		i++;
 	}

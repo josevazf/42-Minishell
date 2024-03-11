@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_cmds.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 10:47:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:48:00 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 	else if (!ft_strcmp(parser_node->path_exec, "notfound"))
 	{
 		if (open(parser_node->cmd_exec[0], O_WRONLY | O_TRUNC,
-				0644) == -1 && (parser_node->cmd_exec[0][ft_strlen(
-				parser_node->cmd_exec[0]) - 1] == '/' ||
+				0644) == -1 && (parser_node->cmd_exec[0] \
+				[ft_strlen(parser_node->cmd_exec[0]) - 1] == '/' || \
 				parser_node->cmd_exec[0][0] == '/'))
 			*exit_code = multi_cmd_isdir(init, parser_node->cmd_exec[0]);
 		else

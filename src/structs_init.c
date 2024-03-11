@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by patatoss          #+#    #+#             */
-/*   Updated: 2024/03/09 16:32:06 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:54:14 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_mshell	*mshell_init(t_mshell *init, char *input, char **envp)
 	init->tcmd_full = NULL;
 	init->tcmd_path = NULL;
 	init->tredirs = NULL;
+	init->eof = NULL;
 	init->pipe_fds = NULL;
 	init->closed_pipes = NULL;
 	init->child_pids = NULL;

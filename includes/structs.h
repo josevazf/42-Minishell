@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/09 16:08:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:53:47 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_mshell
 	char				**tcmd_full;
 	char				*tcmd_path;
 	char				*tredirs;
+	char				*eof;
 	int					nbr_pipes;
 	int					*child_pids;
 	int					**pipe_fds;
@@ -40,6 +41,7 @@ typedef struct s_mshell
 	int					og_stdout;
 	int					red_input;
 	int					red_output;
+	bool				expand_heredoc;
 	bool				stop_exec;
 	struct s_env		*env_table;
 	struct s_expand		*exp;

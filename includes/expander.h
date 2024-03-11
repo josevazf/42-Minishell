@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/05 00:16:39 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/11 16:37:47 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	expander(t_mshell *init, int *exit_code);
 void	update_input(t_mshell *init);
 void	clear_macro(t_mshell *init);
 t_env	*macro_check_and_fetch(t_mshell *init, t_env *env_node);
+void	ignore_eof_macro(t_mshell *init);
 
 // eof_handler.c
 void	eof_manager(t_mshell *init);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_redirs.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/08 22:28:29 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/11 15:40:31 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	multi_redir_input(t_mshell *init, t_parser *node, int *exit_code)
 		while (red_full[++i])
 		{
 			if (!ft_strncmp(red_full[i], "<<", 2))
-				node->input = process_here_doc(init, red_full[i + 1], \
+				node->input = process_here_doc(init, init->eof, \
 																exit_code);
 			else if (!ft_strncmp(red_full[i], "<", 1))
 				node->input = process_file(init, red_full[i + 1], \

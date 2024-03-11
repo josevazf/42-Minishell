@@ -51,7 +51,9 @@ void	expander(t_mshell *init, int *exit_code)
 	{
 		env_node = init->env_table;
 		env_node = macro_check_and_fetch(init, env_node);
-		if (init->in[init->exp->i] == '$' && init->in[init->exp->i + 1] \
+		if (init->in[init->exp->i] == '<' && init->in[init->exp->i + 1] == '<')
+			ignore_eof_macro(init);
+		else if (init->in[init->exp->i] == '$' && init->in[init->exp->i + 1] \
 		&& (ft_iswhitespace(init->in[init->exp->i + 1]) || \
 		init->in[init->exp->i + 1] == '\"') && init->exp->s_quote == 1)
 			init->exp->i++;

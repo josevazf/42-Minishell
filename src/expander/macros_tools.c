@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:59:01 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/06 09:47:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:37:08 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,16 @@ t_env	*macro_check_and_fetch(t_mshell *init, t_env *env_node)
 	in[init->exp->i + 1] != '\"')
 		env_node = fetch_macro(init, env_node);
 	return (env_node);
+}
+
+void	ignore_eof_macro(t_mshell *init)
+{
+	init->exp->i += 2;
+	while (init->in[init->exp->i] && \
+	ft_iswhitespace(init->in[init->exp->i]))
+		init->exp->i++;
+	while (init->in[init->exp->i] && \
+	!ft_iswhitespace(init->in[init->exp->i]) && \
+	(init->in[init->exp->i] != '\'' || init->in[init->exp->i] != '\"'))
+		init->exp->i++;
 }
