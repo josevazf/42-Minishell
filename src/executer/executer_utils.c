@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/07 11:34:17 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/11 00:03:57 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,12 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset"))
 		unset(init, envp);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
-		env(init);
+	{
+		if (!parser_node->cmd_exec[1])
+			env(init);
+		else
+			exit (EXIT_FAILURE);
+	}
 	else
 		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
 }

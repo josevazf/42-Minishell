@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:37:04 by guest             #+#    #+#             */
-/*   Updated: 2024/03/05 00:06:45 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/10 23:55:36 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	eof_manager(t_mshell *init)
 				i++;
 			while (old_str[i + len] && !ft_iswhitespace(old_str[i + len]))
 				len++;
-			if (old_str[i])
+			if (old_str[i] == '$')
 			{
 				eof_protector(init, &i, &len, old_str);
 				break ;

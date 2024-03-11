@@ -6,7 +6,7 @@
 /*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/07 10:44:02 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/10 22:59:52 by tiago            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	unset(t_mshell *init, char ***envp_copy)
 	t_env	*env_node;
 	int		i;
 
-	if (!init->parser->cmd_exec[1])
+	if (!init->parser->cmd_exec[1] || \
+	(init->parser->cmd_exec[1] && init->parser->cmd_exec[1][0] == '-'))
 		return ;
 	i = 1;
 	while (init->parser->cmd_exec[i])
