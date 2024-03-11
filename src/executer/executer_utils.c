@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 20:05:19 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:11:05 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 	{
 		if (!parser_node->cmd_exec[1])
 			env(init);
-		printf("env: '%s': No such file or directory\n", 
+		printf("env: '%s': No such file or directory\n",
 			parser_node->cmd_exec[1]);
 		exit(127);
 	}
