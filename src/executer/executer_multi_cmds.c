@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_multi_cmds.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 16:48:00 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:53:00 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	multi_cmd_isdir(t_mshell *init, char *cmd)
 	dup2(init->og_stdout, STDOUT_FILENO);
 	file_err = strerror(errno);
 	printf("minishell: %s: %s\n", cmd, file_err);
-	return (126);
+	if (errno >= 13)
+		return (126);
+	else
+		return (127);
 }
 
 int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
@@ -30,6 +33,19 @@ int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 	error_msg = NULL;
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
+	if ((open(parser_node->cmd_exec[0], O_WRONLY) == -1 && \
+		parser_node->cmd_exec[0] \
+		[ft_strlen(parser_node->cmd_exec[0]) - 1] == '/') || \
+		(access(parser_node->cmd_exec[0], F_OK) == -1 && \
+		check_forwardslash(parser_node->cmd_exec[0]) == 0))
+	{
+		error_msg = strerror(errno);
+		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], error_msg);
+		if (errno >= 13)
+			return (126);
+		else
+			return (127);
+	}
 	error_msg = ft_strjoin(parser_node->cmd_exec[0], ": command not found\n");
 	printf("%s", error_msg);
 	free(error_msg);
@@ -79,8 +95,8 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 	}
 	else if (!ft_strcmp(parser_node->path_exec, "notfound"))
 	{
-		if (open(parser_node->cmd_exec[0], O_WRONLY | O_TRUNC,
-				0644) == -1 && (parser_node->cmd_exec[0] \
+		if (access(parser_node->cmd_exec[0], X_OK) == -1 && \
+				(parser_node->cmd_exec[0] \
 				[ft_strlen(parser_node->cmd_exec[0]) - 1] == '/' || \
 				parser_node->cmd_exec[0][0] == '/'))
 			*exit_code = multi_cmd_isdir(init, parser_node->cmd_exec[0]);

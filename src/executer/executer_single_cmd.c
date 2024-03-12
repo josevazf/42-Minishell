@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_single_cmd.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 16:46:55 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:53:20 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	single_cmd_isdir(char *cmd)
 	file_err = NULL;
 	file_err = strerror(errno);
 	printf("minishell: %s: %s\n", cmd, file_err);
-	return (126);
+	if (errno >= 13)
+		return (126);
+	else
+		return (127);
 }
 
 int	single_cmd_notfound(t_mshell *init)
@@ -27,6 +30,19 @@ int	single_cmd_notfound(t_mshell *init)
 	char	*error_msg;
 
 	error_msg = NULL;
+	if ((open(init->parser->cmd_exec[0], O_WRONLY) == -1 && \
+		init->parser->cmd_exec[0] \
+		[ft_strlen(init->parser->cmd_exec[0]) - 1] == '/') || \
+		(access(init->parser->cmd_exec[0], F_OK) == -1 && \
+		check_forwardslash(init->parser->cmd_exec[0]) == 0))
+	{
+		error_msg = strerror(errno);
+		printf("minishell: %s: %s\n", init->parser->cmd_exec[0], error_msg);
+		if (errno >= 13)
+			return (126);
+		else
+			return (127);
+	}
 	error_msg = ft_strjoin(init->parser->cmd_exec[0], ": command not found\n");
 	printf("%s", error_msg);
 	free(error_msg);
@@ -71,8 +87,8 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 		*exit_code = 1;
 	else if (!ft_strcmp(init->parser->path_exec, "notfound"))
 	{
-		if (open(init->parser->cmd_exec[0], O_WRONLY | O_TRUNC,
-				0644) == -1 && (init->parser->cmd_exec[0] \
+		if (access(init->parser->cmd_exec[0], X_OK) == -1 && \
+				(init->parser->cmd_exec[0] \
 				[ft_strlen(init->parser->cmd_exec[0]) - 1] == '/' || \
 				init->parser->cmd_exec[0][0] == '/'))
 			*exit_code = single_cmd_isdir(init->parser->cmd_exec[0]);

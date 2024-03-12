@@ -6,11 +6,25 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 16:25:18 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 18:24:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:53:51 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/* Check if the string contains a forward slash '/' */
+int	check_forwardslash(char *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '/')
+			return (SUCCESS);
+	}
+	return (ERROR);
+}
 
 void	set_prompt_and_get_input(char **envp, char **input, char **line)
 {
