@@ -64,10 +64,14 @@ void	create_all_tokens(t_mshell *init)
 		malloc_tokens(init, i);
 		if (!lexer_head)
 			lexer_head = init->lexer;
-		if (init->in[i] && ((init->in[i] == '\"' && \
+		if (init->in[i] && (!init->in[i + 2] || \
+		ft_iswhitespace(init->in[i])) && ((init->in[i] == '\"' && \
 		init->in[i + 1] == '\"') || (init->in[i] == '\'' \
 		&& init->in[i + 1] == '\'')))
+		{
+			init->lexer->str = ft_strdup("\'\'");
 			i += 2;
+		}
 		else if (init->in[i] && !ft_iswhitespace(init->in[i]))
 			create_token(init, &i);
 	}
