@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by guest             #+#    #+#             */
-/*   Updated: 2024/03/12 11:24:22 by guest            ###   ########.fr       */
+/*   Updated: 2024/03/12 11:34:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ int	check_exit_args(char **exit_in, int *exit_code)
 		if (exit_in[1][0] == '+' || exit_in[1][0] == '-')
 			i++;
 		if ((!ft_isdigit(exit_in[1][i]) && exit_in[1][i]) \
-		|| ft_atoll(exit_in[1]) > LONG_MAX || \
-		ft_atoll(exit_in[1]) < LONG_MIN)
+		|| ft_atoll(exit_in[1]) > LONG_MAX)
 		{
 			*exit_code = 2;
 			return (ERROR);
