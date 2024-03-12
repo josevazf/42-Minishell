@@ -24,7 +24,6 @@ void	settle_eof(t_mshell *init, char *eof)
 	}
 	else
 		init->eof = ft_strdup(eof);
-	free(eof);
 }
 
 void	eof_manager(t_mshell *init)
@@ -48,6 +47,7 @@ void	eof_manager(t_mshell *init)
 				len++;
 			eof = ft_strldup(old_str + i, len);
 			settle_eof(init, eof);
+			free(eof);
 			break ;
 		}
 		i++;

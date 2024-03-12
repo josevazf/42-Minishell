@@ -94,8 +94,6 @@ int	cd_error_checker(t_mshell *init, t_parser *parser, int *exit_code)
 		*exit_code = 1;
 		return (1);
 	}
-	else if (parser->cmd_exec[1] == NULL && !parser->cmd_exec[2])
-		return (1);
 	return (0);
 }
 
