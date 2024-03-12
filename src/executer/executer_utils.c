@@ -33,8 +33,10 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 		exit(EXIT_SUCCESS);
 	}
 	if (init->expand_heredoc == true)
+	{
 		heredoc_expander(init, &input, exit_code);
-	free_expander(init->exp);
+		free_expander(init->exp);
+	}
 	write(pipe_fd[1], input, ft_strlen(input));
 	free(input);
 }
