@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: guest <guest@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/15 22:23:12 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/03/06 09:41:16 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/12 11:05:49 by guest            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ LIBFLAGS	= ar -rcs
 RM			= rm -rf
 OBJS_DIR	= objs
 SRCS		= ft_atoi.c \
+			  ft_atoll.c \
 			  ft_bzero.c \
 			  ft_calloc.c \
 			  ft_isalnum.c \
