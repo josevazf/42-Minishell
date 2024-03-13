@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 20:02:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:29:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		parser_node_push_back(t_mshell *init, t_parser **begin_list, \
 				char *cmds, t_parser *node);
 t_parser	*parser_node_router(t_mshell *init, char ***envp_copy, \
 				t_parser *parser, char *cmds);
-int			check_pipe_syntax(t_mshell *init);
+int			check_pipe_syntax(t_mshell *init, t_lexer *lexer);
 void		parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, \
 				char *cmds);
 
