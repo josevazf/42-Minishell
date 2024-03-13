@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/13 14:50:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:05:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	malloc_tokens(t_mshell *init, int i)
 	{
 		init->lexer->next = (t_lexer *)malloc(sizeof(t_lexer));
 		lexer_init(init->lexer->next);
+		init->lexer->next->prev = init->lexer;
 		init->lexer = init->lexer->next;
 	}
 }
