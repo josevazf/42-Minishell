@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:59:01 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/11 16:37:08 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:21:31 by guest            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_env	*fetch_macro(t_mshell *init, t_env *env_node)
 	env_node->var, init->exp->macro_len - 1) != 0 || \
 	(int)ft_strlen(env_node->var) != init->exp->macro_len - 1))
 		env_node = env_node->next;
+	init->exp->d_quote = 1;
 	return (env_node);
 }
 
