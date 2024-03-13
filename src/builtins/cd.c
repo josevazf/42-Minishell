@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/09 17:13:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:36:52 by guest            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 	char	*old_dir;
 	char	*new_dir;
 
+	if (ft_strcmp(init->in, "cd \"\"") == 0)
+		return ;
 	if (cd_error_checker(init, parser, exit_code) == 1)
 		return ;
 	node = init->env_table;
