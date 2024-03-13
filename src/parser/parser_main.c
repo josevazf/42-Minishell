@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/13 15:12:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:20:50 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	check_pipe_syntax(t_mshell *init)
 		if (lexer->operator == PIPE)
 		{
 			if (!lexer->next || (lexer->next->operator == PIPE && \
-				!lexer->next->next) || !lexer->prev || ft_strcmp(lexer->str, "||"))
+				!lexer->next->next) || !lexer->prev || !ft_strncmp(lexer->str, "||", 2))
 			{
 				printf("minishell: syntax error near unexpected token `|'\n");
 				init->stop_exec = true;

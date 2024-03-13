@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/11 20:11:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:40:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,17 @@ void	exec_executable(t_mshell *init, t_parser *parser_node)
 	char	*file_err;
 
 	(void)init;
-	if (access(parser_node->cmd_exec[0], F_OK | X_OK) != 0)
+	if (open(parser_node->cmd_exec[0]++, O_WRONLY | O_RDONLY) == -1)
+	{
+		file_err = NULL;
+		file_err = strerror(errno);
+		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], file_err);
+		if (errno >= 13)
+			exit(126);
+		else
+			exit(127);
+	}
+	else if (access(parser_node->cmd_exec[0], X_OK) != 0)
 	{
 		file_err = strerror(errno);
 		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], file_err);

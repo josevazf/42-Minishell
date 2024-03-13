@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 09:35:19 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:19:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void	print_lexer(t_mshell *init)
 	while (lexer)
 	{
 		printf("str:%s\n", lexer->str);
-		printf("op:%d\n\n", lexer->operator);
+		printf("op:%d\n", lexer->operator);
+		printf("previous: %p\n", lexer->prev);
+		printf("next: %p\n", lexer->next);
 		lexer = lexer->next;
 	}
 }
