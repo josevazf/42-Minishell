@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/13 16:19:23 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:13:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	create_all_tokens(t_mshell *init)
 		if (!lexer_head)
 			lexer_head = init->lexer;
 		if (init->in[i] && (ft_iswhitespace(init->in[i + 2])) \
-		&& ((init->in[i] == '\"' && init->in[i + 1] == '\"') \
-		|| (init->in[i] == '\''	&& init->in[i + 1] == '\'')))
+				&& ((init->in[i] == '\"' && init->in[i + 1] == '\"')
+				|| (init->in[i] == '\'' && init->in[i + 1] == '\'')))
 		{
 			init->lexer->str = ft_strdup("\'\'");
 			i += 2;
