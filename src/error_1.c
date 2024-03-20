@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:41:51 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 09:34:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:42:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ int	fork_error(int pid)
 {
 	if (pid < 0)
 		ft_error("minishell: fork error", ERROR);
+	return (EXIT_FAILURE);
+}
+
+/* Deal with pipe failure */
+int	pipe_error(int pid)
+{
+	if (pid < 0)
+		ft_error("minishell: pipe error", ERROR);
 	return (EXIT_FAILURE);
 }
 

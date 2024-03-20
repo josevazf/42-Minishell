@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/11 20:02:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:39:34 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code);
 
 // executer_utils.c
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code);
-int		process_here_doc(t_mshell *init, char *eof, int *exit_code);
+int		process_here_doc(t_mshell *init, char *eof, int *exit_code, int export);
 void	get_pipes(t_mshell *init);
 void	exec_executable(t_mshell *init, t_parser *parser_node);
 void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \

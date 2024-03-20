@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:08:28 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/13 09:14:21 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:30:47 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	file_error(char *file_name)
 }
 
 /* Deal with error definning redirs tokens */
-int	redirs_error(t_parser *parser_node)
+int	redirs_error(t_parser *parser_node, int *exit_code)
 {
+	if (*exit_code == 130)
+		return (130);
 	if (parser_node->token_err)
 	{
 		printf("minishell: syntax error near unexpected token `newline'\n");

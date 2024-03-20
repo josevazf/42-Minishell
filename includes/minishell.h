@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/12 19:46:16 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:10:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int			*create_env_list(t_mshell *init, char **envp_copy);
 
 // error.c
 int			file_error(char *file_name);
-int			redirs_error(t_parser *parser_node);
+int			redirs_error(t_parser *parser_node, int *exit_code);
 int			args_error(void);
 int			fd_error(int fd);
+int			pipe_error(int pid);
 int			fork_error(int fd);
 int			malloc_error(void *input);
 int			quotes_error(void);
@@ -107,6 +108,7 @@ void		check_oldpwd(t_env *prnt, int *flag);
 
 // signals.c
 void		sigpipe_handler(int signo);
+void		sigint_hdhandler(int signo);
 void		sigint_handler(int sig);
 void		sighandler_fork(int signo);
 void		set_signals(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_heredoc_expander.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiago <tiago@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:17 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/08 23:09:41 by tiago            ###   ########.fr       */
+/*   Updated: 2024/03/20 18:04:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	heredoc_expander(t_mshell *init, char **input, int *exit_code)
 		else
 			heredoc_expand(init, input, env_node, exit_code);
 	}
+	free_expander(init->exp);
 }

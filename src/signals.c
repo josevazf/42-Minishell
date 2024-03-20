@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 09:59:35 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/09 16:31:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:11:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,16 @@ void	sigpipe_handler(int signo)
 	(void)signo;
 	printf("Received SIGPIPE signal. Pipe closed by child process.\n");
 	exit(EXIT_FAILURE);
+}
+
+void	sigint_hdhandler(int signo)
+{
+	if (signo == SIGINT)
+	{
+		g_signo = 130;
+		write(1, "\n", 1);
+		exit(g_signo);
+	}
 }
 
 void	sigint_handler(int signo)

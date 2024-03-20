@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/13 16:42:42 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:10:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 {
 	char	*input;
 
-	ft_putstr_fd("> ", init->og_stdout);
-	input = get_next_line(init->og_stdin);
+	signal(SIGINT, sigint_hdhandler);
+	input = readline("> ");
+	input = ft_strupdate(input, "\n");
 	if (!input)
 	{
 		perror("minishell: input error");
@@ -33,27 +34,20 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 		exit(EXIT_SUCCESS);
 	}
 	if (init->expand_heredoc == true)
-	{
 		heredoc_expander(init, &input, exit_code);
-		free_expander(init->exp);
-	}
 	write(pipe_fd[1], input, ft_strlen(input));
 	free(input);
 }
 
 /* Process here_doc */
-int	process_here_doc(t_mshell *init, char *eof, int *exit_code)
+int	process_here_doc(t_mshell *init, char *eof, int *exit_code, int export)
 {
 	pid_t	pid;
 	int		pipe_fd[2];
-	int		export;
 	int		status;
 
-	if (pipe(pipe_fd) == -1)
-		ft_error("minishell: failed creating pipe", ERROR);
-	pid = fork();
-	if (pid == -1)
-		ft_error("minishell: failed creating fork", ERROR);
+	pipe_error(pipe(pipe_fd));
+	fork_error(pid = fork());
 	if (pid == 0)
 	{
 		close(pipe_fd[0]);
@@ -66,6 +60,11 @@ int	process_here_doc(t_mshell *init, char *eof, int *exit_code)
 		export = dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 		waitpid(pid, &status, 0);
+		if (g_signo == 130)
+		{
+			*exit_code = 130;
+			return (-1);
+		}
 		return (export);
 	}
 }

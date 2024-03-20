@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/13 09:13:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:51:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 	if (init->parser->redirs)
 		single_redirs_router(init, init->parser, exit_code);
 	if (init->parser->token_err || init->parser->file_nf)
-		*exit_code = redirs_error(init->parser);
+		*exit_code = redirs_error(init->parser, exit_code);
 	else if (!init->parser->path_exec && init->parser->redirs)
 		*exit_code = 1;
 	else if (!ft_strcmp(init->parser->path_exec, "notfound"))
@@ -122,7 +122,7 @@ void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code)
 	while (redirs[++i])
 	{
 		if (!ft_strncmp(redirs[i], "<<", 2))
-			node->input = process_here_doc(init, init->eof, exit_code);
+			node->input = process_here_doc(init, init->eof, exit_code, 0);
 		else if (!ft_strncmp(redirs[i], "<", 1))
 			node->input = process_file(init, redirs[i + 1], IN_FILE);
 		else if (!ft_strncmp(redirs[i], ">>", 2))
