@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 18:17:15 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:59:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	delete_lists(t_mshell *init)
 		ft_free_imatrix(init->closed_pipes);
 	if (init->child_pids)
 		free(init->child_pids);
+	if (init->eof)
+		free(init->eof);
 	init->cmd_index = 0;
 	init->nbr_pipes = 0;
 	close(init->og_stdin);

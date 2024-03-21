@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/20 18:10:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:53:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 	char	*input;
 
 	signal(SIGINT, sigint_hdhandler);
+	signal(SIGQUIT, SIG_IGN);
 	input = readline("> ");
-	input = ft_strupdate(input, "\n");
 	if (!input)
 	{
-		perror("minishell: input error");
+		printf("minishell: warning: here-document delimited by end-of-file \
+(wanted `%s')\n", init->eof);
 		close(pipe_fd[1]);
 		exit(EXIT_FAILURE);
 	}
+	input = ft_strupdate(input, "\n");
 	if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
 		ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 	{

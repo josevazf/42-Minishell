@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/20 17:51:56 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:17:15 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp,
 void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 {
 	if (init->parser->redirs)
-		single_redirs_router(init, init->parser, exit_code);
+		single_redirs_router(init, init->parser, exit_code, -1);
 	if (init->parser->token_err || init->parser->file_nf)
 		*exit_code = redirs_error(init->parser, exit_code);
 	else if (!init->parser->path_exec && init->parser->redirs)
@@ -106,14 +106,14 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 	return ;
 }
 
-void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code)
+void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code,
+			int i)
 {
-	int		i;
 	char	**redirs;
 
-	i = -1;
 	redirs = ft_split(node->redirs, '\t');
-	if (redirs[1] == NULL || redirs[3] == NULL || check_red_error(redirs[1]))
+	if (redirs[1] == NULL || check_red_error(redirs[1]) || \
+		(redirs[3] && redirs[3] == NULL))
 	{
 		node->token_err = true;
 		ft_free_smatrix(redirs);
