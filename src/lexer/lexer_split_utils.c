@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:54:45 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:42:11 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:47:05 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,34 @@ int	lexer_size_of_word(char *s, size_t *i, t_mshell *init)
 	init->lexer->d_quote_expand = 0;
 	while (s[*i] && !ft_iswhitespace(s[*i]) && \
 	s[*i] != '|' && s[*i] != '>' && s[*i] != '<')
+	{
+		if (s && (s[*i] == '\'' || s[*i] == '\"'))
+		{
+			quote = s[*i];
+			len++;
+			(*i)++;
+			while (s[*i] && s[*i] != quote)
+			{
+				if (s[*i] == '$' && quote == '\'')
+					init->lexer->d_quote_expand = 1;
+				(*i)++;
+				len++;
+			}
+		}
+		len++;
+		(*i)++;
+	}
+	return (len);
+}
+
+int	special_lexer_size_of_word(char *s, size_t *i, t_mshell *init)
+{
+	int		len;
+	char	quote;
+
+	len = 0;
+	init->lexer->d_quote_expand = 0;
+	while (s[*i] && !ft_iswhitespace(s[*i]))
 	{
 		if (s && (s[*i] == '\'' || s[*i] == '\"'))
 		{

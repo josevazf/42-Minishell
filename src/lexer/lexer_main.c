@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/28 17:49:20 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:53:49 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	lexer_router(t_lexer *tokens)
 
 int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
-	t_lexer *lex_node;
+	t_lexer	*lex_node;
 
 	if (g_signo == 130)
 		*exit_code = 130;

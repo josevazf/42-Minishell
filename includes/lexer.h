@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/04 12:40:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:47:30 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	lexer_split(t_mshell *init);
 
 // lexer_split_utils.c
 int		lexer_size_of_word(char *s, size_t *i, t_mshell *init);
+int		special_lexer_size_of_word(char *s, size_t *i, t_mshell *init);
 size_t	len_update(char *s, unsigned int start, size_t len);
 char	*ft_lexer_substr(char *s, unsigned int start, size_t len);
 

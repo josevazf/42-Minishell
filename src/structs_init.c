@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 18:17:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:55:13 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_mshell	*mshell_init(t_mshell *init, char *input, char **envp)
 	add_history(input);
 	init = (t_mshell *)malloc(sizeof(t_mshell));
 	init->in = ft_strdup(input);
+	init->origin_in = ft_strdup(input);
 	init->set_var = false;
 	init->nbr_pipes = 0;
 	init->tcmd_full = NULL;
@@ -77,7 +78,6 @@ t_mshell	*mshell_init(t_mshell *init, char *input, char **envp)
 	init->exp = NULL;
 	init->lexer = NULL;
 	init->parser = NULL;
-	free(input);
 	create_env_list(init, envp);
 	return (init);
 }

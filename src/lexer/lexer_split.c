@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:42:15 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:55:22 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,25 @@ void	create_token(t_mshell *init, size_t *i)
 	size_t	len;
 
 	len = 0;
-	if ((init->in[*i] == '<' && init->in[*i + 1] == '<' ) || \
-	(init->in[*i] == '>' && init->in[*i + 1] == '>' ))
+	if (ft_strnstr(init->origin_in, init->in + *i, ft_strlen(init->origin_in)))
 	{
-		len = 2;
-		*i += 2;
-	}
-	else if (init->in[*i] == '|' || init->in[*i] == '<' || init->in[*i] == '>')
-	{
-		len = 1;
-		(*i)++;
+		if ((init->in[*i] == '<' && init->in[*i + 1] == '<' ) || \
+		(init->in[*i] == '>' && init->in[*i + 1] == '>' ))
+		{
+			len = 2;
+			*i += 2;
+		}
+		else if (init->in[*i] == '|' || init->in[*i] == '<' \
+		|| init->in[*i] == '>')
+		{
+			len = 1;
+			(*i)++;
+		}
+		else
+			len = lexer_size_of_word(init->in, i, init);
 	}
 	else
-		len = lexer_size_of_word(init->in, i, init);
+		len = special_lexer_size_of_word(init->in, i, init);
 	init->lexer->str = ft_lexer_substr(init->in, *i - len, len);
 	if (init->in[*i] && (init->in[*i] == '\"' || init->in[*i] == '\''))
 		(*i)++;
