@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 11:33:28 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/06 18:41:10 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/28 10:49:25 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 	int		export;
 	char	*file_err;
 
-	(void)init;
 	if (file_type == IN_FILE)
 		file_fd = open(file_name, O_RDONLY);
 	if (file_type == OUT_FOWR)
@@ -35,6 +34,8 @@ int	process_file(t_mshell *init, char *file_name, int file_type)
 		file_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (file_fd == -1)
 	{
+		if (STDOUT_FILENO != init->og_stdout)
+			dup2(init->og_stdout, STDOUT_FILENO);
 		file_err = strerror(errno);
 		printf("minishell: %s: %s\n", file_name, file_err);
 		return (-1);
