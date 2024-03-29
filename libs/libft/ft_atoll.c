@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:36:15 by guest             #+#    #+#             */
-/*   Updated: 2024/03/12 11:24:36 by guest            ###   ########.fr       */
+/*   Updated: 2024/03/29 12:18:01 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 /* Converts the string argument 'nstr' to a long long.
    This function returns the converted long long number as a long long value. 
    If no valid conversion could be performed, it returns zero. */
-unsigned long long	ft_atoll(const char *nstr)
+long long	ft_atoll(const char *nstr)
 {
 	size_t				i;
-	unsigned long long	sign;
-	unsigned long long	nb;
+	long long	sign;
+	long long	nb;
 
 	nb = 0;
 	sign = 1;

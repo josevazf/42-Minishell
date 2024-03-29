@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guest <guest@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 09:26:26 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/12 11:25:33 by guest            ###   ########.fr       */
+/*   Updated: 2024/03/29 12:18:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char				*ft_strpbrk(const char *s1, const char *s2);
 char				*ft_strldup(const char *s, size_t l);
 char				*ft_strndup(const char *s, size_t n);
 char				*ft_strupdate(char *s1, char const *s2);
-unsigned long long	ft_atoll(const char *nstr);
+long long			ft_atoll(const char *nstr);
 
 // List manipulation
 t_list				*ft_lstnew(void *content);

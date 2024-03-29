@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:39:06 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:31:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,27 @@
 int	check_exit_args(char **exit_in, int *exit_code)
 {
 	int	i;
-	int	value;
+	int sign;
 
 	i = -1;
+	sign = 1;
 	while (exit_in[1][++i])
 	{
-		if (exit_in[1][0] == '+' || exit_in[1][0] == '-')
+		if (exit_in[1][i] == '+')
 			i++;
+		if (exit_in[1][i] == '-')
+		{
+			sign = sign * -1;
+			i++;
+		}
 		if ((!ft_isdigit(exit_in[1][i]) && exit_in[1][i]) \
-		|| ft_atoll(exit_in[1]) > LONG_MAX)
+		|| (ft_atoll(exit_in[1]) * sign) > LONG_MAX || (ft_atoll(exit_in[1]) * sign) < LONG_MIN)
 		{
 			*exit_code = 2;
 			return (ERROR);
 		}
 	}
-	value = ft_atoi(exit_in[1]);
-	*exit_code = (value % 256 + 256) % 256;
+	*exit_code = (ft_atoll(exit_in[1]) % 256 + 256) % 256;
 	printf("exit\n");
 	return (*exit_code);
 }
