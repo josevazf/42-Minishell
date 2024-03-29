@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 12:48:00 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:55:28 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_env
 
 typedef struct s_mshell
 {
+	char				***envp_copy;
 	char				*in;
 	char				*origin_in;
 	bool				set_var;
