@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 13:15:54 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:13:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ void	malloc_tokens(t_mshell *init, int i)
 	}
 }
 
-void	create_all_tokens(t_mshell *init)
+void	create_all_tokens(t_mshell *init, size_t i)
 {
-	size_t	i;
 	t_lexer	*lexer_head;
 	size_t	in_len;
 
-	i = 0;
 	lexer_head = NULL;
 	in_len = ft_strlen(init->in);
 	while (init->in[i])
@@ -92,7 +90,7 @@ void	lexer_split(t_mshell *init)
 	init->lexer = NULL;
 	if (ft_strnstr(init->in, "echo", ft_strlen(init->in)) != NULL)
 		init->is_echo = true;
-	create_all_tokens(init);
+	create_all_tokens(init, 0);
 	free(init->origin_in);
 	return ;
 }

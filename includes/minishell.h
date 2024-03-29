@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 11:53:01 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:07:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define ERROR 1
 # define SUCCESS 0
+# define TRUE_EXIT 300
+# define ARGS_EXIT 400
 # define CMD_NOT_FOUND 127
 # define IN_FILE 0
 # define IN_HD 1
@@ -91,9 +93,9 @@ void		env(t_mshell *init);
 void		echo(t_parser *parser, int i, int j, t_mshell *init);
 void		export(t_mshell *init, char ***envp_copy, int *exit_code);
 void		unset(t_mshell *init, char ***envp_copy);
-void		free_exit_args(char *input, char **exit_in);
-int			check_exit_args(char **exit_in, int *exit_code);
+int			check_exit_args(char **exit_in, int *exit_code, int i, int sign);
 int			exit_arguments(char *input, int exit_code);
+int			process_exit(char *input, int *exit_code);
 
 // new_var_set.c
 int			new_var_checker(t_mshell *init, char ***envp_copy);

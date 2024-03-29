@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 09:24:19 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/28 18:47:30 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:13:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		lexer_main(t_mshell *init, char ***envp_copy, int *exit_code);
 
 // lexer_split.c
 void	lexer_split(t_mshell *init);
+void	create_all_tokens(t_mshell *init, size_t i);
 
 // lexer_split_utils.c
 int		lexer_size_of_word(char *s, size_t *i, t_mshell *init);

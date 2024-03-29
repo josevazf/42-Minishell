@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 14:15:37 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 23:02:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,10 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 		set_prompt_and_get_input(envp, &input, &line);
 		if (check_whitespace(input) == 1)
 			continue ;
-		if (input == NULL || !ft_strncmp(input, "exit", 4))
-		{
-			exit_code = exit_arguments(input, exit_code);
-			if (exit_code != 1 || input == NULL)
-				break ;
+		if (process_exit(input, &exit_code) == 0)
+			break ;
+		else if (process_exit(input, &exit_code) == 1)
 			continue ;
-		}
 		if (quotes_checker(input) != 0)
 			continue ;
 		init = mshell_init(init, input, envp);
