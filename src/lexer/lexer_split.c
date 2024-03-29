@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 08:44:35 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 08:50:07 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	lexer_split(t_mshell *init)
 {
 	init->lexer = NULL;
 	create_all_tokens(init);
+	free(init->origin_in);
 	return ;
 }
