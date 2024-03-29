@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 11:42:40 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 13:16:49 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	print_str(char **str, int j)
 {
 	while (str[j])
 	{
-		if (ft_strcmp(str[j], "''") != 0)
-			printf("%s", str[j]);
+		printf("%s", str[j]);
 		if (str[j + 1])
 			printf(" ");
 		j++;
