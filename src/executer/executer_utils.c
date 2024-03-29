@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 11:53:13 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:19:13 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 		printf("minishell: warning: here-document delimited by end-of-file \
 (wanted `%s')\n", init->eof);
 		close(pipe_fd[1]);
+		delete_lists(init);
 		exit(EXIT_FAILURE);
 	}
 	input = ft_strupdate(input, "\n");
 	if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
 		ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 	{
+		//  precisamos de dar free ao char **redirs antes de dar exit
 		free(input);
 		close(pipe_fd[1]);
+		delete_lists(init);
 		exit(EXIT_SUCCESS);
 	}
 	if (init->expand_heredoc == true)
@@ -65,10 +68,10 @@ int	process_here_doc(t_mshell *init, char *eof, int *exit_code, int export)
 	fork_error(pid = fork());
 	if (pid == 0)
 	{
+		ft_free_smatrix(*init->envp_copy);
 		close(pipe_fd[0]);
 		while (1)
 			write_here_doc(init, eof, pipe_fd, exit_code);
-		delete_lists(init);
 	}
 	else
 	{
@@ -153,6 +156,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 		unset(init, envp);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
 	{
+		ft_free_smatrix(*envp);
 		if (!parser_node->cmd_exec[1])
 			env(init);
 		printf("env: '%s': No such file or directory\n",
