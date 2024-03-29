@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/21 11:53:44 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:20:49 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	hd_delete_lists(t_mshell *init)
+{
+	init->set_var = false;
+	init->nbr_pipes = 0;
+	init->cmd_index = 0;
+	init->og_stdin = 0;
+	init->og_stdout = 0;
+	init->red_input = 0;
+	init->red_output = 0;
+	init->expand_heredoc = false;
+	init->stop_exec = false;
+}
 
 /* Get here_doc input and write to pipe */
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
@@ -55,6 +68,7 @@ int	process_here_doc(t_mshell *init, char *eof, int *exit_code, int export)
 		close(pipe_fd[0]);
 		while (1)
 			write_here_doc(init, eof, pipe_fd, exit_code);
+		delete_lists(init);
 	}
 	else
 	{
@@ -119,7 +133,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 			char ***envp, int *exit_code)
 {
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
-		echo(parser_node, 2, 1);
+		echo(parser_node, 2, 1, init);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd"))
 		cd(init, parser_node, exit_code, envp);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd"))
