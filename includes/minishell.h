@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 11:21:18 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:53:01 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		free_lexer(t_lexer *lexer);
 void		delete_lists(t_mshell *init);
 
 // builtins
-void		pwd(t_parser *parser);
+void		pwd(t_mshell *init, t_parser *parser);
 void		cd(t_mshell *init, t_parser *parser, int *exit_code, \
 													char ***envp_copy);
 void		env(t_mshell *init);
