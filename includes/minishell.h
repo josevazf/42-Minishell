@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/20 18:10:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:21:18 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		pwd(t_parser *parser);
 void		cd(t_mshell *init, t_parser *parser, int *exit_code, \
 													char ***envp_copy);
 void		env(t_mshell *init);
-void		echo(t_parser *parser, int i, int j);
+void		echo(t_parser *parser, int i, int j, t_mshell *init);
 void		export(t_mshell *init, char ***envp_copy, int *exit_code);
 void		unset(t_mshell *init, char ***envp_copy);
 void		free_exit_args(char *input, char **exit_in);

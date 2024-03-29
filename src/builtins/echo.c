@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/28 17:35:06 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:31:03 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_str(char **str, int j)
 	}
 }
 
-void	echo(t_parser *parser, int i, int j)
+void	echo(t_parser *parser, int i, int j, t_mshell *init)
 {
 	int		flag;
 
@@ -48,5 +48,6 @@ void	echo(t_parser *parser, int i, int j)
 		print_str(parser->cmd_exec, j);
 	if (flag == 0)
 		printf("\n");
+	delete_lists(init);
 	exit (0);
 }
