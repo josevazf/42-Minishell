@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:17 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/20 18:04:06 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/29 08:46:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_env	*heredoc_fetch_macro(t_mshell *init, char **input, t_env *env_node)
 	&& (*input)[init->exp->i + init->exp->macro_len] != '\'' && \
 	(*input)[init->exp->i + init->exp->macro_len] != '$')
 		init->exp->macro_len++;
-	while (env_node && (strncmp((*input) + init->exp->i + 1, \
+	while (env_node && (ft_strncmp((*input) + init->exp->i + 1, \
 	env_node->var, init->exp->macro_len - 1) != 0 || \
 	(int)ft_strlen(env_node->var) != init->exp->macro_len - 1))
 		env_node = env_node->next;

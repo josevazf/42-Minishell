@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:59:01 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:41:25 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 08:46:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_env	*fetch_macro(t_mshell *init, t_env *env_node)
 	&& init->in[init->exp->i + init->exp->macro_len] != '\'' && \
 	init->in[init->exp->i + init->exp->macro_len] != '$')
 		init->exp->macro_len++;
-	while (env_node && (strncmp(init->in + init->exp->i + 1, \
+	while (env_node && (ft_strncmp(init->in + init->exp->i + 1, \
 	env_node->var, init->exp->macro_len - 1) != 0 || \
 	(int)ft_strlen(env_node->var) != init->exp->macro_len - 1))
 		env_node = env_node->next;

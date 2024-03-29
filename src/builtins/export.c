@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:40:54 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 08:46:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 
 void	export_printer(t_env *prnt)
 {
-	if (strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
+	if (ft_strcmp(prnt->var, "_") != 0 && prnt->visibility == 0)
 	{
 		if (prnt->content)
 			printf("declare -x %s=\"%s\"\n", prnt->var, prnt->content);
