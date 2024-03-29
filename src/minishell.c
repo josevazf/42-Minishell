@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/28 18:31:51 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:15:37 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 		if (quotes_checker(input) != 0)
 			continue ;
 		init = mshell_init(init, input, envp);
+		init->envp_copy = &envp;
 		free(input);
 		if (lexer_main(init, &envp, &exit_code) == 1)
 			init->set_var = true;
