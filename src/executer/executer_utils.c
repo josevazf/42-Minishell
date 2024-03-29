@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 11:20:49 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/29 11:45:01 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,10 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 			char ***envp, int *exit_code)
 {
 	if (!ft_strcmp(parser_node->cmd_exec[0], "echo"))
+	{
+		ft_free_smatrix(*envp);
 		echo(parser_node, 2, 1, init);
+	}
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "cd"))
 		cd(init, parser_node, exit_code, envp);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "pwd"))
