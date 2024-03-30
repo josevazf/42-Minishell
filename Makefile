@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiago <tiago@student.42.fr>                +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/03/07 11:00:56 by tiago            ###   ########.fr        #
+#    Updated: 2024/03/30 23:02:54 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,23 +102,84 @@ $(LIBFT):
 	@echo "$(YELLOW)Compiling necessary libs...$(RESET)"
 	$(MAKE) -C $(LIBFT_DIR)
 
-#testing fd leaks
-leaks: readline.supp
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes ./minishell
+#testing leaks
+leaks: leaks.supp
+	valgrind --suppressions=leaks.supp --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes ./minishell
 
-readline.supp:
-	@echo "{" > readline.supp
-	@echo "    leak readline" >> readline.supp
-	@echo "    Memcheck:Leak" >> readline.supp
-	@echo "    ..." >> readline.supp
-	@echo "    fun:readline" >> readline.supp
-	@echo "}" >> readline.supp
-	@echo "{" >> readline.supp
-	@echo "    leak add_history" >> readline.supp
-	@echo "    Memcheck:Leak" >> readline.supp
-	@echo "    ..." >> readline.supp
-	@echo "    fun:add_history" >> readline.supp
-	@echo "}" >> readline.supp
+leaks.supp:
+	@echo "{" > leaks.supp
+	@echo "    leak leaks" >> leaks.supp
+	@echo "    Memcheck:Leak" >> leaks.supp
+	@echo "    ..." >> leaks.supp
+	@echo "    fun:leaks" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "    leak add_history" >> leaks.supp
+	@echo "    Memcheck:Leak" >> leaks.supp
+	@echo "    ..." >> leaks.supp
+	@echo "    fun:add_history" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak malloc_readline" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:malloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		fun:readline" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak calloc_readline" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:calloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		fun:readline" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak realloc_readline" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:realloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		fun:readline" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak malloc_ls" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:malloc" >> leaks.supp
+	@echo "		obj:/usr/bin/ls" >> leaks.supp 
+	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak realloc_ls" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:realloc" >> leaks.supp
+	@echo "		obj:/usr/bin/ls" >> leaks.supp 
+	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak malloc_grep" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:malloc" >> leaks.supp
+	@echo "		obj:/usr/bin/grep" >> leaks.supp 
+	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak realloc_grep" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:realloc" >> leaks.supp
+	@echo "		obj:/usr/bin/grep" >> leaks.supp 
+	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak calloc_grep" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:calloc" >> leaks.supp
+	@echo "		obj:/usr/bin/grep" >> leaks.supp 
+	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
 
 #remove .o files
 clean:
@@ -127,7 +188,7 @@ clean:
 	@echo "$(RED)Object files have been deleted!$(RESET)"
 
 fclean: clean
-	$(RM) $(NAME) $(LIBFT) readline.supp
+	$(RM) $(NAME) $(LIBFT) leaks.supp
 
 #reset environment - remove everything and recompile
 re: fclean
