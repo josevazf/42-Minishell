@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/03/30 23:02:54 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/31 12:25:55 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,6 +119,7 @@ leaks.supp:
 	@echo "    ..." >> leaks.supp
 	@echo "    fun:add_history" >> leaks.supp
 	@echo "}" >> leaks.supp
+# readline
 	@echo "{" >> leaks.supp
 	@echo "		leak malloc_readline" >> leaks.supp
 	@echo "		Memcheck:Leak" >> leaks.supp
@@ -140,10 +141,12 @@ leaks.supp:
 	@echo "		..." >> leaks.supp
 	@echo "		fun:readline" >> leaks.supp
 	@echo "}" >> leaks.supp
+# ls
 	@echo "{" >> leaks.supp
 	@echo "		leak malloc_ls" >> leaks.supp
 	@echo "		Memcheck:Leak" >> leaks.supp
 	@echo "		fun:malloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
 	@echo "		obj:/usr/bin/ls" >> leaks.supp 
 	@echo "		..." >> leaks.supp
 	@echo "		fun:(below main)" >> leaks.supp
@@ -156,6 +159,7 @@ leaks.supp:
 	@echo "		..." >> leaks.supp
 	@echo "		fun:(below main)" >> leaks.supp
 	@echo "}" >> leaks.supp
+# grep
 	@echo "{" >> leaks.supp
 	@echo "		leak malloc_grep" >> leaks.supp
 	@echo "		Memcheck:Leak" >> leaks.supp
@@ -178,6 +182,48 @@ leaks.supp:
 	@echo "		fun:calloc" >> leaks.supp
 	@echo "		obj:/usr/bin/grep" >> leaks.supp 
 	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+# cat
+	@echo "{" >> leaks.supp
+	@echo "		leak memalign_cat" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:memalign" >> leaks.supp
+	@echo "		obj:/usr/bin/cat" >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak malloc_cat" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:malloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		obj:/usr/bin/cat" >> leaks.supp 
+	@echo "		..." >> leaks.supp
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+#clear
+	@echo "{" >> leaks.supp
+	@echo "		leak malloc_clear" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:malloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		obj:/usr/bin/clear" >> leaks.supp 
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak realloc_clear" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:realloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		obj:/usr/bin/clear" >> leaks.supp 
+	@echo "		fun:(below main)" >> leaks.supp
+	@echo "}" >> leaks.supp
+	@echo "{" >> leaks.supp
+	@echo "		leak calloc_clear" >> leaks.supp
+	@echo "		Memcheck:Leak" >> leaks.supp
+	@echo "		fun:calloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
+	@echo "		obj:/usr/bin/clear" >> leaks.supp 
 	@echo "		fun:(below main)" >> leaks.supp
 	@echo "}" >> leaks.supp
 
