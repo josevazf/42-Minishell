@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:40:48 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:42:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 		j++;
 	if (!init->in[i + j])
 		node->content = ft_strldup(init->in + i, j);
-	*envp_copy = update_envp_copy(init, envp_copy);
+	*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
 }
 
 int	empty_input(t_mshell *init)
@@ -77,7 +77,7 @@ int	var_is_set(t_mshell *init, char ***envp_copy)
 			i = j + 1;
 			j = 0;
 			set_content(init, node, i, j);
-			*envp_copy = update_envp_copy(init, envp_copy);
+			*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
 			return (0);
 		}
 		node = node->next;

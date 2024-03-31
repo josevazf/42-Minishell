@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 23:07:56 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/31 19:21:12 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			minishell(int exit_code, char **envp, char *input, char *line);
 int			check_forwardslash(char *cmd);
 void		set_prompt_and_get_input(char **envp, char **input, char **line);
 void		parse_and_execute(t_mshell *init, char ***envp_copy, \
-														int *exit_code);
+				int *exit_code);
 void		free_and_clear(char **envp);
 int			check_whitespace(char *input);
 
@@ -63,7 +63,8 @@ t_mshell	*mshell_init(t_mshell *ini, char *input, char **envp);
 
 // env_main.c
 char		**envp_dup(char **envp);
-char		**update_envp_copy(t_mshell *init, char ***envp_copy);
+char		**update_envp_copy(t_mshell *init, char ***env_copy, int i, \
+				t_env *node);
 void		env_node_push_back(t_env *begin_list, char *var, char *content);
 t_env		*create_env_node(char *var, char *content);
 int			*create_env_list(t_mshell *init, char **envp_copy);
@@ -88,7 +89,7 @@ void		delete_lists(t_mshell *init);
 // builtins
 void		pwd(t_mshell *init, t_parser *parser);
 void		cd(t_mshell *init, t_parser *parser, int *exit_code, \
-													char ***envp_copy);
+				char ***envp_copy);
 void		env(t_mshell *init);
 void		echo(t_parser *parser, int i, int j, t_mshell *init);
 void		export(t_mshell *init, char ***envp_copy, int *exit_code);
@@ -105,7 +106,7 @@ t_env		*assign_val(t_env **count, int *flag, t_mshell *init);
 void		save_in_stash(t_env *node, t_env *stash);
 int			check_stash(t_env *node, t_env *stash);
 void		sort_list(t_env **prnt, t_env *env_node, t_mshell *init, \
-															t_env *stash);
+				t_env *stash);
 void		check_oldpwd(t_env *prnt, int *flag);
 
 // signals.c

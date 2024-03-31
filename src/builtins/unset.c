@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 10:44:46 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:40:32 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/03/31 18:41:29 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ void	unset(t_mshell *init, char ***envp_copy)
 		env_node = init->env_table;
 		unset_if_present(init, env_node, &i);
 	}
-	*envp_copy = update_envp_copy(init, envp_copy);
+	*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
 }

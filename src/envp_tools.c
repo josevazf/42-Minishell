@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:43:34 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 18:16:57 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/31 19:00:51 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,27 @@ char	**envp_dup(char **envp)
 }
 
 /* Updates de envp_copy variable to reflect any changes made to it */
-char	**update_envp_copy(t_mshell *init, char ***envp_copy)
+char	**update_envp_copy(t_mshell *init, char ***env_copy, int i, t_env *node)
 {
-	int		i;
-	t_env	*node;
-
-	i = 0;
 	node = init->env_table;
 	while (node && i++ >= 0)
 		node = node->next;
-	ft_free_smatrix(*envp_copy);
-	(*envp_copy) = (char **)malloc(sizeof(char *) * (i + 1));
+	ft_free_smatrix(*env_copy);
+	(*env_copy) = (char **)malloc(sizeof(char *) * (i + 1));
 	i = -1;
 	node = init->env_table;
 	while (++i >= 0 && node)
 	{
-		(*envp_copy)[i] = ft_strdup(node->var);
+		(*env_copy)[i] = ft_strdup(node->var);
 		if (node->visibility == 1 && node->var[ft_strlen(node->var) - 1] != '~')
-			(*envp_copy)[i] = ft_strupdate((*envp_copy)[i], "~");
+			(*env_copy)[i] = ft_strupdate((*env_copy)[i], "~");
 		if (node->content)
 		{
-			(*envp_copy)[i] = ft_strupdate((*envp_copy)[i], "=");
-			(*envp_copy)[i] = ft_strupdate((*envp_copy)[i], node->content);
+			(*env_copy)[i] = ft_strupdate((*env_copy)[i], "=");
+			(*env_copy)[i] = ft_strupdate((*env_copy)[i], node->content);
 		}
 		node = node->next;
 	}
-	(*envp_copy)[i] = NULL;
-	return (*envp_copy);
+	(*env_copy)[i] = NULL;
+	return (*env_copy);
 }
