@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/31 19:38:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/01 17:54:27 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	set_shlvl(t_mshell *init)
 {
 	t_env	*node;
+	char	*temp;
 	int		val;
 
-	printf("helllooooo\n");
 	node = init->env_table;
 	while (node && ft_strcmp(node->var, "SHLVL") != 0)
 	{
@@ -31,7 +31,9 @@ void	set_shlvl(t_mshell *init)
 	}
 	val = ft_atoi(node->content) + 1;
 	free(node->content);
-	node->content = ft_strdup(ft_itoa(val));
+	temp = ft_itoa(val);
+	node->content = ft_strdup(temp);
+	free(temp);
 }
 
 /* Duplicates envp */
@@ -94,6 +96,7 @@ int	*create_env_list(t_mshell *init, char **envp_copy)
 	t_env	*env_list;
 
 	i = 0;
+	init->env_table = NULL;
 	while ((envp_copy)[i])
 	{
 		temp = ft_split((envp_copy)[i], '=');

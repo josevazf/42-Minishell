@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/20 17:51:50 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/01 17:45:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,23 @@ void	multi_check_output(t_mshell *init, t_parser *node, int i)
 void	multi_redir_input(t_mshell *init, t_parser *node, int *exit_code)
 {
 	int		i;
-	char	**red_full;
 
 	i = -1;
 	if (node->input_t == IN_HD || node->input_t == IN_FILE)
 	{
-		red_full = ft_split(node->redirs, '\t');
-		while (red_full[++i])
+		init->redirs = ft_split(node->redirs, '\t');
+		while (init->redirs[++i])
 		{
-			if (!ft_strncmp(red_full[i], "<<", 2))
+			if (!ft_strncmp(init->redirs[i], "<<", 2))
 				node->input = process_here_doc(init, init->eof, \
 					exit_code, 0);
-			else if (!ft_strncmp(red_full[i], "<", 1))
-				node->input = process_file(init, red_full[i + 1], \
+			else if (!ft_strncmp(init->redirs[i], "<", 1))
+				node->input = process_file(init, init->redirs[i + 1], \
 					IN_FILE);
 		}
 		if (node->input == -1)
 			node->file_nf = true;
-		ft_free_smatrix(red_full);
+		ft_free_smatrix(init->redirs);
 	}
 	else if (node->input_t == IO_PIPE)
 		node->input = init->pipe_fds[init->cmd_index - 2][0];

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/31 19:21:12 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:26:28 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			process_exit(char *input, int *exit_code);
 
 // new_var_set.c
 int			new_var_checker(t_mshell *init, char ***envp_copy);
+void		free_hd_vars(char **redirs, char *input, int pipe_fd);
 
 // export_utils.c
 t_env		*assign_val(t_env **count, int *flag, t_mshell *init);

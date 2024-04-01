@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer_utils.c                                   :+:      :+:    :+:   */
+/*   executer_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/29 14:19:13 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:47:12 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	hd_delete_lists(t_mshell *init)
-{
-	init->set_var = false;
-	init->nbr_pipes = 0;
-	init->cmd_index = 0;
-	init->og_stdin = 0;
-	init->og_stdout = 0;
-	init->red_input = 0;
-	init->red_output = 0;
-	init->expand_heredoc = false;
-	init->stop_exec = false;
-}
 
 /* Get here_doc input and write to pipe */
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
@@ -45,9 +32,7 @@ void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code)
 	if (ft_strlen(input) == (ft_strlen(eof) + 1) && \
 		ft_strncmp(input, eof, ft_strlen(eof)) == 0)
 	{
-		//  precisamos de dar free ao char **redirs antes de dar exit
-		free(input);
-		close(pipe_fd[1]);
+		free_hd_vars(init->redirs, input, pipe_fd[1]);
 		delete_lists(init);
 		exit(EXIT_SUCCESS);
 	}
@@ -68,8 +53,7 @@ int	process_here_doc(t_mshell *init, char *eof, int *exit_code, int export)
 	fork_error(pid = fork());
 	if (pid == 0)
 	{
-		ft_free_smatrix(*init->envp_copy);
-		close(pipe_fd[0]);
+		free_hd_vars(*init->envp_copy, NULL, pipe_fd[0]);
 		while (1)
 			write_here_doc(init, eof, pipe_fd, exit_code);
 	}
@@ -155,14 +139,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "unset"))
 		unset(init, envp);
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
-	{
-		ft_free_smatrix(*envp);
-		if (!parser_node->cmd_exec[1])
-			env(init);
-		printf("env: '%s': No such file or directory\n",
-			parser_node->cmd_exec[1]);
-		exit(127);
-	}
+		pre_env_exec(init, parser_node, envp);
 	else if (!ft_strncmp(parser_node->cmd_exec[0], "./", 2))
 		exec_executable(init, parser_node);
 	else

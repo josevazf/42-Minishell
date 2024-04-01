@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/03/31 12:25:55 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/01 18:23:50 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ SRCS			= 	minishell.c \
 					parser/parser_utils.c \
 					executer/executer_heredoc_expander.c \
 					executer/executer_main.c \
-					executer/executer_utils.c \
+					executer/executer_utils_1.c \
+					executer/executer_utils_2.c \
 					executer/executer_single_cmd.c \
 					executer/executer_multi_cmds.c \
 					executer/executer_multi_redirs.c \
@@ -164,6 +165,7 @@ leaks.supp:
 	@echo "		leak malloc_grep" >> leaks.supp
 	@echo "		Memcheck:Leak" >> leaks.supp
 	@echo "		fun:malloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
 	@echo "		obj:/usr/bin/grep" >> leaks.supp 
 	@echo "		..." >> leaks.supp
 	@echo "		fun:(below main)" >> leaks.supp
@@ -180,6 +182,7 @@ leaks.supp:
 	@echo "		leak calloc_grep" >> leaks.supp
 	@echo "		Memcheck:Leak" >> leaks.supp
 	@echo "		fun:calloc" >> leaks.supp
+	@echo "		..." >> leaks.supp
 	@echo "		obj:/usr/bin/grep" >> leaks.supp 
 	@echo "		..." >> leaks.supp
 	@echo "		fun:(below main)" >> leaks.supp
