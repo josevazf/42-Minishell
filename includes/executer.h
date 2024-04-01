@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/01 18:40:58 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:22:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,18 @@ void	executer_main(t_mshell *init, char ***envp_copy, int *exit_code);
 void	write_here_doc(t_mshell *init, char *eof, int *pipe_fd, int *exit_code);
 int		process_here_doc(t_mshell *init, char *eof, int *exit_code, int export);
 void	get_pipes(t_mshell *init);
-void	exec_executable(t_mshell *init, t_parser *parser_node);
+void	exec_executable(t_mshell *init, t_parser *parser_node, char ***envp);
 void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
 			char ***strings_env, int *exit_code);
 
 // executer_utils_2.c
+void	free_all(t_mshell *init, char ***envp);
 void	hd_delete_lists(t_mshell *init);
 void	free_hd_vars(char **redirs, char *input, int pipe_fd);
 void	pre_env_exec(t_mshell *init, t_parser *parser_node, char ***envp);
-
+void	free_exec_helper(t_mshell *init, t_parser *parser_node, char ***envp, \
+			char *file_err);
+			
 // executer_single_cmd.c
 int		single_cmd_isdir(char *cmd);
 int		single_cmd_notfound(t_mshell *init);

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/20 17:30:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:15:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,13 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 	if (parser_node->token_err || parser_node->file_nf)
 	{
 		*exit_code = redirs_error(parser_node, exit_code);
+		free_all(init, envp);
 		exit(*exit_code);
 	}
 	else if (!parser_node->path_exec && parser_node->redirs)
 	{
 		*exit_code = 1;
+		free_all(init, envp);
 		return ;
 	}
 	else if (!ft_strcmp(parser_node->path_exec, "notfound"))
@@ -102,6 +104,7 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 			*exit_code = multi_cmd_isdir(init, parser_node->cmd_exec[0]);
 		else
 			*exit_code = multi_cmd_notfound(init, parser_node);
+		free_all(init, envp);
 		exit(*exit_code);
 	}
 	if (parser_node->cmd_exec != NULL)

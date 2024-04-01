@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 18:47:12 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:15:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,15 @@ void	get_pipes(t_mshell *init)
 	free(lexer);
 }
 
-void	exec_executable(t_mshell *init, t_parser *parser_node)
+void	exec_executable(t_mshell *init, t_parser *parser_node, char ***envp)
 {
 	char	*file_err;
 
-	(void)init;
 	if (open(parser_node->cmd_exec[0], O_WRONLY | O_RDONLY) == -1 && \
 		errno != 26)
 	{
-		file_err = NULL;
 		file_err = strerror(errno);
-		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], file_err);
+		free_exec_helper(init, parser_node, envp, file_err);
 		if (errno >= 13)
 			exit(126);
 		else
@@ -106,13 +104,14 @@ void	exec_executable(t_mshell *init, t_parser *parser_node)
 	else if (access(parser_node->cmd_exec[0], X_OK) != 0)
 	{
 		file_err = strerror(errno);
-		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], file_err);
+		free_exec_helper(init, parser_node, envp, file_err);
 		if (errno == 13)
 			exit(126);
 		else
 			exit(127);
 	}
 	execve(parser_node->path_exec, parser_node->cmd_exec, NULL);
+	free_all(init, envp);
 	exit(EXIT_SUCCESS);
 }
 
@@ -141,7 +140,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node,
 	else if (!ft_strcmp(parser_node->cmd_exec[0], "env"))
 		pre_env_exec(init, parser_node, envp);
 	else if (!ft_strncmp(parser_node->cmd_exec[0], "./", 2))
-		exec_executable(init, parser_node);
+		exec_executable(init, parser_node, envp);
 	else
 		execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
 }
