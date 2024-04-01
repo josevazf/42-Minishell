@@ -5,3 +5,4 @@
 /objs
 *.a
 minishell
+leaks.supp
