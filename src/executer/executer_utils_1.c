@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 11:05:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 21:15:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:23:18 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	exec_executable(t_mshell *init, t_parser *parser_node, char ***envp)
 		else
 			exit(127);
 	}
-	execve(parser_node->path_exec, parser_node->cmd_exec, NULL);
+	execve(parser_node->path_exec, parser_node->cmd_exec, *envp);
 	free_all(init, envp);
 	exit(EXIT_SUCCESS);
 }
