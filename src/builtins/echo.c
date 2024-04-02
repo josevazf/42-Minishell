@@ -6,19 +6,19 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 13:42:40 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/03 00:53:19 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_str(char **str, int j)
+void	print_str(char **str, int j, int fd)
 {
 	while (str[j])
 	{
-		printf("%s", str[j]);
+		write(fd, str[j], ft_strlen(str[j]));
 		if (str[j + 1])
-			printf(" ");
+			write(fd, " ", 1);
 		j++;
 	}
 }
@@ -45,9 +45,9 @@ void	echo(t_parser *parser, int i, int j, t_mshell *init)
 			break ;
 	}
 	if (parser->cmd_exec[j])
-		print_str(parser->cmd_exec, j);
+		print_str(parser->cmd_exec, j, init->parser->output);
 	if (flag == 0)
-		printf("\n");
+		write(init->parser->output, "\n", 1);
 	delete_lists(init);
 	exit (0);
 }
