@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 18:21:20 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:38:51 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/02 23:36:06 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void	env(t_mshell *init)
 		init->env_table = init->env_table->next;
 	}
 	init->env_table = env_head;
+	delete_lists(init);
 	exit(EXIT_SUCCESS);
 }
