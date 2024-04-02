@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_var_set.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/31 18:42:26 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:57:14 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 		j++;
 	if (!init->in[i + j])
 		node->content = ft_strldup(init->in + i, j);
-	*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
+	*envp_copy = update_envp_copy(init, envp_copy);
 }
 
 int	empty_input(t_mshell *init)
@@ -77,7 +77,7 @@ int	var_is_set(t_mshell *init, char ***envp_copy)
 			i = j + 1;
 			j = 0;
 			set_content(init, node, i, j);
-			*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
+			*envp_copy = update_envp_copy(init, envp_copy);
 			return (0);
 		}
 		node = node->next;
@@ -94,6 +94,8 @@ int	new_var_checker(t_mshell *init, char ***envp_copy)
 		i++;
 	if (ft_strncmp(init->in + i, "export=", 7) == 0)
 		return (empty_input(init));
+	if (!ft_isalpha(init->in[i]))
+		return (1);
 	while (ft_isalnum(init->in[i]))
 		i++;
 	if (init->in[i] == '=')
