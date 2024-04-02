@@ -6,9 +6,11 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 11:34:51 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/02 11:57:14 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/02 14:21:33 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/minishell.h"
 
 #include "../includes/minishell.h"
 
@@ -38,7 +40,7 @@ void	create_new_var(t_mshell *init, char ***envp_copy)
 		j++;
 	if (!init->in[i + j])
 		node->content = ft_strldup(init->in + i, j);
-	*envp_copy = update_envp_copy(init, envp_copy);
+	*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
 }
 
 int	empty_input(t_mshell *init)
@@ -77,7 +79,7 @@ int	var_is_set(t_mshell *init, char ***envp_copy)
 			i = j + 1;
 			j = 0;
 			set_content(init, node, i, j);
-			*envp_copy = update_envp_copy(init, envp_copy);
+			*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
 			return (0);
 		}
 		node = node->next;
