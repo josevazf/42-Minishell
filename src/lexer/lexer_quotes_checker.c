@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 08:18:02 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:42:04 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:07:39 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	quotes_checker(char const *s)
 	i = 0;
 	s_quote = 0;
 	d_quote = 0;
-	while (s[i])
+	while ((size_t)i < ft_strlen(s))
 	{
 		if (s[i] == '\'')
 			quotes_checker_aid(s, &i, &s_quote, '\'');
