@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/04 10:16:49 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:52:26 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	exit_arguments(char *input, int exit_code)
 		else if (check_exit_args(exit_in, &exit_code, -1, 1) == TRUE_EXIT)
 			printf("exit\nminishell: exit: %s: numeric argument required\n", \
 				exit_in[1]);
-		else if (exit_in[2] != NULL && exit_code != 1)
+		else if (exit_in[2] != NULL/*  && exit_code != 1 */)
 		{
 			printf("exit\nminishell: exit: too many arguments\n");
 			add_history(input);
