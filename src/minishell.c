@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/04 11:34:11 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:01:52 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (exit_code < 0)
 		exit_code = exit_code + 100;
+	if (exit_code == 27)
+		exit_code = 127;
 	return (exit_code);
 }
