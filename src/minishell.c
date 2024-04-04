@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 19:50:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:16:52 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	minishell(int exit_code, char **envp, char *input, char *line)
 			continue ;
 		init = mshell_init(init, input, envp);
 		init->envp_copy = &envp;
-		free(input);
+		if (input && ft_strlen(input) > 0)
+			free(input);
 		if (lexer_main(init, &envp, &exit_code) == 1)
 			init->set_var = true;
 		parse_and_execute(init, &envp, &exit_code);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:21:50 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 23:11:28 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:16:49 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,17 @@ int	process_exit(char *input, int *exit_code)
 		*exit_code = exit_arguments(input, *exit_code);
 		if ((*exit_code != TRUE_EXIT || input == NULL) \
 			&& *exit_code != ARGS_EXIT)
+		{
+			if (input && ft_strlen(input) > 0)
+				free(input);
 			return (0);
+		}
 		else if (*exit_code == ARGS_EXIT)
+		{
+			if (input && ft_strlen(input) > 0)
+				free(input);
 			*exit_code = 1;
+		}
 		return (1);
 	}
 	return (2);
