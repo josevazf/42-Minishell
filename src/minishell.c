@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/06 13:02:14 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:54:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = minishell(exit_code, envp_copy, NULL, NULL);
 	(void)argv;
 	if (exit_code < 0)
-		exit_code = exit_code + 100;
-	if (exit_code == 27)
-		exit_code = 127;
+		exit_code = exit_code + 500;
 	return (exit_code);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/05 23:40:59 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:58:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_mshell	*mshell_init(t_mshell *ini, char *input, char **envp);
 char		**envp_dup(char **envp);
 char		**update_envp_copy(t_mshell *init, char ***env_copy, int i, \
 				t_env *node);
-void		env_node_push_back(t_env *begin_list, char ** temp);
+void		env_node_push_back(t_env *begin_list, char **temp);
 t_env		*create_env_node(char **temp);
 int			*create_env_list(t_mshell *init, char **envp_copy);
 
@@ -94,8 +94,9 @@ void		env(t_mshell *init);
 void		echo(t_parser *parser, int i, int j, t_mshell *init);
 void		export(t_mshell *init, char ***envp_copy, int *exit_code);
 void		unset(t_mshell *init, char ***envp_copy);
+int			check_numeric(char **exit_in, int i);
 int			check_exit_args(char **exit_in, int *exit_code, int i, int sign);
-int			exit_arguments(char *input, int exit_code);
+int			exit_arguments(char *input, int exit_code, char **exit_in);
 int			process_exit(char *input, int *exit_code);
 
 // new_var_set.c
@@ -111,7 +112,7 @@ void		sort_list(t_env **prnt, t_env *env_node, t_mshell *init, \
 void		check_oldpwd(t_env *prnt, int *flag);
 
 // export_utils_2.c
-void	get_content(char **export_split, t_env *env_node);
+void		get_content(char **export_split, t_env *env_node);
 
 // signals.c
 void		sigpipe_handler(int signo);
