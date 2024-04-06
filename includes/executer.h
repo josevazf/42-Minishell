@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/01 19:22:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:58:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_hd_vars(char **redirs, char *input, int pipe_fd);
 void	pre_env_exec(t_mshell *init, t_parser *parser_node, char ***envp);
 void	free_exec_helper(t_mshell *init, t_parser *parser_node, char ***envp, \
 			char *file_err);
-			
+
 // executer_single_cmd.c
 int		single_cmd_isdir(char *cmd);
 int		single_cmd_notfound(t_mshell *init);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/06 13:04:40 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:59:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	export(t_mshell *init, char ***envp_copy, int *exit_code)
 	t_env	*count;
 	t_env	*stash;
 	int		flag;
-	
+
 	if (!init->parser->cmd_exec[1])
 	{
 		stash = (t_env *)malloc(sizeof(t_env));
