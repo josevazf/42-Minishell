@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/31 18:42:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/06 13:04:40 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 int	var_exists(t_mshell *init, int *i, char **export_split, char ***envp_copy)
 {
 	t_env	*env_node;
+	int		j;
 
+	j = 1;
 	env_node = init->env_table;
 	while (env_node)
 	{
 		if (ft_strcmp(env_node->var, export_split[0]) == 0)
 		{
 			env_node->visibility = 0;
-			if (export_split[1])
+			if (export_split[j])
 			{
 				if (env_node->content)
 					free(env_node->content);
-				env_node->content = ft_strdup(export_split[1]);
+				get_content(export_split, env_node);
 			}
 			*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
 			ft_free_smatrix(export_split);
@@ -60,10 +62,10 @@ void	export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 	char	**export_split;
 	int		i;
 
-	i = 1;
+	i = 0;
 	if (export_error_checker(init, exit_code) == 1)
 		return ;
-	while (init->parser->cmd_exec[i])
+	while (init->parser->cmd_exec[++i])
 	{
 		export_split = ft_split(init->parser->cmd_exec[i], '=');
 		env_node = init->env_table;
@@ -76,10 +78,9 @@ void	export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 		env_table_init(env_node);
 		env_node->var = ft_strdup(export_split[0]);
 		if (export_split[1])
-			env_node->content = ft_strdup(export_split[1]);
+			get_content(export_split, env_node);
 		ft_free_smatrix(export_split);
 		*envp_copy = update_envp_copy(init, envp_copy, 0, NULL);
-		i++;
 	}
 }
 
@@ -101,7 +102,7 @@ void	export(t_mshell *init, char ***envp_copy, int *exit_code)
 	t_env	*count;
 	t_env	*stash;
 	int		flag;
-
+	
 	if (!init->parser->cmd_exec[1])
 	{
 		stash = (t_env *)malloc(sizeof(t_env));

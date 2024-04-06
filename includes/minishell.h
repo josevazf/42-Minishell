@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 18:26:28 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:40:59 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ t_mshell	*mshell_init(t_mshell *ini, char *input, char **envp);
 char		**envp_dup(char **envp);
 char		**update_envp_copy(t_mshell *init, char ***env_copy, int i, \
 				t_env *node);
-void		env_node_push_back(t_env *begin_list, char *var, char *content);
-t_env		*create_env_node(char *var, char *content);
+void		env_node_push_back(t_env *begin_list, char ** temp);
+t_env		*create_env_node(char **temp);
 int			*create_env_list(t_mshell *init, char **envp_copy);
 
 // error.c
@@ -102,13 +102,16 @@ int			process_exit(char *input, int *exit_code);
 int			new_var_checker(t_mshell *init, char ***envp_copy);
 void		free_hd_vars(char **redirs, char *input, int pipe_fd);
 
-// export_utils.c
+// export_utils_1.c
 t_env		*assign_val(t_env **count, int *flag, t_mshell *init);
 void		save_in_stash(t_env *node, t_env *stash);
 int			check_stash(t_env *node, t_env *stash);
 void		sort_list(t_env **prnt, t_env *env_node, t_mshell *init, \
 				t_env *stash);
 void		check_oldpwd(t_env *prnt, int *flag);
+
+// export_utils_2.c
+void	get_content(char **export_split, t_env *env_node);
 
 // signals.c
 void		sigpipe_handler(int signo);

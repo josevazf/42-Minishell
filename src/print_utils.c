@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:22:15 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/13 16:19:56 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/06 13:01:02 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	print_env(t_mshell *init)
 	while (env_table)
 	{
 		printf("%s=", env_table->var);
-		printf("%s\n", env_table->content);
+		if (env_table->content)
+			printf("%s\n", env_table->content);
 		env_table = env_table->next;
 	}
 }
