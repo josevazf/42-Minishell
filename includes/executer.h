@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/06 19:58:37 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:00:16 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	multi_redir_output(t_mshell *init, t_parser *node);
 void	multi_redirs_router(t_mshell *init, t_parser *node, int *exit_code);
 
 // executer_multi_utils.c
+void	exit_err_multi_cmds(t_mshell *init, t_parser *parser_node, \
+			int *exit_code, char ***envp);
 void	close_parent_pipes(t_mshell *init);
 void	close_redirs_pipes(t_mshell *init, t_parser *node);
 void	close_child_pipes(t_mshell *init);

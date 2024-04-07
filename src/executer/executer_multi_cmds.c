@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 21:15:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:59:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,7 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 	close_child_pipes(init);
 	multi_redirs_router(init, parser_node, exit_code);
 	if (parser_node->token_err || parser_node->file_nf)
-	{
-		*exit_code = redirs_error(parser_node, exit_code);
-		free_all(init, envp);
-		exit(*exit_code);
-	}
+		exit_err_multi_cmds(init, parser_node, exit_code, envp);
 	else if (!parser_node->path_exec && parser_node->redirs)
 	{
 		*exit_code = 1;

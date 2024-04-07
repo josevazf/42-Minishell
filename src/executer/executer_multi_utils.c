@@ -6,11 +6,19 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/09 16:34:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:59:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	exit_err_multi_cmds(t_mshell *init, t_parser *parser_node, \
+			int *exit_code, char ***envp)
+{
+	*exit_code = redirs_error(parser_node, exit_code);
+	free_all(init, envp);
+	exit(*exit_code);
+}
 
 void	close_pipes(t_mshell *init, int i, int j)
 {
