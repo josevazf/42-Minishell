@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/06 19:58:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/07 11:21:14 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			check_whitespace(char *input);
 
 // structs_init.c
 void		env_table_init(t_env *env_table);
-t_mshell	*mshell_init(t_mshell *ini, char *input, char **envp);
+t_mshell	*mshell_init(t_mshell *init, char *input, char **envp);
 
 // env_main.c
 char		**envp_dup(char **envp);

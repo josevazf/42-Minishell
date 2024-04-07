@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/18 09:54:07 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:45:09 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ char	*get_cmd_path(char **envp_paths, char *cmd, char *tpath, char *newpath)
 	int		i;
 
 	i = 0;
-	if (!envp_paths)
-		return (NULL);
 	if (!ft_strncmp(cmd, "./", 2))
 	{
 		newpath = ft_strdup(cmd);
 		return (newpath);
 	}
+	if (!envp_paths)
+		return (NULL);
 	while (envp_paths[++i])
 	{
 		tpath = ft_strjoin(envp_paths[i], "/");
@@ -103,6 +103,7 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
 			not_found = ft_strdup("notfound");
 		return (not_found);
 	}
-	ft_free_smatrix(paths);
+	if (paths)
+		ft_free_smatrix(paths);
 	return (cmd_path);
 }
