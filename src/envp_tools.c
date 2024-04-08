@@ -3,33 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   envp_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 23:43:34 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/06 13:01:55 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:05:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/* Makes a copy of the original envp */
-char	**envp_dup(char **envp)
+char	*set_shlvl(char *envp)
 {
-	int		i;
+	int		val;
+	char	*temp;
+	char	*envp_copy;
+
+	val = ft_atoi(envp + 6) + 1;
+	temp = ft_itoa(val);
+	envp_copy = ft_strjoin("SHLVL=", temp);
+	free(temp);
+	return (envp_copy);
+}
+
+/* Makes a copy of the original envp */
+char	**envp_dup(char **envp, int i)
+{
+	int		val;
 	char	**envp_copy;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	envp_copy = (char **)malloc(sizeof(char *) * (i + 1));
+	val = 1;
+	while (envp[++i])
+	{
+		if (!ft_strncmp(envp[i], "SHLVL", 5))
+			val = 0;
+	}
+	envp_copy = (char **)malloc(sizeof(char *) * (i + 1 + val));
 	if (!envp_copy)
 		return (NULL);
-	i = 0;
-	while (envp[i])
+	i = -1;
+	while (envp[++i])
 	{
-		envp_copy[i] = ft_strdup(envp[i]);
-		i++;
+		if (!ft_strncmp(envp[i], "SHLVL", 5))
+			envp_copy[i] = set_shlvl(envp[i]);
+		else
+			envp_copy[i] = ft_strdup(envp[i]);
 	}
+	if (val == 1)
+		envp_copy[i++] = ft_strjoin("SHLVL=", "1");
 	envp_copy[i] = NULL;
 	return (envp_copy);
 }

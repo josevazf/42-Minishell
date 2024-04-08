@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:06:33 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/06 19:54:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:07:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = 0;
 	if (argc != 1)
 		args_error();
-	envp_copy = envp_dup(envp);
+	envp_copy = envp_dup(envp, -1);
 	exit_code = minishell(exit_code, envp_copy, NULL, NULL);
 	(void)argv;
 	if (exit_code < 0)
