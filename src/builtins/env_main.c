@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/08 20:08:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:18:38 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ t_env	*create_env_node(char **temp)
 	env_table_init(node);
 	node->var = ft_strdup_env(temp[0]);
 	if (temp[i])
-		node->content = ft_strdup(temp[i]);
-	while (temp[++i])
 	{
-		node->content = ft_strupdate(node->content, "=");
-		node->content = ft_strupdate(node->content, temp[i]);
+		node->content = ft_strdup(temp[i]);
+		while (temp[++i])
+		{
+			node->content = ft_strupdate(node->content, "=");
+			node->content = ft_strupdate(node->content, temp[i]);
+		}
 	}
 	if (temp[0][ft_strlen(temp[0]) - 1] == '~')
 		node->visibility = 1;
@@ -61,14 +63,9 @@ void	env_node_push_back(t_env *begin_list, char **temp)
 	t_env	*node;
 
 	node = begin_list;
-	if (node)
-	{
-		while (node->next)
-			node = node->next;
-		node->next = create_env_node(temp);
-	}
-	else
-		begin_list = create_env_node(temp);
+	while (node->next)
+		node = node->next;
+	node->next = create_env_node(temp);
 }
 
 /* Creates linked list with values from envp */
@@ -80,9 +77,9 @@ int	*create_env_list(t_mshell *init, char **envp_copy)
 
 	i = 0;
 	init->env_table = NULL;
-	while ((envp_copy)[i])
+	while (envp_copy[i])
 	{
-		temp = ft_split((envp_copy)[i], '=');
+		temp = ft_split(envp_copy[i], '=');
 		if (i == 0)
 			env_list = create_env_node(temp);
 		else
