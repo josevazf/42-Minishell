@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 13:16:59 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:42:23 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 	lex_node = init->lexer;
 	while (lex_node)
 	{
-		if (ft_strlen(lex_node->str) == 0 && init->is_echo == false)
+		if (lex_node->str && ft_strlen(lex_node->str) == 0 && init->is_echo == false)
 		{
 			free(lex_node->str);
 			lex_node->str = ft_strdup("''");

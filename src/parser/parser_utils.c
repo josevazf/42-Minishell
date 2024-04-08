@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 18:49:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/09 17:49:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:32:45 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,12 @@ char	*get_redirs(t_mshell *init, char *og_redirs, t_lexer **lexer)
 
 char	*parser_merge_split(char *og_str, char *lexer_str)
 {
-	og_str = ft_strupdate(og_str, "\t");
-	og_str = ft_strupdate(og_str, lexer_str);
-	og_str = ft_strupdate(og_str, "\t");
+	if (lexer_str)
+	{
+		og_str = ft_strupdate(og_str, "\t");
+		og_str = ft_strupdate(og_str, lexer_str);
+		og_str = ft_strupdate(og_str, "\t");
+	}
 	return (og_str);
 }
 

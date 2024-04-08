@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/06 13:06:09 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:36:34 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_mshell	*mshell_init(t_mshell *init, char *input, char **envp)
 	init->exp = NULL;
 	init->lexer = NULL;
 	init->parser = NULL;
+	init->is_echo = false;
 	create_env_list(init, envp);
 	return (init);
 }

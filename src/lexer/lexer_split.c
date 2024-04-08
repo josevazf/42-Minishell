@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/29 23:13:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:13:05 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	malloc_tokens(t_mshell *init, int i)
 	{
 		init->lexer->next = (t_lexer *)malloc(sizeof(t_lexer));
 		lexer_init(init->lexer->next);
-		init->lexer->next->prev = init->lexer->next;
+		init->lexer->next->prev = init->lexer;
 		init->lexer = init->lexer->next;
 	}
 }
@@ -76,7 +76,7 @@ void	create_all_tokens(t_mshell *init, size_t i)
 				|| (init->in[i] == '\'' && init->in[i + 1] == '\'')))
 		{
 			if (init->is_echo == false)
-				init->lexer->str = ft_strdup("\'\'");
+				init->lexer->str = ft_strdup("''");
 			i += 2;
 		}
 		else if (init->in[i] && !ft_iswhitespace(init->in[i]))
