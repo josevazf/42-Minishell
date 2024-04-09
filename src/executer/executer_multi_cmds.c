@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/07 19:59:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:07:01 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,19 @@ int	multi_cmd_isdir(t_mshell *init, char *cmd)
 
 int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 {
+	int		file_fd;
 	char	*error_msg;
-
+	
+	file_fd = open(parser_node->cmd_exec[0], O_WRONLY);
 	error_msg = NULL;
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
-	if ((open(parser_node->cmd_exec[0], O_WRONLY) == -1 && \
-		parser_node->cmd_exec[0] \
+	if ((file_fd == -1 && parser_node->cmd_exec[0] \
 		[ft_strlen(parser_node->cmd_exec[0]) - 1] == '/') || \
 		(access(parser_node->cmd_exec[0], F_OK) == -1 && \
 		check_forwardslash(parser_node->cmd_exec[0]) == 0))
 	{
+		safe_close(file_fd);
 		error_msg = strerror(errno);
 		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], error_msg);
 		if (errno >= 13)
@@ -46,6 +48,7 @@ int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 		else
 			return (127);
 	}
+	safe_close(file_fd);
 	error_msg = ft_strjoin(parser_node->cmd_exec[0], ": command not found\n");
 	printf("%s", error_msg);
 	free(error_msg);
