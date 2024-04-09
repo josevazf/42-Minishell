@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/08 17:13:05 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:57:23 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	create_all_tokens(t_mshell *init, size_t i)
 				&& ((init->in[i] == '\"' && init->in[i + 1] == '\"')
 				|| (init->in[i] == '\'' && init->in[i + 1] == '\'')))
 		{
-			if (init->is_echo == false)
-				init->lexer->str = ft_strdup("''");
+			// if (init->is_echo == false)
+			// 	init->lexer->str = ft_strdup("''");
 			i += 2;
 		}
 		else if (init->in[i] && !ft_iswhitespace(init->in[i]))
@@ -88,8 +88,8 @@ void	create_all_tokens(t_mshell *init, size_t i)
 void	lexer_split(t_mshell *init)
 {
 	init->lexer = NULL;
-	if (ft_strnstr(init->in, "echo", ft_strlen(init->in)) != NULL)
-		init->is_echo = true;
+	// if (ft_strnstr(init->in, "echo", ft_strlen(init->in)) != NULL)
+		// init->is_echo = true;
 	create_all_tokens(init, 0);
 	free(init->origin_in);
 	return ;

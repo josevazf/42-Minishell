@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 17:30:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:09:13 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_mshell
 	int					red_output;
 	bool				expand_heredoc;
 	bool				stop_exec;
-	bool				is_echo;
 	struct s_env		*env_table;
 	struct s_expand		*exp;
 	struct s_lexer		*lexer;

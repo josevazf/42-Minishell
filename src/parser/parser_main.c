@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/28 18:16:03 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:05:52 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,31 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
 			char *cmds)
 {
 	t_lexer		*lexer;
+	int			flag;
 
+	flag = 0;
 	if (check_pipe_syntax(init, NULL) == 1 || check_redir_syntax(init) == 1)
 		return ;
 	lexer = init->lexer;
 	while (lexer)
 	{
 		if (lexer->operator == PIPE)
+		{
+			flag = 0;
 			lexer = lexer->next;
+		}
+		if (lexer && lexer->str && ft_strcmp(lexer->str, "echo") == 0)
+			flag = 1;
 		while (lexer && lexer->operator != PIPE)
 		{
+			if (!lexer->str || (lexer->str && ft_strlen(lexer->str) == 0))
+			{
+				free(lexer->str);
+				if (flag == 0)
+					lexer->str = ft_strdup("''");
+				else
+					lexer->str = ft_strdup("");
+			}
 			if (lexer->operator >= 3 && lexer->operator <= 6)
 				init->tredirs = get_redirs(init, init->tredirs, &lexer);
 			else if (lexer->operator == CMD && !cmds)
