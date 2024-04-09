@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 15:09:21 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:51:25 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	lexer_init(t_lexer *lexer)
 	lexer->i = 0;
 	lexer->d_quote_expand = 0;
 	lexer->is_node = 0;
+	lexer->true_sign = true;
 	lexer->next = NULL;
 	lexer->prev = NULL;
 }

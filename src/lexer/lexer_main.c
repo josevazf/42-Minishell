@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 15:26:02 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:36:27 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 	if (g_signo == 130)
 		*exit_code = 130;
 	eof_manager(init);
-	expander(init, exit_code);
-	free_expander(init->exp);
+	// expander(init, exit_code);
+	// free_expander(init->exp);
 	if (ft_strlen(init->in) > 0)
 	{
 		lexer_split(init);
 		lexer_router(init->lexer);
+		expander(init, exit_code);
+		free_expander(init->exp);
 		if (new_var_checker(init, envp_copy) == 0)
 			return (1);
 	}
