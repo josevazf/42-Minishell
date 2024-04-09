@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 13:59:48 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:26:02 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ void	lexer_router(t_lexer *tokens)
 
 int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
-	// t_lexer	*lex_node;
-
 	if (g_signo == 130)
 		*exit_code = 130;
 	eof_manager(init);
@@ -50,15 +48,5 @@ int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 		if (new_var_checker(init, envp_copy) == 0)
 			return (1);
 	}
-	// lex_node = init->lexer;
-	// while (lex_node)
-	// {
-	// 	if (lex_node->str && ft_strlen(lex_node->str) == 0 && init->is_echo == false)
-	// 	{
-	// 		free(lex_node->str);
-	// 		lex_node->str = ft_strdup("''");
-	// 	}
-	// 	lex_node = lex_node->next;
-	// }
 	return (0);
 }
