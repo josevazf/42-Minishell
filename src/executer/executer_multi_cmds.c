@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 12:07:01 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:45:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
 {
 	int		file_fd;
 	char	*error_msg;
-	
+
 	file_fd = open(parser_node->cmd_exec[0], O_WRONLY);
 	error_msg = NULL;
 	dup2(init->og_stdin, STDIN_FILENO);

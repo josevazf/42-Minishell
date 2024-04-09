@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int		expand_aux(char *alph_exit_code)
+int	expand_aux(char *alph_exit_code)
 {
 	free(alph_exit_code);
 	return (0);
@@ -49,22 +49,23 @@ void	expand(t_mshell *init, t_lexer *lex_nd, t_env *env_nd, int *exit_code)
 
 void	expander(t_mshell *init, int *ext_cd, t_env *env_nd, t_lexer *lex_nd)
 {
-	lex_nd = init->lexer;
 	while (lex_nd)
 	{
 		init->exp = (t_expand *)malloc(sizeof(t_expand));
 		expander_init(init->exp);
 		while (lex_nd->str[init->exp->i])
 		{
-			env_nd = init->env_table;
-			env_nd = macro_check_and_fetch(init, env_nd, lex_nd);
-			if (lex_nd->str[init->exp->i] == '<' && lex_nd->str[init->exp->i + 1] == '<')
+			env_nd = macro_check_fetch(init, init->env_table, lex_nd);
+			if (lex_nd->str[init->exp->i] == '<' && \
+			lex_nd->str[init->exp->i + 1] == '<')
 				ignore_eof_macro(init, lex_nd);
-			else if (lex_nd->str[init->exp->i] == '$' && lex_nd->str[init->exp->i + 1] \
+			else if (lex_nd->str[init->exp->i] == '$' && \
+			lex_nd->str[init->exp->i + 1] \
 			&& (ft_iswhitespace(lex_nd->str[init->exp->i + 1]) || \
 			lex_nd->str[init->exp->i + 1] == '\"') && init->exp->s_quote == 1)
 				init->exp->i++;
-			else if (lex_nd->str[init->exp->i] != '$' || (lex_nd->str[init->exp->i] == \
+			else if (lex_nd->str[init->exp->i] != '$' || \
+				(lex_nd->str[init->exp->i] == \
 			'$' && init->exp->s_quote == 0))
 				init->exp->i++;
 			else

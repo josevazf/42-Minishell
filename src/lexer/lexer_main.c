@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 18:55:23 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:21:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 	{
 		lexer_split(init);
 		lexer_router(init->lexer);
-		expander(init, exit_code, NULL, NULL);
+		expander(init, exit_code, NULL, init->lexer);
 		if (new_var_checker(init, envp_copy) == 0)
 			return (1);
 	}
