@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 15:09:13 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:57:25 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_lexer
 	int				i;
 	int				d_quote_expand;
 	int				is_node;
+	bool			true_sign;
 	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }	t_lexer;
