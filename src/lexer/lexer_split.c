@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 17:43:25 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:12:10 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	create_all_tokens(t_mshell *init, size_t i)
 void	lexer_split(t_mshell *init)
 {
 	init->lexer = NULL;
-	// if (ft_strnstr(init->in, "echo", ft_strlen(init->in)) != NULL)
-		// init->is_echo = true;
 	create_all_tokens(init, 0);
 	free(init->origin_in);
 	return ;

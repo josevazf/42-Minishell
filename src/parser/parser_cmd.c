@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/07 19:45:09 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:21:36 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 /* Return the type of the command, Shell native or Builtin */
 int	cmd_router(char *cmd)
 {
-	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") || \
+	if (!cmd)
+		return (SHELL_CMD);
+	else if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd") || \
 		!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export") || \
 		!ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env") || \
 		!ft_strcmp(cmd, "exit"))
@@ -56,6 +58,8 @@ char	*get_cmd_path(char **envp_paths, char *cmd, char *tpath, char *newpath)
 	int		i;
 
 	i = 0;
+	if (!cmd)
+		return (NULL);
 	if (!ft_strncmp(cmd, "./", 2))
 	{
 		newpath = ft_strdup(cmd);

@@ -36,6 +36,7 @@ void	expand(t_mshell *init, t_lexer *lexer_node, t_env *env_node, int *exit_code
 		i_exp->new_input = ft_strupdate(i_exp->new_input, \
 		i_inp + i_exp->i + i_exp->macro_len);
 		update_input(init, lexer_node);
+		lexer_node->true_sign = false;
 	}
 	free(alph_exit_code);
 	i_exp->i = 0;

@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 15:05:52 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:14:43 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
 			if (!lexer->str || (lexer->str && ft_strlen(lexer->str) == 0))
 			{
 				free(lexer->str);
-				if (flag == 0)
+				if (flag == 0 && lexer->true_sign == false)
 					lexer->str = ft_strdup("''");
 				else
 					lexer->str = ft_strdup("");
