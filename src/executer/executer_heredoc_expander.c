@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 10:49:17 by tiago             #+#    #+#             */
-/*   Updated: 2024/03/29 08:46:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:07:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	heredoc_clear_macro(t_mshell *init, char **input)
 }
 
 t_env	*heredoc_macro_check_and_fetch(t_mshell *init, char **input, \
-													t_env *env_node)
+			t_env *env_node)
 {
 	if ((*input)[init->exp->i] == '$' && (*input)[init->exp->i \
 	+ 1] && !ft_iswhitespace((*input)[init->exp->i + 1]) && init->\
@@ -50,7 +50,7 @@ t_env	*heredoc_macro_check_and_fetch(t_mshell *init, char **input, \
 }
 
 void	heredoc_expand(t_mshell *init, char **input, t_env *env_node, \
-														int *exit_code)
+			int *exit_code)
 {
 	t_expand	*i_exp;
 	char		*alph_exit_code;
@@ -99,5 +99,5 @@ void	heredoc_expander(t_mshell *init, char **input, int *exit_code)
 		else
 			heredoc_expand(init, input, env_node, exit_code);
 	}
-	free_expander(init->exp);
+	free(init->exp);
 }

@@ -6,20 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 11:34:48 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/01 17:33:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:13:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/* Free Expander nodes */
-void	free_expander(t_expand *expander)
-{
-	expander->i = 0;
-	expander->macro_len = 0;
-	expander->s_quote = 0;
-	free(expander);
-}
 
 /* Free Parser nodes */
 void	free_parser(t_parser *parser)
