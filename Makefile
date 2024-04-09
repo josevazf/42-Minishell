@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
+#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/04/05 23:43:04 by tiaferna         ###   ########.fr        #
+#    Updated: 2024/04/09 11:56:31 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -106,7 +106,7 @@ $(LIBFT):
 
 #testing leaks
 leaks: leaks.supp
-	valgrind --suppressions=leaks.supp --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes ./minishell
+	valgrind --suppressions=leaks.supp --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --track-origins=yes ./minishell
 
 leaks.supp:
 	@echo "{" > leaks.supp

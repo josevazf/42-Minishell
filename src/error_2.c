@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:08:28 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 18:17:06 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:58:00 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,11 @@ int	fd_error(int fd)
 	if (fd < 0)
 		ft_error("minishell: file error", ERROR);
 	return (EXIT_FAILURE);
+}
+
+void	safe_close(int fd)
+{
+	if (fd < 0)
+		return ;
+	close(fd);
 }

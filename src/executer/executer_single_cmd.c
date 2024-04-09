@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 17:52:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:33:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@ int	single_cmd_isdir(char *cmd)
 
 int	single_cmd_notfound(t_mshell *init)
 {
+	int		file_fd;
 	char	*error_msg;
 
 	error_msg = NULL;
-	if ((open(init->parser->cmd_exec[0], O_WRONLY) == -1 && \
+	file_fd = open(init->parser->cmd_exec[0], O_WRONLY);
+	if ((file_fd == -1 && \
 		init->parser->cmd_exec[0] \
 		[ft_strlen(init->parser->cmd_exec[0]) - 1] == '/') || \
 		(access(init->parser->cmd_exec[0], F_OK) == -1 && \
 		check_forwardslash(init->parser->cmd_exec[0]) == 0))
 	{
+		safe_close(file_fd);
 		error_msg = strerror(errno);
 		printf("minishell: %s: %s\n", init->parser->cmd_exec[0], error_msg);
 		if (errno >= 13)
@@ -43,6 +46,7 @@ int	single_cmd_notfound(t_mshell *init)
 		else
 			return (127);
 	}
+	safe_close(file_fd);
 	error_msg = ft_strjoin(init->parser->cmd_exec[0], ": command not found\n");
 	printf("%s", error_msg);
 	free(error_msg);
@@ -62,15 +66,12 @@ void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp,
 	if (pid == 0 && parser_node->cmd_exec != NULL)
 	{
 		executer_cmd_router(init, parser_node, envp, exit_code);
-		close(pid);
+		safe_close(pid);
 	}
 	else
 	{
 		if (waitpid(pid, &status, 0) != -1)
-		{
-			close(pid);
 			get_exit_code(status, exit_code);
-		}
 		else
 			ft_error("waitpid() failed", EXIT_FAILURE);
 	}

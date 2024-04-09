@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/08 20:06:41 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:34:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			pipe_error(int pid);
 int			fork_error(int fd);
 int			malloc_error(void *input);
 int			quotes_error(void);
+void		safe_close(int fd);
 
 // free_mem.c
 void		free_expander(t_expand *expander);
