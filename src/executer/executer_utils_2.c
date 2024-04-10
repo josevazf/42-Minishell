@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:20:30 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 20:07:06 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 19:26:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	pre_env_exec(t_mshell *init, t_parser *parser_node, char ***envp)
 		env(init);
 	printf("env: '%s': No such file or directory\n",
 		parser_node->cmd_exec[1]);
+	delete_lists(init);
 	exit(127);
 }
