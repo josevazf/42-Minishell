@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 17:33:19 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:19:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
 {
 	if (init->parser->redirs)
 		single_redirs_router(init, init->parser, exit_code, -1);
-	if (init->parser->token_err || init->parser->file_nf)
-		*exit_code = redirs_error(init->parser, exit_code);
+	if (init->parser->token_err || init->parser->file_nf || init->parser->var_nf)
+		*exit_code = redirs_error(init, init->parser, exit_code);
 	else if (!init->parser->path_exec && init->parser->redirs)
 		*exit_code = 1;
 	else if (!ft_strcmp(init->parser->path_exec, "notfound"))

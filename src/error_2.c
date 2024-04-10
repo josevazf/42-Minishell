@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:08:28 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 16:58:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:18:47 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	file_error(char *file_name)
 }
 
 /* Deal with error definning redirs tokens */
-int	redirs_error(t_parser *parser_node, int *exit_code)
+int		redirs_error(t_mshell *init, t_parser *parser_node, int *exit_code)
 {
 	if (*exit_code == 130)
 		return (130);
@@ -32,7 +32,11 @@ int	redirs_error(t_parser *parser_node, int *exit_code)
 	else if (parser_node->file_nf)
 		return (1);
 	else
+	{
+		dup2(init->og_stdin, STDIN_FILENO);
+		dup2(init->og_stdout, STDOUT_FILENO);
 		return (0);
+	}
 }
 
 /* Deal with file descriptor failure */
