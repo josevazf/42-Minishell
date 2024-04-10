@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 17:34:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:25:28 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		pwd(t_mshell *init, t_parser *parser);
 void		cd(t_mshell *init, t_parser *parser, int *exit_code, \
 				char ***envp_copy);
 void		env(t_mshell *init);
-void		echo(t_parser *parser, int i, int j, t_mshell *init);
+void		echo(t_mshell *init, t_parser *parser, t_lexer *lex_nd, int i);
 void		export(t_mshell *init, char ***envp_copy, int *exit_code);
 void		unset(t_mshell *init, char ***envp_copy);
 int			check_numeric(char **exit_in, int i);
