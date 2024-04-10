@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 18:19:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:31:56 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,32 +78,32 @@ void	fork_single_cmd(t_mshell *init, t_parser *parser_node, char ***envp,
 }
 
 /* Process single command */
-void	process_single_cmd(t_mshell *init, char ***envp, int *exit_code)
+void	process_single_cmd(t_mshell *ini, char ***envp, int *exit_code)
 {
-	if (init->parser->redirs)
-		single_redirs_router(init, init->parser, exit_code, -1);
-	if (init->parser->token_err || init->parser->file_nf || init->parser->var_nf)
-		*exit_code = redirs_error(init, init->parser, exit_code);
-	else if (!init->parser->path_exec && init->parser->redirs)
+	if (ini->parser->redirs)
+		single_redirs_router(ini, ini->parser, exit_code, -1);
+	if (ini->parser->token_err || ini->parser->file_nf || ini->parser->var_nf)
+		*exit_code = redirs_error(ini, ini->parser, exit_code);
+	else if (!ini->parser->path_exec && ini->parser->redirs)
 		*exit_code = 1;
-	else if (!ft_strcmp(init->parser->path_exec, "notfound"))
+	else if (!ft_strcmp(ini->parser->path_exec, "notfound"))
 	{
-		if (access(init->parser->cmd_exec[0], X_OK) == -1 && \
-				(init->parser->cmd_exec[0] \
-				[ft_strlen(init->parser->cmd_exec[0]) - 1] == '/' || \
-				init->parser->cmd_exec[0][0] == '/'))
-			*exit_code = single_cmd_isdir(init->parser->cmd_exec[0]);
+		if (access(ini->parser->cmd_exec[0], X_OK) == -1 && \
+				(ini->parser->cmd_exec[0] \
+				[ft_strlen(ini->parser->cmd_exec[0]) - 1] == '/' || \
+				ini->parser->cmd_exec[0][0] == '/'))
+			*exit_code = single_cmd_isdir(ini->parser->cmd_exec[0]);
 		else
-			*exit_code = single_cmd_notfound(init);
+			*exit_code = single_cmd_notfound(ini);
 	}
-	else if (!ft_strncmp(init->parser->cmd_exec[0], "cd", 2))
-		cd(init, init->parser, exit_code, envp);
-	else if (!ft_strncmp(init->parser->cmd_exec[0], "unset", 5))
-		unset(init, envp);
-	else if (!ft_strncmp(init->parser->cmd_exec[0], "export", 6))
-		export(init, envp, exit_code);
-	else if (init->parser->cmd_exec != NULL)
-		fork_single_cmd(init, init->parser, envp, exit_code);
+	else if (!ft_strncmp(ini->parser->cmd_exec[0], "cd", 2))
+		cd(ini, ini->parser, exit_code, envp);
+	else if (!ft_strncmp(ini->parser->cmd_exec[0], "unset", 5))
+		unset(ini, envp);
+	else if (!ft_strncmp(ini->parser->cmd_exec[0], "export", 6))
+		export(ini, envp, exit_code);
+	else if (ini->parser->cmd_exec != NULL)
+		fork_single_cmd(ini, ini->parser, envp, exit_code);
 	return ;
 }
 

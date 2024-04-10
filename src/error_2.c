@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 00:08:28 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/10 18:18:47 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:32:16 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	file_error(char *file_name)
 }
 
 /* Deal with error definning redirs tokens */
-int		redirs_error(t_mshell *init, t_parser *parser_node, int *exit_code)
+int	redirs_error(t_mshell *init, t_parser *parser_node, int *exit_code)
 {
 	if (*exit_code == 130)
 		return (130);
