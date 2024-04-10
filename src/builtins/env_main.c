@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/08 23:18:38 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:22:04 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	*create_env_list(t_mshell *init, char **envp_copy)
 	t_env	*env_list;
 
 	i = 0;
+	init->var_nf = false;
 	init->env_table = NULL;
 	while (envp_copy[i])
 	{

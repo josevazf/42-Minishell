@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:47:40 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/07 19:59:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:19:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_err_multi_cmds(t_mshell *init, t_parser *parser_node, \
 			int *exit_code, char ***envp)
 {
-	*exit_code = redirs_error(parser_node, exit_code);
+	*exit_code = redirs_error(init, parser_node, exit_code);
 	free_all(init, envp);
 	exit(*exit_code);
 }

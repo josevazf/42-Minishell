@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:44:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 17:51:25 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:22:10 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	parser_init(t_parser *parser)
 	parser->redirs = NULL;
 	parser->file_nf = false;
 	parser->token_err = false;
+	parser->var_nf = true;
 	parser->cmd_type = 0;
 	parser->input = 0;
 	parser->output = 0;

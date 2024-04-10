@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 18:21:36 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:42:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,14 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
 	{
 		if (paths)
 			ft_free_smatrix(paths);
-		if (access(cmd, X_OK) == 0 && (cmd[ft_strlen(cmd) - 1] != '/' && \
-				cmd[0] == '/'))
-			not_found = ft_strdup(cmd);
+		if (!init->var_nf)
+		{
+			if (access(cmd, X_OK) == 0 && (cmd[ft_strlen(cmd) - 1] != '/' && \
+					cmd[0] == '/'))
+				not_found = ft_strdup(cmd);
+			else
+			not_found = ft_strdup("notfound");
+		}
 		else
 			not_found = ft_strdup("notfound");
 		return (not_found);
