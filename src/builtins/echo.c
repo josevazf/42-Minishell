@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/03 00:53:19 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:02:03 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,5 @@ void	echo(t_parser *parser, int i, int j, t_mshell *init)
 	delete_lists(init);
 	exit (0);
 }
+
+// MUDAR PARA CORRER ATRAVÉS DO LEXER

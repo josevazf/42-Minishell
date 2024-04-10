@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/10 15:09:29 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:42:20 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void	create_all_tokens(t_mshell *init, size_t i)
 		malloc_tokens(init, i);
 		if (!lexer_head)
 			lexer_head = init->lexer;
-		if (i < in_len - 1 && (ft_iswhitespace(init->in[i + 2])) \
+		if (i < in_len - 1 && (ft_iswhitespace(init->in[i + 2]) \
+				|| !init->in[i + 2]) \
 				&& ((init->in[i] == '\"' && init->in[i + 1] == '\"')
 				|| (init->in[i] == '\'' && init->in[i + 1] == '\'')))
 		{
-			init->lexer->str = ft_strdup("");
+			init->lexer->str = ft_strdup("''");
+			init->lexer->true_sign = false;
 			i += 2;
 		}
 		else if (init->in[i] && !ft_iswhitespace(init->in[i]))

@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/09 18:14:43 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:50:21 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,12 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
 			flag = 1;
 		while (lexer && lexer->operator != PIPE)
 		{
-			if (!lexer->str || (lexer->str && ft_strlen(lexer->str) == 0))
+			if (ft_strcmp(lexer->str, "''") == 0 && (lexer->true_sign == true || flag == 1))
+			{
+				free(lexer->str);
+				lexer->str = ft_strdup("");
+			}
+			else if (!lexer->str || (lexer->str && ft_strlen(lexer->str) == 0))
 			{
 				free(lexer->str);
 				if (flag == 0 && lexer->true_sign == false)
