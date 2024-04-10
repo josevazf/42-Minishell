@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/04/09 11:56:31 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/10 21:41:40 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS			= 	minishell.c \
 					expander/eof_handler.c \
 					expander/macros_tools.c \
 					parser/parser_main.c \
+					parser/parser_main_utils.c \
 					parser/parser_cmd.c \
 					parser/parser_utils.c \
 					executer/executer_heredoc_expander.c \

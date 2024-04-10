@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 17:42:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:28:54 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ char	*get_cmd_path(char **envp_paths, char *cmd, char *tpath, char *newpath)
 	while (envp_paths[++i])
 	{
 		tpath = ft_strjoin(envp_paths[i], "/");
-		if (tpath == NULL)
-			return (NULL);
 		newpath = ft_strjoin(tpath, cmd);
 		free(tpath);
 		if (newpath == NULL)
@@ -84,35 +82,31 @@ char	*get_cmd_path(char **envp_paths, char *cmd, char *tpath, char *newpath)
 }
 
 /* Check if command exists and return it's path */
-char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy)
+char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy, char *not_found)
 {
-	char	**paths;
 	char	*cmd_path;
-	char	*not_found;
 
-	(void)init;
-	not_found = NULL;
 	if (cmd_router(cmd) == BUILTIN_CMD)
 		return (ft_strdup("builtin"));
-	paths = parse_path(*envp_copy);
-	cmd_path = get_cmd_path(paths, cmd, NULL, NULL);
+	init->paths = parse_path(*envp_copy);
+	cmd_path = get_cmd_path(init->paths, cmd, NULL, NULL);
 	if (cmd_path == NULL)
 	{
-		if (paths)
-			ft_free_smatrix(paths);
+		if (init->paths)
+			ft_free_smatrix(init->paths);
 		if (!init->var_nf)
 		{
 			if (access(cmd, X_OK) == 0 && (cmd[ft_strlen(cmd) - 1] != '/' && \
 					cmd[0] == '/'))
 				not_found = ft_strdup(cmd);
 			else
-			not_found = ft_strdup("notfound");
+				not_found = ft_strdup("notfound");
 		}
 		else
 			not_found = ft_strdup("notfound");
 		return (not_found);
 	}
-	if (paths)
-		ft_free_smatrix(paths);
+	if (init->paths)
+		ft_free_smatrix(init->paths);
 	return (cmd_path);
 }

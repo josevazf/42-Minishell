@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 18:05:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:23:47 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,7 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 		node->redirs = NULL;
 	else
 		node->redirs = ft_strdup(init->tredirs);
-	node->input = init->red_input;
-	node->output = init->red_output;
-	node->next = NULL;
-	node->token_err = false;
-	node->file_nf = false;
+	create_parser_node_aux(init, &node);
 	return (node);
 }
 
@@ -67,7 +63,7 @@ t_parser	*parser_node_router(t_mshell *init, char ***envp_copy,
 	if (cmds)
 	{
 		init->tcmd_full = ft_split(cmds, '\t');
-		init->tcmd_path = find_cmd(init->tcmd_full[0], init, envp_copy);
+		init->tcmd_path = find_cmd(init->tcmd_full[0], init, envp_copy, NULL);
 	}
 	if (!parser)
 		parser = create_parser_node(init, cmds, NULL);
@@ -110,39 +106,16 @@ void	parser_main(t_mshell *init, char ***envp_copy, t_parser *parser,
 			char *cmds)
 {
 	t_lexer		*lexer;
-	int			flag;
 
-	flag = 0;
 	if (check_pipe_syntax(init, NULL) == 1 || check_redir_syntax(init) == 1)
 		return ;
 	lexer = init->lexer;
 	while (lexer)
 	{
-		if (lexer->operator == PIPE)
-		{
-			flag = 0;
-			lexer = lexer->next;
-		}
-		if (lexer && lexer->str && ft_strcmp(lexer->str, "echo") == 0)
-			flag = 1;
+		parser_main_aux1(init, &lexer);
 		while (lexer && lexer->operator != PIPE)
 		{
-			if (ft_strcmp(lexer->str, "''") == 0 && (lexer->true_sign == true || flag == 1))
-			{
-				free(lexer->str);
-				lexer->str = ft_strdup("");
-			}
-			else if (!lexer->str || (lexer->str && ft_strlen(lexer->str) == 0))
-			{
-				free(lexer->str);
-				if (flag == 0 && lexer->true_sign == false)
-					lexer->str = ft_strdup("''");
-				else
-				{
-					lexer->str = ft_strdup("_");
-					init->var_nf = true;
-				}
-			}
+			parser_main_aux2(init, &lexer);
 			if (lexer->operator >= 3 && lexer->operator <= 6)
 				init->tredirs = get_redirs(init, init->tredirs, &lexer);
 			else if (lexer->operator == CMD && !cmds)

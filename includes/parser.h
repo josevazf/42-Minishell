@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/13 16:29:11 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:22:45 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,18 @@ int			check_pipe_syntax(t_mshell *init, t_lexer *lexer);
 void		parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, \
 				char *cmds);
 
+// parser_main_utils.c
+t_parser	**create_parser_node_aux(t_mshell *init, t_parser **node);
+void		parser_main_aux1(t_mshell *init, t_lexer **lexer);
+void		parser_main_aux2(t_mshell *init, t_lexer **lexer);
+
 // parser_cmd.c
 int			cmd_router(char *cmd);
 char		**parse_path(char **env_path);
 char		*get_cmd_path(char **envp_paths, char *cmd, char *tpath, \
 				char *newpath);
-char		*find_cmd(char *cmd, t_mshell *init, char ***envp_copy);
+char		*find_cmd(char *cmd, t_mshell *init, char ***envp_copy, \
+				char *not_found);
 
 // parser_utils.c
 int			check_redir_syntax(t_mshell *init);

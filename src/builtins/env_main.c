@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 09:28:50 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 18:22:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:28:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ int	*create_env_list(t_mshell *init, char **envp_copy)
 
 	i = 0;
 	init->var_nf = false;
+	init->parser_flag = 0;
+	init->paths = NULL;
 	init->env_table = NULL;
 	while (envp_copy[i])
 	{

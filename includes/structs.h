@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 09:44:11 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 17:21:04 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/10 22:28:23 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_mshell
 	char				*tredirs;
 	char				*eof;
 	char				**redirs;
+	char				**paths;
 	int					nbr_pipes;
 	int					*child_pids;
 	int					**pipe_fds;
@@ -44,6 +45,7 @@ typedef struct s_mshell
 	int					og_stdout;
 	int					red_input;
 	int					red_output;
+	int					parser_flag;
 	bool				expand_heredoc;
 	bool				stop_exec;
 	bool				var_nf;
