@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 22:23:47 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:29:48 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,20 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 	node = (t_parser *)malloc(sizeof(t_parser));
 	if (!node)
 		return (NULL);
-	if (!cmds || init->var_nf)
+	if (!cmds)
 	{
 		node->cmd_exec = NULL;
 		node->path_exec = NULL;
-		node->var_nf = true;
 	}
 	else
 	{
+		if (init->var_nf)
+			node->var_nf = true;
+		else
+			node->var_nf = false;
 		node->cmd_exec = ft_split(cmds, '\t');
 		node->path_exec = ft_strdup(init->tcmd_path);
 		node->cmd_type = cmd_router(node->cmd_exec[0]);
-		node->var_nf = false;
 	}
 	if (!init->tredirs)
 		node->redirs = NULL;

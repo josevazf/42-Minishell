@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/10 15:42:20 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:38:13 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	create_token(t_mshell *init, size_t *i)
 	else
 		len = special_lexer_size_of_word(init->in, i, init);
 	init->lexer->str = ft_lexer_substr(init->in, *i - len, len);
-	if (init->in[*i] && (init->in[*i] == '\"' || init->in[*i] == '\''))
-		(*i)++;
 }
 
 void	malloc_tokens(t_mshell *init, int i)

@@ -6,13 +6,13 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/10 19:31:15 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:45:56 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_str(t_lexer *lex_nd, int fd)
+void	print_str(t_mshell *init, t_lexer *lex_nd, int fd)
 {
 	while (lex_nd)
 	{
@@ -21,7 +21,8 @@ void	print_str(t_lexer *lex_nd, int fd)
 		ft_strcmp(lex_nd->str, "<") == 0 || \
 		ft_strcmp(lex_nd->str, ">") == 0) && lex_nd->true_sign == true)
 			break ;
-		write(fd, lex_nd->str, ft_strlen(lex_nd->str));
+		if (ft_strcmp(lex_nd->str, "_") != 0 && !init->var_nf)
+			write(fd, lex_nd->str, ft_strlen(lex_nd->str));
 		if (lex_nd->next)
 			write(fd, " ", 1);
 		lex_nd = lex_nd->next;
@@ -49,7 +50,7 @@ void	echo(t_mshell *init, t_parser *parser, t_lexer *lex_nd, int i)
 		lex_nd = lex_nd->next;
 	}
 	if (lex_nd && lex_nd->str)
-		print_str(lex_nd, parser->output);
+		print_str(init, lex_nd, parser->output);
 	if (flag == 0 || !lex_nd)
 		write(parser->output, "\n", 1);
 	delete_lists(init);
