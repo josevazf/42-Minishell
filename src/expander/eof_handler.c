@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:37:04 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/20 17:41:11 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 08:08:16 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	settle_eof(t_mshell *init, char *eof)
 	if ((eof[0] == '\'' && eof[ft_strlen(eof) - 1] == '\'') || \
 	(eof[0] == '\"' && eof[ft_strlen(eof) - 1] == '\"'))
 	{
-		if (eof[1] == '$' && eof[2] && eof[2] != '\'' && eof[2] != '\"')
-			init->expand_heredoc = false;
+		init->expand_heredoc = false;
 		init->eof = ft_strldup(eof + 1, ft_strlen(eof) - 2);
 	}
 	else
