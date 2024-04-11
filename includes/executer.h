@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/07 20:00:16 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:31:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXECUTER_H
 
 # include "../includes/minishell.h"
+# include <dirent.h>
 
 // executer_main.c
 void	get_exit_code(int status, int *exit_code);
@@ -37,9 +38,13 @@ void	pre_env_exec(t_mshell *init, t_parser *parser_node, char ***envp);
 void	free_exec_helper(t_mshell *init, t_parser *parser_node, char ***envp, \
 			char *file_err);
 
+// executer_utils_3.c
+void	safe_closedir(DIR *dir);
+void	safe_closedir_fd(DIR *dir, int fd);
+
 // executer_single_cmd.c
 int		single_cmd_isdir(char *cmd);
-int		single_cmd_notfound(t_mshell *init);
+int		single_cmd_notfound(t_mshell *init, int file_fd, DIR *dir);
 void	fork_single_cmd(t_mshell *init, t_parser *parser_node, \
 			char ***strings_env, int *exit_code);
 void	process_single_cmd(t_mshell *init, char ***strings_env, int *exit_code);
@@ -48,7 +53,8 @@ void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code, \
 
 // executer_multi_cmds.c
 int		multi_cmd_isdir(t_mshell *init, char *cmd);
-int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node);
+int		multi_cmd_notfound(t_mshell *init, t_parser *parser_node, int file_fd, \
+			DIR *dir);
 void	process_pipes(t_mshell *init);
 void	process_child(t_mshell *init, t_parser *parser_node, \
 									char ***strings_env, int *exit_code);
