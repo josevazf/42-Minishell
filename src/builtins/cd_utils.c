@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 12:00:47 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 12:25:47 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:48:57 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_oldpwd(t_mshell *init)
 {
-	t_env *env_node;
+	t_env	*env_node;
 
 	env_node = init->env_table;
 	while (env_node)

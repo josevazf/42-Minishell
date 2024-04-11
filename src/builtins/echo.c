@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 11:57:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:49:27 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ bool	is_echo_behind(t_lexer *lex_nd)
 bool	invalid_echo_option(char *str, int fd)
 {
 	if (str && str[0] && str[0] == '-')
+	{
 		if (str && str[1] && str[1] != 'n')
 		{
 			write(fd, "minishell: invalid echo option", 30);
 			return (true);
 		}
+	}
 	return (false);
 }
 

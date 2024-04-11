@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 12:24:06 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:48:44 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 		*new_dir = ft_strdup(get_oldpwd(init));
 		chdir(*new_dir);
 	}
-	else
+	else if (chdir(parser->cmd_exec[1]) != 0)
 	{
-		if (chdir(parser->cmd_exec[1]) != 0)
-		{
-			file_err = strerror(errno);
-			printf("minishell: cd: %s: %s\n", parser->cmd_exec[1], file_err);
-		}
-		*new_dir = getcwd(NULL, 0);
+		file_err = strerror(errno);
+		printf("minishell: cd: %s: %s\n", parser->cmd_exec[1], file_err);
 	}
+	*new_dir = getcwd(NULL, 0);
 	while (node && ft_strcmp(node->var, "PWD") != 0)
 		node = node->next;
 	if (!node)
@@ -110,8 +107,6 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 
 	if (ft_strcmp(init->in, "cd \"\"") == 0)
 		return ;
-	// if (ft_strcmp(init->in, "cd --") == 0)
-	// 	// mandar para o oldpwd
 	if (cd_error_checker(init, parser, exit_code) == 1)
 		return ;
 	node = init->env_table;
