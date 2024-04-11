@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:37:21 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 22:12:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:56:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parser_main_aux2(t_mshell *init, t_lexer **lexer)
 			(*lexer)->str = ft_strdup("''");
 		else
 		{
-			(*lexer)->str = ft_strdup("_");
+			(*lexer)->str = ft_strdup("^");
 			init->var_nf = true;
 		}
 	}

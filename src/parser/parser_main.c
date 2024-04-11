@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_main.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:06:55 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 09:29:48 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:54:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_parser	*create_parser_node(t_mshell *init, char *cmds, t_parser *node)
 	}
 	else
 	{
-		if (init->var_nf)
+		if (ft_strlen(cmds) == 1 && init->var_nf)
 			node->var_nf = true;
 		else
 			node->var_nf = false;

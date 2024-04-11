@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 11:46:45 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:57:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_str(t_mshell *init, t_lexer *lex_nd, int fd)
 		ft_strcmp(lex_nd->str, "<") == 0 || \
 		ft_strcmp(lex_nd->str, ">") == 0) && lex_nd->true_sign == true)
 			break ;
-		if (ft_strcmp(lex_nd->str, "_") != 0 && !init->var_nf)
+		if (ft_strcmp(lex_nd->str, "^") != 0 && !init->var_nf)
 			write(fd, lex_nd->str, ft_strlen(lex_nd->str));
 		if (lex_nd->next)
 			write(fd, " ", 1);
