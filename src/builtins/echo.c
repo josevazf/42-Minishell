@@ -6,19 +6,22 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 12:49:27 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:39:40 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	is_echo_behind(t_lexer *lex_nd)
+bool	is_echo_behind(t_parser *parser, int i)
 {
-	while (lex_nd->prev)
+	int	j;
+
+	j = 0;
+	while (j < i)
 	{
-		if (ft_strcmp(lex_nd->prev->str, "echo") == 0)
+		if (ft_strcmp(parser->cmd_exec[j], "echo") == 0)
 			return (true);
-		lex_nd = lex_nd->prev;
+		j++;
 	}
 	return (false);
 }
@@ -36,51 +39,54 @@ bool	invalid_echo_option(char *str, int fd)
 	return (false);
 }
 
-void	print_str(t_mshell *init, t_lexer *lex_nd, int fd)
+void	print_str(t_mshell *init, t_parser *parser, int fd, int *i)
 {
-	if (is_echo_behind(lex_nd) == false)
+	if (is_echo_behind(parser, *i) == false)
 	{
-		while (lex_nd && lex_nd->str && ft_strcmp(lex_nd->str, "echo") != 0)
-			lex_nd = lex_nd->next;
-		lex_nd = lex_nd->next;
+		while (parser && parser->cmd_exec && ft_strcmp(parser->cmd_exec[*i], "echo") != 0)
+			(*i)++;;
+		(*i)++;
 	}
-	while (lex_nd)
+	while (parser->cmd_exec[*i])
 	{
-		if (invalid_echo_option(lex_nd->str, fd) == true)
+		if (invalid_echo_option(parser->cmd_exec[*i], fd) == true)
 			break ;
-		if ((ft_strcmp(lex_nd->str, "<<") == 0 || \
-		ft_strcmp(lex_nd->str, ">>") == 0 || \
-		ft_strcmp(lex_nd->str, "<") == 0 || \
-		ft_strcmp(lex_nd->str, ">") == 0) && lex_nd->true_sign == true)
+		if ((ft_strcmp(parser->cmd_exec[*i], "<<") == 0 || \
+		ft_strcmp(parser->cmd_exec[*i], ">>") == 0 || \
+		ft_strcmp(parser->cmd_exec[*i], "<") == 0 || \
+		ft_strcmp(parser->cmd_exec[*i], ">") == 0 || \
+		ft_strcmp(parser->cmd_exec[*i], "|") == 0))
 			break ;
-		if (ft_strcmp(lex_nd->str, "^") != 0 && !init->var_nf)
-			write(fd, lex_nd->str, ft_strlen(lex_nd->str));
-		if (lex_nd->next)
+		if (ft_strcmp(parser->cmd_exec[*i], "^") != 0 && !init->var_nf)
+			write(fd, parser->cmd_exec[*i], ft_strlen(parser->cmd_exec[*i]));
+		if (parser->cmd_exec[*i + 1])
 			write(fd, " ", 1);
-		lex_nd = lex_nd->next;
+		(*i)++;
 	}
 }
 
 void	echo(t_mshell *init, t_parser *parser, t_lexer *lex_nd, int i)
 {
 	int		flag;
+	int		j;
 
 	flag = 0;
-	lex_nd = lex_nd->next;
-	while (lex_nd && lex_nd->str && lex_nd->str[0] == '-' \
-							&& lex_nd->str[1] == 'n')
+	j = 1;
+	while (parser->cmd_exec && parser->cmd_exec[j] && parser->cmd_exec[j][0] == '-' \
+							&& parser->cmd_exec[j][1] == 'n')
 	{
 		i = 2;
-		while (lex_nd->str[i] == 'n')
+		while (parser->cmd_exec[j][i] == 'n')
 			i++;
-		if (!lex_nd->str[i])
+		if (!parser->cmd_exec[j][i])
 			flag = 1;
 		else
 			break ;
-		lex_nd = lex_nd->next;
+		j++;
 	}
-	if (lex_nd && lex_nd->str)
-		print_str(init, lex_nd, parser->output);
+	i = 0;
+	if (parser->cmd_exec[j] && parser->cmd_exec[j][i])
+		print_str(init, parser, parser->output, &j);
 	if (flag == 0 || !lex_nd)
 		write(parser->output, "\n", 1);
 	delete_lists(init);
