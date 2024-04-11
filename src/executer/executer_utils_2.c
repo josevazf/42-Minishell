@@ -6,11 +6,18 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:20:30 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 11:44:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:33:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	free_all_exit_code(t_mshell *init, char ***envp, int *exit_code)
+{
+	*exit_code = 0;
+	delete_lists(init);
+	ft_free_smatrix(*envp);
+}
 
 void	free_all(t_mshell *init, char ***envp)
 {

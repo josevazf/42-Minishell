@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 11:44:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:32:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	executer_cmd_router(t_mshell *init, t_parser *parser_node, \
 			char ***strings_env, int *exit_code);
 
 // executer_utils_2.c
+void	free_all_exit_code(t_mshell *init, char ***envp, int *exit_code);
 void	free_all(t_mshell *init, char ***envp);
 void	free_hd_vars(char **redirs, char *input, int pipe_fd);
 void	pre_env_exec(t_mshell *init, t_parser *parser_node, char ***envp);

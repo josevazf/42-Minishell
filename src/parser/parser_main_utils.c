@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 21:37:21 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 11:56:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:46:57 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,10 @@ void	parser_main_aux2(t_mshell *init, t_lexer **lexer)
 			init->var_nf = true;
 		}
 	}
+}
+
+void	parser_main_aux3(t_mshell *init)
+{
+	if (init->paths)
+		ft_free_smatrix(init->paths);
 }

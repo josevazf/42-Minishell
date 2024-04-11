@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 12:24:33 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:47:39 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	process_single_cmd(t_mshell *ini, char ***envp, int *exit_code)
 				ini->parser->cmd_exec[0][0] == '/'))
 			*exit_code = single_cmd_isdir(ini->parser->cmd_exec[0]);
 		else
-			*exit_code = single_cmd_notfound(ini, 0,NULL);
+			*exit_code = single_cmd_notfound(ini, 0, NULL);
 	}
 	else if (!ft_strncmp(ini->parser->cmd_exec[0], "cd", 2))
 		cd(ini, ini->parser, exit_code, envp);
@@ -115,7 +115,8 @@ void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code,
 	while (init->redirs[++i])
 	{
 		if (!ft_strncmp(init->redirs[i], "<<", 2))
-			node->input = process_here_doc(init, settle_eof(init, init->redirs[i + 1]), exit_code, 0);
+			node->input = process_here_doc(init, \
+			settle_eof(init, init->redirs[i + 1]), exit_code, 0);
 		else if (!ft_strncmp(init->redirs[i], "<", 1))
 			node->input = process_file(init, init->redirs[i + 1], IN_FILE);
 		else if (!ft_strncmp(init->redirs[i], ">>", 2))

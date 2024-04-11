@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:08:41 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 22:22:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:45:01 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void		parser_main(t_mshell *init, char ***envp_copy, t_parser *parser, \
 t_parser	**create_parser_node_aux(t_mshell *init, t_parser **node);
 void		parser_main_aux1(t_mshell *init, t_lexer **lexer);
 void		parser_main_aux2(t_mshell *init, t_lexer **lexer);
+void		parser_main_aux3(t_mshell *init);
 
 // parser_cmd.c
 int			cmd_router(char *cmd);
