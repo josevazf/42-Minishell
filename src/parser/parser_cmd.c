@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 07:56:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:46:17 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,13 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy, char *not_found)
 	cmd_path = get_cmd_path(init->paths, cmd, NULL, NULL);
 	if (cmd_path == NULL)
 	{
-		if (init->paths)
-			ft_free_smatrix(init->paths);
+		parser_main_aux3(init);
 		if (!init->var_nf)
 		{
 			if (!ft_strcmp(cmd, getenv("PWD")))
 				not_found = ft_strdup("notfound");
-			else if (access(cmd, X_OK) == 0 && (cmd[ft_strlen(cmd) - 1] != '/' && \
-					cmd[0] == '/'))
+			else if (access(cmd, X_OK) == 0 && \
+					(cmd[ft_strlen(cmd) - 1] != '/' && cmd[0] == '/'))
 				not_found = ft_strdup(cmd);
 			else
 				not_found = ft_strdup("notfound");
@@ -108,7 +107,5 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy, char *not_found)
 			not_found = ft_strdup("notfound");
 		return (not_found);
 	}
-	if (init->paths)
-		ft_free_smatrix(init->paths);
 	return (cmd_path);
 }

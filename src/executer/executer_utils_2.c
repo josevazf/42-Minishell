@@ -5,12 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 18:20:30 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 13:55:58 by tiaferna         ###   ########.fr       */
+/*   Created: 2024/04/11 13:33:37 by jrocha-v          #+#    #+#             */
+/*   Updated: 2024/04/11 13:59:29 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+
+void	free_all_exit_code(t_mshell *init, char ***envp, int *exit_code)
+{
+	*exit_code = 0;
+	delete_lists(init);
+	ft_free_smatrix(*envp);
+}
 
 void	free_all(t_mshell *init, char ***envp)
 {

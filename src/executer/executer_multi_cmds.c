@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 11:26:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:48:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,32 @@ int	multi_cmd_isdir(t_mshell *init, char *cmd)
 		return (127);
 }
 
-int	multi_cmd_notfound(t_mshell *init, t_parser *psr_node, int file_fd, DIR *dir)
+int	multi_cmd_notfound(t_mshell *init, t_parser *psr_nde, int file_fd, DIR *dir)
 {
-	dir = opendir(psr_node->cmd_exec[0]);
-	file_fd = open(psr_node->cmd_exec[0], O_WRONLY);
+	dir = opendir(psr_nde->cmd_exec[0]);
+	file_fd = open(psr_nde->cmd_exec[0], O_WRONLY);
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
-	if ((dir != NULL) && (psr_node->cmd_exec[0][0]) == '/')
+	if ((dir != NULL) && (psr_nde->cmd_exec[0][0]) == '/')
 	{
 		safe_closedir(dir);
-		printf("minishell: %s: Is a directory\n", psr_node->cmd_exec[0]);
+		printf("minishell: %s: Is a directory\n", psr_nde->cmd_exec[0]);
 		return (126);
 	}
-	else if ((file_fd == -1 && psr_node->cmd_exec[0] \
-		[ft_strlen(psr_node->cmd_exec[0]) - 1] == '/') || \
-		(access(psr_node->cmd_exec[0], F_OK) == -1 && \
-		check_forwardslash(psr_node->cmd_exec[0]) == 0))
+	else if ((file_fd == -1 && psr_nde->cmd_exec[0] \
+		[ft_strlen(psr_nde->cmd_exec[0]) - 1] == '/') || \
+		(access(psr_nde->cmd_exec[0], F_OK) == -1 && \
+		check_forwardslash(psr_nde->cmd_exec[0]) == 0))
 	{
 		safe_closedir_fd(dir, file_fd);
-		printf("minishell: %s: %s\n", psr_node->cmd_exec[0], strerror(errno));
+		printf("minishell: %s: %s\n", psr_nde->cmd_exec[0], strerror(errno));
 		if (errno >= 13)
 			return (126);
 		else
 			return (127);
 	}
 	safe_closedir_fd(dir, file_fd);
-	printf("%s: command not found\n", psr_node->cmd_exec[0]);
+	printf("%s: command not found\n", psr_nde->cmd_exec[0]);
 	return (127);
 }
 
@@ -90,18 +90,13 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 		exit_err_multi_cmds(init, parser_node, exit_code, envp);
 	else if (!parser_node->path_exec && parser_node->redirs)
 	{
-		*exit_code = 1;
-		free_all(init, envp);
+		free_all_exit_code(init, envp, exit_code);
 		return ;
 	}
 	else if (!ft_strcmp(parser_node->path_exec, "notfound"))
 	{
 		if (parser_node->var_nf)
-		{
-			dup2(init->og_stdin, STDIN_FILENO);
-			dup2(init->og_stdout, STDOUT_FILENO);
 			*exit_code = 0;
-		}
 		else if (access(parser_node->cmd_exec[0], X_OK) == -1 && \
 				(parser_node->cmd_exec[0] \
 				[ft_strlen(parser_node->cmd_exec[0]) - 1] == '/' || \
