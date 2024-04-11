@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:08:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/01 17:45:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:40:34 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ void	multi_redir_input(t_mshell *init, t_parser *node, int *exit_code)
 		while (init->redirs[++i])
 		{
 			if (!ft_strncmp(init->redirs[i], "<<", 2))
-				node->input = process_here_doc(init, init->eof, \
+				node->input = process_here_doc(init, \
+					settle_eof(init, init->redirs[i + 1]), \
 					exit_code, 0);
 			else if (!ft_strncmp(init->redirs[i], "<", 1))
 				node->input = process_file(init, init->redirs[i + 1], \

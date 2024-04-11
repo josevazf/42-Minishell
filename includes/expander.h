@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 18:09:36 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 19:44:48 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:42:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_env	*macro_check_fetch(t_mshell *init, t_env *env_nd, t_lexer *lexer_nd);
 void	ignore_eof_macro(t_mshell *init, t_lexer *lexer_node);
 
 // eof_handler.c
-void	eof_manager(t_mshell *init);
+char	*settle_eof(t_mshell *init, char *eof);
 
 // structs_init.c
 void	expander_init(t_expand *expander);

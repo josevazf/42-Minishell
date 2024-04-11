@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 07:52:03 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/09 19:21:39 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:14:43 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	lexer_main(t_mshell *init, char ***envp_copy, int *exit_code)
 {
 	if (g_signo == 130)
 		*exit_code = 130;
-	eof_manager(init);
 	if (ft_strlen(init->in) > 0)
 	{
 		lexer_split(init);

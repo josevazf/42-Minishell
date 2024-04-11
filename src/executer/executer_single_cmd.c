@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 09:25:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:24:33 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	single_redirs_router(t_mshell *init, t_parser *node, int *exit_code,
 	while (init->redirs[++i])
 	{
 		if (!ft_strncmp(init->redirs[i], "<<", 2))
-			node->input = process_here_doc(init, init->eof, exit_code, 0);
+			node->input = process_here_doc(init, settle_eof(init, init->redirs[i + 1]), exit_code, 0);
 		else if (!ft_strncmp(init->redirs[i], "<", 1))
 			node->input = process_file(init, init->redirs[i + 1], IN_FILE);
 		else if (!ft_strncmp(init->redirs[i], ">>", 2))

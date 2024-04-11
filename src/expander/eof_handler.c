@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   eof_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 11:37:04 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 08:08:16 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:42:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	settle_eof(t_mshell *init, char *eof)
+char	*settle_eof(t_mshell *init, char *eof)
 {
 	init->expand_heredoc = true;
 	if ((eof[0] == '\'' && eof[ft_strlen(eof) - 1] == '\'') || \
@@ -23,33 +23,5 @@ void	settle_eof(t_mshell *init, char *eof)
 	}
 	else
 		init->eof = ft_strdup(eof);
-}
-
-void	eof_manager(t_mshell *init)
-{
-	int		i;
-	int		len;
-	char	*old_str;
-	char	*eof;
-
-	i = 0;
-	len = 0;
-	old_str = ft_strdup(init->in);
-	while (old_str[i])
-	{
-		if (old_str[i] == '<' && old_str[i + 1] == '<')
-		{
-			i += 2;
-			while (old_str[i] && ft_iswhitespace(old_str[i]))
-				i++;
-			while (old_str[i + len] && !ft_iswhitespace(old_str[i + len]))
-				len++;
-			eof = ft_strldup(old_str + i, len);
-			settle_eof(init, eof);
-			free(eof);
-			break ;
-		}
-		i++;
-	}
-	free(old_str);
+	return (init->eof);
 }
