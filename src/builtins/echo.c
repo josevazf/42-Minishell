@@ -6,18 +6,37 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 10:39:27 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:46:45 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// bool	invalid_echo_option(str)
-// {}
+bool	is_echo_behind(t_lexer *lex_nd)
+{
+	while (lex_nd->prev)
+	{
+		if (ft_strcmp(lex_nd->prev->str, "echo") == 0)
+			return (true);
+		lex_nd = lex_nd->prev;
+	}
+	return (false);
+}
+
+bool	invalid_echo_option(char *str, int fd)
+{
+	if (str && str[0] && str[0] == '-')
+		if (str && str[1] && str[1] != 'n')
+		{
+			write(fd, "minishell: invalid echo option", 30);
+			return (true);
+		}
+	return (false);
+}
 
 void	print_str(t_mshell *init, t_lexer *lex_nd, int fd)
 {
-	if (lex_nd->prev && ft_strcmp(lex_nd->prev->str, "echo") != 0)
+	if (is_echo_behind(lex_nd) == false)
 	{
 		while (lex_nd && lex_nd->str && ft_strcmp(lex_nd->str, "echo") != 0)
 			lex_nd = lex_nd->next;
@@ -25,6 +44,8 @@ void	print_str(t_mshell *init, t_lexer *lex_nd, int fd)
 	}
 	while (lex_nd)
 	{
+		if (invalid_echo_option(lex_nd->str, fd) == true)
+			break ;
 		if ((ft_strcmp(lex_nd->str, "<<") == 0 || \
 		ft_strcmp(lex_nd->str, ">>") == 0 || \
 		ft_strcmp(lex_nd->str, "<") == 0 || \
@@ -44,8 +65,6 @@ void	echo(t_mshell *init, t_parser *parser, t_lexer *lex_nd, int i)
 
 	flag = 0;
 	lex_nd = lex_nd->next;
-	if (!lex_nd || !lex_nd->str)
-		flag = 0;
 	while (lex_nd && lex_nd->str && lex_nd->str[0] == '-' \
 							&& lex_nd->str[1] == 'n')
 	{
