@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 13:40:54 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 17:56:09 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:31:58 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,32 @@ int	multi_cmd_isdir(t_mshell *init, char *cmd)
 		return (127);
 }
 
-int	multi_cmd_notfound(t_mshell *init, t_parser *parser_node)
+int	multi_cmd_notfound(t_mshell *init, t_parser *psr_node, int file_fd, DIR *dir)
 {
-	int		file_fd;
-	char	*error_msg;
-
-	file_fd = open(parser_node->cmd_exec[0], O_WRONLY);
-	error_msg = NULL;
+	dir = opendir(psr_node->cmd_exec[0]);
+	file_fd = open(psr_node->cmd_exec[0], O_WRONLY);
 	dup2(init->og_stdin, STDIN_FILENO);
 	dup2(init->og_stdout, STDOUT_FILENO);
-	if ((file_fd == -1 && parser_node->cmd_exec[0] \
-		[ft_strlen(parser_node->cmd_exec[0]) - 1] == '/') || \
-		(access(parser_node->cmd_exec[0], F_OK) == -1 && \
-		check_forwardslash(parser_node->cmd_exec[0]) == 0))
+	if ((dir != NULL) && (init->parser->cmd_exec[0][0]) == '/')
 	{
-		safe_close(file_fd);
-		error_msg = strerror(errno);
-		printf("minishell: %s: %s\n", parser_node->cmd_exec[0], error_msg);
+		safe_closedir(dir);
+		printf("minishell: %s: Is a directory\n", init->parser->cmd_exec[0]);
+		return (126);
+	}
+	else if ((file_fd == -1 && psr_node->cmd_exec[0] \
+		[ft_strlen(psr_node->cmd_exec[0]) - 1] == '/') || \
+		(access(psr_node->cmd_exec[0], F_OK) == -1 && \
+		check_forwardslash(psr_node->cmd_exec[0]) == 0))
+	{
+		safe_closedir_fd(dir, file_fd);
+		printf("minishell: %s: %s\n", psr_node->cmd_exec[0], strerror(errno));
 		if (errno >= 13)
 			return (126);
 		else
 			return (127);
 	}
-	safe_close(file_fd);
-	error_msg = ft_strjoin(parser_node->cmd_exec[0], ": command not found\n");
-	printf("%s", error_msg);
-	free(error_msg);
+	safe_closedir_fd(dir, file_fd);
+	printf("%s: command not found\n", init->parser->cmd_exec[0]);
 	return (127);
 }
 
@@ -102,7 +102,7 @@ void	process_child(t_mshell *init, t_parser *parser_node, char ***envp,
 				parser_node->cmd_exec[0][0] == '/'))
 			*exit_code = multi_cmd_isdir(init, parser_node->cmd_exec[0]);
 		else
-			*exit_code = multi_cmd_notfound(init, parser_node);
+			*exit_code = multi_cmd_notfound(init, parser_node, 0, NULL);
 		free_all(init, envp);
 		exit(*exit_code);
 	}

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 10:35:49 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 22:31:56 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 09:25:54 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,32 @@ int	single_cmd_isdir(char *cmd)
 		return (127);
 }
 
-int	single_cmd_notfound(t_mshell *init)
+int	single_cmd_notfound(t_mshell *in, int file_fd, DIR *dir)
 {
-	int		file_fd;
-	char	*error_msg;
-
-	error_msg = NULL;
-	file_fd = open(init->parser->cmd_exec[0], O_WRONLY);
-	if ((file_fd == -1 && \
-		init->parser->cmd_exec[0] \
-		[ft_strlen(init->parser->cmd_exec[0]) - 1] == '/') || \
-		(access(init->parser->cmd_exec[0], F_OK) == -1 && \
-		check_forwardslash(init->parser->cmd_exec[0]) == 0))
+	file_fd = open(in->parser->cmd_exec[0], O_WRONLY);
+	dir = opendir(in->parser->cmd_exec[0]);
+	if ((dir != NULL) && (in->parser->cmd_exec[0][0]) == '/')
 	{
+		safe_closedir(dir);
+		printf("minishell: %s: Is a directory\n", in->parser->cmd_exec[0]);
+		return (126);
+	}
+	else if ((file_fd == -1 && in->parser->cmd_exec[0] \
+		[ft_strlen(in->parser->cmd_exec[0]) - 1] == '/') || \
+		(access(in->parser->cmd_exec[0], F_OK) == -1 && \
+		check_forwardslash(in->parser->cmd_exec[0]) == 0))
+	{
+		safe_closedir(dir);
 		safe_close(file_fd);
-		error_msg = strerror(errno);
-		printf("minishell: %s: %s\n", init->parser->cmd_exec[0], error_msg);
+		printf("minishell: %s: %s\n", in->parser->cmd_exec[0], strerror(errno));
 		if (errno >= 13)
 			return (126);
 		else
 			return (127);
 	}
+	safe_closedir(dir);
 	safe_close(file_fd);
-	error_msg = ft_strjoin(init->parser->cmd_exec[0], ": command not found\n");
-	printf("%s", error_msg);
-	free(error_msg);
+	printf("%s: command not found\n", in->parser->cmd_exec[0]);
 	return (127);
 }
 
@@ -94,7 +95,7 @@ void	process_single_cmd(t_mshell *ini, char ***envp, int *exit_code)
 				ini->parser->cmd_exec[0][0] == '/'))
 			*exit_code = single_cmd_isdir(ini->parser->cmd_exec[0]);
 		else
-			*exit_code = single_cmd_notfound(ini);
+			*exit_code = single_cmd_notfound(ini, 0,NULL);
 	}
 	else if (!ft_strncmp(ini->parser->cmd_exec[0], "cd", 2))
 		cd(ini, ini->parser, exit_code, envp);

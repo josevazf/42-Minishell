@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/04/10 21:41:40 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/11 09:22:46 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS			= 	minishell.c \
 					executer/executer_main.c \
 					executer/executer_utils_1.c \
 					executer/executer_utils_2.c \
+					executer/executer_utils_3.c \
 					executer/executer_single_cmd.c \
 					executer/executer_multi_cmds.c \
 					executer/executer_multi_redirs.c \
