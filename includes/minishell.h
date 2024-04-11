@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 09:49:31 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 13:48:07 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:05:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char		*get_oldpwd(t_mshell *init);
 void		pwd(t_mshell *init, t_parser *parser);
 void		cd(t_mshell *init, t_parser *parser, int *exit_code, \
 				char ***envp_copy);
-void	env(t_mshell *init, t_parser *par_node);
+void		env(t_mshell *init, t_parser *par_node);
 void		echo(t_mshell *init, t_parser *parser, t_lexer *lex_nd, int i);
 void		export(t_mshell *init, char ***envp_copy, int *exit_code);
 void		unset(t_mshell *init, char ***envp_copy);

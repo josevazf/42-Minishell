@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:29:36 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 13:46:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:03:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ char	*find_cmd(char *cmd, t_mshell *init, char ***envp_copy, char *not_found)
 			not_found = ft_strdup("notfound");
 		return (not_found);
 	}
+	parser_main_aux3(init);
 	return (cmd_path);
 }
