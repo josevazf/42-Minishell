@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/03/31 18:43:17 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:24:06 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,14 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 {
 	char	*file_err;
 
-	if (parser->cmd_exec[1] == NULL)
+	if (parser->cmd_exec[1] == NULL || ft_strcmp(parser->cmd_exec[1], "-") == 0)
 	{
 		*new_dir = ft_strdup(get_home(init));
+		chdir(*new_dir);
+	}
+	else if (ft_strcmp(parser->cmd_exec[1], "--") == 0)
+	{
+		*new_dir = ft_strdup(get_oldpwd(init));
 		chdir(*new_dir);
 	}
 	else
@@ -105,6 +110,8 @@ void	cd(t_mshell *init, t_parser *parser, int *exit_code, char ***envp_copy)
 
 	if (ft_strcmp(init->in, "cd \"\"") == 0)
 		return ;
+	// if (ft_strcmp(init->in, "cd --") == 0)
+	// 	// mandar para o oldpwd
 	if (cd_error_checker(init, parser, exit_code) == 1)
 		return ;
 	node = init->env_table;

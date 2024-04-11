@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 07:44:06 by tiaferna          #+#    #+#              #
-#    Updated: 2024/04/11 09:22:46 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/11 12:25:00 by tiaferna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS			= 	minishell.c \
 					executer/executer_multi_utils.c \
 					executer/executer_redirs_utils.c \
 					builtins/cd.c \
+					builtins/cd_utils.c \
 					builtins/env_main.c \
 					builtins/env.c \
 					builtins/exit_shell.c \
