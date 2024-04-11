@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:20:30 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/11 11:44:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:55:58 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	free_exec_helper(t_mshell *init, t_parser *parser_node, char ***envp,
 void	pre_env_exec(t_mshell *init, t_parser *parser_node, char ***envp)
 {
 	ft_free_smatrix(*envp);
-	if (!parser_node->cmd_exec[1])
-		env(init);
+	if (!parser_node->cmd_exec[1] || parser_node->cmd_exec[1][0] == '-')
+		env(init, parser_node);
 	printf("env: '%s': No such file or directory\n",
 		parser_node->cmd_exec[1]);
 	delete_lists(init);
