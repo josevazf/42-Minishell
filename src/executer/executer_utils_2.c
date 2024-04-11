@@ -6,24 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:20:30 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/10 19:26:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:44:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	hd_delete_lists(t_mshell *init)
-{
-	init->set_var = false;
-	init->nbr_pipes = 0;
-	init->cmd_index = 0;
-	init->og_stdin = 0;
-	init->og_stdout = 0;
-	init->red_input = 0;
-	init->red_output = 0;
-	init->expand_heredoc = false;
-	init->stop_exec = false;
-}
 
 void	free_all(t_mshell *init, char ***envp)
 {
