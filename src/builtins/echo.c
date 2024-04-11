@@ -6,14 +6,23 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 08:45:56 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:39:27 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// bool	invalid_echo_option(str)
+// {}
+
 void	print_str(t_mshell *init, t_lexer *lex_nd, int fd)
 {
+	if (lex_nd->prev && ft_strcmp(lex_nd->prev->str, "echo") != 0)
+	{
+		while (lex_nd && lex_nd->str && ft_strcmp(lex_nd->str, "echo") != 0)
+			lex_nd = lex_nd->next;
+		lex_nd = lex_nd->next;
+	}
 	while (lex_nd)
 	{
 		if ((ft_strcmp(lex_nd->str, "<<") == 0 || \
