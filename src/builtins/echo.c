@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 07:57:15 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 13:39:40 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:43:07 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	print_str(t_mshell *init, t_parser *parser, int fd, int *i)
 {
 	if (is_echo_behind(parser, *i) == false)
 	{
-		while (parser && parser->cmd_exec && ft_strcmp(parser->cmd_exec[*i], "echo") != 0)
-			(*i)++;;
+		while (parser && parser->cmd_exec && \
+		ft_strcmp(parser->cmd_exec[*i], "echo") != 0)
+			(*i)++;
 		(*i)++;
 	}
 	while (parser->cmd_exec[*i])
@@ -72,8 +73,8 @@ void	echo(t_mshell *init, t_parser *parser, t_lexer *lex_nd, int i)
 
 	flag = 0;
 	j = 1;
-	while (parser->cmd_exec && parser->cmd_exec[j] && parser->cmd_exec[j][0] == '-' \
-							&& parser->cmd_exec[j][1] == 'n')
+	while (parser->cmd_exec && parser->cmd_exec[j] && \
+	parser->cmd_exec[j][0] == '-' && parser->cmd_exec[j][1] == 'n')
 	{
 		i = 2;
 		while (parser->cmd_exec[j][i] == 'n')
