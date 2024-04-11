@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:22:25 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 14:05:10 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:09:56 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ void	export_new(t_mshell *init, char ***envp_copy, int *exit_code)
 		return ;
 	while (init->parser->cmd_exec[++i])
 	{
-		if (init->parser->cmd_exec[i] && !ft_isalpha(init->parser->cmd_exec[i][0]))
-			continue ;
 		export_split = ft_split(init->parser->cmd_exec[i], '=');
 		env_node = init->env_table;
-		if (var_exists(init, export_split, envp_copy) == 0)
+		if (!ft_isalpha(init->parser->cmd_exec[i][0]) || \
+		var_exists(init, export_split, envp_copy) == 0)
 			continue ;
 		while (env_node->next)
 			env_node = env_node->next;
