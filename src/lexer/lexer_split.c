@@ -6,18 +6,35 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 10:11:12 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 09:38:13 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/15 12:51:31 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+bool	is_s_quote_str(t_mshell *init, size_t *i, size_t *len)
+{
+	if (init->in[*i] && init->in[*i] == '\'')
+	{
+		(*len)++;
+		while (init->in[*i + *len] != '\'')
+			(*len)++;
+		(*len)++;
+		(*i) += *len;
+		init->lexer->str = ft_substr(init->in, *i - *len, *len);
+		return (true);
+	}
+	return (false);
+}
 
 void	create_token(t_mshell *init, size_t *i)
 {
 	size_t	len;
 
 	len = 0;
-	if (ft_strnstr(init->origin_in, init->in + *i, ft_strlen(init->origin_in)))
+	if (is_s_quote_str(init, i, &len) == true)
+		return ;
+	else if (ft_strnstr(init->origin_in, init->in + *i, ft_strlen(init->origin_in)) && init->in[*i] != '\'')
 	{
 		if ((init->in[*i] == '<' && init->in[*i + 1] == '<' ) || \
 		(init->in[*i] == '>' && init->in[*i + 1] == '>' ))

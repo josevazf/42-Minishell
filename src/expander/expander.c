@@ -64,6 +64,13 @@ void	expander(t_mshell *init, int *ext_cd, t_env *env_nd, t_lexer *lex_nd)
 			&& (ft_iswhitespace(lex_nd->str[init->exp->i + 1]) || \
 			lex_nd->str[init->exp->i + 1] == '\"') && init->exp->s_quote == 1)))
 				init->exp->i++;
+			else if (lex_nd->str[0] == '\'')
+			{
+				char *temp = ft_strdup(lex_nd->str);
+				free(lex_nd->str);
+				lex_nd->str = ft_substr(temp, 1, ft_strlen(temp) - 2);
+				free(temp);
+			}
 			else if (lex_nd->str[init->exp->i] != '$' || \
 				(lex_nd->str[init->exp->i] == \
 			'$' && init->exp->s_quote == 0))
