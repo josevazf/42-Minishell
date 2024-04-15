@@ -6,7 +6,7 @@
 /*   By: tiaferna <tiaferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 09:58:13 by tiaferna          #+#    #+#             */
-/*   Updated: 2024/04/11 12:48:44 by tiaferna         ###   ########.fr       */
+/*   Updated: 2024/04/15 11:56:27 by tiaferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	update_dir(t_mshell *init, t_parser *parser, char **new_dir, \
 {
 	char	*file_err;
 
-	if (parser->cmd_exec[1] == NULL || ft_strcmp(parser->cmd_exec[1], "-") == 0)
+	if (parser->cmd_exec[1] == NULL || ft_strcmp(parser->cmd_exec[1], "~") == 0)
 	{
 		*new_dir = ft_strdup(get_home(init));
 		chdir(*new_dir);
 	}
-	else if (ft_strcmp(parser->cmd_exec[1], "--") == 0)
+	else if (ft_strcmp(parser->cmd_exec[1], "-") == 0)
 	{
 		*new_dir = ft_strdup(get_oldpwd(init));
 		chdir(*new_dir);
